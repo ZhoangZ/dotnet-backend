@@ -14,15 +14,49 @@ namespace BackendDotnetCore.Controllers
     public class ProductControlller : ControllerBase
     {
 
+        //https://localhost:5001/product/list?page=1&numberInPage=10
+        //https://localhost:5001/product/list (for all)
         [HttpGet("list")]
-        public IActionResult getAll()
+        public IActionResult getByPageAndLimit(int page, int numberInPage)
         {
             List<Product> products = new List<Product>();
             products.Add(new Product(1, "Samsung J7 pro"));
-            products.Add(new Product(2, "Huawei 3i"));
-            return Ok(products);
+            products.Add(new Product(2, "Huawei Nova 3i"));
+            products.Add(new Product(3, "IPhone 12"));
+            products.Add(new Product(4, "Nokia 3s"));
+            products.Add(new Product(5, "Xiaomi Note"));
+            products.Add(new Product(6, "Vsmart Joy"));
+            //should be use query for this action
+            //example limit numbers in a page = 2
+            List<Product> ls = new List<Product>();
+            if (page != 0)
+            {
+                for (int i = 0; i <= numberInPage - page; i++)
+                {
+                    ls.Add(products[i]);
+                }
+                return Ok(ls);
+            }
+            else
+            {
+                return Ok(products);
+            }
         }
-
+        public List<Product> getListProductWithPageAndLimit(int page, int limit, List<Product>lists)
+        {
+            List<Product> products = new List<Product>();
+            for(int i = 0; i < lists.Count; i++)
+            {
+                if(i == page)
+                {
+                    for(int j = lists.Count - i - limit; j < limit; j++)
+                    {
+                        products.Add(lists[j]);
+                    }
+                }
+            }
+            return products;
+        }
         [HttpGet]
         public IActionResult getOneById(int id1)
         {
