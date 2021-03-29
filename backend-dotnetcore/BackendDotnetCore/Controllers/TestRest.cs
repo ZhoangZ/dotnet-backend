@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BackendDotnetCore.DAO;
+using BackendDotnetCore.Enitities;
+using System.Collections;
 
 namespace BackendDotnetCore.Controllers
 {
@@ -29,9 +31,11 @@ namespace BackendDotnetCore.Controllers
         }
 
         private AccountDAO dao;
-        public TestRest(AccountDAO dao)
+        private ProductDAO productDAO;
+        public TestRest(AccountDAO dao, ProductDAO productDAO)
         {
             this.dao = dao;
+            this.productDAO = productDAO;
         }
         [HttpGet("mysql")]
         public ActionResult testMySQL()
@@ -39,6 +43,23 @@ namespace BackendDotnetCore.Controllers
         {
 
             return Ok(dao.getAccount(1));
+        }
+        [HttpGet("include")]
+        public ActionResult testInclude()
+
+        {
+            Product p=productDAO.getProduct(1);                      
+            return Ok(p);
+        }
+        [HttpGet("list")]
+        public ActionResult testList()
+
+        {
+            ArrayList lst = new ArrayList();
+            lst.Add("Hello");
+            lst.Add("Hi");
+            lst.Add("Nihao");
+            return Ok(lst);
         }
     }
 }

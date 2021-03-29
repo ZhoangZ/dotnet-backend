@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
+using System.Threading.Tasks;
+
 namespace BackendDotnetCore.Enitities
 {
-    public class Account
+    public class Product
     {
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public int Active { get; set; }
-        public int Delete { get; set; }
-        public int Level { get; set; }
-        public string Avatar { get; set; }
+        public int SaleRate { get; set; }
+        public string Name { get; set; }
+        public virtual List<ImageProduct> Images { get; set; }
+
 
 
         public override String ToString()
@@ -34,5 +35,6 @@ namespace BackendDotnetCore.Enitities
             result.AppendFormat("]");
             return result.ToString();
         }
+       
     }
 }
