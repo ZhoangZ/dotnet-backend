@@ -1,23 +1,13 @@
 ﻿using System;
-<<<<<<< HEAD
-using System.Collections.Generic;
-using System.Linq;
-=======
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-
->>>>>>> 98a66eac8e8691cf60b6b2cee27709bbc8250d2e
-using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
     public class Product
     {
-<<<<<<< HEAD
         public int id { set; get; }
         public string image {set; get;}
 
@@ -33,7 +23,6 @@ namespace BackendDotnetCore.Enitities
         }
 
 
-=======
         public int Id { get; set; }
         [Column("SaleRate")]
         public int promotionPercents { get; set; }        
@@ -84,6 +73,5 @@ namespace BackendDotnetCore.Enitities
             return result.ToString();
         }
        
->>>>>>> 98a66eac8e8691cf60b6b2cee27709bbc8250d2e
     }
 }
