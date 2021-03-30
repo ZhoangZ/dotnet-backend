@@ -40,5 +40,35 @@ namespace BackendDotnetCore.DAO
             return tmp;
 
         }
+        public List<Product> getList(int _page, int _limit, string sort)
+
+        {
+            _page=(_page<=0)?1:_page;
+            var tmp = dbContext.Products.Include("Images");
+            string [] strs=sort.Split(",");
+            /*if (strs.Length == 0) 
+                strs[0] = sort ;
+                //strs = new string[] { sort };*/
+            foreach (var str in strs)
+            {
+                if (str.CompareTo("idaz")==0)
+                {
+                    Console.WriteLine("asc");
+                    tmp=tmp.OrderBy(x => x.Id);
+
+                }
+                else if (str.CompareTo("idza")==0)
+                {
+                    Console.WriteLine("desc");
+                    tmp=tmp.OrderByDescending(x => x.Id);
+
+                }
+            }
+
+            List < Product > rs= tmp.Skip(_limit * (_page - 1)).Take(_limit)
+                        .ToList<Product>();
+            return rs;
+
+        }
     }
 }

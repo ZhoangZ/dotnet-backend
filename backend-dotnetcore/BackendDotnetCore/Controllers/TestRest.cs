@@ -51,15 +51,14 @@ namespace BackendDotnetCore.Controllers
             Product p=productDAO.getProduct(1);                      
             return Ok(p);
         }
+
         [HttpGet("list")]
-        public ActionResult testList()
+        public ActionResult testListProduct(int _limit,int _page, string sort ="idaz")
 
         {
-            ArrayList lst = new ArrayList();
-            lst.Add("Hello");
-            lst.Add("Hi");
-            lst.Add("Nihao");
+            List<Product> lst = productDAO.getList(_page,_limit, sort);
             return Ok(lst);
         }
+       
     }
 }

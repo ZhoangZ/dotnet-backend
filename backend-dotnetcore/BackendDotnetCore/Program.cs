@@ -14,8 +14,9 @@ namespace BackendDotnetCore
         static void Main(string[] args)
         {
 
-           /* Console.InputEncoding = Encoding.Unicode;
+           Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
+           /*
             //Product a= new ProductDAO().getAccount(1);
             Product a= new ProductDAO().getProduct(1);
            // new BackendDotnetDbContext().Products.Include

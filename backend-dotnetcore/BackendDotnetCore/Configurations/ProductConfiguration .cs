@@ -13,10 +13,12 @@ namespace BackendDotnetCore.Configurations
         {
             builder.ToTable("product")
                 .HasKey(e => e.Id)
+               
                  
             //.Has
 
             ;
+            //builder.Property(e=> e.Id_Brand);
             /*  builder.HasMany(x=>x.Images)
                   .WithOne(x=> x.Product);*/
             builder.Navigation(b => b.Images)
