@@ -11,10 +11,10 @@ namespace BackendDotnetCore.DAO
     
     public class AccountDAO
     {
-        private BackendDotnetCoreDbContext dbContext;
+        private BackendDotnetDbContext dbContext;
         public AccountDAO()
         {
-            this.dbContext = new BackendDotnetCoreDbContext();
+            this.dbContext = new BackendDotnetDbContext();
         }
         public Account getAccount(int Id)
         {

@@ -13,13 +13,7 @@ namespace BackendDotnetCore.Configurations
         {
             builder.ToTable("accounts");
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.Username);
-            builder.Property(e => e.Password);
-            builder.Property(e => e.Email);
-            builder.Property(e => e.Active);
-            builder.Property(e => e.Delete);
-            builder.Property(e => e.Level);
-            builder.Property(e => e.Avatar);
+           
         }
     }
 }

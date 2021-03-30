@@ -16,14 +16,22 @@ namespace BackendDotnetCore.Enitities
         public int Level { get; set; }
         public string Avatar { get; set; }
 
+
         public override String ToString()
         {
             Type objType = this.GetType();
-            PropertyInfo[] propertyInfoList = objType.GetProperties();
+            PropertyInfo[] propertyInfoList = objType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
             StringBuilder result = new StringBuilder();
+            result.AppendFormat(objType.Name + "[");
+            bool flag = false;
             foreach (PropertyInfo propertyInfo in propertyInfoList)
-                result.AppendFormat("{0}={1} ", propertyInfo.Name, propertyInfo.GetValue(this));
-
+            {
+                result.AppendFormat("{0}={1}, ", propertyInfo.Name, propertyInfo.GetValue(this));
+                flag = true;
+            }
+            if (flag)
+                result.Remove(result.Length - 2, 1);
+            result.AppendFormat("]");
             return result.ToString();
         }
     }

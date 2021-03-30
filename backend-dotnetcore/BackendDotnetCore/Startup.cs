@@ -7,21 +7,37 @@ using BackendDotnetCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using BackendDotnetCore.Helpers;
+using BackendDotnetCore.Services;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace BackendDotnetCore
 {
     class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
         public void ConfigureServices(IServiceCollection services)
         {
             
             services.AddSingleton<IRepository, Repository>();
             services.AddSingleton<AccountDAO, AccountDAO>();
+            services.AddSingleton<ProductDAO, ProductDAO>();
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
             services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
                 cfg.Cookie.Name = "shareimage";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
                 cfg.IdleTimeout = new TimeSpan(0, 30, 0);    // Thời gian tồn tại của Session
             });
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
 
             services.AddControllersWithViews();
         }
@@ -44,7 +60,7 @@ namespace BackendDotnetCore
             app.UseRouting();
             //app.UseAuthorization();
             app.UseSession();
-            
+            app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
