@@ -1,31 +1,20 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+
+using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
     public class Product
     {
-        public int id { set; get; }
-        public string image {set; get;}
-
-
-        public Product()
-        {
-
-        }
-        public Product(int id, string image)
-        {
-            this.id = id;
-            this.image = image;
-        }
-
-
         public int Id { get; set; }
         [Column("SaleRate")]
-        public int promotionPercents { get; set; }        
+        public int promotionPercents { get; set; }
         public string Name { get; set; }
         [Column("id_brand")]
         public string Brand { get; set; }
@@ -39,13 +28,15 @@ namespace BackendDotnetCore.Enitities
         [Column("AMOUNT_SOLD")]
         public int AMOUNT_SOLD { get; set; }
         public string OS { get; set; }
-        
+
 
 
 
         [NotMapped]
-        public double GoalPrice { get { return  (100-this.promotionPercents) * this.OriginalPrice / 100; }
-            }
+        public double GoalPrice
+        {
+            get { return (100 - this.promotionPercents) * this.OriginalPrice / 100; }
+        }
 
 
 
@@ -72,6 +63,6 @@ namespace BackendDotnetCore.Enitities
             result.AppendFormat("]");
             return result.ToString();
         }
-       
+
     }
 }
