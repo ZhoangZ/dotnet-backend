@@ -70,7 +70,7 @@ namespace BackendDotnetCore.Controllers
             }
             else
             {
-                return getAll();
+                return getByPageAndLimit(0, 0);
             }
         }
         [HttpGet("brand")]
