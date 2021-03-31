@@ -53,13 +53,13 @@ namespace BackendDotnetCore.DAO
             {
                 if (str.CompareTo("idaz")==0)
                 {
-                    Console.WriteLine("asc");
+                    //Console.WriteLine("asc");
                     tmp=tmp.OrderBy(x => x.Id);
 
                 }
                 else if (str.CompareTo("idza")==0)
                 {
-                    Console.WriteLine("desc");
+                    //Console.WriteLine("desc");
                     tmp=tmp.OrderByDescending(x => x.Id);
 
                 }
