@@ -23,7 +23,7 @@ namespace BackendDotnetCore.Enitities
         [Column("RAM")]
         public int Ram { get; set; }
         [Column("price")]
-        public double OriginalPrice { get; set; }
+        public int OriginalPrice { get; set; }
         [Column("DESCRIPTION")]
         public string Description { get; set; }
         [Column("DATE_SUBMITTED")]
@@ -37,7 +37,8 @@ namespace BackendDotnetCore.Enitities
 
 
         [NotMapped]
-        public double GoalPrice { get { return  (100-this.promotionPercents) * this.OriginalPrice / 100; }
+        public int salePrice
+        { get { return  (100-this.promotionPercents) * this.OriginalPrice / 100; }
             }
 
 

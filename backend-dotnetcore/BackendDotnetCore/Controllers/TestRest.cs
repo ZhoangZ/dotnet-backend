@@ -53,12 +53,12 @@ namespace BackendDotnetCore.Controllers
             return Ok(p);
         }
 
-        [HttpGet("list")]
-        public ActionResult testListProduct(int _limit,int _page, string sort ="idaz")
+        [HttpGet("product/list")]
+        public ActionResult testListProduct(int _limit,int _page, string sort ="idaz", int lte=-1, int gte=-1)
 
         {
           
-            List<Product> lst = productDAO.getList(_page,_limit, sort);
+            List<Product> lst = productDAO.getList(_page,_limit, sort,lte, gte);
 
             lst.setRequset(Request);
 

@@ -40,27 +40,48 @@ namespace BackendDotnetCore.DAO
             return tmp;
 
         }
-        public List<Product> getList(int _page, int _limit, string sort)
+        public List<Product> getList(int _page, int _limit, string sort, int lgt, int gte)
 
         {
             _page=(_page<=0)?1:_page;
-            var tmp = dbContext.Products.Include("Images");
+            var tmp = dbContext.Products.Include("Images") ;
+            if (lgt != -1)
+            {
+                // Console.WriteLine(lgt);
+                tmp = tmp.Where(x => (x.OriginalPrice * (100 - x.promotionPercents) <= lgt * 100));
+
+            }
+            if (gte != -1)
+                tmp = tmp.Where(x => (x.OriginalPrice*(100-x.promotionPercents) >= gte*100));
             string [] strs=sort.Split(",");
             /*if (strs.Length == 0) 
                 strs[0] = sort ;
                 //strs = new string[] { sort };*/
             foreach (var str in strs)
             {
-                if (str.CompareTo("idaz")==0)
+                string key = str.ToLower();
+                if (key.CompareTo("idasc")==0)
                 {
                     //Console.WriteLine("asc");
                     tmp=tmp.OrderBy(x => x.Id);
 
                 }
-                else if (str.CompareTo("idza")==0)
+                else if (key.CompareTo("iddesc")==0)
                 {
                     //Console.WriteLine("desc");
                     tmp=tmp.OrderByDescending(x => x.Id);
+
+                }
+                else if (key.CompareTo("salepricedesc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.OriginalPrice * (100 - x.promotionPercents));
+
+                }
+                else if (key.CompareTo("salepriceasc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderBy(x => x.OriginalPrice * (100 - x.promotionPercents));
 
                 }
             }
