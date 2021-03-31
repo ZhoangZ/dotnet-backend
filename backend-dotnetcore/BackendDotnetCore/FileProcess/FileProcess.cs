@@ -9,8 +9,9 @@ namespace BackendDotnetCore.FileProcess
     public class FileProcess
 
     {
-        //public static string PATH = "D:\\ImageWeb\\shareimage";
-        public static string PATH = "D:\\Github\\DotNet\\MySharedImage\\image";
+       
+       
+        public static string PATH = Directory.GetCurrentDirectory()+"\\static-file";
 
         public static string getFullPath(string pathRelative)
         {
@@ -21,7 +22,9 @@ namespace BackendDotnetCore.FileProcess
            
             if (!Directory.Exists(PATH))
             {
+
                 Console.WriteLine("PATH not exists");
+                Console.WriteLine(PATH);
                 return false;
                 
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,7 +13,20 @@ namespace BackendDotnetCore.Enitities
     {
         [JsonIgnore]
         public long Id { get; set; }
-        public string Image { get; set; }
+        [JsonIgnore]
+        [Column("IMAGE")]
+        public string _image;
+        public string Image { 
+            get {
+                if (FileProcess.FileProcess.fileIsExists("product\\" + this._image))
+                {
+                    byte[] b = System.IO.File.ReadAllBytes(FileProcess.FileProcess.getFullPath("product\\"+this._image));
+                    return "data:image/png;base64," + Convert.ToBase64String(b);
+                }
+
+                return this._image; 
+            } 
+            set { this._image = value; } }
       
         [JsonIgnore]
         public Product Product { get; set; }

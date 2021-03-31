@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 30/03/2021 02:48:37
+ Date: 30/03/2021 12:21:50
 */
 
 SET NAMES utf8mb4;
@@ -38,6 +38,24 @@ CREATE TABLE `accounts`  (
 -- ----------------------------
 INSERT INTO `accounts` VALUES (1, 'hoang', '865bedd2fba8fe20b828ed07600c64a4', 'tanhoang@gmail.com', 1, 0, 1, 'image/avatar/momo.webp');
 INSERT INTO `accounts` VALUES (2, 'quan', '865bedd2fba8fe20b828ed07600c64a4', 'hearterzouest99.999@gmail.com', 1, 0, 1, 'image/avatar/momo.webp');
+
+-- ----------------------------
+-- Table structure for base_enity
+-- ----------------------------
+DROP TABLE IF EXISTS `base_enity`;
+CREATE TABLE `base_enity`  (
+  `ID` int(255) NOT NULL,
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for detail_product
+-- ----------------------------
+DROP TABLE IF EXISTS `detail_product`;
+CREATE TABLE `detail_product`  (
+  `ID` int(255) NULL DEFAULT NULL,
+  `int` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for image_product

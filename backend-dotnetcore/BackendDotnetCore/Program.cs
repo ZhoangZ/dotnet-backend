@@ -5,7 +5,7 @@ using BackendDotnetCore.DAO;
 using BackendDotnetCore.Enitities;
 using System.Text;
 using BackendDotnetCore.EF;
-
+using System.IO;
 
 namespace BackendDotnetCore
 {
@@ -14,8 +14,11 @@ namespace BackendDotnetCore
         static void Main(string[] args)
         {
 
-           Console.InputEncoding = Encoding.Unicode;
+            Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
+           
+               
+
            /*
             //Product a= new ProductDAO().getAccount(1);
             Product a= new ProductDAO().getProduct(1);
@@ -27,7 +30,7 @@ namespace BackendDotnetCore
 
 
 
-                CreateHostBuilder(args).Build().Run();
+               CreateHostBuilder(args).Build().Run();
             }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
              Host.CreateDefaultBuilder(args)

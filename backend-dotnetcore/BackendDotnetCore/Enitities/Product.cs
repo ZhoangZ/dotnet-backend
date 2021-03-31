@@ -18,16 +18,20 @@ namespace BackendDotnetCore.Enitities
         public string Name { get; set; }
         [Column("id_brand")]
         public string Brand { get; set; }
+        [Column("Memory")]
         public int Memory { get; set; }
-        public int RAM { get; set; }
+        [Column("RAM")]
+        public int Ram { get; set; }
         [Column("price")]
         public double OriginalPrice { get; set; }
-        public string DESCRIPTION { get; set; }
+        [Column("DESCRIPTION")]
+        public string Description { get; set; }
         [Column("DATE_SUBMITTED")]
         public DateTime CreatedAt { get; set; }
         [Column("AMOUNT_SOLD")]
-        public int AMOUNT_SOLD { get; set; }
-        public string OS { get; set; }
+        public int AmoutSold { get; set; }
+        [Column("OS")]
+        public string Os { get; set; }
         
 
 
