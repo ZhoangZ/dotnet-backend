@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,12 +17,30 @@ namespace BackendDotnetCore.Enitities
         [JsonIgnore]
         [Column("IMAGE")]
         public string _image;
+        private HttpRequest request;
+        public void setRequest(HttpRequest request)
+        {
+            this.request = request;
+        }
         public string Image { 
             get {
                 if (FileProcess.FileProcess.fileIsExists("product\\" + this._image))
                 {
-                    byte[] b = System.IO.File.ReadAllBytes(FileProcess.FileProcess.getFullPath("product\\"+this._image));
-                    return "data:image/png;base64," + Convert.ToBase64String(b);
+                    if (request == null)
+                    {
+                        //Base 64
+                        byte[] b = System.IO.File.ReadAllBytes(FileProcess.FileProcess.getFullPath("product\\" + this._image));
+                        return "data:image/png;base64," + Convert.ToBase64String(b);
+                    }
+                    else
+                    {
+                        string scheme = request.Scheme;
+                        Microsoft.AspNetCore.Http.HostString host = request.Host;
+                        string img=String.Format("{0}://{1}/resource/product/{2}", scheme, host.ToString(),this._image);
+                        //Console.WriteLine(img);
+                        return img;
+                    }
+                   
                 }
 
                 return this._image; 

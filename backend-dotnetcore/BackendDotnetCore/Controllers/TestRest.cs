@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BackendDotnetCore.DAO;
 using BackendDotnetCore.Enitities;
 using System.Collections;
+using BackendDotnetCore.Ultis;
 
 namespace BackendDotnetCore.Controllers
 {
@@ -56,7 +57,14 @@ namespace BackendDotnetCore.Controllers
         public ActionResult testListProduct(int _limit,int _page, string sort ="idaz")
 
         {
+            string scheme = Request.Scheme;
+            Microsoft.AspNetCore.Http.HostString host = Request.Host;
+            string img = String.Format("{0}://{1}/resource/product/{2}", scheme, host.ToString(),"demo.jpg");
+            Console.WriteLine(img);
             List<Product> lst = productDAO.getList(_page,_limit, sort);
+
+            lst.setRequset(Request);
+
             return Ok(lst);
         }
        
