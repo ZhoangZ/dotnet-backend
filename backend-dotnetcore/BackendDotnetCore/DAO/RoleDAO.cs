@@ -1,4 +1,5 @@
-﻿using BackendDotnetCore.EF;
+﻿
+using BackendDotnetCore.EF;
 using BackendDotnetCore.Enitities;
 using System;
 using System.Collections.Generic;
@@ -7,19 +8,20 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.DAO
 {
-    public class UserDAO
+    public class RoleDAO
     {
         private BackendDotnetDbContext dbContext;
-        public UserDAO()
+        public RoleDAO()
         {
             this.dbContext = new BackendDotnetDbContext();
         }
 
-        //phuong thuc insert into table user
-        public UserEntity Save(UserEntity UserEntity)
+        //phuong thuc insert into table role
+        public RoleEntity Save(RoleEntity roleEntity)
         {
-            dbContext.UserEntities.Add(UserEntity);    
-            return UserEntity;
+            dbContext.RoleEntities.Add(roleEntity);
+            return roleEntity;
         }
+
     }
 }

@@ -11,11 +11,16 @@ namespace BackendDotnetCore.EF
     {
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<UserEntity> UserEntities { set; get; }
+        public DbSet<RoleEntity> RoleEntities { set; get; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new Configurations.AccountConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.ProductConfiguration());
-
+            modelBuilder.ApplyConfiguration(new Configurations.UserConfiguration());
+            modelBuilder.ApplyConfiguration(new Configurations.RoleEntityConfiguration());
             modelBuilder.ConvertToSnakeCase();
 
 

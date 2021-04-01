@@ -12,8 +12,10 @@ namespace BackendDotnetCore.Configurations
     {
         public void Configure(EntityTypeBuilder<RoleEntity> builder)
         {
-            builder.ToTable("role")
+            builder.ToTable("roles")
                 .HasKey(e => e.Id);
+
+            
 
         }
     }

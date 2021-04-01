@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
-    public partial class UserEntity
+    public class UserEntity
     {
         [Column("id")]
         public int Id;
@@ -29,10 +29,29 @@ namespace BackendDotnetCore.Enitities
         public string Blocked;
         [Column("active")]
         public int Active;
+        [Column("role_id")]
+        public int roleID;
+
 
 
         //one to one (role)
-        public virtual RoleEntity Role { get; set; }
+        //public virtual RoleEntity Role { get; set; }
+
+
+        public UserEntity(int id, string username, string email, string provider, int confirmed, string blocked, int active, int roleID)
+        {
+            this.Id = id;
+            this.Username = username;
+            this.Email = email;
+            this.Provider = provider;
+            this.Confirmed = confirmed;
+            this.Blocked = blocked;
+            this.Active = active;
+            this.roleID = roleID;
+
+
+
+        }
 
         public override String ToString()
         {

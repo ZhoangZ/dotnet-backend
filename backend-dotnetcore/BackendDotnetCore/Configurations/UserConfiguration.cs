@@ -12,9 +12,10 @@ namespace BackendDotnetCore.Configurations
     {
         public void Configure(EntityTypeBuilder<UserEntity> builder)
         {
-            builder.ToTable("user");
+            builder.ToTable("users");
             builder.HasKey(e => e.Id);
-           
+
+
         }
     }
 }

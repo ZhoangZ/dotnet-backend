@@ -1,4 +1,5 @@
-﻿using BackendDotnetCore.Enitities;
+﻿using BackendDotnetCore.DAO;
+using BackendDotnetCore.Enitities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,15 @@ namespace BackendDotnetCore.Controllers
     [Route("/auth/local/")]
     public class ResgiterController : ControllerBase
     {
+        public UserDAO UserDAO = new UserDAO();
+        public RoleDAO roleDAO = new RoleDAO();
+        [HttpPost("register")]
+        public UserEntity DoRegisterAccount([FromBody] UserEntity UserEntity)
+        {
+            UserDAO.Save(UserEntity);
+            //roleDAO.Save(UserEntity.Role);
+            return UserEntity;
+        }
 
 
 
