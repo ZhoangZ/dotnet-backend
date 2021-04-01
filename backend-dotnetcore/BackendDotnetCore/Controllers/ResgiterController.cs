@@ -13,11 +13,12 @@ namespace BackendDotnetCore.Controllers
     [Route("/auth/local/")]
     public class ResgiterController : ControllerBase
     {
-        public UserDAO UserDAO = new UserDAO();
-        public RoleDAO roleDAO = new RoleDAO();
+        private UserDAO UserDAO = new UserDAO();
+        
         [HttpPost("register")]
-        public UserEntity DoRegisterAccount([FromBody] UserEntity UserEntity)
+        public UserEntity DoRegisterAccount([FromBody]UserEntity UserEntity)
         {
+            Console.WriteLine(UserEntity.Id);
             UserDAO.Save(UserEntity);
             //roleDAO.Save(UserEntity.Role);
             return UserEntity;

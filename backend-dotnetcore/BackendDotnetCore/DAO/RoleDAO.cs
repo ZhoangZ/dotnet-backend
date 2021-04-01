@@ -19,7 +19,8 @@ namespace BackendDotnetCore.DAO
         //phuong thuc insert into table role
         public RoleEntity Save(RoleEntity roleEntity)
         {
-            dbContext.RoleEntities.Add(roleEntity);
+            dbContext.roles.AddAsync(roleEntity);
+            dbContext.SaveChangesAsync();
             return roleEntity;
         }
 

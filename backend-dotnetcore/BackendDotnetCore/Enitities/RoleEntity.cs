@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
+    [Table("roles")]
     public class RoleEntity
     {   
         [Column("id")]
@@ -29,8 +30,7 @@ namespace BackendDotnetCore.Enitities
 
         [Column("active")]
         public int Active;
-
-
+ 
         public override String ToString()
         {
             Type objType = this.GetType();
