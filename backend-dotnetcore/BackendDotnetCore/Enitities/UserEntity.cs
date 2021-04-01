@@ -1,21 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
-    public partial class UserEntity:BaseEntity
+    public partial class UserEntity
     {
-        public string username;
-        public string email;
-        public string provider;
-        public bool confirmed;
-        public string blocked;
-        public int active;
+        [Column("id")]
+        public int Id;
+        [Column("username")]
+        [Require]
+        public string Username;
+
+        [Column("email")]
+        [Require]
+        public string Email;
+
+        [Column("provider")]
+        public string Provider;
+        
+        [Column("confirmed")]
+        public int Confirmed;
+        [Column("blocked")]
+        public string Blocked;
+        [Column("active")]
+        public int Active;
 
 
         //one to one (role)
-        public virtual RoleEntity role { get; set; }
+        public virtual RoleEntity Role { get; set; }
+
+        public override String ToString()
+        {
+            Type objType = this.GetType();
+            PropertyInfo[] propertyInfoList = objType.GetProperties(BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+            StringBuilder result = new StringBuilder();
+            result.AppendFormat(objType.Name + "[");
+            bool flag = false;
+            foreach (PropertyInfo propertyInfo in propertyInfoList)
+            {
+                result.AppendFormat("{0}={1}, ", propertyInfo.Name, propertyInfo.GetValue(this));
+                flag = true;
+            }
+            if (flag)
+                result.Remove(result.Length - 2, 1);
+            result.AppendFormat("]");
+            return result.ToString();
+        }
+
     }
 }

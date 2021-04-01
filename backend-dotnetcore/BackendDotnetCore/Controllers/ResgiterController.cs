@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Controllers
 {
-    
+    [ApiController]
     [Route("/auth/local/")]
-    public class ResgiterController : Controller
+    public class ResgiterController : ControllerBase
     {
+
+
+
        
     }
 }

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Configurations
 {
-    public class UserConfiguration: IEntityTypeConfiguration<Enitities.UserEntity>
+    public class RoleEntityConfiguration : IEntityTypeConfiguration<Enitities.RoleEntity>
     {
-        public void Configure(EntityTypeBuilder<UserEntity> builder)
+        public void Configure(EntityTypeBuilder<RoleEntity> builder)
         {
-            builder.ToTable("user");
-            builder.HasKey(e => e.Id);
-           
+            builder.ToTable("role")
+                .HasKey(e => e.Id);
+
         }
     }
 }
