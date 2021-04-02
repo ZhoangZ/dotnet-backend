@@ -15,30 +15,33 @@ namespace BackendDotnetCore.Enitities
     {
         [Key]
         [Column("id")]
-        public int Id { set; get; }
+
+       
+        public int Id { get; set; }
         [Column("username")]
         [Require]
-        public string Username { set; get; }
+        public string Username { get; set; }
 
         [Column("email")]
         [Require]
-        public string Email { set; get; }
+        public string Email { get; set; }
 
         [Column("provider")]
-        public string Provider { set; get; }
+        public string Provider { get; set; }
 
         [Column("confirmed")]
-        public int Confirmed { set; get; }
+        public bool Confirmed { get; set; }
         [Column("blocked")]
-        public string Blocked { set; get; }
+        public bool Blocked { get; set; }
         [Column("active")]
-        public int Active { set; get; }
+        public bool Active { get; set; }
 
 
 
 
-        //one to one (role)
-        public virtual RoleEntity Role { get; set; }
+   
+        //public virtual RoleEntity Role { get; set; }
+
 
         public override String ToString()
         {

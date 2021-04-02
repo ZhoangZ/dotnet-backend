@@ -28,6 +28,7 @@ namespace BackendDotnetCore
             services.AddSingleton<IRepository, Repository>();
             services.AddSingleton<AccountDAO, AccountDAO>();
             services.AddSingleton<ProductDAO, ProductDAO>();
+            services.AddSingleton<UserDAO, UserDAO>();
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
             services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
                 cfg.Cookie.Name = "shareimage";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
