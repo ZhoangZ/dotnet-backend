@@ -7,7 +7,12 @@ namespace BackendDotnetCore.Forms
 {
     public class RegisterForm
     {
-        public String username { set; get; }
+        public string username { set; get; }
+
+        public string password { set; get; }
+
+        public string repassword { set; get; }
+        public string email { set; get; }
        
 
     }
