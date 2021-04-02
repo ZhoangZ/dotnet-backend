@@ -109,7 +109,7 @@ namespace BackendDotnetCore.DAO
                 //phải kêu thêm cập nhật thuộc tính hình ảnh với ImageProductDAO
                foreach(ImageProduct image in Product.Images)
                 {
-                    imageProductDAO.UpdateImageProduct(image);
+                    imageProductDAO.UpdateImageProduct(image, Product.Id);
                 }
                 dbContext.Entry(Product).State = EntityState.Modified;
                 dbContext.SaveChanges();

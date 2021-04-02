@@ -19,10 +19,14 @@ namespace BackendDotnetCore.DAO
 
 
         //phương thức cập nhật hình ảnh sản phẩm
-        public void UpdateImageProduct(ImageProduct imageProduct)
+        public void UpdateImageProduct(ImageProduct imageProduct, int productID)
         {
-            dbContext.Entry(imageProduct).State = EntityState.Modified;
-            dbContext.SaveChanges();
+
+            if (imageProduct.Product.Id == productID)
+            {
+                dbContext.Entry(imageProduct.Image).State = EntityState.Modified;
+                dbContext.SaveChanges();
+            }
         }
     }
 }
