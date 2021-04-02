@@ -86,23 +86,7 @@ namespace BackendDotnetCore.DAO
         {
             if(Product.Id != 0)
             {
-                Console.WriteLine("Icập nhật product id={0}",Product.Id);
-                //cập nhật
-                Product OldProduct =  getProduct(Product.Id);
-                //lấy dữ liệu thay đổi
-                //int promotionPercents = Product.promotionPercents;
-                //string name = Product.Name;
-                //string brand = Product.Brand;
-                //int memory = Product.Memory;
-                //int ram = Product.RAM;
-                //double originalPrice = Product.OriginalPrice;
-                //string description = Product.DESCRIPTION;
-                //DateTime createdAt = Product.CreatedAt;
-                //int amount_SOLD = Product.AMOUNT_SOLD;
-                //string os = Product.OS;
-                //double goalPrice = Product.GoalPrice;
-                //List<ImageProduct> Images = Product.Images;
-
+                Console.WriteLine("Cập nhật product id={0}",Product.Id);
                 /*
                  * source reference:https://www.learnentityframeworkcore.com/dbcontext/modifying-data
                 */
@@ -110,7 +94,6 @@ namespace BackendDotnetCore.DAO
                 //foreach (ImageProduct image in Product.Images)
                 //{
                 //    image.Product = Product;
-                    
                 //    imageProductDAO.UpdateImageProduct(image, Product, image.Id);
                 //}
                 dbContext.Entry(Product).State = EntityState.Modified;
@@ -125,19 +108,12 @@ namespace BackendDotnetCore.DAO
         }
    
         //phương thức xóa từng phần tử product bằng id khi nhận từ request
-        public void RemoveProductById(int[] ArrId)
+        public void RemoveProductById(int Id)
         {
-            foreach(int id in ArrId)
+            Product product = getProduct(Id);
+            if (product != null)
             {
-                //var author = dbContext.Products.Single(a => a.Id == id);
-                //var books = dbContext.ImageProduct.Where(b => EF.Property<int>(b, "AuthorId") == 1);
-                //foreach (var book in books)
-                //{
-                //    author.Books.Remove(book);
-                //}
-                //context.Remove(author);
-                //context.SaveChanges();
-                Product product = getProduct(id);
+                Console.WriteLine("Product[{0}]", Id);
                 dbContext.Remove(product);
                 dbContext.SaveChanges();
             }

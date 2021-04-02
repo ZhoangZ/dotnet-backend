@@ -14,27 +14,18 @@ namespace BackendDotnetCore.Controllers
     public class ResgiterController : ControllerBase
     {
         private UserDAO UserDAO;
-
-
+        private RoleDAO RoleDAO;
         public ResgiterController(UserDAO userDAO)
         {
             this.UserDAO = userDAO;
         }
-
-        
         [HttpPost("register")]
         public UserEntity DoRegisterAccount([FromBody]UserEntity UserEntity)
         {
-
-            Console.WriteLine(UserEntity);
-
+            Console.WriteLine("Create a new users:"+UserEntity);
             UserDAO.Save(UserEntity);
-            //RoleDAO.Save(UserEntity.Role);
+            RoleDAO.Save(UserEntity.Role);
             return UserEntity;
         }
-
-
-
-       
     }
 }

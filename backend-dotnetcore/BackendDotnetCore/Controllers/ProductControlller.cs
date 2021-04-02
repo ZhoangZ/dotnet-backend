@@ -48,14 +48,17 @@ namespace BackendDotnetCore.Controllers
             return ProductDAO.Save(Product);
         }
 
+       
+        [HttpDelete]
         //phương thức delete danh sách sản phẩm theo id
         //tham số truyền vào là một mảng id
-        [HttpDelete]
-        public string deleteProducts(int[] id)
+        public void deleteProducts(int[] ids)
         {
-            //TODO
-
-            return "delete products by array id";
+            foreach(int id in ids)
+            {
+                    ProductDAO.RemoveProductById(id);
+                    Console.WriteLine("Remove productID={0}", id);
+            }
         }        
 
 
