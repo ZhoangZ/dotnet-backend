@@ -13,6 +13,7 @@ namespace BackendDotnetCore.EF
         public DbSet<Product> Products { get; set; }
         public DbSet<UserEntity> users { set; get; }
         public DbSet<RoleEntity> roles { set; get; }
+        public DbSet<ImageProduct> image_product { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,6 +21,7 @@ namespace BackendDotnetCore.EF
             modelBuilder.ApplyConfiguration(new Configurations.ProductConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.UserConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.RoleEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new Configurations.ImageProductConfiguration());
             modelBuilder.ConvertToSnakeCase();
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
@@ -10,8 +11,12 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
+    [Table("product")]
     public class Product
     {
+        [Key]
+        [Column("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Column("SaleRate")]
         public int promotionPercents { get; set; }

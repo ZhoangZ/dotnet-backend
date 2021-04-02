@@ -10,9 +10,11 @@ namespace BackendDotnetCore.DAO
     public class ProductDAO
     {
         private BackendDotnetDbContext dbContext;
+        private ImageProductDAO imageProductDAO;
         public ProductDAO()
         {
             this.dbContext = new BackendDotnetDbContext();
+            this.imageProductDAO = new ImageProductDAO();
         }
         public Product getAccount(int Id)
 
@@ -70,5 +72,74 @@ namespace BackendDotnetCore.DAO
             return rs;
 
         }
+    
+        //phương thức insert into table product
+        public Product AddProduct(Product Product)
+        {
+            dbContext.Products.AddAsync(Product);
+            dbContext.SaveChangesAsync();
+            return Product;
+        }
+        
+        //phương thức cập nhật product by id
+        public Product Save(Product Product)
+        {
+            if(Product.Id != 0)
+            {
+                Console.WriteLine("Icập nhật product id={0}",Product.Id);
+                //cập nhật
+                Product OldProduct =  getProduct(Product.Id);
+                //lấy dữ liệu thay đổi
+                int promotionPercents = Product.promotionPercents;
+                string name = Product.Name;
+                string brand = Product.Brand;
+                int memory = Product.Memory;
+                int ram = Product.RAM;
+                double originalPrice = Product.OriginalPrice;
+                string description = Product.DESCRIPTION;
+                DateTime createdAt = Product.CreatedAt;
+                int amount_SOLD = Product.AMOUNT_SOLD;
+                string os = Product.OS;
+                double goalPrice = Product.GoalPrice;
+                List<ImageProduct> Images = Product.Images;
+
+                /*
+                 * source reference:https://www.learnentityframeworkcore.com/dbcontext/modifying-data
+                */
+                //phải kêu thêm cập nhật thuộc tính hình ảnh với ImageProductDAO
+               foreach(ImageProduct image in Product.Images)
+                {
+                    imageProductDAO.UpdateImageProduct(image);
+                }
+                dbContext.Entry(Product).State = EntityState.Modified;
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                //thêm mới
+                Console.WriteLine("Không có id, thêm mới product");
+            }
+            return Product;
+        }
+   
+        //phương thức xóa từng phần tử product bằng id khi nhận từ request
+        public void RemoveProductById(int[] ArrId)
+        {
+            foreach(int id in ArrId)
+            {
+                //var author = dbContext.Products.Single(a => a.Id == id);
+                //var books = dbContext.ImageProduct.Where(b => EF.Property<int>(b, "AuthorId") == 1);
+                //foreach (var book in books)
+                //{
+                //    author.Books.Remove(book);
+                //}
+                //context.Remove(author);
+                //context.SaveChanges();
+                Product product = getProduct(id);
+                dbContext.Remove(product);
+                dbContext.SaveChanges();
+            }
+        }
+    
     }
 }

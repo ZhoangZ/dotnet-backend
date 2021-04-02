@@ -12,25 +12,25 @@ namespace BackendDotnetCore.Enitities
     public class RoleEntity
     {   
         [Column("id")]
-        public int Id;
+        public int Id { set; get; }
         [Column("name")]
-        public string Name;
+        public string Name { set; get; }
 
         [Column("description")]
-        public string Description;
+        public string Description { set; get; }
 
         [Column("type")]
-        public string Type;
+        public string Type { set; get; }
 
         [Column("created_by")]
-        public string Created_by;
+        public string Created_by { set; get; }
 
         [Column("updated_by")]
-        public string Update_by;
+        public string Update_by { set; get; }
 
         [Column("active")]
-        public int Active;
- 
+        public int Active { set; get; }
+
         public override String ToString()
         {
             Type objType = this.GetType();
