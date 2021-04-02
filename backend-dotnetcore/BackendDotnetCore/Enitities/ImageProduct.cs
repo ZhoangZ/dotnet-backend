@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
+    [Table("image_product")]
     public class ImageProduct
     {
         [JsonIgnore]

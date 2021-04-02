@@ -17,14 +17,14 @@ namespace BackendDotnetCore.Controllers
     {
         [HttpGet("hello")]
 
-        public MessageResponse test()
+        public MessageResponse Test()
 
         {
             return new MessageResponse("Hello");
         }
         [HttpGet("actionresult")]
 
-        public ActionResult test2()
+        public ActionResult Test2()
 
         {
             
@@ -39,22 +39,24 @@ namespace BackendDotnetCore.Controllers
             this.productDAO = productDAO;
         }
         [HttpGet("mysql")]
-        public ActionResult testMySQL()
+        public ActionResult TestMySQL()
 
         {
 
             return Ok(dao.getAccount(1));
         }
         [HttpGet("include")]
-        public ActionResult testInclude()
+        public ActionResult TestInclude()
 
         {
             Product p=productDAO.getProduct(1);                      
             return Ok(p);
         }
 
+
         [HttpGet("product/list")]
         public ActionResult testListProduct(int _limit,int _page, string sort ="idaz", int lte=-1, int gte=-1)
+
 
         {
           

@@ -33,14 +33,19 @@ namespace BackendDotnetCore
                 .Build();
 
 
+            //Cái này để truy cập api cho máy bên ngoài
             var hostUrl = configuration["hosturl"];
-            if (string.IsNullOrEmpty(hostUrl))
-                hostUrl = "https://192.168.0.111:5001";
+            if (string.IsNullOrEmpty(hostUrl)){
+                //hostUrl = "https://192.168.0.111:5001";
+                hostUrl = "https://127.0.0.1:5001";
+            }
+                
 
 
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls(hostUrl, "https://localhost:5001")   // <!-- this 
+                //.UseUrls(hostUrl, "https://localhost:5001")   // <!-- this 
+                .UseUrls("https://localhost:5001")   // <!-- this 
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

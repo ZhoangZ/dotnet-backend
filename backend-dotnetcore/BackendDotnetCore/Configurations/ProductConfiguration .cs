@@ -19,7 +19,7 @@ namespace BackendDotnetCore.Configurations
             
             builder.Navigation(b => b.Images)
         .UsePropertyAccessMode(PropertyAccessMode.Property);
-
+            //forgein key brand
 
 
         }

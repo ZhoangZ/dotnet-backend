@@ -10,9 +10,11 @@ namespace BackendDotnetCore.DAO
     public class ProductDAO
     {
         private BackendDotnetDbContext dbContext;
+        private ImageProductDAO imageProductDAO;
         public ProductDAO()
         {
             this.dbContext = new BackendDotnetDbContext();
+            this.imageProductDAO = new ImageProductDAO();
         }
         public Product getAccount(int Id)
 
@@ -91,5 +93,52 @@ namespace BackendDotnetCore.DAO
             return rs;
 
         }
+    
+        //phương thức insert into table product
+        public Product AddProduct(Product Product)
+        {
+            dbContext.Products.AddAsync(Product);
+            dbContext.SaveChangesAsync();
+            return Product;
+        }
+        
+        //phương thức cập nhật product by id
+        public Product Save(Product Product)
+        {
+            if(Product.Id != 0)
+            {
+                Console.WriteLine("Cập nhật product id={0}",Product.Id);
+                /*
+                 * source reference:https://www.learnentityframeworkcore.com/dbcontext/modifying-data
+                */
+                //lỗi không thể cập nhật nhiều hình ảnh cùng lúc
+                //foreach (ImageProduct image in Product.Images)
+                //{
+                //    image.Product = Product;
+                //    imageProductDAO.UpdateImageProduct(image, Product, image.Id);
+                //}
+                dbContext.Entry(Product).State = EntityState.Modified;
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                //thêm mới
+                Console.WriteLine("Không có id, thêm mới product");
+            }
+            return Product;
+        }
+   
+        //phương thức xóa từng phần tử product bằng id khi nhận từ request
+        public void RemoveProductById(int Id)
+        {
+            Product product = getProduct(Id);
+            if (product != null)
+            {
+                Console.WriteLine("Product[{0}]", Id);
+                dbContext.Remove(product);
+                dbContext.SaveChanges();
+            }
+        }
+    
     }
 }
