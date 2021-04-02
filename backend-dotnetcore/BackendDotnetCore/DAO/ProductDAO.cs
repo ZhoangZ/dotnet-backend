@@ -106,11 +106,13 @@ namespace BackendDotnetCore.DAO
                 /*
                  * source reference:https://www.learnentityframeworkcore.com/dbcontext/modifying-data
                 */
-                //phải kêu thêm cập nhật thuộc tính hình ảnh với ImageProductDAO
-               foreach(ImageProduct image in Product.Images)
-                {
-                    imageProductDAO.UpdateImageProduct(image, Product.Id);
-                }
+                //lỗi không thể cập nhật nhiều hình ảnh cùng lúc
+                //foreach (ImageProduct image in Product.Images)
+                //{
+                //    image.Product = Product;
+                    
+                //    imageProductDAO.UpdateImageProduct(image, Product, image.Id);
+                //}
                 dbContext.Entry(Product).State = EntityState.Modified;
                 dbContext.SaveChanges();
             }
