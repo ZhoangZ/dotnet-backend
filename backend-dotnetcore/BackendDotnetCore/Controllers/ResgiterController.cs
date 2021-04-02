@@ -29,7 +29,7 @@ namespace BackendDotnetCore.Controllers
             Console.WriteLine(UserEntity);
 
             UserDAO.Save(UserEntity);
-            RoleDAO.Save(UserEntity.Role);
+            //RoleDAO.Save(UserEntity.Role);
             return UserEntity;
         }
 

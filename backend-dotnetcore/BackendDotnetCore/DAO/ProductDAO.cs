@@ -90,18 +90,18 @@ namespace BackendDotnetCore.DAO
                 //cập nhật
                 Product OldProduct =  getProduct(Product.Id);
                 //lấy dữ liệu thay đổi
-                int promotionPercents = Product.promotionPercents;
-                string name = Product.Name;
-                string brand = Product.Brand;
-                int memory = Product.Memory;
-                int ram = Product.RAM;
-                double originalPrice = Product.OriginalPrice;
-                string description = Product.DESCRIPTION;
-                DateTime createdAt = Product.CreatedAt;
-                int amount_SOLD = Product.AMOUNT_SOLD;
-                string os = Product.OS;
-                double goalPrice = Product.GoalPrice;
-                List<ImageProduct> Images = Product.Images;
+                //int promotionPercents = Product.promotionPercents;
+                //string name = Product.Name;
+                //string brand = Product.Brand;
+                //int memory = Product.Memory;
+                //int ram = Product.RAM;
+                //double originalPrice = Product.OriginalPrice;
+                //string description = Product.DESCRIPTION;
+                //DateTime createdAt = Product.CreatedAt;
+                //int amount_SOLD = Product.AMOUNT_SOLD;
+                //string os = Product.OS;
+                //double goalPrice = Product.GoalPrice;
+                //List<ImageProduct> Images = Product.Images;
 
                 /*
                  * source reference:https://www.learnentityframeworkcore.com/dbcontext/modifying-data
