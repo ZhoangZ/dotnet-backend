@@ -22,6 +22,13 @@ namespace BackendDotnetCore.Controllers
         {
             return new MessageResponse("Hello");
         }
+        [HttpGet("/")]
+
+        public MessageResponse Mai()
+
+        {
+            return new MessageResponse("Hello");
+        }
         [HttpGet("actionresult")]
 
         public ActionResult Test2()
