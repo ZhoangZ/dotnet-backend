@@ -27,7 +27,7 @@ namespace BackendDotnetCore
             
             services.AddSingleton<IRepository, Repository>();
             services.AddSingleton<AccountDAO, AccountDAO>();
-            services.AddSingleton<ProductDAO, ProductDAO>();
+            services.AddSingleton<Product2DAO, Product2DAO>();
             services.AddSingleton<UserDAO, UserDAO>();
           
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)

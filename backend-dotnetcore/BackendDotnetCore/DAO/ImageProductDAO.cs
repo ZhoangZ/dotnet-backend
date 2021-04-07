@@ -20,7 +20,7 @@ namespace BackendDotnetCore.DAO
 
 
         //phương thức cập nhật hình ảnh sản phẩm
-        public void UpdateImageProduct(ImageProduct imageProduct, Product product, long id)
+        public void UpdateImageProduct(ImageProduct imageProduct, Product2 product, long id)
         {
            
             Console.WriteLine("imageId={0},productId={1},id={2}",imageProduct.Id, product.Id, id);

@@ -49,7 +49,7 @@ namespace BackendDotnetCore.Enitities
             set { this._image = value; } }
       
         [JsonIgnore]
-        public Product Product { get; set; }
+        public Product2 Product { get; set; }
 
         public override String ToString()
         {

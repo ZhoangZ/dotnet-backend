@@ -39,8 +39,8 @@ namespace BackendDotnetCore.Controllers
         }
 
         private AccountDAO dao;
-        private ProductDAO productDAO;
-        public TestRest(AccountDAO dao, ProductDAO productDAO)
+        private Product2DAO productDAO;
+        public TestRest(AccountDAO dao, Product2DAO productDAO)
         {
             this.dao = dao;
             this.productDAO = productDAO;
@@ -56,7 +56,7 @@ namespace BackendDotnetCore.Controllers
         public ActionResult TestInclude()
 
         {
-            Product p=productDAO.getProduct(1);                      
+            Product2 p=productDAO.getProduct(1);                      
             return Ok(p);
         }
 
@@ -67,7 +67,7 @@ namespace BackendDotnetCore.Controllers
 
         {
           
-            List<Product> lst = productDAO.getList(_page,_limit, sort,lte, gte);
+            List<Product2> lst = productDAO.getList(_page,_limit, sort,lte, gte);
 
             lst.setRequset(Request);
 

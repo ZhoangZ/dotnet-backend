@@ -10,7 +10,7 @@ namespace BackendDotnetCore.EF
     class BackendDotnetDbContext:DbContext
     {
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product2> Products { get; set; }
 
 
         public DbSet<BaseEnity> BaseEnities { get; set; }
@@ -22,7 +22,7 @@ namespace BackendDotnetCore.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new Configurations.AccountConfiguration());
-            modelBuilder.ApplyConfiguration(new Configurations.ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new Configurations.Product2Configuration());
             //modelBuilder.ApplyConfiguration(new Configurations.BaseEnityConfiguration());
 
             modelBuilder.ApplyConfiguration(new Configurations.UserConfiguration());

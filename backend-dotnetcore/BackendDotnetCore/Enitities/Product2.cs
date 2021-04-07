@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
-    [Table("product")]
-    public class Product
+    //[Table("product_2")]
+    public class Product2
     {
         [Key]
         [Column("id")]

@@ -7,9 +7,9 @@ using BackendDotnetCore.Enitities;
 
 namespace BackendDotnetCore.Configurations
 {
-    class ProductConfiguration : IEntityTypeConfiguration<Enitities.Product>
+    class Product2Configuration : IEntityTypeConfiguration<Enitities.Product2>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Product2> builder)
         {
             builder.ToTable("product_2")
                 .HasKey(e => e.Id)

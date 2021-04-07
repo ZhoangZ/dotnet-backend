@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 namespace BackendDotnetCore.DAO
 {
-    public class ProductDAO
+    public class Product2DAO
     {
         private BackendDotnetDbContext dbContext;
         private ImageProductDAO imageProductDAO;
-        public ProductDAO()
+        public Product2DAO()
         {
             this.dbContext = new BackendDotnetDbContext();
             this.imageProductDAO = new ImageProductDAO();
         }
-        public Product getAccount(int Id)
+        public Product2 getAccount(int Id)
 
         {
            
           var tmp = from accounts in dbContext.Products
                       where accounts.Id == Id
-                      select new Product
+                      select new Product2
                       {
                           Id = accounts.Id,
                           Name = accounts.Name,
@@ -33,7 +33,7 @@ namespace BackendDotnetCore.DAO
                       } ;
             return tmp.ToList()[0];
         }
-        public Product getProduct(int Id)
+        public Product2 getProduct(int Id)
 
         {
 
@@ -42,7 +42,7 @@ namespace BackendDotnetCore.DAO
             return tmp;
 
         }
-        public List<Product> getList(int _page, int _limit, string sort, int lgt, int gte)
+        public List<Product2> getList(int _page, int _limit, string sort, int lgt, int gte)
 
         {
             _page=(_page<=0)?1:_page;
@@ -85,17 +85,42 @@ namespace BackendDotnetCore.DAO
                     //Console.WriteLine("desc");
                     tmp = tmp.OrderBy(x => x.OriginalPrice * (100 - x.promotionPercents));
 
+                }else
+                // format :asc
+                if (key.CompareTo("id:asc") == 0)
+                {
+                    //Console.WriteLine("asc");
+                    tmp = tmp.OrderBy(x => x.Id);
+
+                }
+                else if (key.CompareTo("id:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.Id);
+
+                }
+                else if (key.CompareTo("saleprice:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.OriginalPrice * (100 - x.promotionPercents));
+
+                }
+                else if (key.CompareTo("saleprice:asc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderBy(x => x.OriginalPrice * (100 - x.promotionPercents));
+
                 }
             }
 
-            List < Product > rs= tmp.Skip(_limit * (_page - 1)).Take(_limit)
-                        .ToList<Product>();
+            List < Product2 > rs= tmp.Skip(_limit * (_page - 1)).Take(_limit)
+                        .ToList<Product2>();
             return rs;
 
         }
     
         //phương thức insert into table product
-        public Product AddProduct(Product Product)
+        public Product2 AddProduct(Product2 Product)
         {
             dbContext.Products.AddAsync(Product);
             dbContext.SaveChangesAsync();
@@ -103,7 +128,7 @@ namespace BackendDotnetCore.DAO
         }
         
         //phương thức cập nhật product by id
-        public Product Save(Product Product)
+        public Product2 Save(Product2 Product)
         {
             if(Product.Id != 0)
             {
@@ -131,7 +156,7 @@ namespace BackendDotnetCore.DAO
         //phương thức xóa từng phần tử product bằng id khi nhận từ request
         public void RemoveProductById(int Id)
         {
-            Product product = getProduct(Id);
+            Product2 product = getProduct(Id);
             if (product != null)
             {
                 Console.WriteLine("Product[{0}]", Id);

@@ -11,9 +11,9 @@ namespace BackendDotnetCore.Ultis
 {
     public static class FileUltils
     {
-        public static void setRequset(this List<Product> lst, HttpRequest request)
+        public static void setRequset(this List<Product2> lst, HttpRequest request)
         {
-            lst.ForEach(delegate (Product p) {
+            lst.ForEach(delegate (Product2 p) {
                 p.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(request);
                 });
