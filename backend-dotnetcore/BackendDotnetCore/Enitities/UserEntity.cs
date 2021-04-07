@@ -19,6 +19,9 @@ namespace BackendDotnetCore.Enitities
         [Column("username")]
         [Require]
         public string Username { get; set; }
+        [Column("password")]
+        [Require]
+        public string Password { get; set; }
 
         [Column("email")]
         [Require]

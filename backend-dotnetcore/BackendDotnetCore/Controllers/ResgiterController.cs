@@ -1,5 +1,6 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Forms;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,24 @@ namespace BackendDotnetCore.Controllers
             this.UserDAO = userDAO;
         }
         [HttpPost("register")]
-        public UserEntity DoRegisterAccount([FromBody]UserEntity UserEntity)
+        public UserEntity DoRegisterAccount([FromBody]RegisterForm RegisterEntity)
         {
-            Console.WriteLine("Create a new users:"+UserEntity);
-            UserDAO.Save(UserEntity);
-            RoleDAO.Save(UserEntity.Role);
-            return UserEntity;
+            Console.WriteLine("Create a new users:"+ RegisterEntity);
+            UserEntity userEntity = new UserEntity();
+            userEntity.Username = RegisterEntity.username;
+            userEntity.Password = RegisterEntity.password;
+            userEntity.Email = RegisterEntity.email;
+            userEntity.Active = true;
+            userEntity.Blocked = true;//blocked ?
+            if (RegisterEntity.password.Equals(RegisterEntity.repassword)) {
+                userEntity.Confirmed = true;
+                UserDAO.Save(userEntity);
+            }
+            else
+            {
+                userEntity.Confirmed = false;
+            }
+            return userEntity;
         }
     }
 }
