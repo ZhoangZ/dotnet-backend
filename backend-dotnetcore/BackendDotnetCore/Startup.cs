@@ -29,6 +29,7 @@ namespace BackendDotnetCore
             services.AddSingleton<AccountDAO, AccountDAO>();
             services.AddSingleton<ProductDAO, ProductDAO>();
             services.AddSingleton<UserDAO, UserDAO>();
+          
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
             services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
                 cfg.Cookie.Name = "shareimage";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
@@ -38,8 +39,8 @@ namespace BackendDotnetCore
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
-
+            services.AddSingleton<IUserService, UserService>();
+            //services.AddTransient(AccountDAO, AccountDAO);
             services.AddControllersWithViews();
         }
 

@@ -1,5 +1,6 @@
 ﻿using BackendDotnetCore.EF;
 using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Ultis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,22 @@ namespace BackendDotnetCore.DAO
                       };
             return tmp.ToList()[0];
         }
-        public Account login(string username, string password)
+        public Account loginMD5(string username, string password)
         {
+            
             var account = dbContext.Accounts.Where(x => 
                 (x.Username == username && x.Password== password)
             ).SingleOrDefault();
             
+            return account;
+        }
+        public Account login(string username, string password)
+        {
+            var passMD5 = EncodeUltis.MD5(password);
+            var account = dbContext.Accounts.Where(x =>
+                (x.Username == username && x.Password == passMD5)
+            ).SingleOrDefault();
+
             return account;
         }
         public int getIdByUsername(string username)

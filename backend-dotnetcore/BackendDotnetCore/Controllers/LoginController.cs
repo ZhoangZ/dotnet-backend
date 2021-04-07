@@ -28,7 +28,7 @@ namespace BackendDotnetCore.Controllers
 
         {
             Console.WriteLine(loginForm);
-            Account account = dao.login(loginForm.Username, loginForm.Password);
+            Account account = dao.loginMD5(loginForm.Username, loginForm.Password);
             
                 if (FileProcess.FileProcess.fileIsExists(account.Avatar))
                 {

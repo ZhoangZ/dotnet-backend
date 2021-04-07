@@ -19,6 +19,7 @@ namespace BackendDotnetCore.Helpers
         {
             _next = next;
             _appSettings = appSettings.Value;
+            //Console.WriteLine(appSettings.Value.Secret);
         }
 
         public async Task Invoke(HttpContext context, IUserService userService)
@@ -55,6 +56,7 @@ namespace BackendDotnetCore.Helpers
             }
             catch
             {
+                Console.WriteLine("Failture");
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes
             }

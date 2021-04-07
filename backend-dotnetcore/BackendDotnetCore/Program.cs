@@ -45,6 +45,10 @@ namespace BackendDotnetCore
 
             var host = new WebHostBuilder()
                 .UseKestrel()
+                 .ConfigureAppConfiguration((builderContext, config) =>
+                 {
+                     config.AddJsonFile("appsettings.json", optional: false);
+                 })
                 //.UseUrls(hostUrl, "https://localhost:5001")   // <!-- this 
                 .UseUrls("https://localhost:5001")   // <!-- this 
                 .UseContentRoot(Directory.GetCurrentDirectory())

@@ -9,6 +9,8 @@ using System.Text;
 using BackendDotnetCore.Entities;
 using BackendDotnetCore.Helpers;
 using BackendDotnetCore.Models;
+using BackendDotnetCore.DAO;
+using BackendDotnetCore.Enitities;
 
 namespace BackendDotnetCore.Services
 {
@@ -21,6 +23,12 @@ namespace BackendDotnetCore.Services
 
     public class UserService : IUserService
     {
+        private AccountDAO _accountDAO ;
+        public UserService()
+        {
+            _accountDAO = new AccountDAO();
+           
+        }
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
         private List<User> _users = new List<User>
         {
@@ -36,15 +44,24 @@ namespace BackendDotnetCore.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-            // return null if user not found
-            if (user == null) return null;
+            /*  var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-            // authentication successful so generate jwt token
-            var token = generateJwtToken(user);
+              if (user == null) return null;
 
+              // authentication successful so generate jwt token
+              var token = generateJwtToken(user);
             return new AuthenticateResponse(user, token);
+             */
+            var dao = new AccountDAO();
+            if (_accountDAO == null)
+                Console.WriteLine("check");
+
+            var account = dao.login(model.Username, model.Password);
+            // return null if user not found
+             if (account == null) return null;
+             var token = generateJwtToken(account);
+             return new AuthenticateResponse(account, token);
         }
 
         public IEnumerable<User> GetAll()
@@ -67,6 +84,20 @@ namespace BackendDotnetCore.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+        private string generateJwtToken(Account account)
+        {
+            // generate token that is valid for 7 days
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("id", account.Id.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
