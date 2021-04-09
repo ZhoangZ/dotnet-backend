@@ -50,6 +50,19 @@ namespace BackendDotnetCore.Enitities
         //}
 
 
+        public bool checkRoleInfo()
+        {
+            //checkSomeFields of role
+            if(this.Name == null || this.Name == "" || this.Name == " ")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
 
     }
 }

@@ -14,6 +14,7 @@ namespace BackendDotnetCore.Configurations
         {
             builder.ToTable("users");
             builder.HasKey(e => e.Id);
+            
 
 
         }

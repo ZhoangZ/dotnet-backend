@@ -24,5 +24,7 @@ namespace BackendDotnetCore.DAO
             return roleEntity;
         }
 
+        
+
     }
 }
