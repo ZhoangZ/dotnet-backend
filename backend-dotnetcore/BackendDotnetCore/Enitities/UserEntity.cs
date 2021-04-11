@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace BackendDotnetCore.Enitities
 {
     [Table("users")]
-    public partial class UserEntity
+    public class UserEntity
     {
         [Key]
         [Column("id")]
@@ -28,15 +29,18 @@ namespace BackendDotnetCore.Enitities
 
         [Column("provider")]
         public string Provider { get; set; }
-
         [Column("confirmed")]
-        public bool Confirmed { get; set; }
+        public int Confirmed { get; set; }
         [Column("blocked")]
-        public bool Blocked { get; set; }
+        public int Blocked { get; set; }
         [Column("active")]
-        public bool Active { get; set; }
+        public int Active { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
 
-        public virtual RoleEntity Role { get; set; }
+        public UserEntity()
+        {
+            this.UserRoles = new List<UserRole>();
+        }
 
         //public override String ToString()
         //{
@@ -55,6 +59,18 @@ namespace BackendDotnetCore.Enitities
         //    result.AppendFormat("]");
         //    return result.ToString();
         //}
+
+       public bool checkUserInfo()
+        {
+            if(this.Username.Equals(" ") || this.Username.Equals(null))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
     }
 }

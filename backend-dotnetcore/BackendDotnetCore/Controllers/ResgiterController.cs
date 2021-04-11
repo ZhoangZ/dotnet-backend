@@ -15,7 +15,6 @@ namespace BackendDotnetCore.Controllers
     public class ResgiterController : ControllerBase
     {
         private UserDAO UserDAO;
-        private RoleDAO RoleDAO;
         public ResgiterController(UserDAO userDAO)
         {
             this.UserDAO = userDAO;
@@ -28,15 +27,15 @@ namespace BackendDotnetCore.Controllers
             userEntity.Username = RegisterEntity.username;
             userEntity.Password = RegisterEntity.password;
             userEntity.Email = RegisterEntity.email;
-            userEntity.Active = true;
-            userEntity.Blocked = true;//blocked ?
+            userEntity.Active = 1;
+            userEntity.Blocked = 1;//blocked ?
             if (RegisterEntity.password.Equals(RegisterEntity.repassword)) {
-                userEntity.Confirmed = true;
+                userEntity.Confirmed = 1;
                 UserDAO.Save(userEntity);
             }
             else
             {
-                userEntity.Confirmed = false;
+                userEntity.Confirmed = 0;
             }
             return userEntity;
         }
