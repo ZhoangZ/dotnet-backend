@@ -23,16 +23,17 @@ namespace BackendDotnetCore.Controllers
         }
 
         [HttpPost("role")]
-        public string CreateNewRole(RoleEntity roleEntity)
+        public IActionResult CreateNewRole(RoleEntity roleEntity)
         {
             if (roleEntity.checkRoleInfo() == true)
             {
-                roleDAO.Save(roleEntity);
-                return "a record has be insert into table!";
+                RoleEntity rs = roleDAO.Save(roleEntity);
+                //return "a record has be insert into table!";
+                return Ok(rs);
             }
             else
             {
-                return "Role info not correct!";
+                return BadRequest(roleEntity);
             }
         }
 
