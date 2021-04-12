@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 12/04/2021 22:42:46
+ Date: 12/04/2021 23:12:11
 */
 
 SET NAMES utf8mb4;
@@ -7115,20 +7115,25 @@ INSERT INTO `ram` VALUES (6, '12 GB', 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
-  `id` int(10) NOT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `active` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '1',
-  `updated_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `created_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `updated_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT curtime,
+  `created_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT curtime,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES (1, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (2, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (3, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (4, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (5, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (6, 'USER', 'Authentication User', '2', '1', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rom
@@ -7208,8 +7213,7 @@ CREATE TABLE `user`  (
   `active` tinyint(2) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `email`(`email`) USING BTREE,
-  INDEX `role_id`(`role_id`) USING BTREE,
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  INDEX `role_id`(`role_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
