@@ -38,9 +38,16 @@ namespace BackendDotnetCore.Enitities
         public int AmoutSold { get; set; }
         [Column("OS")]
         public string Os { get; set; }
-        
+        public virtual List<ImageProduct> Images { get; set; }
+        public virtual List<InformationProduct> Informations { get; set; }
 
 
+        [NotMapped]
+
+        public List<String> color
+        {
+            get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }
+        }
 
 
         [NotMapped]
@@ -49,17 +56,14 @@ namespace BackendDotnetCore.Enitities
         { get { return  (100-this.promotionPercents) * this.OriginalPrice / 100; }
             }
 
-        public double GoalPrice
-        {
-            get { return (100 - this.promotionPercents) * this.OriginalPrice / 100; }
-        }
+      
 
 
 
 
 
 
-        public virtual List<ImageProduct> Images { get; set; }
+     
 
 
 

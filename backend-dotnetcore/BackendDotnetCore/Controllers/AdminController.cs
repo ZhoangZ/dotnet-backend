@@ -54,5 +54,22 @@ namespace BackendDotnetCore.Controllers
             }
         }
 
+        /*[HttpPost("user")]
+        public string CreateUser(UserEntity userEntity)
+        {
+            if (userEntity.checkUserInfo() == true)
+            {
+              
+                userEntity.Active = 1;              
+                
+                userDAO.Save(userEntity);
+                return "a record user has be insert into table!";
+            }
+            else
+            {
+                return "UserInfo is not correct!";
+            }
+        }*/
+
     }
 }

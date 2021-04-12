@@ -7,16 +7,17 @@ using BackendDotnetCore.Enitities;
 
 namespace BackendDotnetCore.Configurations
 {
-    class ImageProductConfiguration : IEntityTypeConfiguration<Enitities.ImageProduct>
+    class InformationProductConfiguration : IEntityTypeConfiguration<Enitities.InformationProduct>
     {
-        public void Configure(EntityTypeBuilder<ImageProduct> builder)
+        public void Configure(EntityTypeBuilder<InformationProduct> builder)
         {
-            builder.ToTable("image_product")
+            builder.ToTable("information_product")
                 .HasKey(e => e.Id);
                 builder.Property<int>("product_id");
+
             ;
             builder.HasOne(x => x.Product)
-                .WithMany(x => x.Images)
+                .WithMany(x => x.Informations)
                 .HasForeignKey("product_id");
 
 

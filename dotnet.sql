@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 07/04/2021 23:26:51
+ Date: 12/04/2021 17:10:27
 */
 
 SET NAMES utf8mb4;
@@ -916,12 +916,12 @@ INSERT INTO `image_product` VALUES (1265, 261, 'Xiaomi_Mi_9_SE_64GB_3.png');
 DROP TABLE IF EXISTS `information_product`;
 CREATE TABLE `information_product`  (
   `ID` bigint(255) NOT NULL,
-  `ID_PRODUCT` int(255) NOT NULL,
+  `PRODUCT_ID` int(255) NOT NULL,
   `NAME_FIELD` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `CONTENT_FIELD` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`ID`) USING BTREE,
-  INDEX `ID_PRODUCT`(`ID_PRODUCT`) USING BTREE,
-  CONSTRAINT `information_product_ibfk_1` FOREIGN KEY (`ID_PRODUCT`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `PRODUCT_ID`(`PRODUCT_ID`) USING BTREE,
+  CONSTRAINT `information_product_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -7124,6 +7124,11 @@ CREATE TABLE `role`  (
   `created_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES (0, 'USER', 'Authentication User', '2', '1', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rom

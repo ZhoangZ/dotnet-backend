@@ -46,7 +46,7 @@ namespace BackendDotnetCore.DAO
 
         {
             _page=(_page<=0)?1:_page;
-            var tmp = dbContext.Products.Include("Images") ;
+            var tmp = dbContext.Products.Include("Images").Include("Informations") ;
             if (lgt != -1)
             {
                 // Console.WriteLine(lgt);

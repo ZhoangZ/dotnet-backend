@@ -26,6 +26,7 @@ namespace BackendDotnetCore.EF
             modelBuilder.ApplyConfiguration(new Configurations.UserConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.RoleEntityConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.ImageProductConfiguration());
+            modelBuilder.ApplyConfiguration(new Configurations.InformationProductConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.UserRoleConfiguration());
             modelBuilder.ConvertToSnakeCase();
 

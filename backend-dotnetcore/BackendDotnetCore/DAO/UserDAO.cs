@@ -22,5 +22,12 @@ namespace BackendDotnetCore.DAO
             dbContext.SaveChangesAsync();
             return UserEntity;
         }
+        //phuong thuc insert into table user
+        public UserEntity Save2(UserEntity UserEntity)
+        {
+            dbContext.users.Add(UserEntity);
+            dbContext.SaveChanges();
+            return UserEntity;
+        }
     }
 }

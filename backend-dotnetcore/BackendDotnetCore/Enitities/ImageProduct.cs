@@ -13,7 +13,6 @@ namespace BackendDotnetCore.Enitities
     [Table("image_product")]
     public class ImageProduct
     {
-        [JsonIgnore]
         public long Id { get; set; }
         [JsonIgnore]
         [Column("IMAGE")]
