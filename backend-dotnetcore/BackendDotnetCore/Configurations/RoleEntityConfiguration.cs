@@ -21,6 +21,16 @@ namespace BackendDotnetCore.Configurations
             //builder.Property(typeof(string), "created_by");
             //builder.Property(typeof(string), "updated_by");
             //builder.Property(typeof(string), "active");
+
+            /*builder.HasMany(x => x.UserRoles)
+              .WithOne(x => x.Role)
+              .HasForeignKey("role_id");*/
+
+            /*builder.Navigation(b => b.UserRoles)
+            .UsePropertyAccessMode(PropertyAccessMode.Property);*/
+
+           
+
         }
     }
 }

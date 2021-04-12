@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 namespace BackendDotnetCore.DAO
 {
     public class UserDAO
@@ -28,6 +28,24 @@ namespace BackendDotnetCore.DAO
             dbContext.users.Add(UserEntity);
             dbContext.SaveChanges();
             return UserEntity;
+        }
+        public RoleEntity GetRoleFirst()
+        {
+            var role=dbContext.roles.First();
+            
+            return role;
+        }
+        public UserEntity GetUserFirst()
+        {
+            var role = dbContext.users.Include(a=>a.UserRoles).ThenInclude(c=>c.Role).First();
+
+            return role;
+        }
+        public UserRole GetUserRolesFirst()
+        {
+            var role = dbContext.UserRoles.Include("User").Include("Role").First();
+
+            return role;
         }
     }
 }

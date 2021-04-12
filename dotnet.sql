@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 12/04/2021 17:10:27
+ Date: 12/04/2021 22:42:46
 */
 
 SET NAMES utf8mb4;
@@ -7128,7 +7128,7 @@ CREATE TABLE `role`  (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (0, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (1, 'USER', 'Authentication User', '2', '1', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rom
@@ -7213,6 +7213,25 @@ CREATE TABLE `user`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role`  (
+  `users_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `users_id`(`users_id`) USING BTREE,
+  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO `user_role` VALUES (1, 1, 1);
+INSERT INTO `user_role` VALUES (5, 1, 2);
+
+-- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
@@ -7224,12 +7243,14 @@ CREATE TABLE `users`  (
   `confirmed` bit(1) NULL DEFAULT b'0',
   `blocked` bit(1) NULL DEFAULT b'0',
   `active` bit(1) NULL DEFAULT b'0',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'test', 'test', 'test', b'0', b'0', b'0');
+INSERT INTO `users` VALUES (1, 'test', 'test', 'test', b'0', b'0', b'0', NULL);
+INSERT INTO `users` VALUES (5, 'ongminhdinh', 'ongdinh6@gmail.com', '', b'1', b'1', b'1', '1122');
 
 SET FOREIGN_KEY_CHECKS = 1;

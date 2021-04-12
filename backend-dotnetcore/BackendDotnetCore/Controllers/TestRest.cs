@@ -60,6 +60,27 @@ namespace BackendDotnetCore.Controllers
             return Ok(p);
         }
 
+        [HttpGet("many")]
+        public ActionResult TestMany()
+
+        {
+            UserDAO p = new UserDAO();
+            return Ok(p.GetUserFirst());
+        }
+        [HttpGet("mid")]
+        public ActionResult TestMid()
+
+        {
+            UserDAO p = new UserDAO();
+            return Ok(p.GetUserRolesFirst());
+        }
+        [HttpGet("onep")]
+        public ActionResult TestOneP()
+
+        {
+            
+            return Ok(productDAO.GetOneP());
+        }
 
         [HttpGet("product/list")]
         public ActionResult testListProduct(int _limit,int _page, string sort ="idaz", int lte=-1, int gte=-1)

@@ -12,14 +12,22 @@ namespace BackendDotnetCore.Configurations
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
-            builder.ToTable("user_role");
-            builder.HasKey(bc => new { bc.userID, bc.roleID });
-            builder.HasOne(bc => bc.user)
-                 .WithMany(b => b.UserRoles)
-                 .HasForeignKey(bc => bc.userID);
-            builder.HasOne(bc => bc.role)
-                .WithMany(c => c.UserRoles)
-                .HasForeignKey(bc => bc.roleID);
+            builder.ToTable("user_role").HasKey(e => e.Id); ;
+            builder.Property<int>("users_id");
+            builder.Property<int>("role_id");
+          
+            builder.HasOne(bc => bc.User)
+                  .WithMany(b => b.UserRoles)
+                  .HasForeignKey("users_id");
+            
+             builder.HasOne(bc => bc.Role)
+                 .WithMany(c => c.UserRoles)
+                 .HasForeignKey("role_id");
+          /*  builder.Navigation(b => b.Role)
+           .UsePropertyAccessMode(PropertyAccessMode.Property);*/
+
+
+
         }
     }
 }

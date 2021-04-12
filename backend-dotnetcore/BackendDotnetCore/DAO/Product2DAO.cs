@@ -164,6 +164,13 @@ namespace BackendDotnetCore.DAO
                 dbContext.SaveChanges();
             }
         }
-    
+
+        public Product2 GetOneP()
+        {
+            var role = dbContext.Products.Include("Images").Include("Informations").First();
+
+            return role;
+        }
+
     }
 }

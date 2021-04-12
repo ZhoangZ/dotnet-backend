@@ -13,8 +13,8 @@ namespace BackendDotnetCore.Configurations
         {
             builder.ToTable("image_product")
                 .HasKey(e => e.Id);
-                builder.Property<int>("product_id");
-            ;
+            builder.Property<int>("product_id");
+            
             builder.HasOne(x => x.Product)
                 .WithMany(x => x.Images)
                 .HasForeignKey("product_id");

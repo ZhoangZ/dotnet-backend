@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
 {
-    [Table("users")]
+    //[Table("users")]
     public class UserEntity
     {
         [Key]
@@ -35,32 +35,14 @@ namespace BackendDotnetCore.Enitities
         public int Blocked { get; set; }
         [Column("active")]
         public int Active { get; set; }
-        public ICollection<UserRole> UserRoles { get; set; }
+        
+        public virtual ICollection<UserRole> UserRoles { get; set; }
 
-        public UserEntity()
-        {
-            this.UserRoles = new List<UserRole>();
-        }
 
-        //public override String ToString()
-        //{
-        //    Type objType = this.GetType();
-        //    PropertyInfo[] propertyInfoList = objType.GetProperties(BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-        //    StringBuilder result = new StringBuilder();
-        //    result.AppendFormat(objType.Name + "[");
-        //    bool flag = false;
-        //    foreach (PropertyInfo propertyInfo in propertyInfoList)
-        //    {
-        //        result.AppendFormat("{0}={1}, ", propertyInfo.Name, propertyInfo.GetValue(this));
-        //        flag = true;
-        //    }
-        //    if (flag)
-        //        result.Remove(result.Length - 2, 1);
-        //    result.AppendFormat("]");
-        //    return result.ToString();
-        //}
 
-       public bool checkUserInfo()
+      
+
+        public bool checkUserInfo()
         {
             if(this.Username.Equals(" ") || this.Username.Equals(null))
             {
@@ -71,6 +53,7 @@ namespace BackendDotnetCore.Enitities
                 return true;
             }
         }
+        
 
     }
 }

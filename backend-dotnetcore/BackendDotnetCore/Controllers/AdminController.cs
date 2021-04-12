@@ -36,7 +36,7 @@ namespace BackendDotnetCore.Controllers
             }
         }
 
-        [HttpPost("user")]
+      /*  [HttpPost("user")]
         public string CreateUser(UserEntity userEntity)
         {
             if (userEntity.checkUserInfo() == true)
@@ -52,24 +52,32 @@ namespace BackendDotnetCore.Controllers
             {
                 return "UserInfo is not correct!";
             }
-        }
+        }*/
 
-        /*[HttpPost("user")]
+        [HttpPost("user")]
         public string CreateUser(UserEntity userEntity)
         {
             if (userEntity.checkUserInfo() == true)
             {
               
-                userEntity.Active = 1;              
-                
-                userDAO.Save(userEntity);
+                userEntity.Active = 1;
+                var role=userDAO.GetRoleFirst();
+                /*   userEntity.Roles = new List<RoleEntity>();
+                   userEntity.Roles.Add(role);*/
+                UserRole us = new UserRole();
+                us.Role = role;
+                us.User = userEntity;
+                userEntity.UserRoles = new List<UserRole>();
+                userEntity.UserRoles.Add(us);
+                Console.WriteLine(userEntity);
+                userDAO.Save2(userEntity);
                 return "a record user has be insert into table!";
             }
             else
             {
                 return "UserInfo is not correct!";
             }
-        }*/
+        }
 
     }
 }
