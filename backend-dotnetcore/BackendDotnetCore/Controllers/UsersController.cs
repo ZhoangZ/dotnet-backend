@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BackendDotnetCore.Models;
 using BackendDotnetCore.Services;
+using System;
+using BackendDotnetCore.Enitities;
 
 namespace WebApi.Controllers
 {
@@ -39,5 +41,48 @@ namespace WebApi.Controllers
             var users = _userService.GetAll();
             return Ok(users);
         }
+
+
+        [HttpGet("reset-pass")]
+        public string ResetPassword(string email)
+        {
+            //chuoi tra ve cho nguoi dung xac nhan, co the check thoi gian ton tai cua ma
+            string rd = new Random().Next(1000000).ToString();
+
+            if (_userService.checkEmail(email) == true)
+            {
+
+                return rd;
+            }
+            else
+            {
+                return "Email không tồn tại!";
+            }
+
+        }
+        [HttpPut("{id}")]
+        public string UpdateAction(int id, [FromBody] Account accountInfo)
+        {
+            Account ac = _userService.getAccountById(id);
+            if (ac.Email.Equals(accountInfo.Email))
+            {
+                ac.Email = accountInfo.Email;
+            }
+            else
+            if (_userService.checkEmail(accountInfo.Email) == true)
+            {
+                return "Email đã tồn tại. Thử lại!";
+            }else
+            {
+                ac.Email = accountInfo.Email;
+            }
+            //checkFields
+            ac.Username = accountInfo.Username;
+            _userService.save(ac);
+
+
+            return "Cập nhật thành công !"; 
+        }
+
     }
 }

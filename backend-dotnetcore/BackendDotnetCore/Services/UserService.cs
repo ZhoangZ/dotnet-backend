@@ -19,6 +19,11 @@ namespace BackendDotnetCore.Services
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         IEnumerable<User> GetAll();
         User GetById(int id);
+        bool checkEmail(string email);
+
+        Account getAccountById(int accountId);
+
+        bool save(Account account);
     }
 
     public class UserService : IUserService
@@ -105,5 +110,36 @@ namespace BackendDotnetCore.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+        bool IUserService.checkEmail(string email)
+        {
+            var dao = new AccountDAO();
+            if (_accountDAO == null)
+                Console.WriteLine("_accountDAO null");
+
+            if (dao.getAccountByEmail(email) == null) return false;
+            return true;
+        }
+
+        public Account getAccountById(int accountId)
+        {
+            var dao = new AccountDAO();
+            if (_accountDAO == null)
+                Console.WriteLine("_accountDAO null");
+            Account account = null;
+            if ((account= dao.getAccount(accountId)) == null) return null;
+            return account;
+        }
+
+        public bool save(Account account)
+        {
+            var dao = new AccountDAO();
+            if (_accountDAO == null)
+                Console.WriteLine("_accountDAO null");
+            dao.save(account);
+            return true;
+        }
+
+        
     }
 }

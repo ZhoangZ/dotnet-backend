@@ -59,5 +59,28 @@ namespace BackendDotnetCore.DAO
             return account.Id;
         }
 
+        public Account getAccountByEmail(string email)
+        {
+            var account = dbContext.Accounts.Where(x => x.Email == email).SingleOrDefault();
+            return account;
+
+        }
+        public Account save(Account account)
+        {
+            //su dung cho dang ki va cap nhat
+            if (account.Id == 0)
+            {
+                dbContext.Accounts.Add(account);
+            }
+            else
+            {
+                dbContext.Accounts.Update(account);
+            }
+                dbContext.SaveChanges();
+           
+            return account;
+        }
+        
+
     }
 }
