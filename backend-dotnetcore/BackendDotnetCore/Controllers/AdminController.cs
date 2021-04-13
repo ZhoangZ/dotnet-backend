@@ -83,7 +83,8 @@ namespace BackendDotnetCore.Controllers
         [HttpGet("users")]
         public List<UserEntity> GetAllUsers()
         {
-            return userDAO.getAll();
+            List<UserEntity> users = userDAO.getAll();
+            return users;
         }
 
     }
