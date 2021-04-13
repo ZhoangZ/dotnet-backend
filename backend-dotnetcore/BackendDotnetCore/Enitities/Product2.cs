@@ -38,6 +38,8 @@ namespace BackendDotnetCore.Enitities
         public int AmoutSold { get; set; }
         [Column("OS")]
         public string Os { get; set; }
+        [NotMapped]
+        public bool IsHot {get;set;}
         public virtual List<ImageProduct> Images { get; set; }
         public virtual List<InformationProduct> Informations { get; set; }
 
@@ -49,7 +51,10 @@ namespace BackendDotnetCore.Enitities
             get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }
         }
 
-
+        public Product2()
+        {
+            this.IsHot = true;
+        }
         [NotMapped]
 
         public int salePrice

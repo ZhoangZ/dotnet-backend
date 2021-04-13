@@ -37,10 +37,10 @@ namespace BackendDotnetCore
             var hostUrl = configuration["hosturl"];
             if (string.IsNullOrEmpty(hostUrl)){
                 //hostUrl = "https://192.168.0.111:5001";
-                //hostUrl = "https://25.50.183.23:80";
-               // hostUrl = "https://127.0.0.1:80";
+                hostUrl = "https://25.50.183.23:80";
+                // hostUrl = "https://192.168.2.217";
             }
-                
+
 
 
             var host = new WebHostBuilder()
@@ -49,8 +49,8 @@ namespace BackendDotnetCore
                  {
                      config.AddJsonFile("appsettings.json", optional: false);
                  })
-                //.UseUrls(hostUrl, "https://localhost:5001")   // <!-- this 
-                .UseUrls("https://localhost:5001")   // <!-- this 
+                .UseUrls(hostUrl, "https://localhost:5001")   // <!-- this 
+                //.UseUrls("https://localhost:5001")   // <!-- this 
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
