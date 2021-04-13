@@ -11,6 +11,7 @@ using BackendDotnetCore.Helpers;
 using BackendDotnetCore.Services;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
+using BackendDotnetCore.Middleware;
 
 namespace BackendDotnetCore
 {
@@ -29,7 +30,18 @@ namespace BackendDotnetCore
             services.AddSingleton<AccountDAO, AccountDAO>();
             services.AddSingleton<Product2DAO, Product2DAO>();
             services.AddSingleton<UserDAO, UserDAO>();
-          
+
+            /*services.AddCors(options =>
+            {
+                options.AddPolicy(name: "ApiCorsPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:5001").AllowAnyMethod().AllowAnyHeader()
+                                .WithMethods("GET","PUT", "DELETE", "GET");
+                    });
+            });*/
+
+            services.AddCors();
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
             services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
                 cfg.Cookie.Name = "shareimage";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
@@ -59,10 +71,19 @@ namespace BackendDotnetCore
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCors(builder => builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .SetIsOriginAllowed((host) => true)
+                .AllowCredentials()
+            );
+
             app.UseRouting();
             //app.UseAuthorization();
             app.UseSession();
             app.UseMiddleware<JwtMiddleware>();
+            app.UseCorsMiddleware();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

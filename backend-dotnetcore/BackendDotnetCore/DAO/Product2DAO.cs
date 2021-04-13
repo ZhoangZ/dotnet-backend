@@ -172,5 +172,12 @@ namespace BackendDotnetCore.DAO
             return role;
         }
 
+        public int Total()
+        {
+           int rs= dbContext.Products.Count();
+            return rs;
+        }
+
+
     }
 }
