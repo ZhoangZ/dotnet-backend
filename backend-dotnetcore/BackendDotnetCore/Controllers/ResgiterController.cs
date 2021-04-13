@@ -1,6 +1,7 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.Enitities;
 using BackendDotnetCore.Forms;
+using BackendDotnetCore.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,29 +16,37 @@ namespace BackendDotnetCore.Controllers
     public class ResgiterController : ControllerBase
     {
         private UserDAO UserDAO;
-        public ResgiterController(UserDAO userDAO)
+        private IUserService _userService;
+
+      
+
+        public ResgiterController(UserDAO userDAO, IUserService userService)
         {
             this.UserDAO = userDAO;
+            this._userService = userService;
         }
         [HttpPost("register")]
-        public UserEntity DoRegisterAccount([FromBody]RegisterForm RegisterEntity)
+        public string DoRegisterAccount([FromBody] UserEntity userEntity)
         {
-            Console.WriteLine("Create a new users:"+ RegisterEntity);
-            UserEntity userEntity = new UserEntity();
-            userEntity.Username = RegisterEntity.username;
-            userEntity.Password = RegisterEntity.password;
-            userEntity.Email = RegisterEntity.email;
-            userEntity.Active = 1;
-            userEntity.Blocked = 1;//blocked ?
-            if (RegisterEntity.password.Equals(RegisterEntity.repassword)) {
-                userEntity.Confirmed = 1;
-                UserDAO.Save(userEntity);
+            
+            if (userEntity.checkUserInfo() == true)
+            {
+
+                userEntity.Active = 1;
+                var role = UserDAO.GetRoleFirst();
+                UserRole us = new UserRole();
+                us.Role = role;
+                us.User = userEntity;
+                userEntity.UserRoles = new List<UserRole>();
+                userEntity.UserRoles.Add(us);
+                Console.WriteLine(userEntity);
+                UserDAO.Save2(userEntity);
+                return "a record user has be insert into table!";
             }
             else
             {
-                userEntity.Confirmed = 0;
+                return "AccountInfo is not correct!"; 
             }
-            return userEntity;
         }
     }
 }

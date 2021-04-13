@@ -17,6 +17,7 @@ namespace BackendDotnetCore.Controllers
         //auto wired productDAO
         private Product2DAO ProductDAO = new Product2DAO();
 
+
         //lấy danh sách dữ liệu sản phẩm theo tiêu chí
         [HttpGet("list")]
         public List<Product2> GetAllProducts(int _limit, int _page, string sort = "idaz", int lte = -1, int gte = -1)
