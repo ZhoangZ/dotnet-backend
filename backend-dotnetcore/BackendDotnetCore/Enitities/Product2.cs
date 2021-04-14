@@ -41,24 +41,25 @@ namespace BackendDotnetCore.Enitities
         public int AmoutSold { get; set; }
         [Column("OS")]
         public string Os { get; set; }
-        [NotMapped]
+        [Column("IS_HOT")]
         public bool IsHot {get;set;}
         public virtual List<ImageProduct> Images { get; set; }
         public virtual List<InformationProduct> Informations { get; set; }
+        public virtual List<Product2Specific> Specifics { get; set; }
 
 
-        [NotMapped]
+      /*  [NotMapped]
 
         public List<String> color
         {
             get;set;
             //get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }
-        }
+        }*/
 
         public Product2()
         {
-            this.IsHot = true;
-            this.color = null; 
+            //this.IsHot = true;
+            
         }
         [NotMapped]
 

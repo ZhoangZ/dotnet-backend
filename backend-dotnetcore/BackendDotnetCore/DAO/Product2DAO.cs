@@ -37,16 +37,23 @@ namespace BackendDotnetCore.DAO
 
         {
 
-            var tmp = dbContext.Products.Where(s=> s.Id== Id).Where(X => X.deleted == false).Include("Images").Include(x=>x.Informations)
-                        .FirstOrDefault();
-            return tmp;
+            var tmp = dbContext.Products.Where(s => s.Id == Id).Where(X => X.deleted == false).Include("Images").Include(x => x.Informations)
+
+                .Include(x => x.Specifics).ThenInclude(x => x.Ram).Include(x => x.Specifics).ThenInclude(x => x.Rom)
+                      ;
+         
+            return tmp.FirstOrDefault(); 
 
         }
         public List<Product2> getList(int _page, int _limit, string sort, int lgt, int gte)
 
         {
             _page=(_page<=0)?1:_page;
-            var tmp = dbContext.Products.Where(X => X.deleted == false).Include("Images").Include("Informations") ;
+            var tmp = dbContext.Products.Where(X => X.deleted == false)
+
+              .Include(x => x.Specifics).ThenInclude(x => x.Ram).Include(x => x.Specifics).ThenInclude(x => x.Rom)
+              .Include("Images").Include("Informations")
+                ;
             if (lgt != -1)
             {
                 // Console.WriteLine(lgt);
