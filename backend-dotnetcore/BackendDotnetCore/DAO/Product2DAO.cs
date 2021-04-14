@@ -37,7 +37,7 @@ namespace BackendDotnetCore.DAO
 
         {
 
-            var tmp = dbContext.Products.Where(s=> s.Id== Id).Include("Images")
+            var tmp = dbContext.Products.Where(s=> s.Id== Id).Where(X => X.deleted == false).Include("Images").Include(x=>x.Informations)
                         .FirstOrDefault();
             return tmp;
 
@@ -46,7 +46,7 @@ namespace BackendDotnetCore.DAO
 
         {
             _page=(_page<=0)?1:_page;
-            var tmp = dbContext.Products.Include("Images").Include("Informations") ;
+            var tmp = dbContext.Products.Where(X => X.deleted == false).Include("Images").Include("Informations") ;
             if (lgt != -1)
             {
                 // Console.WriteLine(lgt);
@@ -128,56 +128,40 @@ namespace BackendDotnetCore.DAO
         }
         
         //phương thức cập nhật product by id
-        public Product2 Save(Product2 Product)
+        public int Save(Product2 Product)
         {
-            if(Product.Id != 0)
+            int rs = 0;
+            if (Product != null)
             {
-                Console.WriteLine("Cập nhật product id={0}",Product.Id);
-                /*
-                 * source reference:https://www.learnentityframeworkcore.com/dbcontext/modifying-data
-                */
-                //lỗi không thể cập nhật nhiều hình ảnh cùng lúc
-                //foreach (ImageProduct image in Product.Images)
-                //{
-                //    image.Product = Product;
-                //    imageProductDAO.UpdateImageProduct(image, Product, image.Id);
-                //}
-                dbContext.Entry(Product).State = EntityState.Modified;
-                dbContext.SaveChanges();
+                dbContext.Update<Product2>(Product);
+                rs = dbContext.SaveChanges();
             }
-            else
-            {
-                //thêm mới
-                Console.WriteLine("Không có id, thêm mới product");
-            }
-            return Product;
+               
+            return rs;
         }
    
         //phương thức xóa từng phần tử product bằng id khi nhận từ request
-        public void RemoveProductById(int Id)
+        public int RemoveProductById(int Id)
         {
             Product2 product = getProduct(Id);
+            int rs = 0;
             if (product != null)
             {
-                Console.WriteLine("Product[{0}]", Id);
-                dbContext.Remove(product);
-                dbContext.SaveChanges();
+                product.deleted = true;
+                dbContext.Update<Product2>(product);
+                rs=dbContext.SaveChanges();
             }
-        }
-
-        public Product2 GetOneP()
-        {
-            var role = dbContext.Products.Include("Images").Include("Informations").First();
-
-            return role;
-        }
-
-        public int Total()
-        {
-           int rs= dbContext.Products.Count();
             return rs;
         }
 
+        
+
+        public int Total()
+        {
+           int rs= dbContext.Products.Where(X => X.deleted == false).Count();
+            return rs;
+        }
+    
 
     }
 }

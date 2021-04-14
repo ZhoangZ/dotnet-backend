@@ -75,16 +75,10 @@ namespace BackendDotnetCore.Controllers
             UserDAO p = new UserDAO();
             return Ok(p.GetUserRolesFirst());
         }
-        [HttpGet("onep")]
-        public ActionResult TestOneP()
+       
 
-        {
-            
-            return Ok(productDAO.GetOneP());
-        }
-
-        [HttpGet("product/list")]
-        [HttpGet("products")]
+       /* [HttpGet("product/list")]
+        [HttpGet("products")]*/
         public ActionResult testListProduct(int _limit=10,int _page=1, string sort ="idaz", int lte=-1, int gte=-1)
 
 

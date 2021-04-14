@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Enitities
@@ -19,7 +19,7 @@ namespace BackendDotnetCore.Enitities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Column("SaleRate")]
-        public int promotionPercents { get; set; }
+        public uint promotionPercents { get; set; }
         public string Name { get; set; }
         [Column("id_brand")]
         public string Brand { get; set; }
@@ -27,8 +27,11 @@ namespace BackendDotnetCore.Enitities
         public int Memory { get; set; }
         [Column("RAM")]
         public int Ram { get; set; }
+        [Column("DELETED")]
+        [JsonIgnore]
+        public bool deleted { get; set; }
         [Column("price")]
-        public int OriginalPrice { get; set; }
+        public uint OriginalPrice { get; set; }
         [Column("DESCRIPTION")]
         public string Description { get; set; }
         [Column("DATE_SUBMITTED")]
@@ -48,17 +51,25 @@ namespace BackendDotnetCore.Enitities
 
         public List<String> color
         {
-            get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }
+            get;set;
+            //get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }
         }
 
         public Product2()
         {
             this.IsHot = true;
+            this.color = null; 
         }
         [NotMapped]
 
-        public int salePrice
-        { get { return  (100-this.promotionPercents) * this.OriginalPrice / 100; }
+        public uint salePrice
+        { get {
+                //Console.WriteLine(90*this.OriginalPrice);
+                uint rs = ((100 - this.promotionPercents) * this.OriginalPrice) / 100;
+                //Console.WriteLine(rs);
+                return  rs; 
+            
+            }
             }
 
       
