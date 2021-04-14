@@ -56,7 +56,7 @@ namespace BackendDotnetCore.Controllers
         }*/
 
         [HttpPost("user")]
-        public string CreateUser(UserEntity userEntity)
+        public UserEntity CreateUser(UserEntity userEntity)
         {
             if (userEntity.checkUserInfo() == true)
             {
@@ -72,12 +72,19 @@ namespace BackendDotnetCore.Controllers
                 userEntity.UserRoles.Add(us);
                 Console.WriteLine(userEntity);
                 userDAO.Save2(userEntity);
-                return "a record user has be insert into table!";
+                return userEntity;
             }
             else
             {
-                return "UserInfo is not correct!";
+                return null;
             }
+        }
+
+        [HttpGet("users")]
+        public List<UserEntity> GetAllUsers()
+        {
+            List<UserEntity> users = userDAO.getAll();
+            return users;
         }
 
     }

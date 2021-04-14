@@ -37,8 +37,9 @@ namespace BackendDotnetCore
             var hostUrl = configuration["hosturl"];
             if (string.IsNullOrEmpty(hostUrl)){
                 //hostUrl = "https://192.168.0.111:5001";
-                hostUrl = "https://25.50.183.23:80";
-                // hostUrl = "https://192.168.2.217";
+                //hostUrl = "https://25.50.183.23:80";
+                // hostUrl = "https://127.0.0.1:80";
+               hostUrl = "https://192.168.1.57:80";
             }
 
 

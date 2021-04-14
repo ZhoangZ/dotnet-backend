@@ -47,5 +47,17 @@ namespace BackendDotnetCore.DAO
 
             return role;
         }
+
+        public List<UserEntity> getAll()
+        {
+            var users = dbContext.users.FromSqlRaw("SELECT * FROM users").ToList();
+            UserRoleDAO userRoleDAO = new UserRoleDAO();
+            foreach(UserEntity e in users)
+            {
+                e.UserRoles = userRoleDAO.getAllRoleOfUserId(e.Id);
+            }
+
+            return users;
+        }
     }
 }
