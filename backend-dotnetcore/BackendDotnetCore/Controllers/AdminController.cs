@@ -37,24 +37,6 @@ namespace BackendDotnetCore.Controllers
             }
         }
 
-      /*  [HttpPost("user")]
-        public string CreateUser(UserEntity userEntity)
-        {
-            if (userEntity.checkUserInfo() == true)
-            {
-                //guest dang ki thi luon luon duoc gan quyen la USER
-                userEntity.Active = 1;
-                UserRole userRole = new UserRole(userEntity.Id, 2);
-                userEntity.UserRoles.Add(userRole);
-                userDAO.Save(userEntity);
-                return "a record user has be insert into table!";
-            }
-            else
-            {
-                return "UserInfo is not correct!";
-            }
-        }*/
-
         [HttpPost("user")]
         public UserEntity CreateUser(UserEntity userEntity)
         {

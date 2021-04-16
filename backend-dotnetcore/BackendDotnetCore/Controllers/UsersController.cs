@@ -84,5 +84,20 @@ namespace WebApi.Controllers
             return "Cập nhật thành công !"; 
         }
 
+        [HttpGet("user")]
+        //phuong thuc lay ra mot user bang id
+        public Account GetAccountById(int id)
+        {
+            Account account = null;
+            if(null != (account = _userService.getAccountById(id)))
+            {
+                return account;
+            }
+            else
+            {
+                return account;
+            }
+        }
+       
     }
 }
