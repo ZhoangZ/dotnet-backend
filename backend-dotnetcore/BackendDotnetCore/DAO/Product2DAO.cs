@@ -37,9 +37,10 @@ namespace BackendDotnetCore.DAO
 
         {
 
-            var tmp = dbContext.Products.Where(s => s.Id == Id).Where(X => X.deleted == false).Include("Images").Include(x => x.Informations)
+            var tmp = dbContext.Products.Where(s => s.Id == Id).Where(X => X.deleted == false)
 
-                .Include(x => x.Specifics).ThenInclude(x => x.Ram).Include(x => x.Specifics).ThenInclude(x => x.Rom)
+                .Include(x => x.Specifics).ThenInclude(x => x.Ram).Include(x => x.Specifics)
+                .ThenInclude(x => x.Rom).Include("Images").Include(x => x.Informations)
                       ;
          
             return tmp.FirstOrDefault(); 

@@ -39,25 +39,28 @@ namespace BackendDotnetCore.Controllers
 
         [HttpGet]
         //lấy ra một sản phẩm theo id dùng cho trang chi tiết sản phẩm,...
-        public Product2 GetOneProductById(int _id)
+        public ActionResult GetOneProductById(int _id)
         {
+            Console.WriteLine(_id);
             Product2 product = ProductDAO.getProduct(_id);
+            if (product == null) return BadRequest();
             product.Images.ForEach(delegate (ImageProduct ip) {
                 ip.setRequest(Request);
             });
-            return product;
+            return Ok(product);
         }
 
         [HttpPost]
         //truyền vào tham số [FromBody] Product Product
-        public Product2 CreateNewProduct([FromBody] Product2 Product)
+        public ActionResult CreateNewProduct([FromBody] Product2 Product)
         {
             Product.CreatedAt = DateTime.UtcNow;
             Product2 product = ProductDAO.AddProduct(Product);
+            if (product == null) return BadRequest();
             product.Images.ForEach(delegate (ImageProduct ip) {
                 ip.setRequest(Request);
             });
-            return product;
+            return Ok(product);
         }
 
         [HttpPut("{id}")]

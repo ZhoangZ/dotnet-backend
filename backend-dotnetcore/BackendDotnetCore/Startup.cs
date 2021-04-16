@@ -31,15 +31,6 @@ namespace BackendDotnetCore
             services.AddSingleton<Product2DAO, Product2DAO>();
             services.AddSingleton<UserDAO, UserDAO>();
 
-            /*services.AddCors(options =>
-            {
-                options.AddPolicy(name: "ApiCorsPolicy",
-                    builder =>
-                    {
-                        builder.WithOrigins("https://localhost:5001").AllowAnyMethod().AllowAnyHeader()
-                                .WithMethods("GET","PUT", "DELETE", "GET");
-                    });
-            });*/
 
             services.AddCors();
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)

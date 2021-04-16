@@ -40,7 +40,7 @@ namespace BackendDotnetCore
                 //hostUrl = "https://25.50.183.23:80";
                 // hostUrl = "https://127.0.0.1:80";
                //hostUrl = "https://192.168.1.57:80";
-               hostUrl = "https://::80";
+               hostUrl = "https://::25002";
                //hostUrl2 = "https://::80";
             }
 
