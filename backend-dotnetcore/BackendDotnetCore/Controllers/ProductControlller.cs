@@ -38,6 +38,7 @@ namespace BackendDotnetCore.Controllers
         }
 
         [HttpGet]
+        [HttpGet("{_id}")]
         //lấy ra một sản phẩm theo id dùng cho trang chi tiết sản phẩm,...
         public ActionResult GetOneProductById(int _id)
         {
