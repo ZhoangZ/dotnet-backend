@@ -57,12 +57,16 @@ namespace BackendDotnetCore.DAO
                 ;
             if (lgt != -1)
             {
-                // Console.WriteLine(lgt);
-                tmp = tmp.Where(x => (x.OriginalPrice * (100 - x.promotionPercents) <= lgt * 100));
+               // Console.WriteLine(lgt);
+                tmp = tmp.Where(x => (x.SalePrice  <= lgt ));
 
             }
             if (gte != -1)
-                tmp = tmp.Where(x => (x.OriginalPrice*(100-x.promotionPercents) >= gte*100));
+            {
+               // Console.WriteLine(gte);
+                tmp = tmp.Where(x => (x.SalePrice  >= gte));
+            }
+
             string [] strs=sort.Split(",");
             /*if (strs.Length == 0) 
                 strs[0] = sort ;
