@@ -31,7 +31,7 @@ namespace BackendDotnetCore.Enitities
         [JsonIgnore]
         public bool deleted { get; set; }
         [Column("price")]
-        public uint OriginalPrice { get; set; }
+        public long OriginalPrice { get; set; }
         [Column("DESCRIPTION")]
         public string Description { get; set; }
         [Column("DATE_SUBMITTED")]
@@ -61,17 +61,9 @@ namespace BackendDotnetCore.Enitities
             //this.IsHot = true;
             
         }
-        [NotMapped]
+        [Column("SALE_PRICE")]
 
-        public uint salePrice
-        { get {
-                //Console.WriteLine(90*this.OriginalPrice);
-                uint rs = ((100 - this.promotionPercents) * this.OriginalPrice) / 100;
-                //Console.WriteLine(rs);
-                return  rs; 
-            
-            }
-            }
+        public long SalePrice  { get; set; }
 
       
 
