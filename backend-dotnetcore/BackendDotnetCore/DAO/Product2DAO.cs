@@ -52,8 +52,10 @@ namespace BackendDotnetCore.DAO
             _page=(_page<=0)?1:_page;
             var tmp = dbContext.Products.Where(X => X.deleted == false)
 
-              .Include(x => x.Specifics).ThenInclude(x => x.Ram).Include(x => x.Specifics).ThenInclude(x => x.Rom)
-              .Include("Images").Include("Informations")
+              //.Include(x => x.Specifics).ThenInclude(x => x.Ram)
+              //.Include(x => x.Specifics).ThenInclude(x => x.Rom)
+              .Include("Images")
+              //.Include("Informations")
                 ;
             if (lgt != -1)
             {
@@ -74,7 +76,7 @@ namespace BackendDotnetCore.DAO
             foreach (var str in strs)
             {
                 string key = str.ToLower();
-                if (key.CompareTo("idasc")==0)
+               /* if (key.CompareTo("idasc")==0)
                 {
                     //Console.WriteLine("asc");
                     tmp=tmp.OrderBy(x => x.Id);
@@ -97,7 +99,7 @@ namespace BackendDotnetCore.DAO
                     //Console.WriteLine("desc");
                     tmp = tmp.OrderBy(x => x.OriginalPrice * (100 - x.promotionPercents));
 
-                }else
+                }else*/
                 // format :asc
                 if (key.CompareTo("id:asc") == 0)
                 {
@@ -114,13 +116,13 @@ namespace BackendDotnetCore.DAO
                 else if (key.CompareTo("saleprice:desc") == 0)
                 {
                     //Console.WriteLine("desc");
-                    tmp = tmp.OrderByDescending(x => x.OriginalPrice * (100 - x.promotionPercents));
+                    tmp = tmp.OrderByDescending(x => x.SalePrice);
 
                 }
                 else if (key.CompareTo("saleprice:asc") == 0)
                 {
                     //Console.WriteLine("desc");
-                    tmp = tmp.OrderBy(x => x.OriginalPrice * (100 - x.promotionPercents));
+                    tmp = tmp.OrderBy(x => x.SalePrice);
 
                 }
             }
@@ -172,6 +174,11 @@ namespace BackendDotnetCore.DAO
         {
            int rs= dbContext.Products.Where(X => X.deleted == false).Count();
             return rs;
+        }
+        public List<Brand> GetBrands()
+        {
+            //dbContext.B
+            return null;
         }
     
 

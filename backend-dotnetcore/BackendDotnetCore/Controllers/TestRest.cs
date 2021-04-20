@@ -21,14 +21,14 @@ namespace BackendDotnetCore.Controllers
         public MessageResponse Test()
 
         {
-            return new MessageResponse("Hello");
+            return new MessageResponse("Xin chào","Hello");
         }
         [HttpGet("/")]
 
         public MessageResponse Mai()
 
         {
-            return new MessageResponse("Hello");
+            return new MessageResponse("Xin chào", "Hello");
         }
         [HttpGet("actionresult")]
 
@@ -36,7 +36,7 @@ namespace BackendDotnetCore.Controllers
 
         {
             
-            return Ok(new MessageResponse("Hello"));
+            return Ok(new MessageResponse("Xin chào","Hello"));
         }
 
         private AccountDAO dao;
