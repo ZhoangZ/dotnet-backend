@@ -78,7 +78,7 @@ namespace BackendDotnetCore.DAO
 
             if (brand_id > 0)
             {
-                 Console.WriteLine(brand_id);
+                Console.WriteLine(brand_id);
                 tmp = tmp.Where(x => x.Brand.Id == brand_id);
             }
 
@@ -151,7 +151,86 @@ namespace BackendDotnetCore.DAO
             return rs;
 
         }
-    
+        public int getCount(string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id)
+
+        {
+            
+            var tmp = dbContext.Products.Where(X => X.deleted == false)
+
+              .Include(x => x.Specifics).ThenInclude(x => x.Ram)
+              .Include(x => x.Specifics).ThenInclude(x => x.Rom)
+              .Include(x => x.Brand)
+              .Include("Images")
+
+                //.Include("Informations")
+                ;
+            if (salePrice_lte != -1)
+            {
+                // Console.WriteLine(lgt);
+                tmp = tmp.Where(x => (x.SalePrice <= salePrice_lte));
+
+            }
+            if (salePrice_gte != -1)
+            {
+                // Console.WriteLine(gte);
+                tmp = tmp.Where(x => (x.SalePrice >= salePrice_gte));
+            }
+            if (salePrice_gte != -1)
+            {
+                // Console.WriteLine(gte);
+                tmp = tmp.Where(x => (x.SalePrice >= salePrice_gte));
+            }
+
+            if (brand_id > 0)
+            {
+                Console.WriteLine(brand_id);
+                tmp = tmp.Where(x => x.Brand.Id == brand_id);
+            }
+
+            /*if (rom_id > 0)
+            {
+                // Console.WriteLine(gte);
+                tmp = tmp.Where(x => x.S.Id == brand_id);
+            }*/
+
+            string[] strs = _sort.Split(",");
+            /*if (strs.Length == 0) 
+                strs[0] = sort ;
+                //strs = new string[] { sort };*/
+            foreach (var str in strs)
+            {
+                string key = str.ToLower();                
+                if (key.CompareTo("id:asc") == 0)
+                {
+                    //Console.WriteLine("asc");
+                    tmp = tmp.OrderBy(x => x.Id);
+
+                }
+                else if (key.CompareTo("id:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.Id);
+
+                }
+                else if (key.CompareTo("saleprice:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.SalePrice);
+
+                }
+                else if (key.CompareTo("saleprice:asc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderBy(x => x.SalePrice);
+
+                }
+            }
+
+            int rs = tmp.Count();
+            return rs;
+
+        }
+
         //phương thức insert into table product
         public Product2 AddProduct(Product2 Product)
         {

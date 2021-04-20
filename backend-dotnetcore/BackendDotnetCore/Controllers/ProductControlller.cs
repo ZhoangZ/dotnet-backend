@@ -30,7 +30,7 @@ namespace BackendDotnetCore.Controllers
             try
             {
                 List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id);
-                int toltal = ProductDAO.Total();
+                int toltal = ProductDAO.getCount(_sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id);
                 lst.setRequset(Request);
                 PageResponse pageResponse = new PageResponse();
                 pageResponse.Data = lst;
