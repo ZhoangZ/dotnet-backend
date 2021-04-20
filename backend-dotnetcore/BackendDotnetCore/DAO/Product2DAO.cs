@@ -78,15 +78,20 @@ namespace BackendDotnetCore.DAO
 
             if (brand_id > 0)
             {
-                Console.WriteLine(brand_id);
+                //Console.WriteLine(brand_id);
                 tmp = tmp.Where(x => x.Brand.Id == brand_id);
             }
 
-            /*if (rom_id > 0)
+            if (rom_id > 0)
             {
-                // Console.WriteLine(gte);
-                tmp = tmp.Where(x => x.S.Id == brand_id);
-            }*/
+                //Console.WriteLine("rom_id {0}", rom_id);               
+                tmp = tmp.Where(x => x.Specifics.Any(y => y.Rom.Id == rom_id));
+            }
+            if (ram_id > 0)
+            {
+                //Console.WriteLine("rom_id {0}", rom_id);               
+                tmp = tmp.Where(x => x.Specifics.Any(y => y.Ram.Id == ram_id));
+            }
 
             string [] strs=_sort.Split(",");
             /*if (strs.Length == 0) 
@@ -161,9 +166,12 @@ namespace BackendDotnetCore.DAO
               .Include(x => x.Specifics).ThenInclude(x => x.Rom)
               .Include(x => x.Brand)
               .Include("Images")
-
                 //.Include("Informations")
-                ;
+               ;
+           
+          
+
+
             if (salePrice_lte != -1)
             {
                 // Console.WriteLine(lgt);
@@ -183,15 +191,21 @@ namespace BackendDotnetCore.DAO
 
             if (brand_id > 0)
             {
-                Console.WriteLine(brand_id);
+                //Console.WriteLine(brand_id);
                 tmp = tmp.Where(x => x.Brand.Id == brand_id);
             }
-
-            /*if (rom_id > 0)
+            if (rom_id > 0)
             {
-                // Console.WriteLine(gte);
-                tmp = tmp.Where(x => x.S.Id == brand_id);
-            }*/
+                //Console.WriteLine("rom_id {0}", rom_id);               
+                tmp = tmp.Where(x => x.Specifics.Any(y => y.Rom.Id == rom_id));
+            }
+            if (ram_id > 0)
+            {
+                //Console.WriteLine("rom_id {0}", rom_id);               
+                tmp = tmp.Where(x => x.Specifics.Any(y => y.Ram.Id == ram_id));
+            }
+
+
 
             string[] strs = _sort.Split(",");
             /*if (strs.Length == 0) 
