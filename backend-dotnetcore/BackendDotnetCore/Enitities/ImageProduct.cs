@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +14,9 @@ namespace BackendDotnetCore.Enitities
     [Table("image_product")]
     public class ImageProduct
     {
+        [Key]
+        [Column("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         [JsonIgnore]
         [Column("IMAGE")]

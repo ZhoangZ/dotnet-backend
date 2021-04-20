@@ -21,12 +21,12 @@ namespace BackendDotnetCore.Enitities
         [Column("SaleRate")]
         public uint promotionPercents { get; set; }
         public string Name { get; set; }
-        [Column("id_brand")]
-        public string Brand { get; set; }
-        [Column("Memory")]
+       // [Column("id_brand")]
+        public Brand Brand { get; set; }
+       /* [Column("Memory")]
         public int Memory { get; set; }
         [Column("RAM")]
-        public int Ram { get; set; }
+        public int Ram { get; set; }*/
         [Column("DELETED")]
         [JsonIgnore]
         public bool deleted { get; set; }

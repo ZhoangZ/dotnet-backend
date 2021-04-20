@@ -40,36 +40,55 @@ namespace BackendDotnetCore.DAO
             var tmp = dbContext.Products.Where(s => s.Id == Id).Where(X => X.deleted == false)
 
                 .Include(x => x.Specifics).ThenInclude(x => x.Ram).Include(x => x.Specifics)
-                .ThenInclude(x => x.Rom).Include("Images").Include(x => x.Informations)
+                .ThenInclude(x => x.Rom).Include("Images").Include(x => x.Informations).Include(x => x.Brand)
                       ;
          
             return tmp.FirstOrDefault(); 
 
         }
-        public List<Product2> getList(int _page, int _limit, string sort, int lgt, int gte)
+        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id)
 
         {
             _page=(_page<=0)?1:_page;
             var tmp = dbContext.Products.Where(X => X.deleted == false)
 
-              //.Include(x => x.Specifics).ThenInclude(x => x.Ram)
-              //.Include(x => x.Specifics).ThenInclude(x => x.Rom)
+              .Include(x => x.Specifics).ThenInclude(x => x.Ram)
+              .Include(x => x.Specifics).ThenInclude(x => x.Rom)
+              .Include(x => x.Brand)
               .Include("Images")
+              
               //.Include("Informations")
                 ;
-            if (lgt != -1)
+            if (salePrice_lte != -1)
             {
                // Console.WriteLine(lgt);
-                tmp = tmp.Where(x => (x.SalePrice  <= lgt ));
+                tmp = tmp.Where(x => (x.SalePrice  <= salePrice_lte ));
 
             }
-            if (gte != -1)
+            if (salePrice_gte != -1)
             {
                // Console.WriteLine(gte);
-                tmp = tmp.Where(x => (x.SalePrice  >= gte));
+                tmp = tmp.Where(x => (x.SalePrice  >= salePrice_gte));
+            }
+            if (salePrice_gte != -1)
+            {
+                // Console.WriteLine(gte);
+                tmp = tmp.Where(x => (x.SalePrice >= salePrice_gte));
             }
 
-            string [] strs=sort.Split(",");
+            if (brand_id > 0)
+            {
+                 Console.WriteLine(brand_id);
+                tmp = tmp.Where(x => x.Brand.Id == brand_id);
+            }
+
+            /*if (rom_id > 0)
+            {
+                // Console.WriteLine(gte);
+                tmp = tmp.Where(x => x.S.Id == brand_id);
+            }*/
+
+            string [] strs=_sort.Split(",");
             /*if (strs.Length == 0) 
                 strs[0] = sort ;
                 //strs = new string[] { sort };*/
@@ -177,10 +196,20 @@ namespace BackendDotnetCore.DAO
         }
         public List<Brand> GetBrands()
         {
-            //dbContext.B
-            return null;
+
+            return dbContext.Brands.ToList();
         }
-    
+        public List<RomEntity> GetRoms()
+        {
+
+            return dbContext.Roms.ToList();
+        }
+        public List<RamEntity> GetRams()
+        {
+
+            return dbContext.Rams.ToList();
+        }
+
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BackendDotnetCore.Response;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,7 @@ namespace BackendDotnetCore.Controllers
       
         [HttpGet("product/{filename}")]
 
-        public async Task<IActionResult> test(string filename)
+        public async Task<IActionResult> imageProduct(string filename)
 
         {
            
@@ -25,7 +26,21 @@ namespace BackendDotnetCore.Controllers
                 var imageFileStream = System.IO.File.OpenRead(f);
                 return File(imageFileStream, "image/jpeg");
             }
-            return Ok();
+            return BadRequest(new MessageResponse("Hình có thể đã bị xóa.", "Not found image"));
+        }
+        [HttpGet("brand/{filename}")]
+
+        public async Task<IActionResult> iconBrand(string filename)
+
+        {
+
+            if (FileProcess.FileProcess.fileIsExists("brand\\" + filename))
+            {
+                string f = FileProcess.FileProcess.getFullPath("brand\\" + filename);
+                var imageFileStream = System.IO.File.OpenRead(f);
+                return File(imageFileStream, "image/jpeg");
+            }
+            return BadRequest(new MessageResponse("Hình có thể đã bị xóa.", "Not found image"));
         }
     }
 }

@@ -31,7 +31,7 @@ namespace BackendDotnetCore.Configurations
 
 
             
-             builder.Property<int>("rom_id");
+            builder.Property<int>("rom_id");
             builder.HasOne(x => x.Rom)
                 .WithMany(x => x.Product2Specifics)
                 .HasForeignKey("rom_id");

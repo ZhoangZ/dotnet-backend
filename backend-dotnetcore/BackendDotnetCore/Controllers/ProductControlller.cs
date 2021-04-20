@@ -24,11 +24,12 @@ namespace BackendDotnetCore.Controllers
         //lấy danh sách dữ liệu sản phẩm theo tiêu chí
         [HttpGet("list")]
         [HttpGet("/products")]
-        public ActionResult GetAllProducts(int _limit=10, int _page=1, string _sort = "id:asc", int salePrice_lte = -1, int salePrice_gte = -1)
+        public ActionResult GetAllProducts(int _limit=10, int _page=1, string _sort = "id:asc", int salePrice_lte = -1, int salePrice_gte = -1
+            , int brand_id =0, int rom_id =0, int ram_id=0)
         {
             try
             {
-                List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte);
+                List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id);
                 int toltal = ProductDAO.Total();
                 lst.setRequset(Request);
                 PageResponse pageResponse = new PageResponse();
@@ -38,6 +39,7 @@ namespace BackendDotnetCore.Controllers
             }
             catch(Exception e)
             {
+                Console.WriteLine(e.Message);
                 return BadRequest(new MessageResponse("Không lấy được danh sách sản phẩm.", "None product take"));
             }
           
@@ -46,13 +48,15 @@ namespace BackendDotnetCore.Controllers
         [HttpGet]
         [HttpGet("{_id}")]
         //lấy ra một sản phẩm theo id dùng cho trang chi tiết sản phẩm,...
-        public ActionResult GetOneProductById(int _id)
+        public ActionResult GetOneProductById(int _id, int id)
         {
             //Console.WriteLine(_id);
             try
             {
-                Product2 product = ProductDAO.getProduct(_id);
-                if (product == null) return BadRequest();
+                int tmp = _id;
+                if (id != 0) tmp = id;
+                Product2 product = ProductDAO.getProduct(tmp);
+                if (product == null) return BadRequest(tmp);
                 product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);
                 });
@@ -60,6 +64,7 @@ namespace BackendDotnetCore.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return BadRequest(new MessageResponse("Không lấy được sản phẩm.", "None product take"));
             }
            
@@ -81,6 +86,7 @@ namespace BackendDotnetCore.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return BadRequest(new MessageResponse("Thao tác không thành công.", "Request failture"));
             }
            
@@ -100,6 +106,7 @@ namespace BackendDotnetCore.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return BadRequest(new MessageResponse("Thao tác không thành công.", "Request failture"));
             }
            
@@ -133,12 +140,79 @@ namespace BackendDotnetCore.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return BadRequest(new MessageResponse("Thao tác không thành công.", "Request failture"));
             }
 
         
             
         }
+       
+        [HttpGet("brands")]
+       
+        public ActionResult GetBrand()
+        {
+           
+            try
+            {
+                List<Brand> product = ProductDAO.GetBrands();
+                if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
+                /*product.Images.ForEach(delegate (ImageProduct ip) {
+                    ip.setRequest(Request);
+                });*/
+                return Ok(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(new MessageResponse("Lỗi.", "Error"));
+            }
+
+        }
+        [HttpGet("rams")]
+
+        public ActionResult GetRam()
+        {
+
+            try
+            {
+                List<RamEntity> product = ProductDAO.GetRams();
+                if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
+                /*product.Images.ForEach(delegate (ImageProduct ip) {
+                    ip.setRequest(Request);
+                });*/
+                return Ok(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(new MessageResponse("Lỗi.", "Error"));
+            }
+
+        }
+
+        [HttpGet("roms")]
+
+        public ActionResult GetRom()
+        {
+
+            try
+            {
+                List<RomEntity> product = ProductDAO.GetRoms();
+                if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
+                /*product.Images.ForEach(delegate (ImageProduct ip) {
+                    ip.setRequest(Request);
+                });*/
+                return Ok(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(new MessageResponse("Lỗi.", "Error"));
+            }
+
+        }
+
 
 
     }

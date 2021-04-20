@@ -77,24 +77,7 @@ namespace BackendDotnetCore.Controllers
         }
        
 
-       /* [HttpGet("product/list")]
-        [HttpGet("products")]*/
-        public ActionResult testListProduct(int _limit=10,int _page=1, string sort ="idaz", int lte=-1, int gte=-1)
-
-
-        {
-          
-            List<Product2> lst = productDAO.getList(_page,_limit, sort,lte, gte);
-            int toltal=productDAO.Total();
-            lst.setRequset(Request);
-
-            PageResponse pageResponse = new PageResponse();
-            pageResponse.Data = lst;
-            pageResponse.Pagination = new Pagination(_limit,_page, toltal);
-
-
-            return Ok(pageResponse);
-        }
+       
        
     }
 }
