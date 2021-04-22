@@ -6709,7 +6709,7 @@ CREATE TABLE `product_2`  (
   `DESCRIPTION` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `AMOUNT` int(255) NOT NULL DEFAULT 0,
   `SALE_RATE` int(255) NULL DEFAULT NULL,
-  `DATE_SUBMITTED` datetime(0) NULL DEFAULT current_timestamp(0),
+  `DATE_SUBMITTED` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
   `AMOUNT_SOLD` int(255) NULL DEFAULT NULL,
   `OS` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `DELETED` bit(1) NULL DEFAULT b'0',
@@ -8195,10 +8195,10 @@ CREATE TABLE `role`  (
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `active` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '1',
-  `updated_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT current_timestamp(255),
-  `created_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT current_timestamp(255),
+  `updated_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT timestamp(255),
+  `created_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT timestamp(255),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role

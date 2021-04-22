@@ -19,6 +19,7 @@ namespace BackendDotnetCore.EF
         public DbSet<RoleEntity> roles { set; get; }
         public DbSet<ImageProduct> image_product { set; get; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Product2Specific> product2Specifics { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
