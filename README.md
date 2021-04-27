@@ -9,6 +9,17 @@ Hamachi:
 ```
 > DOTNET
 ```
+
+VNPAY: 
+- Username
+```
+> tanhoang99.999@gmail.com
+```
+- Password
+```
+> aA@12345
+```
+
 ## Hoang 
 
 | API | Status |

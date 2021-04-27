@@ -20,9 +20,19 @@ namespace BackendDotnetCore.Enitities
         [Column("logo")]
         [JsonIgnore]
         public string Logo { set; get; }
-        [Column("active")]
+
+        [Column("actived")]
         [JsonIgnore]
-        public bool Active { set; get; }
+        public bool Actived { set; get; }
+
+        [Column("deleted")]
+        [JsonIgnore]
+        public bool Deleted { set; get; }
+
+        [Column("amount")]
+        [JsonIgnore]
+        public bool Amount { set; get; }
+
         [JsonIgnore]
         public List<Product2> Product2s { get; set; }
 
