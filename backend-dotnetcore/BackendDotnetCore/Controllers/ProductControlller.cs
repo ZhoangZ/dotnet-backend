@@ -15,6 +15,7 @@ namespace BackendDotnetCore.Controllers
 {
     [ApiController]
     [Route("product")]
+    //[Route("products")]
     public class ProductControlller : ControllerBase
     {
         //auto wired productDAO
@@ -156,6 +157,27 @@ namespace BackendDotnetCore.Controllers
             try
             {
                 List<Brand> product = ProductDAO.GetBrands();
+                if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
+                /*product.Images.ForEach(delegate (ImageProduct ip) {
+                    ip.setRequest(Request);
+                });*/
+                return Ok(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(new MessageResponse("Lỗi.", "Error"));
+            }
+
+        }
+        [HttpGet("brands-actived")]
+
+        public ActionResult GetBrandActived()
+        {
+
+            try
+            {
+                List<Brand> product = ProductDAO.GetActivedBrands();
                 if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
                 /*product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);

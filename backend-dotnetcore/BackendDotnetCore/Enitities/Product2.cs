@@ -34,8 +34,13 @@ namespace BackendDotnetCore.Enitities
         public bool deleted { get; set; }
         [Column("price")]
         public long OriginalPrice { get; set; }
+
         [Column("DESCRIPTION")]
         public string Description { get; set; }
+
+        [Column("LONG_DESCRIPTION")]
+        public string longDescription { get; set; }
+
         [Column("DATE_SUBMITTED")]
         public DateTime CreatedAt { get; set; }
         [Column("AMOUNT_SOLD")]

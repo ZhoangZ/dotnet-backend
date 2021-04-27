@@ -292,6 +292,11 @@ namespace BackendDotnetCore.DAO
 
             return dbContext.Brands.ToList();
         }
+        public List<Brand> GetActivedBrands()
+        {
+
+            return dbContext.Brands.Where(e => e.Actived).ToList();
+        }
         public List<RomEntity> GetRoms()
         {
 
