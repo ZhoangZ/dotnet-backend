@@ -20,6 +20,14 @@ VNPAY:
 > aA@12345
 ```
 
+
+Tài khoản ngân hàng dùng để test thanh toán
+Ngân hàng NCB
+Số thẻ: 9704198526191432198
+Tên chủ thẻ: NGUYEN VAN A
+Ngày phát hành: 07/15
+Mật khẩu OTP: 123456
+
 ## Hoang 
 
 | API | Status |
