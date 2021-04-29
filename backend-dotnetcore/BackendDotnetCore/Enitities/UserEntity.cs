@@ -37,6 +37,7 @@ namespace BackendDotnetCore.Enitities
         public int Active { get; set; }
         
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual CommentEntity comment { set; get; }
 
 
 

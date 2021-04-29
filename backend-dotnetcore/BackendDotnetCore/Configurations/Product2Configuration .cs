@@ -32,6 +32,13 @@ namespace BackendDotnetCore.Configurations
             //forgein key brand
 
 
+            //forgein key one to one with comment
+
+            builder.HasOne(a => a.comment)
+            .WithOne(b => b.product)
+            .HasForeignKey<CommentEntity>(b => b.productID);
+
+
         }
     }
 }

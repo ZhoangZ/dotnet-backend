@@ -21,6 +21,7 @@ namespace BackendDotnetCore.EF
         public DbSet<ImageProduct> image_product { set; get; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Product2Specific> product2Specifics { set; get; }
+        public DbSet<CommentEntity> comments { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,9 +37,9 @@ namespace BackendDotnetCore.EF
             modelBuilder.ApplyConfiguration(new Configurations.Product2SpecificConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.RamConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.RomConfiguration());
-          
-            modelBuilder.ConvertToSnakeCase();
+            modelBuilder.ApplyConfiguration(new Configurations.CommentConfiguration());
 
+            modelBuilder.ConvertToSnakeCase();
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
