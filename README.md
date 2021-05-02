@@ -29,7 +29,6 @@ VNPAY:
 ```
 
 Tài khoản ngân hàng dùng để test thanh toán
-Ngân hàng NCB
 
 <table>
      <thead>
