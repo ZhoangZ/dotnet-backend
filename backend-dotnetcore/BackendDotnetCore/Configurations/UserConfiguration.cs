@@ -64,7 +64,11 @@ namespace BackendDotnetCore.Configurations
                      .WithMany()
                      .HasForeignKey"role_id"));*/
             
-
+            //foreign key one to one with comment
+          builder
+            .HasOne(a => a.comment)
+            .WithOne(b => b.user)
+            .HasForeignKey<CommentEntity>(b => b.userID);
         }
     }
 }

@@ -11,6 +11,9 @@ namespace BackendDotnetCore.DAO
     {
         private BackendDotnetDbContext dbContext;
         private ImageProductDAO imageProductDAO;
+
+        public object Product { get; private set; }
+
         public Product2DAO()
         {
             this.dbContext = new BackendDotnetDbContext();
@@ -244,6 +247,7 @@ namespace BackendDotnetCore.DAO
             return rs;
 
         }
+
 
         //phương thức insert into table product
         public Product2 AddProduct(Product2 Product)

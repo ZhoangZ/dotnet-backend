@@ -53,15 +53,15 @@ namespace BackendDotnetCore.Enitities
         public virtual List<ImageProduct> Images { get; set; }
         public virtual List<InformationProduct> Informations { get; set; }
         public virtual List<Product2Specific> Specifics { get; set; }
+        public virtual CommentEntity comment { get; set; }
 
+        /*  [NotMapped]
 
-      /*  [NotMapped]
-
-        public List<String> color
-        {
-            get;set;
-            //get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }
-        }*/
+          public List<String> color
+          {
+              get;set;
+              //get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }
+          }*/
 
         public Product2()
         {
