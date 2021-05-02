@@ -10,6 +10,7 @@ using System.Collections;
 using BackendDotnetCore.Response;
 using BackendDotnetCore.DAO;
 using BackendDotnetCore.Enitities;
+using System.Net.Http;
 
 namespace BackendDotnetCore.Controllers
 {
@@ -18,29 +19,37 @@ namespace BackendDotnetCore.Controllers
     public class VNPayREST : ControllerBase
     {
         private PaymentDAO paymentDAO;
-        public VNPayREST(PaymentDAO dao)
+        private HttpClient httpClient;
+        public VNPayREST(PaymentDAO dao, HttpClient httpClient)
         {
             this.paymentDAO = dao;
+            this.httpClient = httpClient;
         }
 
-        [HttpPost]
-        public ActionResult payment()
+        [HttpPost("donate")]
+        public ActionResult donate([FromBody] DonateRequest donateRequest)
         {
             PaymentEntity paymentEntity = new PaymentEntity();
+            paymentEntity.Amount = donateRequest.Amount;
+            paymentEntity.CurrCode = donateRequest.Currcode;
+            paymentEntity.UrlReturn = donateRequest.UrlReturn;
+            paymentEntity.CreateTime =  DateTime.Now;
+            paymentEntity.IpAddress = "119.17.249.22";
             paymentEntity = this.paymentDAO.AddPayment(paymentEntity);
-            paymentEntity.gender();
+            paymentEntity.gender("https://localhost:25002/payment/donate");
             paymentEntity = this.paymentDAO.UpdatePayment(paymentEntity);
             return Ok(paymentEntity);
 
         }
-        [HttpGet("{id}")]
+        [HttpGet("donate/{id}")]
         public ActionResult GetPayment(int id)
         {
             if (id == 0) return BadRequest(new MessageResponse("Thiếu param id", "param request"));
             try
             {
                 PaymentEntity paymentEntity  = this.paymentDAO.getPayment(id);
-
+                paymentEntity= paymentEntity.querry(httpClient);
+                paymentEntity = this.paymentDAO.UpdatePayment(paymentEntity);
                 return Ok(paymentEntity);
             }
             catch(Exception e)
@@ -53,5 +62,13 @@ namespace BackendDotnetCore.Controllers
 
         }
 
+
     }
+    public class DonateRequest
+    {
+        public string Currcode { get; set; }
+        public string UrlReturn { get; set; }
+        public long Amount { get; set; }
+    }
+   
 }

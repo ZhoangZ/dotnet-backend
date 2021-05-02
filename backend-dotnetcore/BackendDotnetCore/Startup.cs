@@ -12,6 +12,7 @@ using BackendDotnetCore.Services;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using BackendDotnetCore.Middleware;
+using System.Net.Http;
 
 namespace BackendDotnetCore
 {
@@ -27,6 +28,7 @@ namespace BackendDotnetCore
         {
             
             services.AddSingleton<IRepository, Repository>();
+            services.AddSingleton<HttpClient, HttpClient>();
             services.AddSingleton<AccountDAO, AccountDAO>();
             services.AddSingleton<Product2DAO, Product2DAO>();
             services.AddSingleton<PaymentDAO, PaymentDAO>();
