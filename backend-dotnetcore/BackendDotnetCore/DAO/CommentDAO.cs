@@ -16,12 +16,20 @@ namespace BackendDotnetCore.DAO
         }
 
         //phuong thuc add comment
-        public CommentEntity Save(CommentEntity commentEntity)
+        public int Save(CommentEntity commentEntity)
         {
-            Console.WriteLine("Save comment="+commentEntity);
-            dbContext.comments.AddAsync(commentEntity);
-            dbContext.SaveChangesAsync();
-            return commentEntity;
+            int rs = 0;
+            var newComment = new CommentEntity()
+            {
+                active = 1,
+                content = commentEntity.content,
+                product = commentEntity.product,
+                user = commentEntity.user,
+
+            };
+            dbContext.Comments.Update(commentEntity);
+            rs = dbContext.SaveChanges();
+            return rs;
         }
     }
 }

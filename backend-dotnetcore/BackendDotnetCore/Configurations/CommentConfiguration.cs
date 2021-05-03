@@ -13,16 +13,14 @@ namespace BackendDotnetCore.Configurations
         public void Configure(EntityTypeBuilder<CommentEntity> builder)
         {
             builder.ToTable("comment");
-            builder.HasKey(e => e.id).HasAnnotation("DatabaseGenerated", "DatabaseGeneratedOption.Identity");
-            //builder.Property(e => e.userID).IsRequired().HasColumnName("user_id");
-            //builder.Property(e => e.productID).IsRequired().HasColumnName("product_id");
+            builder.HasKey(e => e.id);
             builder.Property(e => e.content).IsRequired().HasColumnName("content");
-            builder.HasOne(a => a.product)
-                   .WithOne(b => b.comment)
-                   .HasForeignKey<Product2>(b => b.Id).IsRequired();
-            builder.HasOne(a => a.user)
-                 .WithOne(b => b.comment)
-                 .HasForeignKey<UserEntity>(b => b.Id).IsRequired();
+
+            builder.HasOne(e => e.product).WithMany(b => b.comments);
+            builder.HasOne(e => e.user).WithOne(b => b.comment).IsRequired();
+          
+                   
+
 
 
         }

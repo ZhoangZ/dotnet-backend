@@ -18,8 +18,8 @@ namespace BackendDotnetCore.Configurations
             builder.HasKey(e => e.Id);
             builder.Navigation(b => b.UserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Property);
+            
 
-          
             /*  builder.Navigation(b => b.Roles)
                .UsePropertyAccessMode(PropertyAccessMode.Property);*/
 
@@ -51,24 +51,22 @@ namespace BackendDotnetCore.Configurations
                  }
 
                  );*/
-             
-             /*builder.HasMany(p => p.Roles)
-             .WithMany(p => p.Users)
-             .UsingEntity<Dictionary<string, object>>("user_role",
-                  j => j
-                     .HasOne<UserEntity>()
-                     .WithMany()
-                     .HasForeignKey("users_id"),
+
+            /*builder.HasMany(p => p.Roles)
+            .WithMany(p => p.Users)
+            .UsingEntity<Dictionary<string, object>>("user_role",
                  j => j
-                     .HasOne<RoleEntity>()
-                     .WithMany()
-                     .HasForeignKey"role_id"));*/
-            
-            //foreign key one to one with comment
-          builder
-            .HasOne(a => a.comment)
-            .WithOne(b => b.user)
-            .HasForeignKey<CommentEntity>(b => b.userID);
+                    .HasOne<UserEntity>()
+                    .WithMany()
+                    .HasForeignKey("users_id"),
+                j => j
+                    .HasOne<RoleEntity>()
+                    .WithMany()
+                    .HasForeignKey"role_id"));*/
+
+         
+         
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 using BackendDotnetCore.Models;
 using BackendDotnetCore.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,15 @@ namespace BackendDotnetCore.Configurations
         public CommentController(IUserService userService)
         {
             this.userService = userService;
+            this.userDAO = new UserDAO();
+            this.product2DAO = new Product2DAO();
+            this.commentDAO = new CommentDAO();
         }
 
         [HttpPost("new")]
-        public CommentEntity postComment(CommentEntity commentPost)
+        public CommentEntity postComment([FromBody] CommentDTO commentPost)
         {
-           
+            Console.WriteLine(commentPost);
             if(commentPost.userID == 0) 
             { 
                 Console.WriteLine("Vui lòng đăng nhập trước khi thực hiện chức năng comment.");
@@ -36,10 +40,9 @@ namespace BackendDotnetCore.Configurations
             }
             else
              {
-                userDAO = new UserDAO();
-                product2DAO = new Product2DAO();
+              
                 CommentEntity commentResponse = new CommentEntity();
-                commentResponse.userID = commentPost.userID;
+               // commentResponse.userID = commentPost.userID;
                 commentResponse.user = userDAO.getOneById(commentPost.userID);
                 if (commentPost.productID == 0)
                 {
@@ -48,14 +51,21 @@ namespace BackendDotnetCore.Configurations
                 else
                 {
                     //save to table
-                    commentDAO = new CommentDAO();
-                    commentResponse.productID = commentPost.productID;
+                  
+                    //commentResponse.productID = commentPost.productID;
                     commentResponse.product = product2DAO.getProduct(commentPost.productID);
                     commentResponse.active = 1;
                     commentResponse.content = commentPost.content;
-                    commentResponse = commentDAO.Save(commentResponse);
-                   
-                    Console.WriteLine("Thêm thành công comment vào bảng!");
+                    int commentID = commentDAO.Save(commentResponse);
+                    if(commentID == 0)
+                    {
+                        Console.WriteLine("Khong thanh cong!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Thanh cong! Them vao id = " + commentID);
+                    }
+                    
                 }
                 return commentResponse;
              }

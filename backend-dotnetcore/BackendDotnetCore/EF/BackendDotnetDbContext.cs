@@ -21,7 +21,7 @@ namespace BackendDotnetCore.EF
         public DbSet<ImageProduct> image_product { set; get; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Product2Specific> product2Specifics { set; get; }
-        public DbSet<CommentEntity> comments { set; get; }
+        public DbSet<CommentEntity> Comments { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

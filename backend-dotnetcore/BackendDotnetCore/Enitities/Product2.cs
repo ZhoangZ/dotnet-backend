@@ -53,7 +53,7 @@ namespace BackendDotnetCore.Enitities
         public virtual List<ImageProduct> Images { get; set; }
         public virtual List<InformationProduct> Informations { get; set; }
         public virtual List<Product2Specific> Specifics { get; set; }
-        public virtual CommentEntity comment { get; set; }
+        public virtual List<CommentEntity> comments { get; set; }
 
         /*  [NotMapped]
 
