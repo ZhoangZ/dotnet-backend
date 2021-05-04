@@ -15,11 +15,11 @@ namespace BackendDotnetCore.Configurations
             builder.ToTable("comment");
             builder.HasKey(e => e.id);
             builder.Property(e => e.content).IsRequired().HasColumnName("content");
+            builder.Property(e => e.productID).IsRequired().HasColumnName("product_id");
+            builder.Property(e => e.userID).IsRequired().HasColumnName("user_id");
 
-            builder.HasOne(e => e.product).WithMany(b => b.comments);
-            builder.HasOne(e => e.user).WithOne(b => b.comment).IsRequired();
-          
-                   
+            builder.HasOne(x => x.user).WithOne(u => u.comment).IsRequired().HasForeignKey<UserEntity>(e => e.Id);
+            builder.HasOne(x => x.Product).WithMany(p => p.comments).IsRequired();
 
 
 

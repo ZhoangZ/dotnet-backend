@@ -1,5 +1,6 @@
 ﻿using BackendDotnetCore.EF;
 using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +19,16 @@ namespace BackendDotnetCore.DAO
         //phuong thuc add comment
         public int Save(CommentEntity commentEntity)
         {
-            int rs = 0;
-            var newComment = new CommentEntity()
+            var cmt = new CommentEntity()
             {
                 active = 1,
                 content = commentEntity.content,
-                product = commentEntity.product,
-                user = commentEntity.user,
-
+                productID = commentEntity.productID,
+                userID = commentEntity.userID
             };
-            dbContext.Comments.Update(commentEntity);
-            rs = dbContext.SaveChanges();
-            return rs;
+            dbContext.Comments.Add(cmt);
+            dbContext.SaveChanges();
+            return cmt.id;
         }
     }
 }

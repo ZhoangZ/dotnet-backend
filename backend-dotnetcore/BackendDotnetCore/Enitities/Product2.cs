@@ -57,7 +57,7 @@ namespace BackendDotnetCore.Enitities
 
         /*  [NotMapped]
 
-          public List<String> color
+          public List<String> color0
           {
               get;set;
               //get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }

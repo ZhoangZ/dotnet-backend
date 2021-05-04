@@ -19,10 +19,14 @@ namespace BackendDotnetCore.Enitities
         public int active { set; get; }
 
         [JsonIgnore]
-        public virtual Product2 product { set; get; }
-
-      
         public virtual UserEntity user { set; get; }
+        public int userID { set; get; }
+
+        [JsonIgnore]
+        public virtual Product2 Product { set; get; }
+        public int productID { set; get; }
+
+     
 
 
         public override String ToString()

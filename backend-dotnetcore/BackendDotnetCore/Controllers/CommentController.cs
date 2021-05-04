@@ -32,7 +32,7 @@ namespace BackendDotnetCore.Configurations
         [HttpPost("new")]
         public CommentEntity postComment([FromBody] CommentDTO commentPost)
         {
-            Console.WriteLine(commentPost);
+            
             if(commentPost.userID == 0) 
             { 
                 Console.WriteLine("Vui lòng đăng nhập trước khi thực hiện chức năng comment.");
@@ -42,8 +42,8 @@ namespace BackendDotnetCore.Configurations
              {
               
                 CommentEntity commentResponse = new CommentEntity();
-               // commentResponse.userID = commentPost.userID;
-                commentResponse.user = userDAO.getOneById(commentPost.userID);
+                commentResponse.userID = commentPost.userID;
+                //commentResponse.user = userDAO.getOneById(commentPost.userID);
                 if (commentPost.productID == 0)
                 {
                     Console.WriteLine("Lỗi request không có productID");
@@ -51,9 +51,9 @@ namespace BackendDotnetCore.Configurations
                 else
                 {
                     //save to table
-                  
-                    //commentResponse.productID = commentPost.productID;
-                    commentResponse.product = product2DAO.getProduct(commentPost.productID);
+                    commentResponse.productID = commentPost.productID;
+                    commentResponse.Product = product2DAO.getProduct(commentPost.productID);
+                    commentResponse.user = userDAO.getOneById(commentPost.userID);
                     commentResponse.active = 1;
                     commentResponse.content = commentPost.content;
                     int commentID = commentDAO.Save(commentResponse);

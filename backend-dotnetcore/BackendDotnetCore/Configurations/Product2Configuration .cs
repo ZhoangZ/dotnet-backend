@@ -32,11 +32,9 @@ namespace BackendDotnetCore.Configurations
             //forgein key brand
 
 
-            //forgein key one to one with comment
-            builder.HasMany(c => c.comments)
-                   .WithOne(e => e.product);
 
 
+            builder.HasMany(x => x.comments).WithOne(e => e.Product);
         }
     }
 }
