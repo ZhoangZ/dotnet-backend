@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 
 namespace BackendDotnetCore.Configurations
 {
-    class Product2Configuration : IEntityTypeConfiguration<Enitities.Product2>
+    class Product2Configuration : IEntityTypeConfiguration<Product2>
     {
         public void Configure(EntityTypeBuilder<Product2> builder)
         {

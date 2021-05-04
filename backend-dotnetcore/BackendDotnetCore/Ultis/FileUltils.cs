@@ -1,4 +1,4 @@
-﻿using BackendDotnetCore.Enitities;
+﻿using BackendDotnetCore.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

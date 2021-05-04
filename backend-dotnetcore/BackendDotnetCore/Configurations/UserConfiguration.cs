@@ -1,4 +1,4 @@
-﻿using BackendDotnetCore.Enitities;
+﻿using BackendDotnetCore.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Configurations
 {
-    public class UserConfiguration: IEntityTypeConfiguration<Enitities.UserEntity>
+    public class UserConfiguration: IEntityTypeConfiguration<UserEntity>
     {
         public void Configure(EntityTypeBuilder<UserEntity> builder)
         {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BackendDotnetCore.Enitities
+namespace BackendDotnetCore.Entities
 {
     internal class RequireAttribute : Attribute
     {

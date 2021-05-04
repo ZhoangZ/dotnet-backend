@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using BackendDotnetCore.Response;
 using BackendDotnetCore.DAO;
-using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 using System.Net.Http;
 
 namespace BackendDotnetCore.Controllers

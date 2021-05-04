@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BackendDotnetCore.Enitities
+namespace BackendDotnetCore.Entities
 {
     //[Table("role")]
     public class RoleEntity
@@ -28,10 +28,10 @@ namespace BackendDotnetCore.Enitities
         public string Type { set; get; }
 
         [Column("created_by")]
-        public string Created_by { set; get; }
+        public DateTime Created_by { set; get; }
 
         [Column("updated_by")]
-        public string Update_by { set; get; }
+        public DateTime Update_by { set; get; }
 
         [Column("active")]
         public int Active { set; get; }

@@ -1,4 +1,4 @@
-﻿using BackendDotnetCore.Enitities;
+﻿using BackendDotnetCore.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Configurations
 {
-    public class RoleEntityConfiguration : IEntityTypeConfiguration<Enitities.RoleEntity>
+    public class RoleEntityConfiguration : IEntityTypeConfiguration<RoleEntity>
     {
         public void Configure(EntityTypeBuilder<RoleEntity> builder)
         {

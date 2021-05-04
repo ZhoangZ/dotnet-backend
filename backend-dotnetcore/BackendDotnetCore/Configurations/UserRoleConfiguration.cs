@@ -1,4 +1,4 @@
-﻿using BackendDotnetCore.Enitities;
+﻿using BackendDotnetCore.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Configurations
 {
-    public class UserRoleConfiguration : IEntityTypeConfiguration<Enitities.UserRole>
+    public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {

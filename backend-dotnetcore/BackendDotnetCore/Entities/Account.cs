@@ -1,32 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace BackendDotnetCore.Enitities
+namespace BackendDotnetCore.Entities
 {
-    [Table("information_product")]
-    public class InformationProduct
+    public class Account
     {
-       
-        public long Id { get; set; }
-       
-        [Column("CONTENT_FIELD")]
-        public string content { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public int Active { get; set; }
+        public int Delete { get; set; }
+        public int Level { get; set; }
+        public string Avatar { get; set; }
 
-        [Column("NAME_FIELD")]
-        public string name { get; set; }
-
-
-
-
-        [JsonIgnore]
-        public Product2 Product { get; set; }
 
         public override String ToString()
         {

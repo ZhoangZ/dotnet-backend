@@ -6,18 +6,24 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BackendDotnetCore.Enitities
+namespace BackendDotnetCore.Entities
 {
-    public class RamEntity
+    public class UserRole
+
+
     {
         [Key]
         [Column("id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+       
 
-        [Column("ram")]
-        public string Ram { get; set; }
         [JsonIgnore]
-        public List<Product2Specific> Product2Specifics { get; set; }
+        public virtual UserEntity User { set; get; }
+      //  [JsonIgnore]  
+      
+        public virtual RoleEntity Role { set; get; }
+
+
+
     }
 }
