@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BackendDotnetCore.DAO;
-using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 using System.Collections;
 using BackendDotnetCore.Ultis;
 using BackendDotnetCore.Models;

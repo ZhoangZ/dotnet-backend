@@ -1,5 +1,5 @@
 ﻿using BackendDotnetCore.EF;
-using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

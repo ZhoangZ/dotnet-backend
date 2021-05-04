@@ -10,7 +10,7 @@ using BackendDotnetCore.Entities;
 using BackendDotnetCore.Helpers;
 using BackendDotnetCore.Models;
 using BackendDotnetCore.DAO;
-using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 
 namespace BackendDotnetCore.Services
 {

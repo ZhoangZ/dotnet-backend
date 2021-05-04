@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using BackendDotnetCore.Consts;
 using BackendDotnetCore.DAO;
-using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 using BackendDotnetCore.Froms;
 using Newtonsoft.Json;
 using System;

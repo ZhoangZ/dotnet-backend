@@ -1,5 +1,5 @@
 ﻿using BackendDotnetCore.DAO;
-using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

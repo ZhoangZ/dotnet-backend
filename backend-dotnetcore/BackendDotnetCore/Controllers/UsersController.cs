@@ -2,7 +2,7 @@
 using BackendDotnetCore.Models;
 using BackendDotnetCore.Services;
 using System;
-using BackendDotnetCore.Enitities;
+using BackendDotnetCore.Entities;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using BackendDotnetCore.Entities;

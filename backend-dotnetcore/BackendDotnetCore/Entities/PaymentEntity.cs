@@ -12,7 +12,7 @@ using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BackendDotnetCore.Enitities
+namespace BackendDotnetCore.Entities
 {
     [Table("payment")]
     public class PaymentEntity

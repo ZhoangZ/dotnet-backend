@@ -6,18 +6,25 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BackendDotnetCore.Enitities
+namespace BackendDotnetCore.Entities
 {
-    public class RomEntity
+    public class Product2Specific
     {
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-       
-        [Column("rom")]
-        public string Rom { get; set; }
+        [Column("color")]
+        public string Color { get; set; }
+        [Column("amount")]
+        public uint Amount { get; set; }
+
+        [Column("price")]
+        public uint Price { get; set; }
+
+        public RamEntity Ram { get; set; }
+        public RomEntity Rom { get; set; }
         [JsonIgnore]
-        public List<Product2Specific> Product2Specifics { get; set; }
+        public Product2 Product { get; set; }
     }
 }

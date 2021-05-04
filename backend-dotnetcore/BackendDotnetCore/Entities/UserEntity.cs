@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BackendDotnetCore.Enitities
+namespace BackendDotnetCore.Entities
 {
     //[Table("users")]
     public class UserEntity

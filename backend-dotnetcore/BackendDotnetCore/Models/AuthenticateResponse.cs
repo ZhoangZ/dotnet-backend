@@ -1,5 +1,4 @@
-﻿using BackendDotnetCore.Enitities;
-using BackendDotnetCore.Entities;
+﻿using BackendDotnetCore.Entities;
 
 namespace BackendDotnetCore.Models
 {

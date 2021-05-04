@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BackendDotnetCore.Enitities
+namespace BackendDotnetCore.Entities
 {
     //[Table("product_2")]
     public class Product2
