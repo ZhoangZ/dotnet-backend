@@ -49,7 +49,7 @@ namespace BackendDotnetCore.DAO
             return tmp.FirstOrDefault(); 
 
         }
-        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id)
+        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot)
 
         {
             _page=(_page<=0)?1:_page;
@@ -94,6 +94,11 @@ namespace BackendDotnetCore.DAO
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
                 tmp = tmp.Where(x => x.Specifics.Any(y => y.Ram.Id == ram_id));
+            }
+            if (isHot > 0)
+            {
+                //Console.WriteLine("rom_id {0}", rom_id);               
+                tmp = tmp.Where(x => x.IsHot==true);
             }
 
             string [] strs=_sort.Split(",");
@@ -152,6 +157,32 @@ namespace BackendDotnetCore.DAO
                     tmp = tmp.OrderBy(x => x.SalePrice);
 
                 }
+                // sort CreatedAt
+                else if (key.CompareTo("createdat:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.CreatedAt);
+
+                }
+                else if (key.CompareTo("createdat:asc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderBy(x => x.CreatedAt);
+
+                }
+                // sort AmoutSold
+                else if (key.CompareTo("amountsold:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.AmoutSold);
+
+                }
+                else if (key.CompareTo("amountsold:asc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderBy(x => x.AmoutSold);
+
+                }
             }
 
             List < Product2 > rs= tmp.Skip(_limit * (_page - 1)).Take(_limit)
@@ -159,7 +190,7 @@ namespace BackendDotnetCore.DAO
             return rs;
 
         }
-        public int getCount(string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id)
+        public int getCount(int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot)
 
         {
             
@@ -207,41 +238,15 @@ namespace BackendDotnetCore.DAO
                 //Console.WriteLine("rom_id {0}", rom_id);               
                 tmp = tmp.Where(x => x.Specifics.Any(y => y.Ram.Id == ram_id));
             }
-
-
-
-            string[] strs = _sort.Split(",");
-            /*if (strs.Length == 0) 
-                strs[0] = sort ;
-                //strs = new string[] { sort };*/
-            foreach (var str in strs)
+            if (isHot > 0)
             {
-                string key = str.ToLower();                
-                if (key.CompareTo("id:asc") == 0)
-                {
-                    //Console.WriteLine("asc");
-                    tmp = tmp.OrderBy(x => x.Id);
-
-                }
-                else if (key.CompareTo("id:desc") == 0)
-                {
-                    //Console.WriteLine("desc");
-                    tmp = tmp.OrderByDescending(x => x.Id);
-
-                }
-                else if (key.CompareTo("saleprice:desc") == 0)
-                {
-                    //Console.WriteLine("desc");
-                    tmp = tmp.OrderByDescending(x => x.SalePrice);
-
-                }
-                else if (key.CompareTo("saleprice:asc") == 0)
-                {
-                    //Console.WriteLine("desc");
-                    tmp = tmp.OrderBy(x => x.SalePrice);
-
-                }
+                //Console.WriteLine("rom_id {0}", rom_id);               
+                tmp = tmp.Where(x => x.IsHot==true);
             }
+
+
+
+            
 
             int rs = tmp.Count();
             return rs;

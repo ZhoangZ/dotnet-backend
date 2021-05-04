@@ -26,12 +26,12 @@ namespace BackendDotnetCore.Controllers
         [HttpGet("list")]
         [HttpGet("/products")]
         public ActionResult GetAllProducts(int _limit = 10, int _page = 1, string _sort = "id:asc", int salePrice_lte = -1, int salePrice_gte = -1
-            , int brand_id = 0, int rom_id = 0, int ram_id = 0)
+            , int brand_id = 0, int rom_id = 0, int ram_id = 0, int isHot =0)
         {
             try
             {
-                List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id);
-                int toltal = ProductDAO.getCount(_sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id);
+                List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot);
+                int toltal = ProductDAO.getCount(salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot);
                 lst.setRequset(Request);
                 PageResponse pageResponse = new PageResponse();
                 pageResponse.Data = lst;
