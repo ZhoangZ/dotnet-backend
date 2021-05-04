@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using BackendDotnetCore.Entities;
+using BackendDotnetCore.Enitities;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        var user = (User)context.HttpContext.Items["User"];
+        var user = (Account)context.HttpContext.Items["User"];
         if (user == null)
         {
             // not logged in

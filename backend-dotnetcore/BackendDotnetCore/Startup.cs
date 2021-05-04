@@ -26,7 +26,7 @@ namespace BackendDotnetCore
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddHttpContextAccessor();
             services.AddSingleton<IRepository, Repository>();
             services.AddSingleton<HttpClient, HttpClient>();
             services.AddSingleton<AccountDAO, AccountDAO>();

@@ -16,13 +16,9 @@ namespace BackendDotnetCore.Models
         {
             Id = user.Id;
             ac = user;
-            Token = token;
-        }
-        public AuthenticateResponse(User user, string token)
-        {
-            Id = user.Id;
             Username = user.Username;
             Token = token;
         }
+       
     }
 }

@@ -3,6 +3,9 @@ using BackendDotnetCore.Models;
 using BackendDotnetCore.Services;
 using System;
 using BackendDotnetCore.Enitities;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using BackendDotnetCore.Entities;
 
 namespace WebApi.Controllers
 {
@@ -12,7 +15,7 @@ namespace WebApi.Controllers
     {
         private IUserService _userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IHttpContextAccessor httpContextAccessor)
         {
             _userService = userService;
         }
@@ -32,16 +35,12 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _userService.GetAll();
-            return Ok(users);
+            
+            Account user= (Account)HttpContext.Items["User"];
+            Console.WriteLine(user);
+            return Ok(user);
         }
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            var users = _userService.GetAll();
-            return Ok(users);
-        }
-
+       
 
         [HttpGet("reset-pass")]
         public string ResetPassword(string email)
