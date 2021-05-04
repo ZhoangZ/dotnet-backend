@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 04/05/2021 20:24:57
+ Date: 04/05/2021 21:27:47
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `product_2`  (
   `LONG_DESCRIPTION` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `AMOUNT` int(255) NOT NULL DEFAULT 0,
   `SALE_RATE` int(255) NULL DEFAULT NULL,
-  `DATE_SUBMITTED` datetime(0) NULL DEFAULT current_timestamp(0),
+  `DATE_SUBMITTED` datetime(0) NULL DEFAULT utc_timestamp,
   `AMOUNT_SOLD` int(255) NULL DEFAULT NULL,
   `OS` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `DELETED` bit(1) NULL DEFAULT b'0',
