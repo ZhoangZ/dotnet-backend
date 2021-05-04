@@ -40,7 +40,6 @@ namespace BackendDotnetCore.Configurations
             }
             else
              {
-              
                 CommentEntity commentResponse = new CommentEntity();
                 commentResponse.userID = commentPost.userID;
                 //commentResponse.user = userDAO.getOneById(commentPost.userID);
@@ -63,6 +62,7 @@ namespace BackendDotnetCore.Configurations
                     }
                     else
                     {
+                        commentResponse.id = commentID;
                         Console.WriteLine("Thanh cong! Them vao id = " + commentID);
                     }
                     
