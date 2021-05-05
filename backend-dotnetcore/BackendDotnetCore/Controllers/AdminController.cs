@@ -56,7 +56,7 @@ namespace BackendDotnetCore.Controllers
                 userEntity.UserRoles.Add(us);
                 userEntity.Password = EncodeUltis.MD5(userEntity.Password);
                 Console.WriteLine(userEntity);
-                int id = userDAO.Save(userEntity);
+                int id = userDAO.Save1(userEntity);
                 userEntity.Id = id;
                 return userEntity;
             }
