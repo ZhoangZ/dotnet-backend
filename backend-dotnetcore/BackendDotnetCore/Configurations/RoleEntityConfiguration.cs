@@ -16,6 +16,8 @@ namespace BackendDotnetCore.Configurations
             builder.ToTable("role")
                 .HasKey(e => e.Id).HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.Identity);
 
+          
+
             /*builder.HasMany(x => x.UserRoles)
               .WithOne(x => x.Role)
               .HasForeignKey("role_id");
@@ -24,7 +26,7 @@ namespace BackendDotnetCore.Configurations
             .UsePropertyAccessMode(PropertyAccessMode.Property);
             */
 
-           
+
 
         }
     }

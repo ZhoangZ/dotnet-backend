@@ -18,7 +18,7 @@ namespace BackendDotnetCore.Configurations
             builder.HasKey(e => e.Id);
             builder.Navigation(b => b.UserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Property);
-            
+
 
             /*  builder.Navigation(b => b.Roles)
                .UsePropertyAccessMode(PropertyAccessMode.Property);*/
@@ -64,8 +64,15 @@ namespace BackendDotnetCore.Configurations
                     .WithMany()
                     .HasForeignKey"role_id"));*/
 
-         
-         
+
+            builder.HasOne(a => a.roleCreate)
+             .WithOne(b => b.userCreate)
+             .HasForeignKey<RoleEntity>(b => b.Created_by);
+
+            builder.HasOne(a => a.roleUpdate)
+           .WithOne(b => b.userUpdate)
+           .HasForeignKey<RoleEntity>(b => b.Update_by);
+
 
         }
     }

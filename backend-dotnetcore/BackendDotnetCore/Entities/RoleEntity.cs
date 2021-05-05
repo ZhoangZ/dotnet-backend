@@ -30,11 +30,11 @@ namespace BackendDotnetCore.Entities
         [Column("created_by")]
         public int Created_by { set; get; }
 
-        //public virtual UserEntity userCreate { set; get; }
+        public virtual UserEntity userCreate { set; get; }
         [Column("updated_by")]
         public int Update_by { set; get; }
 
-        //public virtual UserEntity userUpdate { set; get; }
+        public virtual UserEntity userUpdate { set; get; }
 
         [Column("active")]
         public int Active { set; get; }
