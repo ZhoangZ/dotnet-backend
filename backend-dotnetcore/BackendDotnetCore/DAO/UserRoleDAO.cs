@@ -25,7 +25,14 @@ namespace BackendDotnetCore.DAO
 
                 //? LAY RA ROLE_ID CUA user_role co id
                 int role_id = dbContext.UserRoles.Where(u => u.Id == r.Id).Select(u => u.Role.Id).SingleOrDefault();
-                r.Role = dbContext.roles.FromSqlRaw("SELECT * FROM role WHERE id={0}", role_id).SingleOrDefault();
+                r.Role = (from role in dbContext.roles
+                          where role.Id == role_id
+                          select new RoleEntity
+                          {
+                              Id = role.Id,
+                              Name = role.Name,
+                              Type = role.Type
+                          }).ToList()[0];
             }
             return userRoles;
         }

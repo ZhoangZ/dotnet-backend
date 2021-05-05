@@ -35,6 +35,8 @@ namespace BackendDotnetCore.Entities
         public int Blocked { get; set; }
         [Column("active")]
         public int Active { get; set; }
+        [Column("avatar")]
+        public string Avatar { set; get; }
         
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual CommentEntity comment { set; get; }

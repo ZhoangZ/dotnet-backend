@@ -2,6 +2,7 @@
 using BackendDotnetCore.Entities;
 using BackendDotnetCore.Forms;
 using BackendDotnetCore.Services;
+using BackendDotnetCore.Ultis;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,18 +29,17 @@ namespace BackendDotnetCore.Controllers
         [HttpPost("register")]
         public string DoRegisterAccount([FromBody] UserEntity userEntity)
         {
-            
             if (userEntity.checkUserInfo() == true)
             {
-
                 userEntity.Active = 1;
-                var role = UserDAO.GetRoleFirst();
+                RoleEntity role = UserDAO.GetRoleFirst();
                 UserRole us = new UserRole();
                 us.Role = role;
                 us.User = userEntity;
                 userEntity.UserRoles = new List<UserRole>();
                 userEntity.UserRoles.Add(us);
                 Console.WriteLine(userEntity);
+                userEntity.Password = EncodeUltis.MD5(userEntity.Password);
                 UserDAO.Save2(userEntity);
                 return "a record user has be insert into table!";
             }

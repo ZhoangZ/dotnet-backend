@@ -24,6 +24,20 @@ namespace BackendDotnetCore.DAO
             return roleEntity;
         }
 
+        //lay ra cac role hien co trong he thong
+        public List<RoleEntity> getAllRole()
+        {
+            var roles = from r in dbContext.roles
+                        select new RoleEntity
+                        {
+                            Id = r.Id,
+                            Name = r.Name,
+                            Type = r.Type
+                        };
+            return roles.ToList();
+        }
+
+
         
 
     }

@@ -28,16 +28,18 @@ namespace BackendDotnetCore.Entities
         public string Type { set; get; }
 
         [Column("created_by")]
-        public DateTime Created_by { set; get; }
+        public int Created_by { set; get; }
 
+        //public virtual UserEntity userCreate { set; get; }
         [Column("updated_by")]
-        public DateTime Update_by { set; get; }
+        public int Update_by { set; get; }
+
+        //public virtual UserEntity userUpdate { set; get; }
 
         [Column("active")]
         public int Active { set; get; }
        
         [JsonIgnore]
-        
         public virtual ICollection<UserRole> UserRoles { get; set; }
 
 

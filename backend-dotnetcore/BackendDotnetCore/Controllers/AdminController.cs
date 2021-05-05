@@ -1,5 +1,6 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.Entities;
+using BackendDotnetCore.Ultis;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,10 +17,12 @@ namespace BackendDotnetCore.Controllers
 
         private RoleDAO roleDAO = new RoleDAO();
         private UserDAO userDAO = new UserDAO();
+
         [HttpGet]
-        public string GetAllElementRole(string roleName)
+        public List<RoleEntity> GetAllElementRole()
         {
-            return "";
+            List<RoleEntity> roles = roleDAO.getAllRole();
+            return roles;
         }
 
         [HttpPost("role")]
@@ -44,16 +47,17 @@ namespace BackendDotnetCore.Controllers
             {
               
                 userEntity.Active = 1;
-                var role=userDAO.GetRoleFirst();
-                /*   userEntity.Roles = new List<RoleEntity>();
-                   userEntity.Roles.Add(role);*/
+                var role = userDAO.GetRoleFirst();
+                
                 UserRole us = new UserRole();
                 us.Role = role;
                 us.User = userEntity;
                 userEntity.UserRoles = new List<UserRole>();
                 userEntity.UserRoles.Add(us);
+                userEntity.Password = EncodeUltis.MD5(userEntity.Password);
                 Console.WriteLine(userEntity);
-                userDAO.Save2(userEntity);
+                int id = userDAO.Save(userEntity);
+                userEntity.Id = id;
                 return userEntity;
             }
             else

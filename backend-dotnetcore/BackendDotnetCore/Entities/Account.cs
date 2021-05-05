@@ -17,6 +17,7 @@ namespace BackendDotnetCore.Entities
         public string Avatar { get; set; }
 
 
+
         public override String ToString()
         {
             Type objType = this.GetType();

@@ -18,9 +18,11 @@ namespace BackendDotnetCore.Controllers
     public class LoginController : ControllerBase
     {
         private AccountDAO dao;
+        private UserDAO userDAO;
         public LoginController(AccountDAO dao)
         {
             this.dao = dao;
+            this.userDAO = new UserDAO();
         }
         [HttpPost]
 
@@ -70,6 +72,55 @@ namespace BackendDotnetCore.Controllers
                 }
 
             }
+            return account;
+        }
+
+        [HttpPost("user")]
+        public UserEntity doLogin([FromBody] LoginForm loginForm)
+        {
+            UserEntity account = userDAO.loginMD5(loginForm.Username, loginForm.Password);
+
+            if (FileProcess.FileProcess.fileIsExists(account.Avatar))
+            {
+                byte[] b = System.IO.File.ReadAllBytes(FileProcess.FileProcess.getFullPath(account.Avatar));
+                account.Avatar = "data:image/png;base64," + Convert.ToBase64String(b);
+            }
+            if (account != null)
+            {
+
+                string jsonAcount = JsonConvert.SerializeObject(account);
+                HttpContext.Session.SetString(SessionConsts.CURRENT_ACCOUNT, jsonAcount);
+                if (loginForm.RemenberMe)
+                {
+                    string json = HttpContext.Session.GetString(SessionConsts.LOGIN_HISTORY);
+                    Console.WriteLine("Remenber Me");
+                    Console.WriteLine(json);
+                    Dictionary<int, UserEntity> dic = null;
+                    if (json != null)
+                    {
+                        try
+                        {
+                            dic = JsonConvert.DeserializeObject<Dictionary<int, UserEntity>>(json);
+
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                    }
+
+                    else
+                    {
+                        dic = new Dictionary<int, UserEntity>();
+                    }
+
+                    dic[account.Id] = account;
+                    string jsonHistoryAccount = JsonConvert.SerializeObject(dic);
+                    HttpContext.Session.SetString(SessionConsts.LOGIN_HISTORY, jsonHistoryAccount);
+                }
+                return account;
+            }
+           
             return account;
         }
 

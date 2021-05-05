@@ -15,19 +15,14 @@ namespace BackendDotnetCore.Configurations
         {
             builder.ToTable("role")
                 .HasKey(e => e.Id).HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.Identity);
-            //builder.Property(typeof(string), "name");
-            //builder.Property(typeof(string), "description");
-            //builder.Property(typeof(string), "type");
-            //builder.Property(typeof(string), "created_by");
-            //builder.Property(typeof(string), "updated_by");
-            //builder.Property(typeof(string), "active");
 
             /*builder.HasMany(x => x.UserRoles)
               .WithOne(x => x.Role)
-              .HasForeignKey("role_id");*/
+              .HasForeignKey("role_id");
 
-            /*builder.Navigation(b => b.UserRoles)
-            .UsePropertyAccessMode(PropertyAccessMode.Property);*/
+            builder.Navigation(b => b.UserRoles)
+            .UsePropertyAccessMode(PropertyAccessMode.Property);
+            */
 
            
 

@@ -24,7 +24,7 @@ namespace BackendDotnetCore.Configurations
                .UsePropertyAccessMode(PropertyAccessMode.Property);*/
 
 
-            /* builder.HasMany(x => x.UserRoles)
+            /*builder.HasMany(x => x.UserRoles)
              .WithOne(x => x.User)
              .HasForeignKey("role_id");*/
 

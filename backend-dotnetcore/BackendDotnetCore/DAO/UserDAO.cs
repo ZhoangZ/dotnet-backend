@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using BackendDotnetCore.Ultis;
+
 namespace BackendDotnetCore.DAO
 {
     public class UserDAO
@@ -16,24 +18,31 @@ namespace BackendDotnetCore.DAO
         }
 
         //phuong thuc insert into table user
-        public UserEntity Save(UserEntity UserEntity)
+        public int Save(UserEntity UserEntity)
+        {
+            dbContext.users.AddAsync(UserEntity);
+            dbContext.SaveChangesAsync();
+            return UserEntity.Id;
+        }
+        //phuong thuc insert into table user
+        public UserEntity Save2(UserEntity UserEntity)
         {
             dbContext.users.AddAsync(UserEntity);
             dbContext.SaveChangesAsync();
             return UserEntity;
         }
-        //phuong thuc insert into table user
-        public UserEntity Save2(UserEntity UserEntity)
-        {
-            dbContext.users.Add(UserEntity);
-            dbContext.SaveChanges();
-            return UserEntity;
-        }
         public RoleEntity GetRoleFirst()
         {
-            var role=dbContext.roles.First();
-            
-            return role;
+            var role = from r in dbContext.roles
+                       where r.Type == "2"
+                       select new RoleEntity
+                       {
+                           Id = r.Id,
+                           Name = r.Name,
+                           Type = r.Type
+                       };
+            return role.ToList()[0];
+
         }
         public UserEntity GetUserFirst()
         {
@@ -67,5 +76,47 @@ namespace BackendDotnetCore.DAO
             if (null == user) return null;
             return user;
         }
+
+       
+        public UserEntity loginMD5(string username, string password)
+        {
+            var passMD5 = EncodeUltis.MD5(password);
+            var account = (from u in dbContext.users
+                           where u.Username == username && u.Password == passMD5
+                           select new UserEntity
+                           {
+                               Id = u.Id,
+                               Username = u.Username,
+                               Email = u.Email,
+                               UserRoles = u.UserRoles,
+                               Avatar = u.Avatar
+                           }).ToList()[0];
+                          
+
+            return account;
+        }
+        public UserEntity login(string username, string password)
+        {
+            var passMD5 = EncodeUltis.MD5(password);
+            var account = dbContext.users.Where(x =>
+                (x.Username == username && x.Password == passMD5)
+            ).SingleOrDefault();
+
+            return account;
+        }
+        public int getIdByUsername(string username)
+        {
+            var account = dbContext.users.Where(x => x.Username == username).SingleOrDefault();
+            return account.Id;
+        }
+
+        public UserEntity getAccountByEmail(string email)
+        {
+            var account = dbContext.users.Where(x => x.Email == email).SingleOrDefault();
+            return account;
+
+        }
+       
+
     }
 }
