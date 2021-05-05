@@ -31,14 +31,14 @@ namespace BackendDotnetCore.Configurations
         [HttpPost("new")]
         public CommentEntity postComment([FromBody] CommentDTO commentPost)
         {
-            
-            if(commentPost.userID == 0) 
-            { 
+
+            if (commentPost.userID == 0)
+            {
                 Console.WriteLine("Vui lòng đăng nhập trước khi thực hiện chức năng comment.");
                 return null;
             }
             else
-             {
+            {
                 CommentEntity commentResponse = new CommentEntity();
                 commentResponse.userID = commentPost.userID;
                 //commentResponse.user = userDAO.getOneById(commentPost.userID);
@@ -55,7 +55,7 @@ namespace BackendDotnetCore.Configurations
                     commentResponse.active = 1;
                     commentResponse.content = commentPost.content;
                     int commentID = commentDAO.Save(commentResponse);
-                    if(commentID == 0)
+                    if (commentID == 0)
                     {
                         Console.WriteLine("Khong thanh cong!");
                     }
@@ -64,10 +64,19 @@ namespace BackendDotnetCore.Configurations
                         commentResponse.id = commentID;
                         Console.WriteLine("Thanh cong! Them vao id = " + commentID);
                     }
-                    
+
                 }
                 return commentResponse;
-             }
+            }
+        }
+
+        [HttpGet("all")]
+        public List<CommentEntity> getAllCommentByProductID(int productID)
+        {
+            Console.WriteLine("GetAllCommentByProductID = " + productID);
+            List<CommentEntity> listResult = commentDAO.getAllByProductID(productID);
+
+            return listResult;
         }
     }
 }

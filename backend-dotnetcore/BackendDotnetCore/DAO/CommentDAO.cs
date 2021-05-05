@@ -29,5 +29,13 @@ namespace BackendDotnetCore.DAO
             dbContext.SaveChanges();
             return cmt.id;
         }
+
+        //phuong thuc lay toan bo cac comment theo productID voi comment da duoc active
+        public List<CommentEntity> getAllByProductID(int productID)
+        {
+            List<CommentEntity> listRs = dbContext.Comments.Where(x => x.active == 1 && x.Product.Id == productID).ToList<CommentEntity>();
+            Console.WriteLine(listRs.Count);
+            return listRs;
+        }
     }
 }
