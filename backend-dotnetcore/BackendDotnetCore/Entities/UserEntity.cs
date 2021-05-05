@@ -16,6 +16,7 @@ namespace BackendDotnetCore.Entities
     {
         [Key]
         [Column("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Column("username")]
         [Require]
@@ -41,8 +42,8 @@ namespace BackendDotnetCore.Entities
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual CommentEntity comment { set; get; }
 
-        public virtual RoleEntity roleUpdate { get; set; }
-        public virtual RoleEntity roleCreate { get; set; }
+       /* public virtual RoleEntity roleUpdate { get; set; }
+        public virtual RoleEntity roleCreate { get; set; }*/
 
 
 

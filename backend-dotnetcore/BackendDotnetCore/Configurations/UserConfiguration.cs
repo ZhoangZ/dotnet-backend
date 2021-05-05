@@ -20,58 +20,16 @@ namespace BackendDotnetCore.Configurations
             .UsePropertyAccessMode(PropertyAccessMode.Property);
 
 
-            /*  builder.Navigation(b => b.Roles)
-               .UsePropertyAccessMode(PropertyAccessMode.Property);*/
+           
 
 
-            /*builder.HasMany(x => x.UserRoles)
-             .WithOne(x => x.User)
-             .HasForeignKey("role_id");*/
-
-            /*builder.HasMany(p => p.Roles)
-             .WithMany(p => p.Users)
-             .UsingEntity<UserRole>(
-                  j =>
-                  {
-                      j
-                        .HasOne(pt => pt.User)
-                        .WithMany(t => t.UserRoles)
-                        .HasForeignKey("users_id");
-                  },
-                 j => {
-                     j
-                   .HasOne(pt => pt.Role)
-                   .WithMany(p => p.UserRoles)
-                   .HasForeignKey("role_id");
-                 },
-                 j =>
-                 {
-
-                     j.HasKey(t => t.i);
-                 }
-
-                 );*/
-
-            /*builder.HasMany(p => p.Roles)
-            .WithMany(p => p.Users)
-            .UsingEntity<Dictionary<string, object>>("user_role",
-                 j => j
-                    .HasOne<UserEntity>()
-                    .WithMany()
-                    .HasForeignKey("users_id"),
-                j => j
-                    .HasOne<RoleEntity>()
-                    .WithMany()
-                    .HasForeignKey"role_id"));*/
-
-
-            builder.HasOne(a => a.roleCreate)
+            /*builder.HasOne(a => a.roleCreate)
              .WithOne(b => b.userCreate)
              .HasForeignKey<RoleEntity>(b => b.Created_by);
 
             builder.HasOne(a => a.roleUpdate)
            .WithOne(b => b.userUpdate)
-           .HasForeignKey<RoleEntity>(b => b.Update_by);
+           .HasForeignKey<RoleEntity>(b => b.Update_by);*/
 
 
         }

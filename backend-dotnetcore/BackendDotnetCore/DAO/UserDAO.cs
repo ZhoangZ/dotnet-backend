@@ -17,31 +17,19 @@ namespace BackendDotnetCore.DAO
             this.dbContext = new BackendDotnetDbContext();
         }
 
+        
         //phuong thuc insert into table user
-        public int Save(UserEntity UserEntity)
+        public UserEntity Save(UserEntity UserEntity)
         {
-            dbContext.users.AddAsync(UserEntity);
-            dbContext.SaveChangesAsync();
-            return UserEntity.Id;
-        }
-        //phuong thuc insert into table user
-        public UserEntity Save2(UserEntity UserEntity)
-        {
-            dbContext.users.AddAsync(UserEntity);
-            dbContext.SaveChangesAsync();
+            dbContext.users.Add(UserEntity);
+            dbContext.SaveChanges();
             return UserEntity;
         }
         public RoleEntity GetRoleFirst()
         {
-            var role = from r in dbContext.roles
-                       where r.Type == "2"
-                       select new RoleEntity
-                       {
-                           Id = r.Id,
-                           Name = r.Name,
-                           Type = r.Type
-                       };
-            return role.ToList()[0];
+            var role = dbContext.roles.Where(x => x.Type == "2");
+
+            return role.FirstOrDefault(); ;
 
         }
         public UserEntity GetUserFirst()

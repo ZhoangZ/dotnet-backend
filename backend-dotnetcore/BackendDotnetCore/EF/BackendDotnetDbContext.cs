@@ -15,7 +15,6 @@ namespace BackendDotnetCore.EF
         public DbSet<RamEntity> Rams { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Product2> Products { get; set; }
-        public DbSet<BaseEnity> BaseEnities { get; set; }
         public DbSet<UserEntity> users { set; get; }
         public DbSet<RoleEntity> roles { set; get; }
         public DbSet<ImageProduct> image_product { set; get; }

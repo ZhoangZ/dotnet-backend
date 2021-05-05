@@ -40,7 +40,7 @@ namespace BackendDotnetCore.Controllers
                 userEntity.UserRoles.Add(us);
                 Console.WriteLine(userEntity);
                 userEntity.Password = EncodeUltis.MD5(userEntity.Password);
-                UserDAO.Save2(userEntity);
+                UserDAO.Save(userEntity);
                 return "a record user has be insert into table!";
             }
             else

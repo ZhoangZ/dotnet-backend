@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Entities
 {
-    //[Table("role")]
+    [Table("role")]
     public class RoleEntity
     {   
         
@@ -27,14 +27,14 @@ namespace BackendDotnetCore.Entities
         [Column("type")]
         public string Type { set; get; }
 
-        [Column("created_by")]
+       /* [Column("created_by")]
         public int Created_by { set; get; }
 
         public virtual UserEntity userCreate { set; get; }
         [Column("updated_by")]
         public int Update_by { set; get; }
 
-        public virtual UserEntity userUpdate { set; get; }
+        public virtual UserEntity userUpdate { set; get; }*/
 
         [Column("active")]
         public int Active { set; get; }

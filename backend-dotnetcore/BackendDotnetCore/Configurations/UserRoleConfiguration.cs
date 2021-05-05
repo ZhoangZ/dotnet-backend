@@ -13,8 +13,8 @@ namespace BackendDotnetCore.Configurations
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.ToTable("user_role").HasKey(e => e.Id); ;
-            //builder.Property<int>("users_id");
-            //builder.Property<int>("role_id");
+            builder.Property<int>("users_id");
+            builder.Property<int>("role_id");
           
             builder.HasOne(bc => bc.User)
                   .WithMany(b => b.UserRoles)
