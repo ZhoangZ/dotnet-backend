@@ -76,9 +76,12 @@ namespace BackendDotnetCore.Controllers
         }
 
         [HttpPost("user")]
-        public UserEntity doLogin([FromBody] LoginForm loginForm)
+        public IActionResult doLogin([FromBody] LoginForm loginForm)
         {
+            Console.WriteLine("Login with: " + loginForm.Username + ", pass: " + loginForm.Password);
+            if (userDAO.getOneByUsername(loginForm.Username) == null) return BadRequest(new { message = "Username hoặc password không đúng!" });
             UserEntity account = userDAO.loginMD5(loginForm.Username, loginForm.Password);
+            if(account == null) return BadRequest(new { message = "Username hoặc password không đúng!" });
 
             if (FileProcess.FileProcess.fileIsExists(account.Avatar))
             {
@@ -87,9 +90,8 @@ namespace BackendDotnetCore.Controllers
             }
             if (account != null)
             {
-
-                string jsonAcount = JsonConvert.SerializeObject(account);
-                HttpContext.Session.SetString(SessionConsts.CURRENT_ACCOUNT, jsonAcount);
+                //string jsonAcount = JsonConvert.SerializeObject(account);
+                //HttpContext.Session.SetString(SessionConsts.CURRENT_ACCOUNT, jsonAcount);
                 if (loginForm.RemenberMe)
                 {
                     string json = HttpContext.Session.GetString(SessionConsts.LOGIN_HISTORY);
@@ -118,10 +120,10 @@ namespace BackendDotnetCore.Controllers
                     string jsonHistoryAccount = JsonConvert.SerializeObject(dic);
                     HttpContext.Session.SetString(SessionConsts.LOGIN_HISTORY, jsonHistoryAccount);
                 }
-                return account;
+                return Ok(account);
             }
-           
-            return account;
+
+            return Ok(account);
         }
 
         [HttpGet]

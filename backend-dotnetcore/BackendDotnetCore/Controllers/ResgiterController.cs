@@ -27,8 +27,11 @@ namespace BackendDotnetCore.Controllers
             this._userService = userService;
         }
         [HttpPost("register")]
-        public string DoRegisterAccount([FromBody] UserEntity userEntity)
+        public IActionResult DoRegisterAccount([FromBody] UserEntity userEntity)
         {
+            Console.WriteLine("Password = "+userEntity.Password);
+            if (UserDAO.getOneByUsername(userEntity.Username) != null) return BadRequest(new { message = "Username đã tồn tại trong hệ thống!" });
+            if (UserDAO.getOneByEmail(userEntity.Email) != null) return BadRequest(new { message = "Email đã tồn tại trong hệ thống!" });
             if (userEntity.checkUserInfo() == true)
             {
                 userEntity.Active = 1;
@@ -40,13 +43,15 @@ namespace BackendDotnetCore.Controllers
                 userEntity.UserRoles.Add(us);
                 Console.WriteLine(userEntity);
                 userEntity.Password = EncodeUltis.MD5(userEntity.Password);
-                UserDAO.Save(userEntity);
-                return "a record user has be insert into table!";
+                UserEntity uResp = UserDAO.Save(userEntity);
+                uResp.Password = "****";
+                return Ok(uResp);
             }
             else
             {
-                return "AccountInfo is not correct!"; 
+                return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng quay lại sau ít phút!" });
             }
+           
         }
     }
 }

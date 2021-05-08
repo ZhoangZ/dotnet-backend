@@ -21,9 +21,18 @@ namespace BackendDotnetCore.DAO
         //phuong thuc insert into table user
         public UserEntity Save(UserEntity UserEntity)
         {
-            dbContext.users.Add(UserEntity);
-            dbContext.SaveChanges();
-            return UserEntity;
+            if (getOneByEmail(UserEntity.Email) == null || getOneByUsername(UserEntity.Username) == null)
+            {
+                dbContext.users.Add(UserEntity);
+                dbContext.SaveChanges();
+                return UserEntity;
+            }
+            else
+            {
+                Console.WriteLine("Loi: Email hoac username dang ki da ton tai trong he thong!");
+                return null;
+            }
+            
         }
         public int Save1(UserEntity UserEntity)
         {
@@ -71,9 +80,23 @@ namespace BackendDotnetCore.DAO
             return user;
         }
 
+        public UserEntity getOneByEmail(string email)
+        {
+            var user = dbContext.users.Where(x => x.Email == email).SingleOrDefault();
+            return user;
+        }
+
+        public UserEntity getOneByUsername(string username)
+        {
+            var user = dbContext.users.Where(x => x.Username == username).SingleOrDefault();
+            return user;
+        }
        
         public UserEntity loginMD5(string username, string password)
         {
+            if (getOneByUsername(username) == null) return null;
+            UserRoleDAO userRoleDAO = new UserRoleDAO();
+            
             var passMD5 = EncodeUltis.MD5(password);
             var account = (from u in dbContext.users
                            where u.Username == username && u.Password == passMD5
@@ -82,10 +105,11 @@ namespace BackendDotnetCore.DAO
                                Id = u.Id,
                                Username = u.Username,
                                Email = u.Email,
-                               UserRoles = u.UserRoles,
                                Avatar = u.Avatar
-                           }).ToList()[0];
-                          
+                           }).SingleOrDefault();
+            List<UserRole> urs = userRoleDAO.getAllRoleOfUserId(account.Id);
+            account.UserRoles = urs;
+            Console.WriteLine("UserRole of User login = "+account.UserRoles.ToString());
 
             return account;
         }

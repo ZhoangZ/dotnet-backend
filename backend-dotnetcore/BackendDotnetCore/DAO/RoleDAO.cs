@@ -37,6 +37,20 @@ namespace BackendDotnetCore.DAO
             return roles.ToList();
         }
 
+        //lay ra ds cac role cua 1 user nao do
+        public List<RoleEntity> getAllRoleByUser(int userID)
+        {
+            var roles = from r in dbContext.UserRoles
+                        where r.User.Id == userID
+                        select new RoleEntity
+                        {
+                            Id = r.Role.Id,
+                            Name = r.Role.Name,
+                            Type = r.Role.Type
+                        };
+            return roles.ToList();
+        }
+
 
         
 
