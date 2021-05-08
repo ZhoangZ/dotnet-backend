@@ -107,6 +107,7 @@ namespace BackendDotnetCore.DAO
                                Email = u.Email,
                                Avatar = u.Avatar
                            }).SingleOrDefault();
+            if(null==account) return null;
             List<UserRole> urs = userRoleDAO.getAllRoleOfUserId(account.Id);
             account.UserRoles = urs;
             Console.WriteLine("UserRole of User login = "+account.UserRoles.ToString());

@@ -11,13 +11,15 @@ using BackendDotnetCore.Helpers;
 using BackendDotnetCore.Models;
 using BackendDotnetCore.DAO;
 using BackendDotnetCore.Entities;
+using BackendDotnetCore.Froms;
 
 namespace BackendDotnetCore.Services
 {
     public interface IUserService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-        
+
+        AuthenticateResponse loginAuthenticate(LoginForm model);
         bool checkEmail(string email);
 
         Account getAccountById(int accountId);
@@ -65,11 +67,33 @@ namespace BackendDotnetCore.Services
              return new AuthenticateResponse(account, token);
         }
 
-       
+        public AuthenticateResponse loginAuthenticate(LoginForm model)
+        {
+            var dao = new UserDAO();
+            var account = dao.loginMD5(model.Username, model.Password);
+            if (account == null) return null;
+            var token = generateJwtToken(account);
+            return new AuthenticateResponse(token, account);
+        }
 
-        
+        private string generateJwtToken(UserEntity account)
+        {
+            // generate token that is valid for 7 days
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("id", account.Id.ToString()) }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
 
-       
+
+
+
         private string generateJwtToken(Account account)
         {
             // generate token that is valid for 7 days
