@@ -97,7 +97,6 @@ namespace BackendDotnetCore.DAO
         {
             Console.WriteLine("UserDAO userID = " + userID);
             var user = dbContext.users.Where(x => x.Id == userID).SingleOrDefault();
-            Console.WriteLine("userDao resp " + user.Fullname);
             if (null == user) return null;
             return user;
         }

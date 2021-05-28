@@ -55,6 +55,8 @@ namespace BackendDotnetCore.Entities
         public virtual List<Product2Specific> Specifics { get; set; }
         public virtual List<CommentEntity> comments { get; set; }
 
+        public virtual ICollection<CartItemEntity> cartItems { set; get; }
+
         /*  [NotMapped]
 
           public List<String> color0

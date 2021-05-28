@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using BackendDotnetCore.Consts;
 using BackendDotnetCore.DAO;
 using BackendDotnetCore.Entities;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BackendDotnetCore.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace BackendDotnetCore.Controllers
 {
@@ -32,6 +32,7 @@ namespace BackendDotnetCore.Controllers
             if (userDAO.getOneByEmail(loginForm.Email) == null) return BadRequest(new { message = "Username hoặc password không đúng!" });
             var response = _userService.loginAuthenticateByEmail(loginForm);
             if (response == null) return BadRequest(new { message = "Username hoặc password không đúng!" });
+            HttpContext.Session.SetInt32("idUserSession", response.user.Id);
             return Ok(response);
 
         }

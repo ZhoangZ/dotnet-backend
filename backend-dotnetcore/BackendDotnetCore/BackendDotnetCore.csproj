@@ -13,10 +13,14 @@
    
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="5.0.4" />
    
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+   
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+   
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
     
     <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.0" />
     

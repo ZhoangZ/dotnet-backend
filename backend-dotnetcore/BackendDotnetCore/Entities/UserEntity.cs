@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -51,6 +52,8 @@ namespace BackendDotnetCore.Entities
 
         /* public virtual RoleEntity roleUpdate { get; set; }
          public virtual RoleEntity roleCreate { get; set; }*/
+
+        public virtual ICollection<CartItemEntity> CartItemEntities { set; get; } = new HashSet<CartItemEntity>();
 
        
         public bool checkUserInfo()

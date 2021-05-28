@@ -98,7 +98,6 @@ namespace BackendDotnetCore.Services
                 userResponse = dao.getOneByEmail(model.Email);
             }
             var token = generateJwtToken(userResponse);
-            Console.WriteLine("Token = "+token);
             return new AuthenticateResponse(token, userResponse);
         }
 
