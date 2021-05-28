@@ -39,20 +39,18 @@ namespace BackendDotnetCore.Controllers
             return Ok(new MessageResponse("Xin chào","Hello"));
         }
 
-        private AccountDAO dao;
         private Product2DAO productDAO;
-        public TestRest(AccountDAO dao, Product2DAO productDAO)
+        public TestRest(Product2DAO productDAO)
         {
-            this.dao = dao;
             this.productDAO = productDAO;
         }
-        [HttpGet("mysql")]
+       /* [HttpGet("mysql")]
         public ActionResult TestMySQL()
 
         {
 
             return Ok(dao.getAccount(1));
-        }
+        }*/
         [HttpGet("include")]
         public ActionResult TestInclude()
 

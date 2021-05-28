@@ -27,12 +27,7 @@ namespace BackendDotnetCore.Services
 
     public class UserService : IUserService
     {
-        private AccountDAO _accountDAO ;
-        public UserService()
-        {
-            _accountDAO = new AccountDAO();
-           
-        }
+       
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
        
 

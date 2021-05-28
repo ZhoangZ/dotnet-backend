@@ -29,7 +29,6 @@ namespace BackendDotnetCore
             services.AddHttpContextAccessor();
             services.AddSingleton<IRepository, Repository>();
             services.AddSingleton<HttpClient, HttpClient>();
-            services.AddSingleton<AccountDAO, AccountDAO>();
             services.AddSingleton<Product2DAO, Product2DAO>();
             services.AddSingleton<PaymentDAO, PaymentDAO>();
             services.AddSingleton<UserDAO, UserDAO>();

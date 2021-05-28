@@ -13,7 +13,7 @@ namespace BackendDotnetCore.EF
         public DbSet<PaymentEntity> Payments { get; set; }
         public DbSet<RomEntity> Roms { get; set; }
         public DbSet<RamEntity> Rams { get; set; }
-        public DbSet<Account> Accounts { get; set; }
+       
         public DbSet<Product2> Products { get; set; }
         public DbSet<UserEntity> users { set; get; }
         public DbSet<RoleEntity> roles { set; get; }
@@ -24,7 +24,7 @@ namespace BackendDotnetCore.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new Configurations.AccountConfiguration());
+            
             modelBuilder.ApplyConfiguration(new Configurations.Product2Configuration());
             //modelBuilder.ApplyConfiguration(new Configurations.BaseEnityConfiguration());
 

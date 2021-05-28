@@ -18,66 +18,14 @@ namespace BackendDotnetCore.Controllers
     [Route("api/login")]
     public class LoginController : ControllerBase
     {
-        private AccountDAO dao;
         private UserDAO userDAO;
         private IUserService _userService;
-        public LoginController(AccountDAO dao, IUserService userService)
+        public LoginController( IUserService userService)
         {
-            this.dao = dao;
             this.userDAO = new UserDAO();
             this._userService = userService;
         }
-        [HttpPost]
-
-        public Account login([FromBody] LoginForm loginForm)
-
-        {
-            Console.WriteLine(loginForm);
-            Account account = dao.loginMD5(loginForm.Username, loginForm.Password);
-            
-                if (FileProcess.FileProcess.fileIsExists(account.Avatar))
-                {
-                    byte[] b = System.IO.File.ReadAllBytes(FileProcess.FileProcess.getFullPath(account.Avatar));
-                    account.Avatar = "data:image/png;base64," + Convert.ToBase64String(b);
-                }
-            if (account != null)
-            {
-
-                string jsonAcount = JsonConvert.SerializeObject(account);
-                HttpContext.Session.SetString(SessionConsts.CURRENT_ACCOUNT, jsonAcount);
-                if (loginForm.RemenberMe)
-                {
-                    string json = HttpContext.Session.GetString(SessionConsts.LOGIN_HISTORY);
-                    Console.WriteLine("Remenber Me");
-                    Console.WriteLine(json);
-                    Dictionary<int, Account> dic = null;
-                    if (json != null)
-                    {
-                        try
-                        {
-                            dic = JsonConvert.DeserializeObject<Dictionary<int, Account>>(json);
-
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                    }
-
-                    else
-                    {
-                        dic = new Dictionary<int, Account>();
-                    }
-                    
-                    dic[account.Id]=account;
-                    string jsonHistoryAccount = JsonConvert.SerializeObject(dic);
-                    HttpContext.Session.SetString(SessionConsts.LOGIN_HISTORY, jsonHistoryAccount);
-                }
-
-            }
-            return account;
-        }
-
+        
         [HttpPost("user")]
         public IActionResult doLogin([FromBody] LoginForm loginForm)
         {
@@ -134,53 +82,9 @@ namespace BackendDotnetCore.Controllers
             //return Ok(account);
         }
 
-        [HttpGet]
-        public Account getCurrentAccount()
-        {
-            string json = HttpContext.Session.GetString(SessionConsts.CURRENT_ACCOUNT);
-            //Console.WriteLine(json);
+        
 
-            if (json != null)
-            {
-                try
-                {
-                    Account account = JsonConvert.DeserializeObject<Account>(json);
-
-
-                    
-                    return account;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
-            
-
-            return null;
-        }
-
-        [HttpGet("account-history")]
-        public IEnumerable<Account> lst(){
-           
-            string jsonListAccountHistory = HttpContext.Session.GetString(SessionConsts.LOGIN_HISTORY);
-
-            Console.WriteLine(jsonListAccountHistory);
-            Dictionary<int, Account> dic = null;
-            if (jsonListAccountHistory != null)
-            {
-                try
-                {
-                    dic = JsonConvert.DeserializeObject<Dictionary<int, Account>>(jsonListAccountHistory);
-                    return dic.Values;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
-            return null;
-        }
+        
 
     }
 }
