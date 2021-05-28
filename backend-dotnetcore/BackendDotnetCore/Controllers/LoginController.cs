@@ -182,5 +182,17 @@ namespace BackendDotnetCore.Controllers
             return null;
         }
 
+
+
+        [HttpPost("login2")]
+        public IActionResult DoLoginVer2([FromBody] LoginForm loginForm)
+        {
+            if (userDAO.getOneByEmail(loginForm.Email) == null) return BadRequest(new { message = "Username hoặc password không đúng!" });
+            var response = _userService.loginAuthenticateByEmail(loginForm);
+            if (response == null) return BadRequest(new { message = "Username hoặc password không đúng!" });
+            return Ok(response);
+
+        }
+
     }
 }

@@ -23,12 +23,18 @@ namespace BackendDotnetCore.Entities
         [Require]
         public string Username { get; set; }
         [Column("password")]
-        [Require]
-        public string Password { get; set; }
+        [Require]   
+        [JsonIgnore]
+        public string Password { set; get; }
         [Column("email")]
         [Require]
         public string Email { get; set; }
-
+        [Column("fullname")]
+        public string Fullname { set; get; }
+        [Column("phone")]
+        public string phone { set; get; }
+        [Column("address")]
+        public string address { set; get; }
         [Column("provider")]
         public string Provider { get; set; }
         [Column("confirmed")]
@@ -43,12 +49,10 @@ namespace BackendDotnetCore.Entities
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual CommentEntity comment { set; get; }
 
-       /* public virtual RoleEntity roleUpdate { get; set; }
-        public virtual RoleEntity roleCreate { get; set; }*/
+        /* public virtual RoleEntity roleUpdate { get; set; }
+         public virtual RoleEntity roleCreate { get; set; }*/
 
-
-
-
+       
         public bool checkUserInfo()
         {
             if(this.Username.Equals(" ") || this.Username.Equals(null))

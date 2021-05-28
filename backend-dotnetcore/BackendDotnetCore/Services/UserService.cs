@@ -20,20 +20,23 @@ namespace BackendDotnetCore.Services
         AuthenticateResponse Authenticate(AuthenticateRequest model);
 
         AuthenticateResponse loginAuthenticate(LoginForm model);
+        AuthenticateResponse loginAuthenticateByEmail(LoginForm model);
+        AuthenticateResponse createUserJWT(UserEntity model);
         bool checkEmail(string email);
 
         Account getAccountById(int accountId);
-
+        UserEntity getUserById(int userID);
+        bool save(UserEntity ue);
         bool save(Account account);
     }
 
     public class UserService : IUserService
     {
         private AccountDAO _accountDAO ;
+        public UserDAO userDAO = new UserDAO();
         public UserService()
         {
             _accountDAO = new AccountDAO();
-           
         }
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
        
@@ -47,15 +50,6 @@ namespace BackendDotnetCore.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-
-            /*  var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
-
-              if (user == null) return null;
-
-              // authentication successful so generate jwt token
-              var token = generateJwtToken(user);
-            return new AuthenticateResponse(user, token);
-             */
             var dao = new AccountDAO();
             if (_accountDAO == null)
                 Console.WriteLine("check");
@@ -111,11 +105,12 @@ namespace BackendDotnetCore.Services
 
         bool IUserService.checkEmail(string email)
         {
-            var dao = new AccountDAO();
-            if (_accountDAO == null)
-                Console.WriteLine("_accountDAO null");
+            //var dao = new AccountDAO();
+            //if (_accountDAO == null)
+            //    Console.WriteLine("_accountDAO null");
 
-            if (dao.getAccountByEmail(email) == null) return false;
+            //if (dao.getAccountByEmail(email) == null) return false;
+            if (null == userDAO.getOneByEmail(email)) return false;
             return true;
         }
 
@@ -138,6 +133,58 @@ namespace BackendDotnetCore.Services
             return true;
         }
 
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public AuthenticateResponse loginAuthenticateByEmail(LoginForm model)
+        {
+            var dao = new UserDAO();
+            UserEntity userResponse = null;
+            bool successed = dao.loginByEmailVer2(model.Email, model.Password);
+            if (successed == false)
+            {
+                Console.WriteLine("Login fail");
+                return null;
+            }
+            else
+            {
+                userResponse = dao.getOneByEmail(model.Email);
+            }
+            var token = generateJwtToken(userResponse);
+            return new AuthenticateResponse(token, userResponse);
+        }
+
+        ///
+        ///
+        //
+        public AuthenticateResponse createUserJWT(UserEntity model)
+        {
+            var dao = new UserDAO();
+            if (model.Id == 0)
+            {
+                Console.WriteLine("Resgiter fail");
+                return null;
+            }
+            else
+            {
+                var token = generateJwtToken(model);
+                return new AuthenticateResponse(token, model);
+            }
+        }
+
+        public UserEntity getUserById(int userID)
+        {
+            Console.WriteLine("userID  =" + userID);
+           return userDAO.getOneById(userID);
+        }
+
+        public bool save(UserEntity ue)
+        {
+            if(null != userDAO.Save(ue)) return true;
+            return false;
+        }
     }
 }

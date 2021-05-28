@@ -17,20 +17,41 @@ namespace BackendDotnetCore.DAO
             this.dbContext = new BackendDotnetDbContext();
         }
 
-        
+
         //phuong thuc insert into table user
-        public UserEntity Save(UserEntity UserEntity)
+        public UserEntity Save(UserEntity userEntity)
         {
-            if (getOneByEmail(UserEntity.Email) == null || getOneByUsername(UserEntity.Username) == null)
+            if (userEntity.Id == 0)
             {
-                dbContext.users.Add(UserEntity);
-                dbContext.SaveChanges();
-                return UserEntity;
+                if (getOneByEmail(userEntity.Email) == null || getOneByUsername(userEntity.Username) == null)
+                {
+                    Console.WriteLine("Them moi");
+                    dbContext.users.Add(userEntity);
+                    dbContext.SaveChanges();
+                    return userEntity;
+                }
+                else
+                {
+                    Console.WriteLine("Email đăng kí đã tồn tại trong hệ thống!");
+                    return null;
+                }
             }
             else
             {
-                Console.WriteLine("Loi: Email hoac username dang ki da ton tai trong he thong!");
-                return null;
+                Console.WriteLine("Cap nhat");
+                dbContext.users.Where(x => x.Id == userEntity.Id).AsNoTracking();
+                var local = dbContext.Set<UserEntity>()
+                                     .Local
+                                     .FirstOrDefault(entry => entry.Id.Equals(userEntity.Id));
+                    // check if local is not null 
+                    if (local != null)
+                    {
+                        // detach
+                        dbContext.Entry(local).State = EntityState.Detached;
+                    }
+                    dbContext.users.Update(userEntity);
+                    dbContext.SaveChanges();
+                    return userEntity;
             }
             
         }
@@ -74,8 +95,9 @@ namespace BackendDotnetCore.DAO
 
         public UserEntity getOneById(int userID)
         {
-           
-            var user = dbContext.users.Where(x => x.Id == userID).FirstOrDefault();
+            Console.WriteLine("UserDAO userID = " + userID);
+            var user = dbContext.users.Where(x => x.Id == userID).SingleOrDefault();
+            Console.WriteLine("userDao resp " + user.Fullname);
             if (null == user) return null;
             return user;
         }
@@ -136,6 +158,13 @@ namespace BackendDotnetCore.DAO
 
         }
        
+        //success
+        public bool loginByEmailVer2(string email, string password)
+        {
+            var userLogin = dbContext.users.Where(x => x.Email.Equals(email) && x.Password.Equals(EncodeUltis.MD5(password))).SingleOrDefault();
+            if (null != userLogin) return true;
+            return false;
+        }
 
     }
 }

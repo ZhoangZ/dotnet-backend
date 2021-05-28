@@ -11,6 +11,7 @@ namespace BackendDotnetCore.Froms
 
     {
         public string Username { get; set; }
+        public string Email { set; get; }
         public string Password { get; set; }
         public bool RemenberMe { get; set; }
 

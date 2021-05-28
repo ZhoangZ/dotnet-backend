@@ -6,6 +6,7 @@ using BackendDotnetCore.Entities;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using BackendDotnetCore.Entities;
+using BackendDotnetCore.Forms;
 
 namespace WebApi.Controllers
 {
@@ -97,6 +98,39 @@ namespace WebApi.Controllers
                 return account;
             }
         }
+
+        ///
+
+        ///
+        [HttpPut("edit-ver2/{id}")]
+        public IActionResult EditUserInfo(int id, UserEntity info)
+        {
+            Console.WriteLine("Edit user: "+id+", "+info.Fullname);
+            UserEntity ueUpdate = _userService.getUserById(id);
+            if (null != ueUpdate)
+            {
+                info.Id = id;
+                info.Password = ueUpdate.Password;
+                if (!ueUpdate.Email.Equals(info.Email))
+                    if (_userService.checkEmail(info.Email) == true) return BadRequest(new { message = "Email cập nhật đã tồn tại trong hệ thống! Thử lại với một mail khác." });
+                ueUpdate = info;
+                bool updated = _userService.save(ueUpdate);
+                if (updated == true)
+                {
+                    return Ok(_userService.createUserJWT(ueUpdate));
+                }
+                else
+                {
+                    return BadRequest(new { message = " Hệ thống đang gặp sự cố!" });
+                }
+            }
+            else
+            {
+                return  BadRequest(new { message= " Có lỗi xảy ra với user!"});
+            }
+        }
+
+       
        
     }
 }
