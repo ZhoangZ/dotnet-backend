@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using BackendDotnetCore.Models;
+﻿using BackendDotnetCore.Entities;
 using BackendDotnetCore.Services;
-using System;
-using BackendDotnetCore.Entities;
 using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using BackendDotnetCore.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace WebApi.Controllers
 {
@@ -20,29 +17,21 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate(AuthenticateRequest model)
-        {
-            var response = _userService.Authenticate(model);
-
-            if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
-            return Ok(response);
-        }
+       
 
         [Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {
-            
-            Account user= (Account)HttpContext.Items["User"];
+
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
             Console.WriteLine(user);
+            HttpContext.Items["User"] = null;
             return Ok(user);
         }
        
 
-        [HttpGet("reset-pass")]
+        /*[HttpGet("reset-pass")]
         public string ResetPassword(string email)
         {
             //chuoi tra ve cho nguoi dung xac nhan, co the check thoi gian ton tai cua ma
@@ -96,7 +85,7 @@ namespace WebApi.Controllers
             {
                 return account;
             }
-        }
+        }*/
        
     }
 }
