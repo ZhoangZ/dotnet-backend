@@ -11,33 +11,11 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 04/05/2021 21:27:55
+ Date: 28/05/2021 16:48:38
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for accounts
--- ----------------------------
-DROP TABLE IF EXISTS `accounts`;
-CREATE TABLE `accounts`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `active` int(1) NULL DEFAULT 1,
-  `delete` int(1) NULL DEFAULT 0,
-  `level` int(1) NULL DEFAULT 1,
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of accounts
--- ----------------------------
-INSERT INTO `accounts` VALUES (1, 'hoang', '202cb962ac59075b964b07152d234b70', 'tanhoang@gmail.com', 1, 0, 1, 'image/avatar/momo.webp');
-INSERT INTO `accounts` VALUES (2, 'quan', '202cb962ac59075b964b07152d234b70', 'hearterzouest99.999@gmail.com', 1, 0, 1, 'image/avatar/momo.webp');
 
 -- ----------------------------
 -- Table structure for brand
@@ -6533,17 +6511,19 @@ CREATE TABLE `payment`  (
   `url_return` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payment
 -- ----------------------------
-INSERT INTO `payment` VALUES (1, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=www.localhost.com&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=1&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=93ae49bb29f3cd834c2781e4d2c09122e7d0b9cd32e5cd524a00497fd747979a', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=1&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=64346c5311b46c2a9e3ca498c02b6b1e2f35ef0e4e9ad022e3e9c8bd14d42061', NULL, NULL);
-INSERT INTO `payment` VALUES (2, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=www.localhost.com&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=1&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=93ae49bb29f3cd834c2781e4d2c09122e7d0b9cd32e5cd524a00497fd747979a', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=2&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=b3a1c8a1ca9533432e39700ffc533116f2aa20c1372c6df4b4bc07bcca2cd1a2', NULL, 'https://localhost:25002');
-INSERT INTO `payment` VALUES (3, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=www.localhost.com&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=1&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=93ae49bb29f3cd834c2781e4d2c09122e7d0b9cd32e5cd524a00497fd747979a', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=3&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=d4dc025c80176debbcc06d1f740c7e15f6d411e5c745b4ae2ecf1439fb6cdeb2', 'vnp_Message=Request_is_duplicate&vnp_ResponseCode=94', 'https://localhost:25002');
-INSERT INTO `payment` VALUES (4, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=www.localhost.com&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=4&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=fa057711474d17086618d8be7d7f5fae52fa20612f3f64402c13c60131bf2bfd', NULL, NULL, 'https://localhost:25002');
-INSERT INTO `payment` VALUES (5, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/5&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=5&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=49374716e2d6b948b3c50498dae3dc2baecc4ba0f8e59447f7c0d8a25a59bd1c', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=5&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=46e669f95b656c5d03da395a06a6cfb43246d715a1a06ae663414265e4a1b85d', NULL, 'https://localhost:25002');
-INSERT INTO `payment` VALUES (6, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/6&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=6&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=2c93297b168637a684b9cb39ec5b57452d2ffaa38c61ed68498cf7c837a58bbf', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=6&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=2c8e501323e6528c488425c8b5e4f784fc26aa5048bca51582d93f8deccb787c', 'vnp_Amount=1000000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=00010101070000&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13497837&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=6&vnp_SecureHash=b573c378c55448fcb0646733697c0f341248196f85b2430fb4146960b34411c0', 'https://localhost:25002');
+INSERT INTO `payment` VALUES (1, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=www.localhost.com&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=1&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=93ae49bb29f3cd834c2781e4d2c09122e7d0b9cd32e5cd524a00497fd747979a', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=1&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=64346c5311b46c2a9e3ca498c02b6b1e2f35ef0e4e9ad022e3e9c8bd14d42061', NULL, 'https://localhost:25002/test/hello');
+INSERT INTO `payment` VALUES (2, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=www.localhost.com&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=1&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=93ae49bb29f3cd834c2781e4d2c09122e7d0b9cd32e5cd524a00497fd747979a', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=2&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=b3a1c8a1ca9533432e39700ffc533116f2aa20c1372c6df4b4bc07bcca2cd1a2', NULL, 'https://localhost:25002/test/hello');
+INSERT INTO `payment` VALUES (3, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=www.localhost.com&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=1&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=93ae49bb29f3cd834c2781e4d2c09122e7d0b9cd32e5cd524a00497fd747979a', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=3&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=d4dc025c80176debbcc06d1f740c7e15f6d411e5c745b4ae2ecf1439fb6cdeb2', 'vnp_Message=Request_is_duplicate&vnp_ResponseCode=94', 'https://localhost:25002/test/hello');
+INSERT INTO `payment` VALUES (4, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=www.localhost.com&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=4&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=fa057711474d17086618d8be7d7f5fae52fa20612f3f64402c13c60131bf2bfd', NULL, NULL, 'https://localhost:25002/test/hello');
+INSERT INTO `payment` VALUES (5, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/5&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=5&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=49374716e2d6b948b3c50498dae3dc2baecc4ba0f8e59447f7c0d8a25a59bd1c', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=5&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=46e669f95b656c5d03da395a06a6cfb43246d715a1a06ae663414265e4a1b85d', 'vnp_Amount=1000000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=00010101070000&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13497834&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=5&vnp_SecureHash=90d44d83ac94f941a115720370dd6b2737a271c84bdaa4c7c349766737982d50', 'https://localhost:25002/test/hello');
+INSERT INTO `payment` VALUES (6, NULL, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/6&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=6&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=2c93297b168637a684b9cb39ec5b57452d2ffaa38c61ed68498cf7c837a58bbf', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=6&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=2c8e501323e6528c488425c8b5e4f784fc26aa5048bca51582d93f8deccb787c', 'vnp_Amount=1000000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=00010101070000&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13497837&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=6&vnp_SecureHash=b573c378c55448fcb0646733697c0f341248196f85b2430fb4146960b34411c0', 'https://localhost:25002/test/hello');
+INSERT INTO `payment` VALUES (7, 7, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/7&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=7&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=ec4436df115760197ec7235e8fdec993212b2d1f52faa2e7cd143f14fbd4adae', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=7&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=c40f5f193f9f5c359a039db491df796ff32a6966498b6d3a96f63872ab79c565', 'vnp_Amount=1000000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=00010101070000&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13513705&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=7&vnp_SecureHash=b337d0575f69bd4f24a03487e22e65b76a86def68fd5b047ab73adeb01e465a9', 'https://localhost:25002/test/hello?hai=ha');
+INSERT INTO `payment` VALUES (8, 7, '0001-01-01 00:00:00', 1000000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/8&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=8&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=0146b9e635c45cd18d64eef4db92774df98e78f5e23eacf3b13b022cd6f331e9', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=8&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=8f4e78f7348eb7606f948483e92035a8055e5ac7d469210bcd358a7506ad4f21', 'vnp_Amount=1000000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=00010101070000&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13513716&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=8&vnp_SecureHash=6ac898e968f6c80d35ed09ec9c49392a9e7f6ec89b5aace5bcc03408b1f4fa0b', 'https://localhost:25002/test/hello?hai=ha');
 
 -- ----------------------------
 -- Table structure for pin
@@ -8228,8 +8208,8 @@ CREATE TABLE `role`  (
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `active` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '1',
-  `updated_by` datetime(0) NULL DEFAULT utc_timestamp,
-  `created_by` datetime(0) NULL DEFAULT utc_timestamp,
+  `updated_by` int(11) NULL DEFAULT utc_timestamp,
+  `created_by` int(11) NULL DEFAULT utc_timestamp,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -8336,13 +8316,15 @@ CREATE TABLE `user_role`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `users_id`(`users_id`) USING BTREE,
   CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES (1, 1, 1);
 INSERT INTO `user_role` VALUES (5, 1, 2);
+INSERT INTO `user_role` VALUES (9, 1, 4);
+INSERT INTO `user_role` VALUES (7, 1, 5);
 
 -- ----------------------------
 -- Table structure for users
@@ -8357,13 +8339,17 @@ CREATE TABLE `users`  (
   `blocked` bit(1) NULL DEFAULT b'0',
   `active` bit(1) NULL DEFAULT b'0',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'test', 'test', 'test', b'0', b'0', b'0', NULL);
-INSERT INTO `users` VALUES (5, 'ongminhdinh', 'ongdinh6@gmail.com', '', b'1', b'1', b'1', '1122');
+INSERT INTO `users` VALUES (1, 'test', 'test', 'test', b'0', b'0', b'0', NULL, NULL);
+INSERT INTO `users` VALUES (5, 'ongminhdinh', 'ongdinh6@gmail.com', '', b'1', b'1', b'1', '1122', NULL);
+INSERT INTO `users` VALUES (6, 'abc@gmail.com', 'abc@gmail.com', NULL, b'0', b'0', b'1', '12312', NULL);
+INSERT INTO `users` VALUES (7, 'nguyenvana', 'anguyen@gmail.com', NULL, b'0', b'0', b'0', '827ccb0eea8a706c4c34a16891f84e7b', 'image/avatar/momo.webp');
+INSERT INTO `users` VALUES (9, 'nguyenvanb', 'nguyenvanb@gmail.com', NULL, b'0', b'0', b'1', 'B3DDBC502E307665F346CBD6E52CC10D', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

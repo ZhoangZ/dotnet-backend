@@ -24,6 +24,8 @@ namespace BackendDotnetCore.Entities
 
         [Column("ip_address")]
         public string IpAddress { get; set; }
+        [Column("user_id")]
+        public long userId { get; set; }
 
         [Column("currcode")]
         public string CurrCode { get; set; }

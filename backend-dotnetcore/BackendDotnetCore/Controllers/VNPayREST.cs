@@ -27,17 +27,27 @@ namespace BackendDotnetCore.Controllers
         }
 
         [HttpPost("donate")]
+        [Authorize]
         public ActionResult donate([FromBody] DonateRequest donateRequest)
         {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+
+
             PaymentEntity paymentEntity = new PaymentEntity();
+            paymentEntity.userId = user.Id;
             paymentEntity.Amount = donateRequest.Amount;
             paymentEntity.CurrCode = donateRequest.Currcode;
             paymentEntity.UrlReturn = donateRequest.UrlReturn;
             paymentEntity.CreateTime =  DateTime.Now;
             paymentEntity.IpAddress = "119.17.249.22";
-            paymentEntity = this.paymentDAO.AddPayment(paymentEntity);
+            paymentEntity = paymentDAO.AddPayment(paymentEntity);
             paymentEntity.gender("https://localhost:25002/payment/donate");
-            paymentEntity = this.paymentDAO.UpdatePayment(paymentEntity);
+            paymentEntity = paymentDAO.UpdatePayment(paymentEntity);
             return Ok(paymentEntity);
 
         }
@@ -50,7 +60,11 @@ namespace BackendDotnetCore.Controllers
                 PaymentEntity paymentEntity  = this.paymentDAO.getPayment(id);
                 paymentEntity= paymentEntity.querry(httpClient);
                 paymentEntity = this.paymentDAO.UpdatePayment(paymentEntity);
-                return Ok(paymentEntity);
+                string urlReturn=paymentEntity.UrlReturn;
+                urlReturn=urlReturn.Substring(0, urlReturn.LastIndexOf("?"));
+                urlReturn += "?"+paymentEntity.ParamsUrlStatus;
+                return Ok(new { Url = urlReturn }) ;
+                //return Ok(paymentEntity);
             }
             catch(Exception e)
             {
