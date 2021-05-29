@@ -41,7 +41,7 @@ namespace BackendDotnetCore.Configurations
             {
                 CommentEntity commentResponse = new CommentEntity();
                 commentResponse.userID = commentPost.userID;
-                //commentResponse.user = userDAO.getOneById(commentPost.userID);
+                commentResponse.user = userDAO.getOneById(commentPost.userID);
                 if (commentPost.productID == 0)
                 {
                     Console.WriteLine("Lỗi request không có productID");

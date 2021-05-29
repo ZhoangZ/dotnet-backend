@@ -53,9 +53,8 @@ namespace BackendDotnetCore.Entities
         public virtual List<ImageProduct> Images { get; set; }
         public virtual List<InformationProduct> Informations { get; set; }
         public virtual List<Product2Specific> Specifics { get; set; }
-        public virtual List<CommentEntity> comments { get; set; }
-
-        public virtual ICollection<CartItemEntity> cartItems { set; get; }
+        public virtual List<CommentEntity> comments { get; set; } = new List<CommentEntity>();
+        public virtual ICollection<CartItemEntity> cartItems { set; get; } = new List<CartItemEntity>();
 
         /*  [NotMapped]
 

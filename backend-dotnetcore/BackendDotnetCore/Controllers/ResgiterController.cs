@@ -43,7 +43,6 @@ namespace BackendDotnetCore.Controllers
                 UserRole us = new UserRole();
                 us.Role = role;
                 us.User = userEntity;
-                userEntity.UserRoles = new List<UserRole>();
                 userEntity.UserRoles.Add(us);
                 userEntity.Password = EncodeUltis.MD5(userEntity.Password);
                 UserEntity uResp = UserDAO.Save(userEntity);

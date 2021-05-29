@@ -34,7 +34,6 @@ namespace BackendDotnetCore.DAO
         public List<CommentEntity> getAllByProductID(int productID)
         {
             List<CommentEntity> listRs = dbContext.Comments.Where(x => x.active == 1 && x.Product.Id == productID).ToList<CommentEntity>();
-            Console.WriteLine(listRs.Count);
             return listRs;
         }
     }

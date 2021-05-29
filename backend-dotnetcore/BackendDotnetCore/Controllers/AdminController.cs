@@ -43,9 +43,6 @@ namespace BackendDotnetCore.Controllers
         [HttpPost("user")]
         public UserEntity CreateUser(UserEntity userEntity)
         {
-            if (userEntity.checkUserInfo() == true)
-            {
-              
                 userEntity.Active = 1;
                 var role = userDAO.GetRoleFirst();
                 
@@ -59,11 +56,6 @@ namespace BackendDotnetCore.Controllers
                 int id = userDAO.Save1(userEntity);
                 userEntity.Id = id;
                 return userEntity;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         [HttpGet("users")]

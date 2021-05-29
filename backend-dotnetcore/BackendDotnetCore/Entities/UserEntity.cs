@@ -46,27 +46,10 @@ namespace BackendDotnetCore.Entities
         public int Active { get; set; }
         [Column("avatar")]
         public string Avatar { set; get; }
-        
-        public virtual ICollection<UserRole> UserRoles { get; set; }
-        public virtual CommentEntity comment { set; get; }
 
-        /* public virtual RoleEntity roleUpdate { get; set; }
-         public virtual RoleEntity roleCreate { get; set; }*/
-
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
+        public virtual ICollection<CommentEntity> comments { set; get; } = new List<CommentEntity>();
         public virtual ICollection<CartItemEntity> CartItemEntities { set; get; } = new HashSet<CartItemEntity>();
-
-       
-        public bool checkUserInfo()
-        {
-            if(this.Username.Equals(" ") || this.Username.Equals(null))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
         
 
     }

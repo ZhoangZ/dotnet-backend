@@ -6,6 +6,7 @@ using BackendDotnetCore.Entities;
 using BackendDotnetCore.Forms;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using BackendDotnetCore.DAO;
 
 namespace WebApi.Controllers
 {
@@ -55,7 +56,6 @@ namespace WebApi.Controllers
         [HttpPut("edit/{id}")]
         public IActionResult EditUserInfo(int id, UserEntity info)
         {
-            Console.WriteLine("Edit user: "+id+", "+info.Fullname);
             UserEntity ueUpdate = _userService.getUserById(id);
             if (null != ueUpdate)
             {
@@ -64,6 +64,7 @@ namespace WebApi.Controllers
                 if (!ueUpdate.Email.Equals(info.Email))
                     if (_userService.checkEmail(info.Email) == true) return BadRequest(new { message = "Email cập nhật đã tồn tại trong hệ thống! Thử lại với một mail khác." });
                 ueUpdate = info;
+                ueUpdate.UserRoles = new UserRoleDAO().getAllRoleOfUserId(id);
                 bool updated = _userService.save(ueUpdate);
                 if (updated == true)
                 {

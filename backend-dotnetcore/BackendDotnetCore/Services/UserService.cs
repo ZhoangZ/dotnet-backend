@@ -96,6 +96,7 @@ namespace BackendDotnetCore.Services
             else
             {
                 userResponse = dao.getOneByEmail(model.Email);
+                userResponse.UserRoles = new UserRoleDAO().getAllRoleOfUserId(userResponse.Id);
             }
             var token = generateJwtToken(userResponse);
             return new AuthenticateResponse(token, userResponse);
