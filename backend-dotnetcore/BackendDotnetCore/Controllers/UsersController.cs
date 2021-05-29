@@ -7,6 +7,11 @@ using BackendDotnetCore.Forms;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using BackendDotnetCore.DAO;
+using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
+using System.Text;
+using BackendDotnetCore.Ultis;
 
 namespace WebApi.Controllers
 {
@@ -35,24 +40,69 @@ namespace WebApi.Controllers
         }
        
 
-        [HttpGet("reset-pass")]
-        public string ResetPassword(string email)
+        [HttpGet("forgot-pass")]
+        public string ForgotPassword(string email)
         {
-            //chuoi tra ve cho nguoi dung xac nhan, co the check thoi gian ton tai cua ma
-            string rd = new Random().Next(1000000).ToString();
-
-            if (_userService.checkEmail(email) == true)
+            if (_userService.checkEmail(email) == false) return "Email không tồn tại trong hệ thống. Vui lòng thực hiện lại!";
+            string rdOtp = new Random().Next(10000000).ToString();
+            return SendEmail(email, rdOtp);
+        }
+        public string SendEmail(string email, string opt)
+        {
+            try
             {
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                string SystemMail = "ongdinh1099@gmail.com";
+                message.From = new MailAddress("ongdinh1099@gmail.com");
+                message.To.Add(new MailAddress(email));
+                message.Subject = "DHDTMobile: Yêu cầu cấp mật khẩu ?";
+                message.IsBodyHtml = true; //to make message body as html  
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Yêu cầu xác thực mật khẩu nhập, bạn vui lòng nhập mã sau trong quá trình thiết lập mật khẩu mới: \n");
+                sb.Append("Mã OPT: " + opt+"\n");
+                sb.Append("Lưu ý: Đây là mã bảo mật, vì vậy không được tiết lộ cho bất kỳ cá nhân hay tổ chức nào, điều này có thể khiến bạn mất tài khoản. Mã này sẽ tự động hủy sau 15 phút!");
+                message.Body = sb.ToString();
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com"; //for gmail host  
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(SystemMail, "ongdinh101199");
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
 
-                return rd;
+                //save opt on database
+                UserEntity ueRequest = _userService.getUserByEmail(email);
+                ueRequest.optCode = opt;
+                _userService.save(ueRequest);
+
+                return "Yêu cầu đã được tiếp nhận. Hãy kiểm tra email của bạn!";
             }
+            catch (Exception) { return "Hệ thống đang gặp sự cố! Vui lòng quay lại sau ít phút"; }
+        }
+
+        [HttpPost("reset-pass")]
+        public string ResetPass([FromBody] ResetPassForm form)
+        {
+            //check email and update password for user account
+            if (_userService.checkEmail(form.email) == false) return "Email không hợp lệ! Vui lòng kiểm tra lại.";
+            UserEntity ueResetPass = _userService.getUserByEmail(form.email);
+            if (EncodeUltis.MD5(form.newpass).Equals(ueResetPass.Password)) return "Bạn đã sử dụng mật khẩu này gần đây. Hãy thử lại với mật khẩu mới!";
+            if (!form.newpass.Equals(form.repass)) return "Mật khẩu không trùng khớp!";
+            string optCodeDB = ueResetPass.optCode;
+            if (!optCodeDB.Equals(form.opt)) return "Mã opt không hợp lệ. Vui lòng kiểm tra email và thực hiện lại.";
             else
             {
-                return "Email không tồn tại!";
+                ueResetPass.Password = EncodeUltis.MD5(form.newpass);
+                ueResetPass.optCode = null;
+                //update on database
+                _userService.save(ueResetPass);
+                return "Thiết lập mật khẩu thành công. Hãy truy cập website bằng mật khẩu mới này nhé!";
             }
-
+            //check timeout for opt code
         }
-      
+
+
         [HttpPut("edit/{id}")]
         public IActionResult EditUserInfo(int id, UserEntity info)
         {

@@ -26,6 +26,7 @@ namespace BackendDotnetCore.Services
 
         UserEntity getUserById(int userID);
         bool save(UserEntity ue);
+        UserEntity getUserByEmail(string email);
     }
 
     public class UserService : IUserService
@@ -121,6 +122,11 @@ namespace BackendDotnetCore.Services
         {
             if(null != userDAO.Save(ue)) return true;
             return false;
+        }
+
+        public UserEntity getUserByEmail(string email)
+        {
+            return userDAO.getOneByEmail(email);
         }
     }
 }

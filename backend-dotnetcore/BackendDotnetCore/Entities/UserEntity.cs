@@ -46,6 +46,8 @@ namespace BackendDotnetCore.Entities
         public int Active { get; set; }
         [Column("avatar")]
         public string Avatar { set; get; }
+        [Column("opt")]
+        public string optCode { set; get; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
         public virtual ICollection<CommentEntity> comments { set; get; } = new List<CommentEntity>();
