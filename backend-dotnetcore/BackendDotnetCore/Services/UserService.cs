@@ -17,9 +17,6 @@ namespace BackendDotnetCore.Services
 {
     public interface IUserService
     {
-       
-
-        AuthenticateResponse loginAuthenticate(LoginForm model);
         AuthenticateResponse loginAuthenticateByEmail(LoginForm model);
         AuthenticateResponse createUserJWT(UserEntity model);
         bool checkEmail(string email);
@@ -44,16 +41,6 @@ namespace BackendDotnetCore.Services
         public UserService(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
-        }
-
-
-        public AuthenticateResponse loginAuthenticate(LoginForm model)
-        {
-            var dao = new UserDAO();
-            var account = dao.loginMD5(model.Username, model.Password);
-            if (account == null) return null;
-            var token = generateJwtToken(account);
-            return new AuthenticateResponse(token, account);
         }
 
         private string generateJwtToken(UserEntity account)

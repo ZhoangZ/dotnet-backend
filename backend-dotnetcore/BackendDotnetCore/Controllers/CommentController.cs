@@ -86,7 +86,15 @@ namespace BackendDotnetCore.Configurations
         public IActionResult getAllCommentByProductID(int productID)
         {
             CommentResponse cmtRp = new CommentResponse();
+            if (null == product2DAO.getProduct(productID)) return BadRequest(new { message = "Sản phẩm không tồn tại trong hệ thống!" });
             ICollection<CommentEntity> listResult = commentDAO.getAllByProductID(productID);
+            if(listResult.Count == 0)
+            {
+                cmtRp.tbcRate = 0.0;
+                cmtRp.tongCmt = 0;
+                cmtRp.listCommentByProduct = new List<CommentEntity>();
+                return Ok(cmtRp);
+            }
             cmtRp.listCommentByProduct = listResult;
             cmtRp.computeSumOfList();
             cmtRp.computeTbcRate();

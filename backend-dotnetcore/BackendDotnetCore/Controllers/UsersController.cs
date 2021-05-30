@@ -40,7 +40,7 @@ namespace WebApi.Controllers
        
 
         [HttpPost("forgot-pass")]
-        public IActionResult ForgotPassword(string email)
+        public IActionResult ForgotPassword([FromHeader] string email)
         {
             if (_userService.checkEmail(email) == false) return BadRequest( new { message = "Email không tồn tại trong hệ thống. Vui lòng thực hiện lại!" });
             string rdOtp = new Random().Next(10000000).ToString();

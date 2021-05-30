@@ -103,7 +103,7 @@ namespace BackendDotnetCore.DAO
 
         public UserEntity getOneByEmail(string email)
         {
-            var user = dbContext.users.Where(x => x.Email == email).SingleOrDefault();
+            var user = dbContext.users.Where(x => x.Email.Equals(email)).SingleOrDefault();
             return user;
         }
 
