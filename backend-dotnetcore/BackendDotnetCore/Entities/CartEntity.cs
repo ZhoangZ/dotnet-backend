@@ -3,40 +3,31 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Numerics;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Entities
 {
-    [Table("cart_item")]
-    public class CartItemEntity
+    [Table("cart")]   
+    public class CartEntity
     {
         [Column("id")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { set; get; }
-        [Column("amount")]
-        public int Amount { set; get; }
+
         [Column("total_price")]
         public Decimal TotalPrice { set; get; }
 
-        [Column("actived")]
-        public bool actived;
-
-
-        [Column("cart_id")]
+        [Column("user_id")]
         [JsonIgnore]
-        public long CartId { set; get; }
-        [JsonIgnore]
-        public virtual CartEntity Cart { set; get; }
+        public int UserId { set; get; }
+        public virtual UserEntity User { set; get; }
 
-        [Column("product_id")]
-        [JsonIgnore]
-        public int ProductId { set; get; }
+        public virtual List<CartItemEntity> Items { set; get; }
 
-       
 
-        public virtual Product2 Product { set; get; }
 
     }
 }

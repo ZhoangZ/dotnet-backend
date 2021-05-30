@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace BackendDotnetCore.Controllers
 {
     [ApiController]
-    [Route("api/cart")]
+   // [Route("api/cart")]
     public class CartController: ControllerBase
     {
         private Product2DAO product2DAO = new Product2DAO();
@@ -20,7 +20,7 @@ namespace BackendDotnetCore.Controllers
         private IUserService userService = new UserService();
         static ICollection<CartItemDTO> collection = new HashSet<CartItemDTO>();
 
-        [HttpPost("add")]
+      /*  [HttpPost("add")]
         public ICollection<CartItemDTO> addToCart([FromBody] CartItemDTO cartItemInfo)
         {
             int idUser = 0;
@@ -52,9 +52,9 @@ namespace BackendDotnetCore.Controllers
             }
            
             return appendListCart(idUser);
-        }
+        }*/
 
-        public ICollection<CartItemDTO> appendListCart(int idUser)
+        /*public ICollection<CartItemDTO> appendListCart(int idUser)
         {
             if (idUser != 0)
             {
@@ -72,6 +72,6 @@ namespace BackendDotnetCore.Controllers
                 }
             }
             return collection;
-        }
+        }*/
     }
 }

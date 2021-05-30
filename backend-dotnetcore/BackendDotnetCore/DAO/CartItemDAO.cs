@@ -16,7 +16,7 @@ namespace BackendDotnetCore.DAO
             this.dbContext = new BackendDotnetDbContext();
         }
 
-        public int save(CartItemEntity cartItem)
+       /* public int save(CartItemEntity cartItem)
         {
             if (cartItem.id != 0)
             {
@@ -38,6 +38,6 @@ namespace BackendDotnetCore.DAO
                 return ct.id;
             }
             return cartItem.id;
-        }
+        }*/
     }
 }
