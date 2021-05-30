@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Configurations
 {
-    public class CartItemConfiguration : IEntityTypeConfiguration<CartItemEntity>
+    public class CartConfiguration : IEntityTypeConfiguration<CartEntity>
     {
-        public void Configure(EntityTypeBuilder<CartItemEntity> builder)
+        public void Configure(EntityTypeBuilder<CartEntity> builder)
         {
-
-            
-            builder.HasOne(x => x.Cart)
-                .WithMany(x => x.Items)
-                .HasForeignKey(X=>X.CartId);
+          
+            builder.Navigation(b => b.Items).UsePropertyAccessMode(PropertyAccessMode.Property);
+           
+           
         }
     }
 }

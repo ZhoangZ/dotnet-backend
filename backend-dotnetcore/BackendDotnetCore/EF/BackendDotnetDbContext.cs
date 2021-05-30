@@ -22,6 +22,7 @@ namespace BackendDotnetCore.EF
         public DbSet<Product2Specific> product2Specifics { set; get; }
         public DbSet<CommentEntity> Comments { set; get; }
         public DbSet<CartItemEntity> CartItems { set; get; }
+        public DbSet<CartEntity> Carts { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +40,7 @@ namespace BackendDotnetCore.EF
             modelBuilder.ApplyConfiguration(new Configurations.RomConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.CommentConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.CartItemConfiguration());
+            modelBuilder.ApplyConfiguration(new Configurations.CartConfiguration());
 
             modelBuilder.ConvertToSnakeCase();
 

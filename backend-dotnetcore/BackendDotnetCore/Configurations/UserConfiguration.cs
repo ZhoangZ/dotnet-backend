@@ -18,9 +18,9 @@ namespace BackendDotnetCore.Configurations
             builder.HasKey(e => e.Id);
             builder.Navigation(b => b.UserRoles)
             .UsePropertyAccessMode(PropertyAccessMode.Property);
+            //builder.Navigation(b => b.Cart).UsePropertyAccessMode(PropertyAccessMode.Property);
 
 
-           
 
 
             /*builder.HasOne(a => a.roleCreate)

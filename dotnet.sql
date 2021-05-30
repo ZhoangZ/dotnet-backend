@@ -11,11 +11,23 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 28/05/2021 16:48:38
+ Date: 30/05/2021 21:23:50
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for base_entity
+-- ----------------------------
+DROP TABLE IF EXISTS `base_entity`;
+CREATE TABLE `base_entity`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
+  `update_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
+  `deleted` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for brand
@@ -78,19 +90,39 @@ INSERT INTO `brand` VALUES (38, 'TECNO', NULL, b'0', b'0', 0);
 -- ----------------------------
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart`  (
-  `id` int(10) NOT NULL,
-  `order_id` int(10) NULL DEFAULT NULL,
-  `user_id` int(10) NOT NULL,
-  `product_name` varchar(225) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `amount` int(10) NULL DEFAULT NULL,
-  `total_price` int(10) NULL DEFAULT NULL,
-  `active` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '1',
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `total_price` decimal(10, 0) UNSIGNED NOT NULL DEFAULT 0,
+  `total_item` int(11) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `iduser`(`user_id`) USING BTREE,
-  INDEX `iddonhang`(`order_id`) USING BTREE,
-  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  INDEX `iduser`(`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cart
+-- ----------------------------
+INSERT INTO `cart` VALUES (1, 5, 25200000, 1);
+
+-- ----------------------------
+-- Table structure for cart_item
+-- ----------------------------
+DROP TABLE IF EXISTS `cart_item`;
+CREATE TABLE `cart_item`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `product_id` int(255) NULL DEFAULT NULL,
+  `cart_id` bigint(20) NOT NULL,
+  `create_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
+  `update_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
+  `deleted` bit(1) NOT NULL DEFAULT b'0',
+  `amount` int(255) NOT NULL DEFAULT 0,
+  `actived` bit(1) NULL DEFAULT b'0',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cart_item
+-- ----------------------------
+INSERT INTO `cart_item` VALUES (17, 3, 1, '2021-05-30 13:29:47', '2021-05-30 13:29:47', b'0', 10, b'1');
 
 -- ----------------------------
 -- Table structure for comment
@@ -100,14 +132,29 @@ CREATE TABLE `comment`  (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NULL DEFAULT NULL,
   `product_id` int(10) NULL DEFAULT NULL,
+  `rate` double(1, 0) NULL DEFAULT NULL,
   `content` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `created_date` date NULL DEFAULT NULL,
   `active` int(255) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
+INSERT INTO `comment` VALUES (4, 17, 10, NULL, 'San pham nay rat tuyet', NULL, 1);
+INSERT INTO `comment` VALUES (5, 17, 11, 0, 'San pham nay rat tuyet', '0001-01-01', 1);
+INSERT INTO `comment` VALUES (6, 19, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (7, 19, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (8, 18, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (9, 16, 11, 5, 'San pham nay rat tuyet boi 16', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (10, 15, 11, 4, 'San pham nay rat tuyet boi 15', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (11, 14, 11, 4, 'San pham nay rat tuyet boi 14', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (12, 14, 11, 4, 'San pham nay rat tuyet boi 14', '2021-05-30', 1);
 
 -- ----------------------------
 -- Table structure for detail_product
@@ -8334,22 +8381,87 @@ CREATE TABLE `users`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `fullname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `provider` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `confirmed` bit(1) NULL DEFAULT b'0',
   `blocked` bit(1) NULL DEFAULT b'0',
   `active` bit(1) NULL DEFAULT b'0',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `opt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'test', 'test', 'test', b'0', b'0', b'0', NULL, NULL);
-INSERT INTO `users` VALUES (5, 'ongminhdinh', 'ongdinh6@gmail.com', '', b'1', b'1', b'1', '1122', NULL);
-INSERT INTO `users` VALUES (6, 'abc@gmail.com', 'abc@gmail.com', NULL, b'0', b'0', b'1', '12312', NULL);
-INSERT INTO `users` VALUES (7, 'nguyenvana', 'anguyen@gmail.com', NULL, b'0', b'0', b'0', '827ccb0eea8a706c4c34a16891f84e7b', 'image/avatar/momo.webp');
-INSERT INTO `users` VALUES (9, 'nguyenvanb', 'nguyenvanb@gmail.com', NULL, b'0', b'0', b'1', 'B3DDBC502E307665F346CBD6E52CC10D', NULL);
+INSERT INTO `users` VALUES (1, 'test', 'test', NULL, NULL, NULL, 'test', b'0', b'0', b'0', NULL, NULL, NULL);
+INSERT INTO `users` VALUES (5, 'ongminhdinh', 'ongdinh6@gmail.com', NULL, NULL, NULL, '', b'1', b'1', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+INSERT INTO `users` VALUES (6, 'abc@gmail.com', 'abc@gmail.com', NULL, NULL, NULL, NULL, b'0', b'0', b'1', '12312', NULL, NULL);
+INSERT INTO `users` VALUES (7, 'nguyenvana', 'anguyen@gmail.com', NULL, NULL, NULL, NULL, b'0', b'0', b'0', '827ccb0eea8a706c4c34a16891f84e7b', 'image/avatar/momo.webp', NULL);
+INSERT INTO `users` VALUES (11, 'diemdiem', 'dinhdinh@gmail.com', 'Trần Quang Diệm', '0988766567', 'Dong Nai', NULL, b'0', b'0', b'0', NULL, NULL, NULL);
+INSERT INTO `users` VALUES (12, 'dinh2', 'dinh2@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'0', b'1', '****', NULL, NULL);
+INSERT INTO `users` VALUES (13, 'dinh3', 'dinh3@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+INSERT INTO `users` VALUES (14, 'dinh5', 'dinh5@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+INSERT INTO `users` VALUES (15, 'dinh6', 'dinh6@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+INSERT INTO `users` VALUES (16, 'diemdiem', 'dinh7@gmail.com', 'Trần Quang Diệm', '0988766567', 'Dong Nai', NULL, b'0', b'0', b'0', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+INSERT INTO `users` VALUES (17, 'hoanghoang', 'dinh8@gmail.com', 'Lê Tấn Hoàng', '0988766567', 'Dong Nai', NULL, b'0', b'0', b'0', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+INSERT INTO `users` VALUES (18, 'letanhoang', 'dinh10@gmail.com', 'Lê Tấn Hoàng', '0988766567', 'Đồng Nai', NULL, b'0', b'0', b'0', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+INSERT INTO `users` VALUES (19, 'dinh11', 'dinh11@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+
+-- ----------------------------
+-- Triggers structure for table cart_item
+-- ----------------------------
+DROP TRIGGER IF EXISTS `before_insert_cart_item`;
+delimiter ;;
+CREATE TRIGGER `before_insert_cart_item` BEFORE INSERT ON `cart_item` FOR EACH ROW BEGIN
+			SELECT price into @price from product_2 where id = new.product_id;
+			if new.actived = 1 then
+					UPDATE cart set cart.total_price=cart.total_price+ @price * new.amount, cart.total_item=cart.total_item+1 WHERE cart.id=new.cart_id;
+				end if;
+			
+	 END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Triggers structure for table cart_item
+-- ----------------------------
+DROP TRIGGER IF EXISTS `before_update_cart_item`;
+delimiter ;;
+CREATE TRIGGER `before_update_cart_item` BEFORE UPDATE ON `cart_item` FOR EACH ROW BEGIN
+				SELECT price into @price from product_2 where id = new.product_id;
+				if (old.actived = 0 and new.actived = 1) then
+					UPDATE cart set cart.total_price=(cart.total_price+ @price * new.amount) , cart.total_item = cart.total_item+1 WHERE cart.id=new.cart_id;
+				end if;
+				if (old.actived = 1 and new.actived = 0) then
+					UPDATE cart set cart.total_price=cart.total_price- @price * new.amount, cart.total_item=cart.total_item-1 WHERE cart.id=new.cart_id;
+				end if;
+				if (old.actived = 1 and new.actived = 1) then
+					UPDATE cart set cart.total_price=cart.total_price+ @price * (new.amount-old.amount) WHERE cart.id=new.cart_id;
+				end if;
+
+	 END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Triggers structure for table cart_item
+-- ----------------------------
+DROP TRIGGER IF EXISTS `before_delete_cart_item`;
+delimiter ;;
+CREATE TRIGGER `before_delete_cart_item` BEFORE DELETE ON `cart_item` FOR EACH ROW BEGIN
+				SELECT price into @price from product_2 where id = old.product_id;
+			
+				if old.actived = 1  then
+					UPDATE cart set cart.total_price=cart.total_price- @price * old.amount, cart.total_item=cart.total_item-1 WHERE cart.id=old.cart_id;
+				end if;
+				
+
+	 END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;

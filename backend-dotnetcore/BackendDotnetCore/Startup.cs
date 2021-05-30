@@ -32,6 +32,8 @@ namespace BackendDotnetCore
             services.AddSingleton<Product2DAO, Product2DAO>();
             services.AddSingleton<PaymentDAO, PaymentDAO>();
             services.AddSingleton<UserDAO, UserDAO>();
+            services.AddSingleton<CartItemDAO, CartItemDAO>();
+            services.AddSingleton<CartDAO, CartDAO>();
 
 
             services.AddCors();

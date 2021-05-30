@@ -46,8 +46,9 @@ namespace BackendDotnetCore.Entities
 
         public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
         public virtual ICollection<CommentEntity> comments { set; get; } = new List<CommentEntity>();
-        public virtual ICollection<CartItemEntity> CartItemEntities { set; get; } = new HashSet<CartItemEntity>();
-        
+        //public virtual ICollection<CartItemEntity> CartItemEntities { set; get; } = new HashSet<CartItemEntity>();
+
+        //public virtual CartEntity Cart { set; get; }
 
     }
 }
