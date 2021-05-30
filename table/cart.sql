@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 30/05/2021 18:18:13
+ Date: 30/05/2021 21:21:19
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +24,8 @@ DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart`  (
   `id` bigint(20) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `total_price` int(10) NULL DEFAULT NULL,
+  `total_price` decimal(10, 0) UNSIGNED NOT NULL DEFAULT 0,
+  `total_item` int(11) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `iduser`(`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
@@ -32,6 +33,6 @@ CREATE TABLE `cart`  (
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES (1, 5, 111);
+INSERT INTO `cart` VALUES (1, 5, 25200000, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

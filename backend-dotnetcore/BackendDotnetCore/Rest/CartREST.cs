@@ -50,7 +50,7 @@ namespace BackendDotnetCore.Rest
 
         public ActionResult postCart([FromBody] FormAddCart formAddCart)
         {
-            Console.WriteLine("productId: {0}, amount: {1}", formAddCart.productId, formAddCart.amount);
+            Console.WriteLine("productId: {0}, amount: {1}", formAddCart.ProductId, formAddCart.Amount);
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];
             Console.WriteLine("User: " + user);
@@ -62,15 +62,15 @@ namespace BackendDotnetCore.Rest
             {
                 CartEntity c = cartDAO.getCart(user.Id);
                 CartItemEntity cartItemEntity = null;
-                cartItemEntity = c.Items.Find(X => X.ProductId.CompareTo( formAddCart.productId) ==0);
+                cartItemEntity = c.Items.Find(X => X.ProductId.CompareTo( formAddCart.ProductId) ==0);
                
                    
                 Console.WriteLine("cartItemEntity" + cartItemEntity);
                 if (cartItemEntity == null)
                 {
                     cartItemEntity = new CartItemEntity();
-                    cartItemEntity.Amount = formAddCart.amount;
-                    cartItemEntity.ProductId = formAddCart.productId;
+                    cartItemEntity.Amount = formAddCart.Amount;
+                    cartItemEntity.ProductId = formAddCart.ProductId;
                     cartItemEntity.CartId = c.Id;
 
                      c.Items.Add(cartItemEntity);
@@ -78,11 +78,13 @@ namespace BackendDotnetCore.Rest
                 else
                 {
                     Console.WriteLine("Increase amount");
-                    cartItemEntity.Amount += formAddCart.amount;
+                    cartItemEntity.Amount += formAddCart.Amount;
                 }
+                if(formAddCart.Actived!=-1)
+                cartItemEntity.Actived = formAddCart.Actived==1?true:false;
                 cartItemEntity = cartDAO.SaveCart(cartItemEntity);
 
-                c= cartDAO.getCart(user.Id); 
+                c= cartDAO.getCart(c); 
                 return Ok(c);
 
             }
@@ -96,11 +98,13 @@ namespace BackendDotnetCore.Rest
     }
     public class FormAddCart
     {
-        public int productId { get; set; }
-        public int amount { get; set; }
+        public int ProductId { get; set; }
+        public int Amount { get; set; }
+        public int Actived { get; set; }
         public FormAddCart()
         {
-            amount = 1;
+            Amount = 1;
+            Actived = 1;
         }
     }
 }

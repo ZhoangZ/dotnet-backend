@@ -18,7 +18,10 @@ namespace BackendDotnetCore.Entities
         public long Id { set; get; }
 
         [Column("total_price")]
-        public Decimal TotalPrice { set; get; }
+       // [StoreGeneratedPattern.Identity]
+       //[StoreGeneratedPattern = Computed]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public Decimal TotalPrice { set; get; }       
 
         [Column("user_id")]
         [JsonIgnore]

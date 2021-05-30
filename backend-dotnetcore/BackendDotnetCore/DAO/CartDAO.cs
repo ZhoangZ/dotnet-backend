@@ -17,8 +17,14 @@ namespace BackendDotnetCore.DAO
             this.dbContext = new BackendDotnetDbContext();
         }
 
-        
 
+        public CartEntity getCart(CartEntity cartEntity)
+        {
+            dbContext.Entry(cartEntity).State = EntityState.Detached;
+
+            return getCart(cartEntity.UserId);
+
+        }
         public CartEntity getCart(int UserId)
 
         {
@@ -39,7 +45,7 @@ namespace BackendDotnetCore.DAO
         {
             dbContext.Entry(cartItemEntity).Reference(x => x.Product).IsModified = false;
             dbContext.Entry(cartItemEntity).Reference(x => x.Cart).IsModified = false;
-            dbContext.Entry(cartItemEntity).Property(x => x.TotalPrice).IsModified = false;
+           
            // dbContext.CartItems.Add(cartItemEntity);
             dbContext.SaveChanges();
 

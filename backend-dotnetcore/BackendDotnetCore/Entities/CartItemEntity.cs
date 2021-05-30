@@ -17,11 +17,10 @@ namespace BackendDotnetCore.Entities
         public long Id { set; get; }
         [Column("amount")]
         public int Amount { set; get; }
-        [Column("total_price")]
-        public Decimal TotalPrice { set; get; }
+       
 
         [Column("actived")]
-        public bool actived;
+        public Boolean Actived { set; get; }
 
 
         [Column("cart_id")]

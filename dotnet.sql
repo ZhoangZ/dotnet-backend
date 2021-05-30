@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 30/05/2021 18:18:03
+ Date: 30/05/2021 21:20:59
 */
 
 SET NAMES utf8mb4;
@@ -92,7 +92,8 @@ DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart`  (
   `id` bigint(20) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `total_price` int(10) NULL DEFAULT NULL,
+  `total_price` decimal(10, 0) UNSIGNED NOT NULL DEFAULT 0,
+  `total_item` int(11) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `iduser`(`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
@@ -100,7 +101,7 @@ CREATE TABLE `cart`  (
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES (1, 5, 111);
+INSERT INTO `cart` VALUES (1, 5, 25200000, 1);
 
 -- ----------------------------
 -- Table structure for cart_item
@@ -114,17 +115,14 @@ CREATE TABLE `cart_item`  (
   `update_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
   `deleted` bit(1) NOT NULL DEFAULT b'0',
   `amount` int(255) NOT NULL DEFAULT 0,
-  `total_price` decimal(10, 0) UNSIGNED NULL DEFAULT 0,
   `actived` bit(1) NULL DEFAULT b'0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart_item
 -- ----------------------------
-INSERT INTO `cart_item` VALUES (1, 1, 1, '2021-05-30 09:27:17', '2021-05-30 09:27:17', b'0', 0, 100, b'0');
-INSERT INTO `cart_item` VALUES (14, 4, 1, '2021-05-30 11:11:19', '2021-05-30 11:11:19', b'0', 4, 26200000, b'0');
-INSERT INTO `cart_item` VALUES (15, 3, 1, '2021-05-30 11:16:37', '2021-05-30 11:16:37', b'0', 1, 2520000, b'0');
+INSERT INTO `cart_item` VALUES (17, 3, 1, '2021-05-30 13:29:47', '2021-05-30 13:29:47', b'0', 10, b'1');
 
 -- ----------------------------
 -- Table structure for comment
@@ -8405,7 +8403,9 @@ DROP TRIGGER IF EXISTS `before_insert_cart_item`;
 delimiter ;;
 CREATE TRIGGER `before_insert_cart_item` BEFORE INSERT ON `cart_item` FOR EACH ROW BEGIN
 			SELECT price into @price from product_2 where id = new.product_id;
-			SET  new.total_price=new.amount * @price;
+			if new.actived = 1 then
+					UPDATE cart set cart.total_price=cart.total_price+ @price * new.amount, cart.total_item=cart.total_item+1 WHERE cart.id=new.cart_id;
+				end if;
 			
 	 END
 ;;
@@ -8418,7 +8418,32 @@ DROP TRIGGER IF EXISTS `before_update_cart_item`;
 delimiter ;;
 CREATE TRIGGER `before_update_cart_item` BEFORE UPDATE ON `cart_item` FOR EACH ROW BEGIN
 				SELECT price into @price from product_2 where id = new.product_id;
-				SET  new.total_price=new.amount * @price;
+				if (old.actived = 0 and new.actived = 1) then
+					UPDATE cart set cart.total_price=(cart.total_price+ @price * new.amount) , cart.total_item = cart.total_item+1 WHERE cart.id=new.cart_id;
+				end if;
+				if (old.actived = 1 and new.actived = 0) then
+					UPDATE cart set cart.total_price=cart.total_price- @price * new.amount, cart.total_item=cart.total_item-1 WHERE cart.id=new.cart_id;
+				end if;
+				if (old.actived = 1 and new.actived = 1) then
+					UPDATE cart set cart.total_price=cart.total_price+ @price * (new.amount-old.amount) WHERE cart.id=new.cart_id;
+				end if;
+
+	 END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Triggers structure for table cart_item
+-- ----------------------------
+DROP TRIGGER IF EXISTS `before_delete_cart_item`;
+delimiter ;;
+CREATE TRIGGER `before_delete_cart_item` BEFORE DELETE ON `cart_item` FOR EACH ROW BEGIN
+				SELECT price into @price from product_2 where id = old.product_id;
+			
+				if old.actived = 1  then
+					UPDATE cart set cart.total_price=cart.total_price- @price * old.amount, cart.total_item=cart.total_item-1 WHERE cart.id=old.cart_id;
+				end if;
+				
 
 	 END
 ;;
