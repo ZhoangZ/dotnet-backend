@@ -68,6 +68,9 @@ Tài khoản ngân hàng dùng để test thanh toán
 | /products/{number} | Bug  |
 | / | Bug  |
 
-- [x] Đã test
+- [x] Đã fix
 - [ ] /products/103 Hình không thấy
 - [ ] / Không click vào tên sản phẩm để vào trang xem sản phẩm được
+
+## Kiểm tra console
+- [ ] Faulture writeline console
