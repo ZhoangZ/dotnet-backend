@@ -31,9 +31,22 @@ namespace BackendDotnetCore.DAO
 
             var tmp = dbContext.Carts.Where(s => s.UserId == UserId)
                 .Include(x => x.User)
-                .Include(x=>x.Items)
-                .ThenInclude(X=>X.Product)
-                //.Any(x=>x.)
+                .Include(x => x.Items)
+                .ThenInclude(X => X.ProductSpecific)
+                .ThenInclude(X => X.Product)
+                
+                ;
+
+            return tmp.FirstOrDefault();
+
+        }
+        public CartEntity getCart(int UserId, long cartItemId)
+
+        {
+
+            var tmp = dbContext.Carts.Where(s => s.UserId == UserId)
+                .Include(x => x.Items)
+                .Where(y => y.Items.Any(U=> U.Id.CompareTo( cartItemId)==0))
                 ;
 
             return tmp.FirstOrDefault();
@@ -43,7 +56,8 @@ namespace BackendDotnetCore.DAO
         public CartItemEntity SaveCart(CartItemEntity cartItemEntity)
 
         {
-            dbContext.Entry(cartItemEntity).Reference(x => x.Product).IsModified = false;
+            dbContext.Entry(cartItemEntity).Reference(x => x.ProductSpecific).IsModified = false;
+            //dbContext.Entry(cartItemEntity).Reference(x => x.ProductSpecific.Product).IsModified = false;
             dbContext.Entry(cartItemEntity).Reference(x => x.Cart).IsModified = false;
            
            // dbContext.CartItems.Add(cartItemEntity);
@@ -52,7 +66,21 @@ namespace BackendDotnetCore.DAO
             return cartItemEntity;
 
         }
-      
+
+        public IEnumerable<CartItemEntity> RemoveCart(IEnumerable<CartItemEntity> cartItemEntity)
+
+        {
+            foreach(var c in cartItemEntity)
+            {
+            dbContext.Remove(c);
+
+            }
+            dbContext.SaveChanges();
+
+            return cartItemEntity;
+
+        }
+
     }
 
 
