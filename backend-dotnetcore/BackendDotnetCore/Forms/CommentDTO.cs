@@ -12,10 +12,13 @@ namespace BackendDotnetCore.Entities
         public int active {set;get; }
         public int productID { set; get; }
         public int userID { set; get; }
+        public double rate { set; get; }
+        public int sumOfProduct { set; get; }
+
 
         public override string ToString()
         {
-            return "CommentDTO = "+id+", content=" + content + ", productID =" + productID + ", userID=" + userID;
+            return "CommentDTO = "+id+", content=" + content + ", productID =" + productID + ", userID=" + userID+", sum="+sumOfProduct;
         }
 
     }

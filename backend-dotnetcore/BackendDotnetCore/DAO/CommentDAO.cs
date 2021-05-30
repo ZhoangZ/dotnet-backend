@@ -20,10 +20,13 @@ namespace BackendDotnetCore.DAO
         {
             var cmt = new CommentEntity()
             {
-                active = 1,
+                //active
+                active = commentEntity.active,
                 content = commentEntity.content,
                 productID = commentEntity.productID,
-                userID = commentEntity.userID
+                userID = commentEntity.userID,
+                rate = commentEntity.rate,
+                createdDate = commentEntity.createdDate
             };
             dbContext.Comments.Add(cmt);
             dbContext.SaveChanges();
@@ -31,7 +34,7 @@ namespace BackendDotnetCore.DAO
         }
 
         //phuong thuc lay toan bo cac comment theo productID voi comment da duoc active
-        public List<CommentEntity> getAllByProductID(int productID)
+        public ICollection<CommentEntity> getAllByProductID(int productID)
         {
             List<CommentEntity> listRs = dbContext.Comments.Where(x => x.active == 1 && x.Product.Id == productID).ToList<CommentEntity>();
             return listRs;
