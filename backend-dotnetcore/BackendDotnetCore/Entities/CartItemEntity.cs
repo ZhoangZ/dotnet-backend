@@ -20,7 +20,7 @@ namespace BackendDotnetCore.Entities
        
 
         [Column("actived")]
-        public Boolean Actived { set; get; }
+        public bool Actived { set; get; }
 
 
         [Column("cart_id")]
@@ -29,13 +29,11 @@ namespace BackendDotnetCore.Entities
         [JsonIgnore]
         public virtual CartEntity Cart { set; get; }
 
-        [Column("product_id")]
+        [Column("product_specific_id")]
         [JsonIgnore]
-        public int ProductId { set; get; }
+        public int ProductSpecificId { set; get; }       
 
-       
-
-        public virtual Product2 Product { set; get; }
+        public virtual Product2Specific ProductSpecific { set; get; }
 
     }
 }

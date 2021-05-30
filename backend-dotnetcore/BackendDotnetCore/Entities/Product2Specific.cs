@@ -20,7 +20,10 @@ namespace BackendDotnetCore.Entities
         public uint Amount { get; set; }
 
         [Column("price")]
-        public uint Price { get; set; }
+        public Decimal Price { get; set; }
+
+        [Column("sale_price")]
+        public Decimal SalePrice { get; set; }
 
         public RamEntity Ram { get; set; }
         public RomEntity Rom { get; set; }

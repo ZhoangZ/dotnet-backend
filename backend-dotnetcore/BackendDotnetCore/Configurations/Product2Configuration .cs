@@ -12,8 +12,7 @@ namespace BackendDotnetCore.Configurations
         public void Configure(EntityTypeBuilder<Product2> builder)
         {
             builder.ToTable("product_2")
-                .HasKey(e => e.Id)
-                ;
+                .HasKey(e => e.Id);
                
                  
             

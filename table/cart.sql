@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 30/05/2021 21:21:19
+ Date: 31/05/2021 00:06:40
 */
 
 SET NAMES utf8mb4;
@@ -33,6 +33,6 @@ CREATE TABLE `cart`  (
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES (1, 5, 25200000, 1);
+INSERT INTO `cart` VALUES (1, 5, 142094000, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
