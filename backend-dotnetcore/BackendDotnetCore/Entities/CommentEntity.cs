@@ -12,11 +12,12 @@ namespace BackendDotnetCore.Entities
 {
     public class CommentEntity
     {
-      
-     
         public int id { set; get; }
         public string content { set; get; }
         public int active { set; get; }
+
+        public DateTime createdDate { set; get; }
+        public double rate { set; get; }
 
         [JsonIgnore]
         public virtual UserEntity user { set; get; }

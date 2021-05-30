@@ -9,7 +9,6 @@ namespace BackendDotnetCore.Forms
 {
     public class RegisterForm
     {
-        public string username { set; get; }
         public string password { set; get; }
         public string repassword { set; get; }
         public string email { set; get; }
@@ -33,7 +32,6 @@ namespace BackendDotnetCore.Forms
             ue.Password = password;
             ue.phone = phone;
             ue.address = address;
-            ue.Username = username;
             return ue;
         }
 

@@ -32,7 +32,6 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-
             UserEntity user = (UserEntity)HttpContext.Items["User"];
             Console.WriteLine(user);
             HttpContext.Items["User"] = null;
@@ -40,14 +39,14 @@ namespace WebApi.Controllers
         }
        
 
-        [HttpGet("forgot-pass")]
-        public string ForgotPassword(string email)
+        [HttpPost("forgot-pass")]
+        public IActionResult ForgotPassword(string email)
         {
-            if (_userService.checkEmail(email) == false) return "Email không tồn tại trong hệ thống. Vui lòng thực hiện lại!";
+            if (_userService.checkEmail(email) == false) return BadRequest( new { message = "Email không tồn tại trong hệ thống. Vui lòng thực hiện lại!" });
             string rdOtp = new Random().Next(10000000).ToString();
             return SendEmail(email, rdOtp);
         }
-        public string SendEmail(string email, string opt)
+        public IActionResult SendEmail(string email, string opt)
         {
             try
             {
@@ -60,7 +59,7 @@ namespace WebApi.Controllers
                 message.IsBodyHtml = true; //to make message body as html  
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Yêu cầu xác thực mật khẩu nhập, bạn vui lòng nhập mã sau trong quá trình thiết lập mật khẩu mới: \n");
-                sb.Append("Mã OPT: " + opt+"\n");
+                sb.Append("Mã OPT: " + opt + "\n");
                 sb.Append("Lưu ý: Đây là mã bảo mật, vì vậy không được tiết lộ cho bất kỳ cá nhân hay tổ chức nào, điều này có thể khiến bạn mất tài khoản. Mã này sẽ tự động hủy sau 15 phút!");
                 message.Body = sb.ToString();
                 smtp.Port = 587;
@@ -76,28 +75,28 @@ namespace WebApi.Controllers
                 ueRequest.optCode = opt;
                 _userService.save(ueRequest);
 
-                return "Yêu cầu đã được tiếp nhận. Hãy kiểm tra email của bạn!";
+                return Ok("Yêu cầu đã được tiếp nhận. Hãy kiểm tra email của bạn!");
             }
-            catch (Exception) { return "Hệ thống đang gặp sự cố! Vui lòng quay lại sau ít phút"; }
+            catch (Exception) { return BadRequest(new { message = "Hệ thống đang gặp sự cố! Vui lòng quay lại sau ít phút" }); }
         }
 
         [HttpPost("reset-pass")]
-        public string ResetPass([FromBody] ResetPassForm form)
+        public IActionResult ResetPass([FromBody] ResetPassForm form)
         {
             //check email and update password for user account
-            if (_userService.checkEmail(form.email) == false) return "Email không hợp lệ! Vui lòng kiểm tra lại.";
+            if (_userService.checkEmail(form.email) == false) return BadRequest(new { message = "Email không hợp lệ! Vui lòng kiểm tra lại." });
             UserEntity ueResetPass = _userService.getUserByEmail(form.email);
-            if (EncodeUltis.MD5(form.newpass).Equals(ueResetPass.Password)) return "Bạn đã sử dụng mật khẩu này gần đây. Hãy thử lại với mật khẩu mới!";
-            if (!form.newpass.Equals(form.repass)) return "Mật khẩu không trùng khớp!";
+            if (EncodeUltis.MD5(form.newpass).Equals(ueResetPass.Password)) return BadRequest(new { message = "Bạn đã sử dụng mật khẩu này gần đây. Hãy thử lại với mật khẩu mới!" });
+            if (!form.newpass.Equals(form.repass)) return BadRequest(new { message = "Mật khẩu không trùng khớp!" });
             string optCodeDB = ueResetPass.optCode;
-            if (!optCodeDB.Equals(form.opt)) return "Mã opt không hợp lệ. Vui lòng kiểm tra email và thực hiện lại.";
+            if (!optCodeDB.Equals(form.opt)) return BadRequest(new { message = "Mã opt không hợp lệ. Vui lòng kiểm tra email và thực hiện lại." });
             else
             {
                 ueResetPass.Password = EncodeUltis.MD5(form.newpass);
                 ueResetPass.optCode = null;
                 //update on database
                 _userService.save(ueResetPass);
-                return "Thiết lập mật khẩu thành công. Hãy truy cập website bằng mật khẩu mới này nhé!";
+                return Ok("Thiết lập mật khẩu thành công. Hãy truy cập website bằng mật khẩu mới này nhé!");
             }
             //check timeout for opt code
         }
@@ -142,12 +141,12 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    return BadRequest(new { message = " Hệ thống đang gặp sự cố!" });
+                    return BadRequest(new { message = "Hệ thống đang gặp sự cố!" });
                 }
             }
             else
             {
-                return  BadRequest(new { message= " Có lỗi xảy ra với user!"});
+                return  BadRequest(new { message= "Có lỗi xảy ra với user!"});
             }
         }
 

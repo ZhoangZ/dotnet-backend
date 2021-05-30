@@ -19,9 +19,7 @@ namespace BackendDotnetCore.Controllers
     {
         private UserDAO UserDAO;
         private IUserService _userService;
-
-      
-
+    
         public ResgiterController(UserDAO userDAO, IUserService userService)
         {
             this.UserDAO = userDAO;
@@ -31,7 +29,6 @@ namespace BackendDotnetCore.Controllers
         [HttpPost("register")]
         public IActionResult DoRegisterVersion2([FromBody] RegisterForm registerForm)
         {
-            if (UserDAO.getOneByUsername(registerForm.username) != null) return BadRequest(new { message = "Username đã tồn tại trong hệ thống!" });
             if (null != UserDAO.getOneByEmail(registerForm.email)) return BadRequest(new { message = "Email đã tồn tại trong hệ thống!" });
             if (registerForm.checkInfo().Equals("success"))
             {
@@ -52,7 +49,7 @@ namespace BackendDotnetCore.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Error:"+ registerForm.checkInfo()});
+                return BadRequest(new { message = registerForm.checkInfo()});
             }
         }
         

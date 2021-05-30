@@ -29,12 +29,13 @@ namespace BackendDotnetCore.Configurations
         }
 
         [HttpPost("new")]
-        public CommentEntity postComment([FromBody] CommentDTO commentPost)
+        public IActionResult postComment([FromBody] CommentDTO commentPost)
         {
-
+            CommentResponse cmtRp = new CommentResponse();
+            ICollection<CommentEntity> listCommentOfProduct;
             if (commentPost.userID == 0)
             {
-                Console.WriteLine("Vui lòng đăng nhập trước khi thực hiện chức năng comment.");
+                Console.WriteLine("Vui lòng đăng nhập trước khi thực hiện chức năng này.");
                 return null;
             }
             else
@@ -42,41 +43,54 @@ namespace BackendDotnetCore.Configurations
                 CommentEntity commentResponse = new CommentEntity();
                 commentResponse.userID = commentPost.userID;
                 commentResponse.user = userDAO.getOneById(commentPost.userID);
-                if (commentPost.productID == 0)
+                if (commentPost.productID == 0) //cần thêm kiểm tra trên order của khách hàng
                 {
-                    Console.WriteLine("Lỗi request không có productID");
+                    return BadRequest(new { message = "Lỗi request không có productID." });
                 }
                 else
                 {
                     //save to table
+                    commentResponse.createdDate = System.DateTime.Now;
+                    commentResponse.rate = commentPost.rate;
+                    Console.WriteLine("rating post = " + commentPost.rate+", db="+commentResponse.rate);
+
                     commentResponse.productID = commentPost.productID;
                     commentResponse.Product = product2DAO.getProduct(commentPost.productID);
                     commentResponse.user = userDAO.getOneById(commentPost.userID);
                     commentResponse.active = 1;
                     commentResponse.content = commentPost.content;
                     int commentID = commentDAO.Save(commentResponse);
+                    //kiem tra xem trong order của user có productID này không ?
+                    //TODO
+                    //
                     if (commentID == 0)
                     {
-                        Console.WriteLine("Khong thanh cong!");
+                        return BadRequest(new { message = "Hệ thống đang gặp sự cố!" });
                     }
                     else
                     {
                         commentResponse.id = commentID;
                         Console.WriteLine("Thanh cong! Them vao id = " + commentID);
+                        listCommentOfProduct = (ICollection<CommentEntity>)commentDAO.getAllByProductID(commentResponse.productID);
+                        cmtRp.listCommentByProduct = listCommentOfProduct;
+                        cmtRp.computeSumOfList();
+                        cmtRp.computeTbcRate();
                     }
 
                 }
-                return commentResponse;
+                return Ok(cmtRp);
             }
         }
 
         [HttpGet("all")]
-        public List<CommentEntity> getAllCommentByProductID(int productID)
+        public IActionResult getAllCommentByProductID(int productID)
         {
-            Console.WriteLine("GetAllCommentByProductID = " + productID);
-            List<CommentEntity> listResult = commentDAO.getAllByProductID(productID);
-
-            return listResult;
+            CommentResponse cmtRp = new CommentResponse();
+            ICollection<CommentEntity> listResult = commentDAO.getAllByProductID(productID);
+            cmtRp.listCommentByProduct = listResult;
+            cmtRp.computeSumOfList();
+            cmtRp.computeTbcRate();
+            return Ok(cmtRp);
         }
     }
 }
