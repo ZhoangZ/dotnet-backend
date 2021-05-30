@@ -20,9 +20,6 @@ namespace BackendDotnetCore.Entities
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Column("username")]
-        [Require]
-        public string Username { get; set; }
         [Column("password")]
         [Require]   
         [JsonIgnore]
@@ -38,8 +35,6 @@ namespace BackendDotnetCore.Entities
         public string address { set; get; }
         [Column("provider")]
         public string Provider { get; set; }
-        [Column("confirmed")]
-        public int Confirmed { get; set; }
         [Column("blocked")]
         public int Blocked { get; set; }
         [Column("active")]

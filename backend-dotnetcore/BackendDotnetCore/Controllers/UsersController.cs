@@ -141,12 +141,12 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    return BadRequest(new { message = " Hệ thống đang gặp sự cố!" });
+                    return BadRequest(new { message = "Hệ thống đang gặp sự cố!" });
                 }
             }
             else
             {
-                return  BadRequest(new { message= " Có lỗi xảy ra với user!"});
+                return  BadRequest(new { message= "Có lỗi xảy ra với user!"});
             }
         }
 

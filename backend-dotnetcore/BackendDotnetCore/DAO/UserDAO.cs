@@ -23,7 +23,7 @@ namespace BackendDotnetCore.DAO
         {
             if (userEntity.Id == 0)
             {
-                if (getOneByEmail(userEntity.Email) == null || getOneByUsername(userEntity.Username) == null)
+                if (getOneByEmail(userEntity.Email) == null)
                 {
                     Console.WriteLine("Them moi");
                     dbContext.users.Add(userEntity);
@@ -107,57 +107,6 @@ namespace BackendDotnetCore.DAO
             return user;
         }
 
-        public UserEntity getOneByUsername(string username)
-        {
-            var user = dbContext.users.Where(x => x.Username == username).SingleOrDefault();
-            return user;
-        }
-       
-        public UserEntity loginMD5(string username, string password)
-        {
-            if (getOneByUsername(username) == null) return null;
-            UserRoleDAO userRoleDAO = new UserRoleDAO();
-            
-            var passMD5 = EncodeUltis.MD5(password);
-            var account = (from u in dbContext.users
-                           where u.Username == username && u.Password == passMD5
-                           select new UserEntity
-                           {
-                               Id = u.Id,
-                               Username = u.Username,
-                               Email = u.Email,
-                               Avatar = u.Avatar
-                           }).SingleOrDefault();
-            if(null==account) return null;
-            List<UserRole> urs = userRoleDAO.getAllRoleOfUserId(account.Id);
-            account.UserRoles = urs;
-            Console.WriteLine("UserRole of User login = "+account.UserRoles.ToString());
-
-            return account;
-        }
-        public UserEntity login(string username, string password)
-        {
-            var passMD5 = EncodeUltis.MD5(password);
-            var account = dbContext.users.Where(x =>
-                (x.Username == username && x.Password == passMD5)
-            ).SingleOrDefault();
-
-            return account;
-        }
-        public int getIdByUsername(string username)
-        {
-            var account = dbContext.users.Where(x => x.Username == username).SingleOrDefault();
-            return account.Id;
-        }
-
-        public UserEntity getAccountByEmail(string email)
-        {
-            var account = dbContext.users.Where(x => x.Email == email).SingleOrDefault();
-            return account;
-
-        }
-       
-        //success
         public bool loginByEmailVer2(string email, string password)
         {
             var userLogin = dbContext.users.Where(x => x.Email.Equals(email) && x.Password.Equals(EncodeUltis.MD5(password))).SingleOrDefault();
