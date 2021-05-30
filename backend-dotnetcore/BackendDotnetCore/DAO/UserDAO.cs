@@ -114,5 +114,11 @@ namespace BackendDotnetCore.DAO
             return false;
         }
 
+        public UserEntity loginMD5(string email, string password)
+        {
+            var userLogin = dbContext.users.Where(x => x.Email.Equals(email) && x.Password.Equals(EncodeUltis.MD5(password))).SingleOrDefault();
+            return userLogin;
+        }
+
     }
 }
