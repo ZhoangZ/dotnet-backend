@@ -43,13 +43,29 @@ namespace BackendDotnetCore.DAO
                 var local = dbContext.Set<UserEntity>()
                                      .Local
                                      .FirstOrDefault(entry => entry.Id.Equals(userEntity.Id));
-                    // check if local is not null 
-                    if (local != null)
+                //check local UserRole
+                var localUR = dbContext.Set<UserRole>().Local.ToList<UserRole>();
+                foreach (UserRole ur in localUR)
+                {
+                    Console.WriteLine(ur.Id+", "+ur.Role.Id+", "+", "+ur.User.Id);
+                    var localRole = dbContext.Set<RoleEntity>()
+                                     .Local
+                                     .FirstOrDefault(entry => entry.Id == ur.Role.Id);
+                    if (localRole != null)
                     {
-                        // detach
-                        dbContext.Entry(local).State = EntityState.Detached;
+                        //detach
+                        dbContext.Entry(localRole).State = EntityState.Detached;
+                        Console.WriteLine("Detached role is success");
                     }
-                    dbContext.users.Update(userEntity);
+                }
+                
+                // check if local is not null 
+                if (local != null)
+                {
+                    // detach
+                    dbContext.Entry(local).State = EntityState.Detached;
+                }
+                dbContext.users.Update(userEntity);
                     dbContext.SaveChanges();
                     return userEntity;
             }
