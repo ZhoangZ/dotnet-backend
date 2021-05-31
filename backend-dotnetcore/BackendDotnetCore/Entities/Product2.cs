@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackendDotnetCore.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,14 +22,14 @@ namespace BackendDotnetCore.Entities
         [Column("SaleRate")]
         public uint promotionPercents { get; set; }
         public string Name { get; set; }
-       /* [Column("brand_id")]
-        [JsonIgnore]
-        public int BrandId { get; set; }*/
+        /* [Column("brand_id")]
+         [JsonIgnore]
+         public int BrandId { get; set; }*/
         public Brand Brand { get; set; }
-       /* [Column("Memory")]
-        public int Memory { get; set; }
-        [Column("RAM")]
-        public int Ram { get; set; }*/
+        /* [Column("Memory")]
+         public int Memory { get; set; }
+         [Column("RAM")]
+         public int Ram { get; set; }*/
         [Column("DELETED")]
         [JsonIgnore]
         public bool deleted { get; set; }
@@ -49,13 +50,13 @@ namespace BackendDotnetCore.Entities
         [Column("OS")]
         public string Os { get; set; }
         [Column("IS_HOT")]
-        public bool IsHot {get;set;}
+        public bool IsHot { get; set; }
         public virtual List<ImageProduct> Images { get; set; }
         public virtual List<InformationProduct> Informations { get; set; }
         public virtual List<Product2Specific> Specifics { get; set; }
         public virtual List<CommentEntity> comments { get; set; } = new List<CommentEntity>();
-       /* [JsonIgnore]
-        public virtual ICollection<CartItemEntity> cartItems { set; get; } = new List<CartItemEntity>();*/
+        /* [JsonIgnore]
+         public virtual ICollection<CartItemEntity> cartItems { set; get; } = new List<CartItemEntity>();*/
 
         /*  [NotMapped]
 
@@ -68,20 +69,20 @@ namespace BackendDotnetCore.Entities
         public Product2()
         {
             //this.IsHot = true;
-            
+
         }
         [Column("SALE_PRICE")]
 
-        public long SalePrice  { get; set; }
-
-      
-
-
+        public long SalePrice { get; set; }
+        [NotMapped]
+        public CommentResponse commentResponse{get;set;}
 
 
 
 
-     
+
+
+
 
 
 

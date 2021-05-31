@@ -19,8 +19,17 @@ namespace BackendDotnetCore.Controllers
     public class ProductControlller : ControllerBase
     {
         //auto wired productDAO
-        private Product2DAO ProductDAO = new Product2DAO();
+        private Product2DAO ProductDAO;
+        private CommentDAO commentDAO;
 
+        public ProductControlller(Product2DAO ProductDAO, CommentDAO commentDAO)
+        {
+            /*this.ProductDAO = ProductDAO;
+            this.commentDAO = commentDAO;*/
+            this.ProductDAO = new Product2DAO();
+            this.commentDAO = new CommentDAO();
+
+        }
 
         //lấy danh sách dữ liệu sản phẩm theo tiêu chí
         [HttpGet("list")]
@@ -61,6 +70,21 @@ namespace BackendDotnetCore.Controllers
                 product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);
                 });
+
+                CommentResponse commentResponse = new CommentResponse();
+                product.commentResponse = commentResponse;
+                ICollection<CommentEntity> listResult = commentDAO.getAllByProductID(product.Id);
+                if (listResult.Count == 0)
+                {
+                    commentResponse.tbcRate = 0.0;
+                    commentResponse.tongCmt = 0;
+                    commentResponse.listCommentByProduct = new List<CommentEntity>();
+                    return Ok(product);
+                }
+                commentResponse.listCommentByProduct = listResult;
+                commentResponse.computeSumOfList();
+                commentResponse.computeTbcRate();
+               // return Ok(product);
                 return Ok(product);
             }
             catch (Exception e)
