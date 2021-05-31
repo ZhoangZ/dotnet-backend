@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Forms
@@ -10,16 +11,16 @@ namespace BackendDotnetCore.Forms
     public class CartDTO
 
     {
-        public long Id { set; get; }
+        
 
         public Decimal TotalPrice { set; get; }
-       
+        [JsonIgnore]
         public UserEntity User { set; get; }
 
         public IEnumerable<CartItem2DTO> Items { set; get; }
         public CartDTO(CartEntity cartEntity)
         {
-            Id = cartEntity.Id;
+            
             TotalPrice = cartEntity.TotalPrice;
             User = cartEntity.User;
             Items = cartEntity.Items.Select(X=> new CartItem2DTO(X));

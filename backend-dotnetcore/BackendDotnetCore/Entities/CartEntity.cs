@@ -15,6 +15,7 @@ namespace BackendDotnetCore.Entities
         [Column("id")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[JsonIgnore]
         public long Id { set; get; }
 
         [Column("total_price")]
@@ -26,6 +27,7 @@ namespace BackendDotnetCore.Entities
         [Column("user_id")]
         [JsonIgnore]
         public int UserId { set; get; }
+        //[JsonIgnore]
         public virtual UserEntity User { set; get; }
 
         public virtual List<CartItemEntity> Items { set; get; }
