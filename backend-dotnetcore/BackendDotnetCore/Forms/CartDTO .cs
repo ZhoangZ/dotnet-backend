@@ -14,6 +14,7 @@ namespace BackendDotnetCore.Forms
         
 
         public Decimal TotalPrice { set; get; }
+        public int TotalItem { set; get; }
         [JsonIgnore]
         public UserEntity User { set; get; }
 
@@ -22,6 +23,7 @@ namespace BackendDotnetCore.Forms
         {
             
             TotalPrice = cartEntity.TotalPrice;
+            TotalItem = cartEntity.TotalItem;
             User = cartEntity.User;
             Items = cartEntity.Items.Select(X=> new CartItem2DTO(X));
         }
@@ -31,8 +33,7 @@ namespace BackendDotnetCore.Forms
     {
         public long Id { set; get; }
         public int Amount { set; get; }
-        public bool Actived { set; get; }
-        public Product2Specific ProductSpecific { set; get; }
+        public bool Actived { set; get; }        
         public Product2 Product { set; get; }
         public CartItem2DTO(CartItemEntity cartItemEntity)
         {
@@ -40,16 +41,13 @@ namespace BackendDotnetCore.Forms
             Amount = cartItemEntity.Amount;
             Actived = cartItemEntity.Actived;
             Product = cartItemEntity.ProductSpecific.Product;
+            Product.Specific = cartItemEntity.ProductSpecific;
             Product.Specifics = null;
-            ProductSpecific = cartItemEntity.ProductSpecific;
-            ProductSpecific.Product = null;
+            
         } 
 
     }
 
-    public class ProductDTO
-    {
-
-    }
+   
     
 }

@@ -19,10 +19,12 @@ namespace BackendDotnetCore.Entities
         public long Id { set; get; }
 
         [Column("total_price")]
-       // [StoreGeneratedPattern.Identity]
-       //[StoreGeneratedPattern = Computed]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public Decimal TotalPrice { set; get; }       
+        public Decimal TotalPrice { set; get; }
+
+        [Column("total_item")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int TotalItem { set; get; }
 
         [Column("user_id")]
         [JsonIgnore]

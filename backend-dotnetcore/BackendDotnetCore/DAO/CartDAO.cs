@@ -33,8 +33,23 @@ namespace BackendDotnetCore.DAO
                 .Include(x => x.User)
                 .Include(x => x.Items)
                 .ThenInclude(X => X.ProductSpecific)
-                .ThenInclude(X => X.Product)
-                
+                    .ThenInclude(X => X.Product)
+                          .ThenInclude(X=>X.Images)
+                .Include(x => x.Items)
+                .ThenInclude(X => X.ProductSpecific)
+                    .ThenInclude(X => X.Product)
+                        .ThenInclude(X => X.Brand)
+
+                .Include(x => x.Items)
+                .ThenInclude(X => X.ProductSpecific)
+                    .ThenInclude(X => X.Ram)
+
+                .Include(x => x.Items)
+                .ThenInclude(X => X.ProductSpecific)
+                    .ThenInclude(X => X.Rom)
+
+
+
                 ;
 
             return tmp.FirstOrDefault();

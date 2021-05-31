@@ -13,7 +13,7 @@ namespace BackendDotnetCore.Entities
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [Column("color")]
         public string Color { get; set; }
         [Column("amount")]

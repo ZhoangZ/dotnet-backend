@@ -19,9 +19,13 @@ namespace BackendDotnetCore.Rest
         Product2DAO product2DAO;
         public CartREST(PaymentDAO paymentDAO, Product2DAO product2DAO, CartDAO cartDAO)
         {
-            this.paymentDAO = paymentDAO;
+           /* this.paymentDAO = paymentDAO;
             this.cartDAO = cartDAO;
-            this.product2DAO = product2DAO;
+            this.product2DAO = product2DAO;*/
+
+            this.paymentDAO = new PaymentDAO();
+            this.cartDAO = new CartDAO();
+            this.product2DAO = new Product2DAO();
         }
         [HttpGet]
         [Authorize]
@@ -32,14 +36,15 @@ namespace BackendDotnetCore.Rest
          
             try
             {
+
                 // Lấy UserEntity đang đăng nhập từ jwt
                 UserEntity user = (UserEntity)HttpContext.Items["User"];
                 Console.WriteLine("User: " + user);
                 // Xóa bộ nhớ đệm chứa userentity
                 HttpContext.Items["User"] = null;
                 CartEntity c = cartDAO.getCart(user.Id);
+               // return Ok(c);
                 return Ok(new CartDTO(c));
-
             }catch(Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -89,20 +94,20 @@ namespace BackendDotnetCore.Rest
 
         public ActionResult postCart([FromBody] FormAddCart formAddCart)
         {
-            Console.WriteLine("productId: {0}, amount: {1}", formAddCart.ProductId, formAddCart.Amount);
+            Console.WriteLine("productId: {0}, amount: {1}", formAddCart.ProductSpecificId, formAddCart.Amount);
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];
             Console.WriteLine("User: " + user);
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
-            Product2 p=product2DAO.getProduct(formAddCart.ProductId);
+            Product2Specific p=product2DAO.getSpecific(formAddCart.ProductSpecificId);
             if (p == null) return BadRequest();
 
             try
             {
                 CartEntity c = cartDAO.getCart(user.Id);
                 CartItemEntity cartItemEntity = null;
-                cartItemEntity = c.Items.Find(X => X.ProductSpecificId.CompareTo( formAddCart.ProductId) ==0);
+                cartItemEntity = c.Items.Find(X => X.ProductSpecificId.CompareTo( formAddCart.ProductSpecificId) ==0);
                
                    
                 Console.WriteLine("cartItemEntity" + cartItemEntity);
@@ -110,7 +115,7 @@ namespace BackendDotnetCore.Rest
                 {
                     cartItemEntity = new CartItemEntity();
                     cartItemEntity.Amount = formAddCart.Amount;
-                    cartItemEntity.ProductSpecificId = formAddCart.ProductId;
+                    cartItemEntity.ProductSpecificId = formAddCart.ProductSpecificId;
                     cartItemEntity.CartId = c.Id;
 
                      c.Items.Add(cartItemEntity);
@@ -119,6 +124,7 @@ namespace BackendDotnetCore.Rest
                 {
                     Console.WriteLine("Increase amount");
                     cartItemEntity.Amount += formAddCart.Amount;
+                    if (cartItemEntity.Amount < 0) return BadRequest("Số lượng item trong giỏ hàng nhỏ hơn 0, hãy xóa item này khỏi giỏ hàng");
                 }
                 
                 cartItemEntity.Actived = formAddCart.Actived;
@@ -138,7 +144,7 @@ namespace BackendDotnetCore.Rest
     }
     public class FormAddCart
     {
-        public int ProductId { get; set; }
+        public long ProductSpecificId { get; set; }
         public int Amount { get; set; }
         public bool Actived { get; set; }
         public FormAddCart()

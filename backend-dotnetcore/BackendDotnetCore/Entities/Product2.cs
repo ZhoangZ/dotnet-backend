@@ -22,14 +22,9 @@ namespace BackendDotnetCore.Entities
         [Column("SaleRate")]
         public uint promotionPercents { get; set; }
         public string Name { get; set; }
-        /* [Column("brand_id")]
-         [JsonIgnore]
-         public int BrandId { get; set; }*/
+       
         public Brand Brand { get; set; }
-        /* [Column("Memory")]
-         public int Memory { get; set; }
-         [Column("RAM")]
-         public int Ram { get; set; }*/
+        
         [Column("DELETED")]
         [JsonIgnore]
         public bool deleted { get; set; }
@@ -52,19 +47,12 @@ namespace BackendDotnetCore.Entities
         [Column("IS_HOT")]
         public bool IsHot { get; set; }
         public virtual List<ImageProduct> Images { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual List<InformationProduct> Informations { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual List<Product2Specific> Specifics { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual List<CommentEntity> comments { get; set; } = new List<CommentEntity>();
-        /* [JsonIgnore]
-         public virtual ICollection<CartItemEntity> cartItems { set; get; } = new List<CartItemEntity>();*/
-
-        /*  [NotMapped]
-
-          public List<String> color0
-          {
-              get;set;
-              //get { return new List<string>(new string[]{"RED","GREEN","BLUE"}); }
-          }*/
 
         public Product2()
         {
@@ -75,9 +63,12 @@ namespace BackendDotnetCore.Entities
 
         public long SalePrice { get; set; }
         [NotMapped]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public CommentResponse commentResponse{get;set;}
 
-
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [NotMapped]
+        public Product2Specific Specific { get; set; }
 
 
 
