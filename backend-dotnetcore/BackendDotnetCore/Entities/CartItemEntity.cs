@@ -29,10 +29,12 @@ namespace BackendDotnetCore.Entities
         [JsonIgnore]
         public virtual CartEntity Cart { set; get; }
 
-        [Column("product_specific_id")]
+       [Column("product_specific_id")]
+       // [NotMapped]
         [JsonIgnore]
-        public int ProductSpecificId { set; get; }       
+        public long ProductSpecificId { set; get; }       
 
+       // [NotMapped]
         public virtual Product2Specific ProductSpecific { set; get; }
 
     }

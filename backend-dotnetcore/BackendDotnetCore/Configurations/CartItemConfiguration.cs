@@ -13,10 +13,12 @@ namespace BackendDotnetCore.Configurations
         public void Configure(EntityTypeBuilder<CartItemEntity> builder)
         {
 
-            
+
             builder.HasOne(x => x.Cart)
                 .WithMany(x => x.Items)
-                .HasForeignKey(X=>X.CartId);
+                .HasForeignKey(X => X.CartId);
+
+            //builder.Navigation(b => b.Pr).UsePropertyAccessMode(PropertyAccessMode.Property);
         }
     }
 }

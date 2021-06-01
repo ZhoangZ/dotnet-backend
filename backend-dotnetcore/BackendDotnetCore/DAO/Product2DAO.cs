@@ -49,6 +49,17 @@ namespace BackendDotnetCore.DAO
             return tmp.FirstOrDefault(); 
 
         }
+
+        public Product2Specific getSpecific(long Id)
+
+        {
+            var tmp = dbContext.product2Specifics.Where(s => s.Id == Id);
+
+            return tmp.FirstOrDefault();
+
+        }
+
+
         public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot)
 
         {

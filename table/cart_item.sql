@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 31/05/2021 00:06:32
+ Date: 01/06/2021 00:22:34
 */
 
 SET NAMES utf8mb4;
@@ -31,12 +31,13 @@ CREATE TABLE `cart_item`  (
   `amount` int(255) NOT NULL DEFAULT 0,
   `actived` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart_item
 -- ----------------------------
-INSERT INTO `cart_item` VALUES (20, 4, 1, '2021-05-30 15:35:13', '2021-05-30 15:35:13', b'0', 5, b'1');
+INSERT INTO `cart_item` VALUES (26, 1, 3, '2021-05-31 17:19:39', '2021-05-31 17:19:39', b'0', 4, b'0');
+INSERT INTO `cart_item` VALUES (27, 2, 3, '2021-05-31 17:19:46', '2021-05-31 17:19:46', b'0', 2, b'1');
 
 -- ----------------------------
 -- Triggers structure for table cart_item
@@ -46,7 +47,7 @@ delimiter ;;
 CREATE TRIGGER `before_insert_cart_item` BEFORE INSERT ON `cart_item` FOR EACH ROW BEGIN
 				SELECT SALE_PRICE into @SALE_PRICE from product_specific where id = new.product_specific_id;
 			if new.actived = 1 then
-					UPDATE cart set cart.total_price=cart.total_price+ @SALE_PRICE * new.amount, cart.total_item=cart.total_item+1 WHERE cart.id=new.cart_id;
+					UPDATE cart set cart.total_price=cart.total_price+ @SALE_PRICE * new.amount, cart.total_item=cart.total_item+new.amount WHERE cart.id=new.cart_id;
 				end if;
 			
 	 END
@@ -59,16 +60,16 @@ delimiter ;
 DROP TRIGGER IF EXISTS `before_update_cart_item`;
 delimiter ;;
 CREATE TRIGGER `before_update_cart_item` BEFORE UPDATE ON `cart_item` FOR EACH ROW BEGIN
-				SELECT SALE_PRICE into @SALE_PRICE from product_specific where id = new.product_specific_id;
+				SELECT sale_price into @SALE_PRICE from product_specific where id = new.product_specific_id;
 				
 				if (old.actived = 0 and new.actived = 1) then
-					UPDATE cart set cart.total_price=(cart.total_price+ @SALE_PRICE * new.amount) , cart.total_item = cart.total_item+1 WHERE cart.id=new.cart_id;
+					UPDATE cart set cart.total_price=(cart.total_price+ @SALE_PRICE * new.amount) , cart.total_item = cart.total_item+new.amount WHERE cart.id=new.cart_id;
 				end if;
 				if (old.actived = 1 and new.actived = 0) then
-					UPDATE cart set cart.total_price=cart.total_price- @SALE_PRICE * new.amount, cart.total_item=cart.total_item-1 WHERE cart.id=new.cart_id;
+					UPDATE cart set cart.total_price=cart.total_price- @SALE_PRICE * new.amount, cart.total_item=cart.total_item-new.amount WHERE cart.id=new.cart_id;
 				end if;
 				if (old.actived = 1 and new.actived = 1) then
-					UPDATE cart set cart.total_price=cart.total_price+ @SALE_PRICE * (new.amount-old.amount) WHERE cart.id=new.cart_id;
+					UPDATE cart set cart.total_price=cart.total_price+ @SALE_PRICE * (new.amount-old.amount), cart.total_item=cart.total_item+(new.amount-old.amount) WHERE cart.id=new.cart_id;
 				end if;
 
 	 END
@@ -83,7 +84,7 @@ delimiter ;;
 CREATE TRIGGER `before_delete_cart_item` BEFORE DELETE ON `cart_item` FOR EACH ROW BEGIN
 					SELECT SALE_PRICE into @SALE_PRICE from product_specific where id = old.product_specific_id;
 				if old.actived = 1  then
-					UPDATE cart set cart.total_price=cart.total_price- @SALE_PRICE * old.amount, cart.total_item=cart.total_item-1 WHERE cart.id=old.cart_id;
+					UPDATE cart set cart.total_price=cart.total_price- @SALE_PRICE * old.amount, cart.total_item=cart.total_item-old.amount WHERE cart.id=old.cart_id;
 				end if;
 				
 

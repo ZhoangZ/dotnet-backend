@@ -15,17 +15,21 @@ namespace BackendDotnetCore.Entities
         [Column("id")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[JsonIgnore]
         public long Id { set; get; }
 
         [Column("total_price")]
-       // [StoreGeneratedPattern.Identity]
-       //[StoreGeneratedPattern = Computed]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public Decimal TotalPrice { set; get; }       
+        public Decimal TotalPrice { set; get; }
+
+        [Column("total_item")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int TotalItem { set; get; }
 
         [Column("user_id")]
         [JsonIgnore]
         public int UserId { set; get; }
+        //[JsonIgnore]
         public virtual UserEntity User { set; get; }
 
         public virtual List<CartItemEntity> Items { set; get; }

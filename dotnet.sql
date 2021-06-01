@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 31/05/2021 00:47:23
+ Date: 01/06/2021 00:23:47
 */
 
 SET NAMES utf8mb4;
@@ -90,18 +90,19 @@ INSERT INTO `brand` VALUES (38, 'TECNO', NULL, b'0', b'0', 0);
 -- ----------------------------
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart`  (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `total_price` decimal(10, 0) UNSIGNED NOT NULL DEFAULT 0,
   `total_item` int(11) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `iduser`(`user_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `iduser`(`user_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
 INSERT INTO `cart` VALUES (1, 5, 0, 0);
+INSERT INTO `cart` VALUES (3, 25, 55602000, 2);
 
 -- ----------------------------
 -- Table structure for cart_item
@@ -117,7 +118,13 @@ CREATE TABLE `cart_item`  (
   `amount` int(255) NOT NULL DEFAULT 0,
   `actived` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cart_item
+-- ----------------------------
+INSERT INTO `cart_item` VALUES (26, 1, 3, '2021-05-31 17:19:39', '2021-05-31 17:19:39', b'0', 4, b'0');
+INSERT INTO `cart_item` VALUES (27, 2, 3, '2021-05-31 17:19:46', '2021-05-31 17:19:46', b'0', 2, b'1');
 
 -- ----------------------------
 -- Table structure for comment
@@ -134,7 +141,6 @@ CREATE TABLE `comment`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -172,7 +178,6 @@ CREATE TABLE `favorite`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `yeuthich1`(`user_id`) USING BTREE,
   INDEX `yeuthich2`(`product_id`) USING BTREE,
-  CONSTRAINT `yeuthich1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `yeuthich2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -185,8 +190,7 @@ CREATE TABLE `forgotpass`  (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `dayforgot` date NULL DEFAULT NULL,
   PRIMARY KEY (`idforgot`) USING BTREE,
-  INDEX `forgotpass`(`email`) USING BTREE,
-  CONSTRAINT `forgotpass` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  INDEX `forgotpass`(`email`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -6491,7 +6495,6 @@ CREATE TABLE `order`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -8326,30 +8329,6 @@ INSERT INTO `slide` VALUES (2, 'img/slide/2.png', 1);
 INSERT INTO `slide` VALUES (3, 'img/slide/3.png', 1);
 
 -- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `full_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '',
-  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '',
-  `phone_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '',
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '',
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '',
-  `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '',
-  `dob` date NULL DEFAULT NULL,
-  `created_date` date NULL DEFAULT NULL,
-  `modified_date` date NULL DEFAULT NULL,
-  `role_id` int(10) NULL DEFAULT 1 COMMENT '1: user, 2: admin, 0:other',
-  `active` tinyint(2) NULL DEFAULT 1,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `email`(`email`) USING BTREE,
-  INDEX `role_id`(`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `user_role`;
@@ -8360,7 +8339,7 @@ CREATE TABLE `user_role`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `users_id`(`users_id`) USING BTREE,
   CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
@@ -8387,7 +8366,7 @@ CREATE TABLE `users`  (
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `opt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
@@ -8407,6 +8386,7 @@ INSERT INTO `users` VALUES (18, 'dinh10@gmail.com', 'Lê Tấn Hoàng', '0988766
 INSERT INTO `users` VALUES (19, 'dinh11@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'1', 'F59BD65F7EDAFB087A81D4DCA06C4910', NULL, NULL);
 INSERT INTO `users` VALUES (20, 'dinh20@gmail.com', 'Lê Tấn Hoàng', '0988766567', 'Đồng Nai', NULL, b'0', b'0', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
 INSERT INTO `users` VALUES (21, 'dinh12@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
+INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
 
 -- ----------------------------
 -- Triggers structure for table cart_item
@@ -8416,7 +8396,7 @@ delimiter ;;
 CREATE TRIGGER `before_insert_cart_item` BEFORE INSERT ON `cart_item` FOR EACH ROW BEGIN
 				SELECT SALE_PRICE into @SALE_PRICE from product_specific where id = new.product_specific_id;
 			if new.actived = 1 then
-					UPDATE cart set cart.total_price=cart.total_price+ @SALE_PRICE * new.amount, cart.total_item=cart.total_item+1 WHERE cart.id=new.cart_id;
+					UPDATE cart set cart.total_price=cart.total_price+ @SALE_PRICE * new.amount, cart.total_item=cart.total_item+new.amount WHERE cart.id=new.cart_id;
 				end if;
 			
 	 END
@@ -8429,16 +8409,16 @@ delimiter ;
 DROP TRIGGER IF EXISTS `before_update_cart_item`;
 delimiter ;;
 CREATE TRIGGER `before_update_cart_item` BEFORE UPDATE ON `cart_item` FOR EACH ROW BEGIN
-				SELECT SALE_PRICE into @SALE_PRICE from product_specific where id = new.product_specific_id;
+				SELECT sale_price into @SALE_PRICE from product_specific where id = new.product_specific_id;
 				
 				if (old.actived = 0 and new.actived = 1) then
-					UPDATE cart set cart.total_price=(cart.total_price+ @SALE_PRICE * new.amount) , cart.total_item = cart.total_item+1 WHERE cart.id=new.cart_id;
+					UPDATE cart set cart.total_price=(cart.total_price+ @SALE_PRICE * new.amount) , cart.total_item = cart.total_item+new.amount WHERE cart.id=new.cart_id;
 				end if;
 				if (old.actived = 1 and new.actived = 0) then
-					UPDATE cart set cart.total_price=cart.total_price- @SALE_PRICE * new.amount, cart.total_item=cart.total_item-1 WHERE cart.id=new.cart_id;
+					UPDATE cart set cart.total_price=cart.total_price- @SALE_PRICE * new.amount, cart.total_item=cart.total_item-new.amount WHERE cart.id=new.cart_id;
 				end if;
 				if (old.actived = 1 and new.actived = 1) then
-					UPDATE cart set cart.total_price=cart.total_price+ @SALE_PRICE * (new.amount-old.amount) WHERE cart.id=new.cart_id;
+					UPDATE cart set cart.total_price=cart.total_price+ @SALE_PRICE * (new.amount-old.amount), cart.total_item=cart.total_item+(new.amount-old.amount) WHERE cart.id=new.cart_id;
 				end if;
 
 	 END
@@ -8453,7 +8433,7 @@ delimiter ;;
 CREATE TRIGGER `before_delete_cart_item` BEFORE DELETE ON `cart_item` FOR EACH ROW BEGIN
 					SELECT SALE_PRICE into @SALE_PRICE from product_specific where id = old.product_specific_id;
 				if old.actived = 1  then
-					UPDATE cart set cart.total_price=cart.total_price- @SALE_PRICE * old.amount, cart.total_item=cart.total_item-1 WHERE cart.id=old.cart_id;
+					UPDATE cart set cart.total_price=cart.total_price- @SALE_PRICE * old.amount, cart.total_item=cart.total_item-old.amount WHERE cart.id=old.cart_id;
 				end if;
 				
 
@@ -8483,6 +8463,33 @@ CREATE TRIGGER `before_insert_product_specific` BEFORE INSERT ON `product_specif
 				SELECT SALE_RATE into @sale_rate from product_2 WHERE id= new.product_id;
 				set new.sale_price = ((new.price * (100-@sale_rate)) /100);
 				
+	 END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Triggers structure for table users
+-- ----------------------------
+DROP TRIGGER IF EXISTS `after_insert_users`;
+delimiter ;;
+CREATE TRIGGER `after_insert_users` AFTER INSERT ON `users` FOR EACH ROW BEGIN
+				INSERT INTO cart ( user_id, total_item,total_price) VALUES (new.id, 0,0);
+				
+
+	 END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Triggers structure for table users
+-- ----------------------------
+DROP TRIGGER IF EXISTS `before_delete_users`;
+delimiter ;;
+CREATE TRIGGER `before_delete_users` BEFORE DELETE ON `users` FOR EACH ROW BEGIN
+				DELETE FROM user_role WHERE users_id=old.id;
+				DELETE FROM cart WHERE user_id=old.id;
+				
+
 	 END
 ;;
 delimiter ;
