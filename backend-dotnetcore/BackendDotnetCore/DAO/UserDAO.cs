@@ -71,12 +71,6 @@ namespace BackendDotnetCore.DAO
             }
             
         }
-        public int Save1(UserEntity UserEntity)
-        {
-            dbContext.users.AddAsync(UserEntity);
-            dbContext.SaveChangesAsync();
-            return UserEntity.Id;
-        }
         public RoleEntity GetRoleFirst()
         {
             var role = dbContext.roles.Where(x => x.Type == "2");
