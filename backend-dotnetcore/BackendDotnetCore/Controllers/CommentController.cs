@@ -33,22 +33,22 @@ namespace BackendDotnetCore.Configurations
         {
             CommentResponse cmtRp = new CommentResponse();
             ICollection<CommentEntity> listCommentOfProduct;
-            if (commentPost.userID == 0)
+            if (commentPost.userID == 0 || null==userDAO.getOneById(commentPost.userID))
             {
-                Console.WriteLine("Vui lòng đăng nhập trước khi thực hiện chức năng này.");
-                return null;
+               return BadRequest(new { message = "Vui lòng đăng nhập trước khi thực hiện chức năng này." });
             }
             else
             {
                 CommentEntity commentResponse = new CommentEntity();
                 commentResponse.userID = commentPost.userID;
                 commentResponse.user = userDAO.getOneById(commentPost.userID);
-                if (commentPost.productID == 0) //cần thêm kiểm tra trên order của khách hàng
+                if (commentPost.productID == 0 || null == product2DAO.getProduct(commentPost.productID)) //cần thêm kiểm tra trên order của khách hàng
                 {
-                    return BadRequest(new { message = "Lỗi request không có productID." });
+                    return BadRequest(new { message = "Sản phẩm không tồn tại trong hệ thống!" });
                 }
                 else
                 {
+                    if (null != commentDAO.checkUserCommentProductById(commentPost.productID, commentPost.userID)) return BadRequest(new { message = "Bạn đã đánh giá sản phẩm này rồi. Cảm ơn bạn đã mua sản phẩm!" });
                     //save to table
                     commentResponse.createdDate = System.DateTime.Now;
                     commentResponse.rate = commentPost.rate;
@@ -70,7 +70,6 @@ namespace BackendDotnetCore.Configurations
                     else
                     {
                         commentResponse.id = commentID;
-                        Console.WriteLine("Thanh cong! Them vao id = " + commentID);
                         listCommentOfProduct = (ICollection<CommentEntity>)commentDAO.getAllByProductID(commentResponse.productID);
                         cmtRp.listCommentByProduct = listCommentOfProduct;
                         cmtRp.computeSumOfList();

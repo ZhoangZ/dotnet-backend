@@ -42,5 +42,11 @@ namespace BackendDotnetCore.DAO
             Console.WriteLine(ls.Count);
             return listRs;
         }
+
+        public CommentEntity checkUserCommentProductById(int productID, int userID)
+        {
+            var cmt = dbContext.Comments.Where(x => x.productID == productID && x.userID == userID).SingleOrDefault();
+            return cmt;
+        }
     }
 }
