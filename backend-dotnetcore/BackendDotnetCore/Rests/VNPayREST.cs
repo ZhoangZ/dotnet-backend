@@ -12,7 +12,7 @@ using BackendDotnetCore.DAO;
 using BackendDotnetCore.Entities;
 using System.Net.Http;
 
-namespace BackendDotnetCore.Controllers
+namespace BackendDotnetCore.Rests
 {
     [ApiController]
     [Route("payment")]
@@ -20,10 +20,10 @@ namespace BackendDotnetCore.Controllers
     {
         private PaymentDAO paymentDAO;
         private HttpClient httpClient;
-        public VNPayREST(PaymentDAO dao, HttpClient httpClient)
+        public VNPayREST()
         {
-            this.paymentDAO = dao;
-            this.httpClient = httpClient;
+            this.paymentDAO = new PaymentDAO();
+            this.httpClient = new HttpClient();
         }
 
         [HttpPost("donate")]
@@ -33,7 +33,7 @@ namespace BackendDotnetCore.Controllers
 
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];
-            Console.WriteLine(user);
+            //Console.WriteLine(user);
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
 

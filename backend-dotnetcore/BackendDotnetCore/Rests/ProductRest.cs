@@ -11,21 +11,20 @@ using System.Threading.Tasks;
 
 
 
-namespace BackendDotnetCore.Controllers
+namespace BackendDotnetCore.Rests
 {
     [ApiController]
     [Route("product")]
     //[Route("products")]
-    public class ProductControlller : ControllerBase
+    public class ProductRest : ControllerBase
     {
         //auto wired productDAO
         private Product2DAO ProductDAO;
         private CommentDAO commentDAO;
 
-        public ProductControlller(Product2DAO ProductDAO, CommentDAO commentDAO)
+        public ProductRest()
         {
-            /*this.ProductDAO = ProductDAO;
-            this.commentDAO = commentDAO;*/
+           
             this.ProductDAO = new Product2DAO();
             this.commentDAO = new CommentDAO();
 

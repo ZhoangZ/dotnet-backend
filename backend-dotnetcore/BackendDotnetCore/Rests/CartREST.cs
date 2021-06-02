@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BackendDotnetCore.Rest
+namespace BackendDotnetCore.Rests
 {
     [ApiController]
     [Route("api/cart")]
@@ -17,11 +17,9 @@ namespace BackendDotnetCore.Rest
         private PaymentDAO paymentDAO;
         private CartDAO cartDAO;
         Product2DAO product2DAO;
-        public CartREST(PaymentDAO paymentDAO, Product2DAO product2DAO, CartDAO cartDAO)
+        public CartREST()
         {
-           /* this.paymentDAO = paymentDAO;
-            this.cartDAO = cartDAO;
-            this.product2DAO = product2DAO;*/
+         
 
             this.paymentDAO = new PaymentDAO();
             this.cartDAO = new CartDAO();
@@ -39,7 +37,7 @@ namespace BackendDotnetCore.Rest
 
                 // Lấy UserEntity đang đăng nhập từ jwt
                 UserEntity user = (UserEntity)HttpContext.Items["User"];
-                Console.WriteLine("User: " + user);
+                //Console.WriteLine("User: " + user);
                 // Xóa bộ nhớ đệm chứa userentity
                 HttpContext.Items["User"] = null;
                 CartEntity c = cartDAO.getCart(user.Id);
