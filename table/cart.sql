@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 02/06/2021 08:10:08
+ Date: 03/06/2021 23:50:38
 */
 
 SET NAMES utf8mb4;
@@ -49,7 +49,7 @@ INSERT INTO `cart` VALUES (15, 18, 0, 0);
 INSERT INTO `cart` VALUES (16, 19, 0, 0);
 INSERT INTO `cart` VALUES (17, 20, 0, 0);
 INSERT INTO `cart` VALUES (18, 21, 0, 0);
-INSERT INTO `cart` VALUES (19, 25, 0, 0);
+INSERT INTO `cart` VALUES (19, 25, 27801000, 1);
 
 -- ----------------------------
 -- Triggers structure for table cart

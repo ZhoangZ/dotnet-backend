@@ -77,7 +77,10 @@ namespace BackendDotnetCore.DAO
            
            // dbContext.CartItems.Add(cartItemEntity);
             dbContext.SaveChanges();
-
+            if (cartItemEntity.Deleted == true)
+            {
+                dbContext.Remove(cartItemEntity);
+            }
             return cartItemEntity;
 
         }

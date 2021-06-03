@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 02/06/2021 08:09:59
+ Date: 03/06/2021 23:50:31
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,12 @@ CREATE TABLE `cart_item`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `cart_id`(`cart_id`) USING BTREE,
   CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cart_item
+-- ----------------------------
+INSERT INTO `cart_item` VALUES (28, 2, 19, '2021-06-03 16:07:12', '2021-06-03 16:07:12', b'0', 1, b'1');
 
 -- ----------------------------
 -- Triggers structure for table cart_item
@@ -57,6 +62,10 @@ DROP TRIGGER IF EXISTS `before_update_cart_item`;
 delimiter ;;
 CREATE TRIGGER `before_update_cart_item` BEFORE UPDATE ON `cart_item` FOR EACH ROW BEGIN
 				SELECT sale_price into @SALE_PRICE from product_specific where id = new.product_specific_id;
+				
+				if new.deleted = 1  then
+					set new.actived=0;
+				end if;
 				
 				if (old.actived = 0 and new.actived = 1) then
 					UPDATE cart set cart.total_price=(cart.total_price+ @SALE_PRICE * new.amount) , cart.total_item = cart.total_item+new.amount WHERE cart.id=new.cart_id;

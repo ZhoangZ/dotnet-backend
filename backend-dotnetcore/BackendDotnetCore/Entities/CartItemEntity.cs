@@ -22,6 +22,9 @@ namespace BackendDotnetCore.Entities
         [Column("actived")]
         public bool Actived { set; get; }
 
+        [Column("deleted")]
+        public bool Deleted { set; get; }
+
 
         [Column("cart_id")]
         [JsonIgnore]

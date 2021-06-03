@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BackendDotnetCore.Forms
+namespace BackendDotnetCore.DTO
 {
     public class CartDTO
 
@@ -34,12 +34,15 @@ namespace BackendDotnetCore.Forms
         public long Id { set; get; }
         public int Amount { set; get; }
         public bool Actived { set; get; }        
+        public bool Deleted { set; get; }        
         public Product2 Product { set; get; }
         public CartItem2DTO(CartItemEntity cartItemEntity)
         {
             Id = cartItemEntity.Id;
             Amount = cartItemEntity.Amount;
             Actived = cartItemEntity.Actived;
+            Deleted = cartItemEntity.Deleted;
+            
             Product = cartItemEntity.ProductSpecific.Product;
             Product.Specific = cartItemEntity.ProductSpecific;
             Product.Specifics = null;
