@@ -55,10 +55,22 @@ namespace BackendDotnetCore.DAO
             return tmp.FirstOrDefault();
 
         }
+        public void deleteAllItemCart(int UserId)
+        {
+            var tmp=dbContext.Carts.Where(s => s.UserId == UserId).Include(x => x.Items);
+            CartEntity c=tmp.FirstOrDefault();
+
+            foreach (var ci in c.Items)
+            {
+                dbContext.Remove(ci);
+
+            }
+            dbContext.SaveChanges();
+        }
         public CartEntity getCart(int UserId, long cartItemId)
 
         {
-
+            //Cart cartItem ower User
             var tmp = dbContext.Carts.Where(s => s.UserId == UserId)
                 .Include(x => x.Items)
                 .Where(y => y.Items.Any(U=> U.Id.CompareTo( cartItemId)==0))

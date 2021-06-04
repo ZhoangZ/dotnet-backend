@@ -98,6 +98,9 @@ namespace BackendDotnetCore.Rests
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
 
+            //Xóa hết tất cả sản phẩm trong giỏ hàng
+            cartDAO.deleteAllItemCart(user.Id);
+
             CartEntity c = cartDAO.getCart(user.Id);
             foreach(CartItem ci in formAddCart.CartItems)
             {
