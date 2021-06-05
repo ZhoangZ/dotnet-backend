@@ -105,7 +105,7 @@ namespace BackendDotnetCore.Rests
             foreach(CartItem ci in formAddCart.CartItems)
             {
 
-                Console.WriteLine("productId: {0}, amount: {1}", ci.ProductSpecificId, ci.Amount);
+                Console.WriteLine("productId: {0}, amount: {1}", ci.ProductSpecificId, ci.Quantity);
                 Product2Specific p=product2DAO.getSpecific(ci.ProductSpecificId);
                 if (p == null) return BadRequest();
 
@@ -119,7 +119,7 @@ namespace BackendDotnetCore.Rests
                     if (cartItemEntity == null)
                     {
                         cartItemEntity = new CartItemEntity();
-                        cartItemEntity.Amount = ci.Amount;
+                        cartItemEntity.Amount = ci.Quantity;
                         cartItemEntity.ProductSpecificId = ci.ProductSpecificId;
                         cartItemEntity.CartId = c.Id;
                         //
@@ -130,7 +130,7 @@ namespace BackendDotnetCore.Rests
                     {
                         Console.WriteLine("Increase amount");
                         //cartItemEntity.Amount += ci.Amount;
-                        cartItemEntity.Amount = ci.Amount;
+                        cartItemEntity.Amount = ci.Quantity;
                         if (cartItemEntity.Amount < 0) return BadRequest("Số lượng item trong giỏ hàng nhỏ hơn 0, hãy xóa item này khỏi giỏ hàng");
                     }
                 
@@ -162,12 +162,12 @@ namespace BackendDotnetCore.Rests
         public class CartItem
     {
         public long ProductSpecificId { get; set; }
-        public int Amount { get; set; }
+        public int Quantity { get; set; }
         public bool Actived { get; set; }
         public bool Deleted { get; set; }
         public CartItem()
         {
-            Amount = 1;
+            Quantity = 1;
             Actived = true;
             Deleted = false;
         }
