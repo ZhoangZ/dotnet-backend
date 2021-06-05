@@ -32,14 +32,14 @@ namespace BackendDotnetCore.DTO
     public class CartItem2DTO
     {
         public long Id { set; get; }
-        public int Amount { set; get; }
+        public int Quantity { set; get; }
         public bool Actived { set; get; }        
         public bool Deleted { set; get; }        
         public Product2 Product { set; get; }
         public CartItem2DTO(CartItemEntity cartItemEntity)
         {
             Id = cartItemEntity.Id;
-            Amount = cartItemEntity.Amount;
+            Quantity = cartItemEntity.Amount;
             Actived = cartItemEntity.Actived;
             Deleted = cartItemEntity.Deleted;
             
