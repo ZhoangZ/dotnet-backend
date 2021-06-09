@@ -22,7 +22,9 @@ namespace BackendDotnetCore.EF
         public DbSet<Product2Specific> product2Specifics { set; get; }
         public DbSet<CommentEntity> Comments { set; get; }
         public DbSet<CartItemEntity> CartItems { set; get; }
+        public DbSet<OrderItemEntity> OrderItems { set; get; }
         public DbSet<CartEntity> Carts { set; get; }
+        public DbSet<OrderEntity> Orders { set; get; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
