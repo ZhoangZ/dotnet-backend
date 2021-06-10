@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Entities
 {
-    [Table("cart_item")]
-    public class CartItemEntity
+    [Table("order_detail")]
+    public class OrderItemEntity
     {
         [Column("id")]
         [Key]
@@ -17,6 +17,7 @@ namespace BackendDotnetCore.Entities
         public long Id { set; get; }
         [Column("amount")]
         public int Amount { set; get; }
+       
        
 
         [Column("actived")]
@@ -26,11 +27,11 @@ namespace BackendDotnetCore.Entities
         public bool Deleted { set; get; }
 
 
-        [Column("cart_id")]
+        [Column("order_id")]
+        //[JsonIgnore]
+        public long OrderId { set; get; }
         [JsonIgnore]
-        public long CartId { set; get; }
-        [JsonIgnore]
-        public virtual CartEntity Cart { set; get; }
+        public virtual OrderEntity Order { set; get; }
 
        [Column("product_specific_id")]
        // [NotMapped]

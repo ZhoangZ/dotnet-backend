@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 02/06/2021 08:36:02
+ Date: 09/06/2021 08:28:44
 */
 
 SET NAMES utf8mb4;
@@ -135,7 +135,7 @@ CREATE TABLE `cart_item`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `cart_id`(`cart_id`) USING BTREE,
   CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for comment
@@ -153,7 +153,7 @@ CREATE TABLE `comment`  (
   INDEX `user_id`(`user_id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of comment
@@ -167,6 +167,7 @@ INSERT INTO `comment` VALUES (9, 16, 11, 5, 'San pham nay rat tuyet boi 16', '20
 INSERT INTO `comment` VALUES (10, 15, 11, 4, 'San pham nay rat tuyet boi 15', '2021-05-30', 1);
 INSERT INTO `comment` VALUES (11, 14, 11, 4, 'San pham nay rat tuyet boi 14', '2021-05-30', 1);
 INSERT INTO `comment` VALUES (12, 14, 11, 4, 'San pham nay rat tuyet boi 14', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (13, 25, 7, 1, '213131', '2021-06-05', 1);
 
 -- ----------------------------
 -- Table structure for favorite
@@ -6485,39 +6486,58 @@ INSERT INTO `information_product` VALUES (5492, 261, 'SKU', '7004774809954');
 -- ----------------------------
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`  (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
   `order_status` int(10) NULL DEFAULT NULL,
   `created_date` date NULL DEFAULT NULL,
   `address_delivery` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `name_consumer` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `phone_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `active` int(1) NULL DEFAULT 1,
+  `total_price` decimal(10, 0) UNSIGNED NOT NULL DEFAULT 0,
+  `total_item` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `deleled` int(1) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of order
+-- ----------------------------
+INSERT INTO `order` VALUES (41, 25, NULL, NULL, 'An Binh', NULL, NULL, 0, 0, 0);
+INSERT INTO `order` VALUES (42, 0, NULL, NULL, 'An Bình', NULL, NULL, 0, 0, 0);
+INSERT INTO `order` VALUES (43, 25, NULL, NULL, 'An Bình', NULL, NULL, 0, 0, 0);
+INSERT INTO `order` VALUES (44, 25, NULL, NULL, 'An Bình', NULL, NULL, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for order_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `order_detail`;
 CREATE TABLE `order_detail`  (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `order_id` int(10) NULL DEFAULT NULL,
-  `product_id` int(10) NULL DEFAULT NULL,
-  `amount` int(10) NULL DEFAULT NULL,
-  `initail_price` bigint(255) NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NULL DEFAULT NULL,
   `saled_price` bigint(255) NULL DEFAULT NULL,
-  `total_price` bigint(255) NULL DEFAULT NULL,
   `price` int(255) NULL DEFAULT NULL,
   `active` int(255) NULL DEFAULT 1,
+  `product_specific_id` bigint(20) NOT NULL,
+  `create_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
+  `update_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
+  `deleted` bit(1) NOT NULL DEFAULT b'0',
+  `amount` int(255) NOT NULL DEFAULT 0,
+  `actived` bit(1) NOT NULL DEFAULT b'0',
+  `sale_rate` int(255) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `chitietdonhang2`(`product_id`) USING BTREE,
-  INDEX `chitietdonhang1`(`order_id`) USING BTREE,
-  CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+  INDEX `chitietdonhang1`(`order_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 59 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of order_detail
+-- ----------------------------
+INSERT INTO `order_detail` VALUES (55, 43, NULL, NULL, 1, 1, '2021-06-09 01:24:19', '2021-06-09 01:24:19', b'0', 2, b'1', 0);
+INSERT INTO `order_detail` VALUES (56, 43, NULL, NULL, 1, 2, '2021-06-09 01:24:20', '2021-06-09 01:24:20', b'0', 1, b'1', 0);
+INSERT INTO `order_detail` VALUES (57, 44, NULL, NULL, 1, 1, '2021-06-09 01:26:11', '2021-06-09 01:26:11', b'0', 2, b'1', 0);
+INSERT INTO `order_detail` VALUES (58, 44, NULL, NULL, 1, 2, '2021-06-09 01:26:11', '2021-06-09 01:26:11', b'0', 1, b'1', 0);
 
 -- ----------------------------
 -- Table structure for order_status
@@ -8070,6 +8090,10 @@ DROP TRIGGER IF EXISTS `before_update_cart_item`;
 delimiter ;;
 CREATE TRIGGER `before_update_cart_item` BEFORE UPDATE ON `cart_item` FOR EACH ROW BEGIN
 				SELECT sale_price into @SALE_PRICE from product_specific where id = new.product_specific_id;
+				
+				if new.deleted = 1  then
+					set new.actived=0;
+				end if;
 				
 				if (old.actived = 0 and new.actived = 1) then
 					UPDATE cart set cart.total_price=(cart.total_price+ @SALE_PRICE * new.amount) , cart.total_item = cart.total_item+new.amount WHERE cart.id=new.cart_id;

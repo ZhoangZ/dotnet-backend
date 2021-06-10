@@ -8,28 +8,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackendDotnetCore.DAO
 {
-    public class CartDAO
+    public class OrderDAO
     {
 
         private BackendDotnetDbContext dbContext;
-        public CartDAO()
+        public OrderDAO()
         {
             this.dbContext = new BackendDotnetDbContext();
         }
 
 
-        public CartEntity getCart(CartEntity cartEntity)
+        public OrderEntity getCart(OrderEntity cartEntity)
         {
             dbContext.Entry(cartEntity).State = EntityState.Detached;
 
-            return getCart(cartEntity.UserId);
+            return getOrder(cartEntity.UserId, cartEntity.Id);
 
         }
-        public CartEntity getCart(int UserId)
+        public OrderEntity getCart(int UserId)
 
         {
 
-            var tmp = dbContext.Carts.Where(s => s.UserId == UserId)
+            var tmp = dbContext.Orders.Where(s => s.UserId == UserId)
                 .Include(x => x.User)
                 .Include(x => x.Items)
                 .ThenInclude(X => X.ProductSpecific)
@@ -67,25 +67,41 @@ namespace BackendDotnetCore.DAO
             }
             dbContext.SaveChanges();
         }
-        public CartEntity getCart(int UserId, long cartItemId)
+        public OrderEntity getOrder(int UserId, long cartItemId)
 
         {
             //Cart cartItem ower User
-            var tmp = dbContext.Carts.Where(s => s.UserId == UserId)
+            var tmp = dbContext.Orders.Where(s => s.UserId == UserId && s.Id.CompareTo(cartItemId) == 0)
+                .Include(x => x.User)
                 .Include(x => x.Items)
-                .Where(y => y.Items.Any(U=> U.Id.CompareTo( cartItemId)==0))
+
+                .ThenInclude(X => X.ProductSpecific)
+                    .ThenInclude(X => X.Product)
+                          .ThenInclude(X => X.Images)
+                .Include(x => x.Items)
+                .ThenInclude(X => X.ProductSpecific)
+                    .ThenInclude(X => X.Product)
+                        .ThenInclude(X => X.Brand)
+
+                .Include(x => x.Items)
+                .ThenInclude(X => X.ProductSpecific)
+                    .ThenInclude(X => X.Ram)
+
+                .Include(x => x.Items)
+                .ThenInclude(X => X.ProductSpecific)
+                    .ThenInclude(X => X.Rom)
                 ;
 
             return tmp.FirstOrDefault();
 
         }
 
-        public CartItemEntity SaveCart(CartItemEntity cartItemEntity)
+        public OrderItemEntity SaveOrder(OrderItemEntity cartItemEntity)
 
         {
             dbContext.Entry(cartItemEntity).Reference(x => x.ProductSpecific).IsModified = false;
             //dbContext.Entry(cartItemEntity).Reference(x => x.ProductSpecific.Product).IsModified = false;
-            dbContext.Entry(cartItemEntity).Reference(x => x.Cart).IsModified = false;
+            dbContext.Entry(cartItemEntity).Reference(x => x.Order).IsModified = false;
            
            // dbContext.CartItems.Add(cartItemEntity);
             dbContext.SaveChanges();
@@ -93,6 +109,19 @@ namespace BackendDotnetCore.DAO
             {
                 dbContext.Remove(cartItemEntity);
             }
+            return cartItemEntity;
+
+        }
+        public OrderEntity SaveOrder(OrderEntity cartItemEntity)
+
+        {
+            dbContext.Entry(cartItemEntity).Collection(x => x.Items).IsModified = false;
+            dbContext.Entry(cartItemEntity).Property(x => x.TotalItem).IsModified = false;
+            dbContext.Entry(cartItemEntity).Property(x => x.TotalPrice).IsModified = false;
+
+            dbContext.Orders.Add(cartItemEntity);
+            dbContext.SaveChanges();
+            
             return cartItemEntity;
 
         }
