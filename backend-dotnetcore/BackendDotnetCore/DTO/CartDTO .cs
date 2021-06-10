@@ -11,9 +11,10 @@ namespace BackendDotnetCore.DTO
     public class CartDTO
 
     {
-        
 
+        [JsonIgnore]
         public Decimal TotalPrice { set; get; }
+        [JsonIgnore]
         public int TotalItem { set; get; }
         [JsonIgnore]
         public UserEntity User { set; get; }
