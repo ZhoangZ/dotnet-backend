@@ -102,10 +102,11 @@ namespace WebApi.Controllers
             //check timeout for opt code
         }
 
-        [HttpPut("update-pass/{id}")]
-        public IActionResult UpdatePassword(int id, ResetPassForm form)
+        [HttpPost("update-pass")]
+        public IActionResult UpdatePassword(ResetPassForm form)
         {
-            UserEntity ueUpdate = _userService.getUserById(id);
+            if(form.id==0) return BadRequest(new { message = "Thông tin request không hợp lệ 'id = 0'!" });
+            UserEntity ueUpdate = _userService.getUserById(form.id);
             if (null != ueUpdate)
             {
                 form.currentPass = EncodeUltis.MD5(form.currentPass);//check password hiện tại có đúng không ?
@@ -115,10 +116,10 @@ namespace WebApi.Controllers
                 if (form.checkNewPassEqualsOldPass(ueUpdate.Password) == true) return BadRequest(new { message = "Mật khẩu mới hiện tại đang được sử dụng. Hãy thử với mật khẩu mới!" });
 
                 //saved password on database
-                ueUpdate.Password = EncodeUltis.MD5(form.newpass);
+                ueUpdate.Password = form.newpass;
                 _userService.save(ueUpdate);
 
-                return Ok("Cập nhật mật khẩu thành công!");
+                return Ok(_userService.createUserJWT(ueUpdate));
             }
             return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thực hiện sau!" });
         }

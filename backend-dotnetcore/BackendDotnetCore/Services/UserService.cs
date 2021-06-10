@@ -99,6 +99,7 @@ namespace BackendDotnetCore.Services
             }
             else
             {
+                model.UserRoles = new UserRoleDAO().getAllRoleOfUserId(model.Id);
                 var token = generateJwtToken(model);
                 return new AuthenticateResponse(token, model);
             }

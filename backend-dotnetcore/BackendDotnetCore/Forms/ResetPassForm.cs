@@ -7,6 +7,7 @@ namespace BackendDotnetCore.Forms
 {
     public class ResetPassForm
     {
+        public int id { set; get; }
         public string currentPass { set; get; }
         public string email { set; get; }
         public string newpass { set; get; }
