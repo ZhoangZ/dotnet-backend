@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 11/06/2021 10:51:03
+ Date: 11/06/2021 11:07:32
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `order`  (
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
@@ -74,5 +74,6 @@ INSERT INTO `order` VALUES (29, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000
 INSERT INTO `order` VALUES (30, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000, 3, 0, NULL);
 INSERT INTO `order` VALUES (31, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000, 3, 0, NULL);
 INSERT INTO `order` VALUES (32, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000, 3, 0, 20);
+INSERT INTO `order` VALUES (33, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000, 3, 0, 21);
 
 SET FOREIGN_KEY_CHECKS = 1;

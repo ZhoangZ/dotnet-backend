@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 11/06/2021 10:51:11
+ Date: 11/06/2021 11:07:45
 */
 
 SET NAMES utf8mb4;
@@ -6502,7 +6502,7 @@ CREATE TABLE `order`  (
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
@@ -6539,6 +6539,7 @@ INSERT INTO `order` VALUES (29, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000
 INSERT INTO `order` VALUES (30, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000, 3, 0, NULL);
 INSERT INTO `order` VALUES (31, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000, 3, 0, NULL);
 INSERT INTO `order` VALUES (32, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000, 3, 0, 20);
+INSERT INTO `order` VALUES (33, 25, NULL, NULL, 'An Bình', NULL, NULL, 83403000, 3, 0, 21);
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -6558,7 +6559,7 @@ CREATE TABLE `order_detail`  (
   `sale_rate` int(255) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `chitietdonhang1`(`order_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_detail
@@ -6603,6 +6604,8 @@ INSERT INTO `order_detail` VALUES (37, 31, 0, 30890000, 1, '2021-06-11 03:48:35'
 INSERT INTO `order_detail` VALUES (38, 31, 0, 30890000, 2, '2021-06-11 03:48:35', '2021-06-11 03:48:35', b'0', 1, b'1', 0);
 INSERT INTO `order_detail` VALUES (39, 32, 0, 30890000, 1, '2021-06-11 03:49:38', '2021-06-11 03:49:38', b'0', 2, b'1', 0);
 INSERT INTO `order_detail` VALUES (40, 32, 0, 30890000, 2, '2021-06-11 03:49:38', '2021-06-11 03:49:38', b'0', 1, b'1', 0);
+INSERT INTO `order_detail` VALUES (41, 33, 0, 30890000, 1, '2021-06-11 03:56:58', '2021-06-11 03:56:58', b'0', 2, b'1', 0);
+INSERT INTO `order_detail` VALUES (42, 33, 0, 30890000, 2, '2021-06-11 03:56:58', '2021-06-11 03:56:58', b'0', 1, b'1', 0);
 
 -- ----------------------------
 -- Table structure for order_status
@@ -6641,7 +6644,7 @@ CREATE TABLE `payment`  (
   `url_return` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payment
@@ -6665,7 +6668,8 @@ INSERT INTO `payment` VALUES (16, 25, '0001-01-01 00:00:00', 8340300000, '119.17
 INSERT INTO `payment` VALUES (17, 25, '0001-01-01 00:00:00', 8340300000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=8340300000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/17&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=17&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=8c1f9d93ed47ffee9a342da0dad621f4e7895c6952d9ac517e6407b93b8ffdba', NULL, NULL, 'htpp://localhost:3000');
 INSERT INTO `payment` VALUES (18, 25, '0001-01-01 00:00:00', 8340300000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=8340300000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/18&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=18&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=e94e7fa291f94bd80803f0b91f12b787460dfeac31dc168d23d3ff66e3b4a068', NULL, NULL, 'htpp://localhost:3000');
 INSERT INTO `payment` VALUES (19, 25, '0001-01-01 00:00:00', 8340300000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=8340300000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/19&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=19&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=496e3c3fd3eb9946c01cf1754943da407ac141a9e24561fc4ca6dcaac0a10960', NULL, NULL, 'htpp://localhost:3000');
-INSERT INTO `payment` VALUES (20, 25, '0001-01-01 00:00:00', 8340300000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=8340300000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/20&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=20&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=e1c3c93832ef8243fbc97651e1c3d550845e8de3f89c86149d0d5aa8cdcf9322', NULL, NULL, 'htpp://localhost:3000');
+INSERT INTO `payment` VALUES (20, 25, '0001-01-01 00:00:00', 8340300000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=8340300000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/20&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=20&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=e1c3c93832ef8243fbc97651e1c3d550845e8de3f89c86149d0d5aa8cdcf9322', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=20&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=71d50b325641bb02ffd23724fa2039d5e23bd1434f825ca08c7b71bd561b1925', 'vnp_Amount=8340300000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=00010101070000&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13522060&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=20&vnp_SecureHash=45cd1c5a2bbc4910c6cf6ff4186b074418482adf86fbd34e6c92afbd1b5d4693', 'htpp://localhost:3000');
+INSERT INTO `payment` VALUES (21, 25, '0001-01-01 00:00:00', 8340300000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=8340300000&vnp_Command=pay&vnp_CreateDate=00010101000000&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/donate/21&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=21&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=61d67a6cd20782f03df455f68ea75ea568b1cdb3764309342090a9ea002e9293', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=00010101000000&vnp_TxnRef=21&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=22feaea7b3087f26968d6b076e44ebd939d06ba5fc4f67b57ec990578b9f7cf9', 'vnp_Amount=8340300000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=00010101070000&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13522069&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=21&vnp_SecureHash=56aaa742d925d6532320204a55c659d8840f67787e48111d3e9f5c73ee224839', 'https://localhost:25002/test/hello?hai=ha');
 
 -- ----------------------------
 -- Table structure for product_2

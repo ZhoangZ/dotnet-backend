@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 11/06/2021 10:50:56
+ Date: 11/06/2021 11:07:38
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `order_detail`  (
   `sale_rate` int(255) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `chitietdonhang1`(`order_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_detail
@@ -80,6 +80,8 @@ INSERT INTO `order_detail` VALUES (37, 31, 0, 30890000, 1, '2021-06-11 03:48:35'
 INSERT INTO `order_detail` VALUES (38, 31, 0, 30890000, 2, '2021-06-11 03:48:35', '2021-06-11 03:48:35', b'0', 1, b'1', 0);
 INSERT INTO `order_detail` VALUES (39, 32, 0, 30890000, 1, '2021-06-11 03:49:38', '2021-06-11 03:49:38', b'0', 2, b'1', 0);
 INSERT INTO `order_detail` VALUES (40, 32, 0, 30890000, 2, '2021-06-11 03:49:38', '2021-06-11 03:49:38', b'0', 1, b'1', 0);
+INSERT INTO `order_detail` VALUES (41, 33, 0, 30890000, 1, '2021-06-11 03:56:58', '2021-06-11 03:56:58', b'0', 2, b'1', 0);
+INSERT INTO `order_detail` VALUES (42, 33, 0, 30890000, 2, '2021-06-11 03:56:58', '2021-06-11 03:56:58', b'0', 1, b'1', 0);
 
 -- ----------------------------
 -- Triggers structure for table order_detail

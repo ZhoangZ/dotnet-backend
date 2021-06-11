@@ -134,11 +134,11 @@ namespace BackendDotnetCore.Rests
             paymentEntity.userId = user.Id;
             paymentEntity.Amount = c.TotalPrice*100;
             paymentEntity.CurrCode = "VND";
-            paymentEntity.UrlReturn = "htpp://localhost:3000";
+            paymentEntity.UrlReturn = "htpp://localhost:3000/accept";
             paymentEntity.CreateTime = DateTime.Now;
             paymentEntity.IpAddress = "119.17.249.22";
             paymentEntity = paymentDAO.AddPayment(paymentEntity);
-            paymentEntity.gender("https://localhost:25002/payment/donate");
+            paymentEntity.gender("https://localhost:25002/payment/redirect");
             paymentEntity = paymentDAO.UpdatePayment(paymentEntity);
             c.Payment = paymentEntity;
             c.PaymentId = paymentEntity.Id;

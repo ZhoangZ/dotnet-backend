@@ -61,7 +61,11 @@ namespace BackendDotnetCore.Rests
                 paymentEntity= paymentEntity.querry(httpClient);
                 paymentEntity = this.paymentDAO.UpdatePayment(paymentEntity);
                 string urlReturn=paymentEntity.UrlReturn;
-                urlReturn=urlReturn.Substring(0, urlReturn.LastIndexOf("?"));
+                if (urlReturn.LastIndexOf("?") > 0)
+                {
+                     urlReturn=urlReturn.Substring(0, urlReturn.LastIndexOf("?"));
+
+                }
                 urlReturn += "?"+paymentEntity.ParamsUrlStatus;
                 return Ok(new { Url = urlReturn }) ;
                 //return Ok(paymentEntity);
@@ -73,6 +77,36 @@ namespace BackendDotnetCore.Rests
           
 
             
+
+        }
+
+        [HttpGet("redirect/{id}")]
+        public ActionResult GetPayment2(int id)
+        {
+            if (id == 0) return BadRequest(new MessageResponse("Thiếu param id", "param request"));
+            try
+            {
+                PaymentEntity paymentEntity = this.paymentDAO.getPayment(id);
+                paymentEntity = paymentEntity.querry(httpClient);
+                paymentEntity = this.paymentDAO.UpdatePayment(paymentEntity);
+                string urlReturn = paymentEntity.UrlReturn;
+                if (urlReturn.LastIndexOf("?") > 0)
+                {
+                    urlReturn = urlReturn.Substring(0, urlReturn.LastIndexOf("?"));
+
+                }
+                urlReturn += "?" + paymentEntity.ParamsUrlStatus;
+                return Redirect(urlReturn);
+                //return Redirect("https://localhost:5001/test");
+                //return Ok(paymentEntity);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { err=e.Message });
+            }
+
+
+
 
         }
 
