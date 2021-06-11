@@ -56,7 +56,7 @@ namespace BackendDotnetCore.Rests
         [HttpPost]
         [Authorize]
 
-        public ActionResult postCart([FromBody] FormPutOrder formAddCart)
+        public ActionResult postOrder([FromBody] FormPutOrder formAddCart)
         {
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];
@@ -71,9 +71,13 @@ namespace BackendDotnetCore.Rests
             c.AddressDelivery = formAddCart.AddressDelivery;
             c.UserId = user.Id;
             c=orderDAO.SaveOrder(c);
+           // c = orderDAO.getOrder(c);
             if(c==null) return BadRequest("Not save orderEntity");
+            Console.WriteLine("Order: {0}", c.Id);
+           // if(c!=null) return Ok(c); ;
+
            // return Ok(c);
-            Console.WriteLine("Order", c.Id);
+           
             foreach (OrderItem ci in formAddCart.CartItems)
             {
 
@@ -88,7 +92,7 @@ namespace BackendDotnetCore.Rests
                         cartItemEntity = c.Items.Find(X => X.ProductSpecificId.CompareTo(ci.ProductSpecificId) == 0);
                     else c.Items = new List<OrderItemEntity>();
 
-                    Console.WriteLine("orderItemEntity" + cartItemEntity);
+                    Console.WriteLine("orderItemEntity: {0}" , cartItemEntity);
                     if (cartItemEntity == null)
                     {
                         cartItemEntity = new OrderItemEntity();
@@ -121,8 +125,29 @@ namespace BackendDotnetCore.Rests
                 }
             }
 
-            c = orderDAO.getCart(c);
-            return Ok(new OrderDTO(c));
+
+
+            //Payment
+            c = orderDAO.getOrder(c);
+
+            PaymentEntity paymentEntity = new PaymentEntity();
+            paymentEntity.userId = user.Id;
+            paymentEntity.Amount = c.TotalPrice*100;
+            paymentEntity.CurrCode = "VND";
+            paymentEntity.UrlReturn = "htpp://localhost:3000";
+            paymentEntity.CreateTime = DateTime.Now;
+            paymentEntity.IpAddress = "119.17.249.22";
+            paymentEntity = paymentDAO.AddPayment(paymentEntity);
+            paymentEntity.gender("https://localhost:25002/payment/donate");
+            paymentEntity = paymentDAO.UpdatePayment(paymentEntity);
+            c.Payment = paymentEntity;
+            c.PaymentId = paymentEntity.Id;
+            Console.WriteLine("REST-Payment Id: {0}", c.PaymentId);
+            orderDAO.UpdateOrder(c);
+
+            c = orderDAO.getOrder(c);
+            //  return Ok(new OrderDTO(c));
+            return Ok(c);
 
         }
     }

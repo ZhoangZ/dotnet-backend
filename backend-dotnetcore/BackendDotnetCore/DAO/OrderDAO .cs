@@ -18,7 +18,7 @@ namespace BackendDotnetCore.DAO
         }
 
 
-        public OrderEntity getCart(OrderEntity cartEntity)
+        public OrderEntity getOrder(OrderEntity cartEntity)
         {
             dbContext.Entry(cartEntity).State = EntityState.Detached;
 
@@ -90,6 +90,10 @@ namespace BackendDotnetCore.DAO
                 .Include(x => x.Items)
                 .ThenInclude(X => X.ProductSpecific)
                     .ThenInclude(X => X.Rom)
+                
+
+                .Include(x => x.Payment)
+                
                 ;
 
             return tmp.FirstOrDefault();
@@ -112,17 +116,47 @@ namespace BackendDotnetCore.DAO
             return cartItemEntity;
 
         }
-        public OrderEntity SaveOrder(OrderEntity cartItemEntity)
+
+      /*  public OrderEntity getCart2(OrderEntity cartEntity)
+        {
+            dbContext.Entry(cartEntity).State = EntityState.Detached;
+
+            return getCart(cartEntity.Id);
+
+        }*/
+        public OrderEntity SaveOrder(OrderEntity orderEntity)
 
         {
-            dbContext.Entry(cartItemEntity).Collection(x => x.Items).IsModified = false;
-            dbContext.Entry(cartItemEntity).Property(x => x.TotalItem).IsModified = false;
-            dbContext.Entry(cartItemEntity).Property(x => x.TotalPrice).IsModified = false;
-
-            dbContext.Orders.Add(cartItemEntity);
+            dbContext.Entry(orderEntity).Collection(x => x.Items).IsModified = false;
+            dbContext.Entry(orderEntity).Property(x => x.TotalItem).IsModified = false;
+            dbContext.Entry(orderEntity).Property(x => x.TotalPrice).IsModified = false;
+            dbContext.Entry(orderEntity).Reference(x => x.Payment).IsModified = false;
+            //dbContext.Entry(orderEntity).Property(x => x.PaymentId).IsModified = false;
+            dbContext.Orders.Add(orderEntity);
             dbContext.SaveChanges();
+            Console.WriteLine("idOrder: {0}", orderEntity.Id);
+           // dbContext.Entry(cartItemEntity).Reload();
+            return orderEntity;
+           // return getOrder(orderEntity);
+
+        }
+
+        public OrderEntity UpdateOrder(OrderEntity orderEntity)
+
+        {
+            Console.WriteLine("PaymentId1: {0}", orderEntity.PaymentId);
+            dbContext.Entry(orderEntity).Collection(x => x.Items).IsModified = false;
+            dbContext.Entry(orderEntity).Property(x => x.TotalItem).IsModified = false;
+            dbContext.Entry(orderEntity).Property(x => x.TotalPrice).IsModified = false;
+            //dbContext.Entry(orderEntity).Reference(x => x.Payment).IsModified = false;
+            //dbContext.Entry(orderEntity).Property(x => x.PaymentId).IsModified = true;
+
             
-            return cartItemEntity;
+            Console.WriteLine("PaymentId2: {0}", orderEntity.PaymentId);
+            dbContext.SaveChanges();
+            // dbContext.Entry(cartItemEntity).Reload();
+            return orderEntity;
+            // return getOrder(orderEntity);
 
         }
 

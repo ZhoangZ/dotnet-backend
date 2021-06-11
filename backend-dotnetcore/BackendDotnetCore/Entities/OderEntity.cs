@@ -31,13 +31,22 @@ namespace BackendDotnetCore.Entities
 
         [Column("user_id")]
         [JsonIgnore]
-        public int UserId { set; get; }
+        public int UserId { set; get; }      
         //[JsonIgnore]
         public virtual UserEntity User { set; get; }
 
+        [Column("payment_id")]
+       // [JsonIgnore]
+        public long? PaymentId { set; get; }
+        public virtual PaymentEntity Payment { set; get; }
+
         public virtual List<OrderItemEntity> Items { set; get; }
 
-
+        public OrderEntity()
+        {
+            TotalPrice = 0;
+            TotalItem = 0;
+        }
 
     }
 }

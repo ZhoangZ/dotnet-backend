@@ -34,7 +34,7 @@ namespace BackendDotnetCore.Entities
         public DateTime CreateTime { get; set; }
 
         [Column("amount")]
-        public long Amount { get; set; }
+        public Decimal Amount { get; set; }
 
         [Column("transaction_Status")]
         public string TransactionStatus { get; set; }
