@@ -46,7 +46,7 @@ namespace BackendDotnetCore.DTO
             
             Product = cartItemEntity.ProductSpecific.Product;
             Product.Specific = cartItemEntity.ProductSpecific;
-            Product.Specifics = null;
+            Product.Specifics = new List<Product2Specific>() { Product.Specific };
             
         } 
 
