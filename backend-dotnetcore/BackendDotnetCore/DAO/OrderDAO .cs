@@ -35,20 +35,20 @@ namespace BackendDotnetCore.DAO
             var tmp = dbContext.Orders.Where(s => s.UserId == UserId)
                 .Include(x => x.User)
                 .Include(x => x.Items)
-                .ThenInclude(X => X.ProductSpecific)
+                
                     .ThenInclude(X => X.Product)
                           .ThenInclude(X=>X.Images)
                 .Include(x => x.Items)
-                .ThenInclude(X => X.ProductSpecific)
+               
                     .ThenInclude(X => X.Product)
                         .ThenInclude(X => X.Brand)
 
                 .Include(x => x.Items)
-                .ThenInclude(X => X.ProductSpecific)
+                .ThenInclude(X => X.Product)
                     .ThenInclude(X => X.Ram)
 
                 .Include(x => x.Items)
-                .ThenInclude(X => X.ProductSpecific)
+                .ThenInclude(X => X.Product)
                     .ThenInclude(X => X.Rom)
 
 
@@ -78,20 +78,18 @@ namespace BackendDotnetCore.DAO
                 .Include(x => x.User)
                 .Include(x => x.Items)
 
-                .ThenInclude(X => X.ProductSpecific)
                     .ThenInclude(X => X.Product)
                           .ThenInclude(X => X.Images)
                 .Include(x => x.Items)
-                .ThenInclude(X => X.ProductSpecific)
                     .ThenInclude(X => X.Product)
                         .ThenInclude(X => X.Brand)
 
                 .Include(x => x.Items)
-                .ThenInclude(X => X.ProductSpecific)
+                .ThenInclude(X => X.Product)
                     .ThenInclude(X => X.Ram)
 
                 .Include(x => x.Items)
-                .ThenInclude(X => X.ProductSpecific)
+                .ThenInclude(X => X.Product)
                     .ThenInclude(X => X.Rom)
                 
 
@@ -106,7 +104,7 @@ namespace BackendDotnetCore.DAO
         public OrderItemEntity SaveOrder(OrderItemEntity cartItemEntity)
 
         {
-            dbContext.Entry(cartItemEntity).Reference(x => x.ProductSpecific).IsModified = false;
+            dbContext.Entry(cartItemEntity).Reference(x => x.Product).IsModified = false;
             //dbContext.Entry(cartItemEntity).Reference(x => x.ProductSpecific.Product).IsModified = false;
             dbContext.Entry(cartItemEntity).Reference(x => x.Order).IsModified = false;
            
@@ -187,10 +185,10 @@ namespace BackendDotnetCore.DAO
             {
                 var orderItem = dbContext.OrderItems.Where(x => x.OrderId == o.Id).ToList();
                 foreach (OrderItemEntity oi in orderItem) {
-                    var productSpecifics = dbContext.product2Specifics.Where(x => x.Id == oi.ProductSpecificId).SingleOrDefault();
-                    var product = productDAO.getProductBySpecificID((int)productSpecifics.Id);
-                    productSpecifics.Product = product;
-                    oi.ProductSpecific = productSpecifics;
+                    // var productSpecifics = dbContext.product2Specifics.Where(x => x.Id == oi.ProductSpecificId).SingleOrDefault();
+                    // var product = productDAO.getProductBySpecificID((int)productSpecifics.Id);
+                    // productSpecifics.Product = product;
+                    // oi.ProductSpecific = productSpecifics;
                 }
                 o.Items = orderItem;
                 listOrderUser.Add(o);

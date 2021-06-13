@@ -47,9 +47,10 @@ namespace BackendDotnetCore.Rests
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                if(e.InnerException!=null)
+                Console.WriteLine(e.InnerException.Message);
+                return BadRequest(e.Message);
             }
-            return BadRequest();
 
         }
 
@@ -81,23 +82,34 @@ namespace BackendDotnetCore.Rests
             foreach (OrderItem ci in formAddCart.CartItems)
             {
 
-                Console.WriteLine("productId: {0}, amount: {1}", ci.ProductSpecificId, ci.Quantity);
-                Product2Specific p = product2DAO.getSpecific(ci.ProductSpecificId);
-                if (p == null) return BadRequest();
+                int productId = 0;
+                if (ci.Product != null)
+                {
+                    Console.WriteLine("productId: {0}, amount: {1}", ci.Product.Id, ci.Quantity);
+                    if (productId == 0 && ci.Product.Id != 0)
+                    {
+                        productId = ci.Product.Id;
+                    }
+
+
+                }
+
+                Console.WriteLine("productSpecificId {0}", productId);
+                Product2 p = product2DAO.getProduct(productId); if (p == null) return BadRequest();
 
                 try
                 {
                     OrderItemEntity cartItemEntity = null;
                     if (c.Items != null)
-                        cartItemEntity = c.Items.Find(X => X.ProductSpecificId.CompareTo(ci.ProductSpecificId) == 0);
+                        cartItemEntity = c.Items.Find(X => X.ProductId.CompareTo(productId) == 0);
                     else c.Items = new List<OrderItemEntity>();
 
                     Console.WriteLine("orderItemEntity: {0}" , cartItemEntity);
                     if (cartItemEntity == null)
                     {
                         cartItemEntity = new OrderItemEntity();
-                        cartItemEntity.Amount = ci.Quantity;
-                        cartItemEntity.ProductSpecificId = ci.ProductSpecificId;
+                        cartItemEntity.Quantity = ci.Quantity;
+                        cartItemEntity.ProductId = productId;
                         cartItemEntity.OrderId = c.Id;
                         //
                         if (cartItemEntity.Deleted == false)
@@ -107,8 +119,8 @@ namespace BackendDotnetCore.Rests
                     {
                         Console.WriteLine("Increase amount");
                         //cartItemEntity.Amount += ci.Amount;
-                        cartItemEntity.Amount = ci.Quantity;
-                        if (cartItemEntity.Amount < 0) return BadRequest("Số lượng item trong giỏ hàng nhỏ hơn 0, hãy xóa item này khỏi giỏ hàng");
+                        cartItemEntity.Quantity = ci.Quantity;
+                        if (cartItemEntity.Quantity < 0) return BadRequest("Số lượng item trong giỏ hàng nhỏ hơn 0, hãy xóa item này khỏi giỏ hàng");
                     }
 
                     cartItemEntity.Actived = ci.Actived;
@@ -120,7 +132,8 @@ namespace BackendDotnetCore.Rests
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    if (e.InnerException != null)
+                        Console.WriteLine(e.InnerException.Message);
                     return BadRequest(e.Message);
                 }
             }
@@ -159,24 +172,34 @@ namespace BackendDotnetCore.Rests
         public string AddressDelivery { get; set; }
         public string UrlReturn { get; set; }
 
+        
+
     }
     public class OrderItem
     {
-        public long ProductSpecificId { get; set; }
+       
         public int Quantity { get; set; }
         public bool Actived { get; set; }
         public bool Deleted { get; set; }
+        public Product4 Product { get; set; }
         public OrderItem()
         {
             Quantity = 1;
             Actived = true;
             Deleted = false;
+            Product = new Product4() { Id = 0 };
         }
     }
+    public class Product4
+    {
+        public int Id { get; set; }
 
+    }
     public class FormDeleteOrderItem
     {
         public long CartItemId { get; set; }
 
     }
+
+    
 }

@@ -17,7 +17,6 @@ namespace BackendDotnetCore.Entities
        
         [Column("rom")]
         public string Rom { get; set; }
-        [JsonIgnore]
-        public List<Product2Specific> Product2Specifics { get; set; }
+       
     }
 }

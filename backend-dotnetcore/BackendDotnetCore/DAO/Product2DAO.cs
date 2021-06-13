@@ -42,26 +42,27 @@ namespace BackendDotnetCore.DAO
 
             var tmp = dbContext.Products.Where(s => s.Id == Id).Where(X => X.deleted == false)
 
-                .Include(x => x.Specifics).ThenInclude(x => x.Ram).Include(x => x.Specifics)
-                .ThenInclude(x => x.Rom).Include("Images").Include(x => x.Informations).Include(x => x.Brand)
+                .Include("Images")
+                .Include(x => x.Ram)
+               .Include(x => x.Rom)
+                .Include(x => x.Informations).Include(x => x.Brand)
                       ;
          
             return tmp.FirstOrDefault(); 
 
         }
 
-        public Product2 getProductBySpecificID(int specificID)
-        {
-            var specific = dbContext.product2Specifics.Where(s => s.Id == specificID).Include(x => x.Product).FirstOrDefault();
-            return getProduct(specific.Product.Id);
-        }
+        // public Product2 getProductBySpecificID(int specificID)
+        // {
+        //     var specific = dbContext.product2Specifics.Where(s => s.Id == specificID).Include(x => x.Product).FirstOrDefault();
+        //     return getProduct(specific.Product.Id);
+        // }
 
-        public Product2Specific getSpecific(long Id)
-
-        {
-            var tmp = dbContext.product2Specifics.Where(s => s.Id == Id);
-            return tmp.FirstOrDefault();
-        }
+        // public Product2Specific getSpecific(long Id)
+        // {
+        //     var tmp = dbContext.product2Specifics.Where(s => s.Id == Id);
+        //     return tmp.FirstOrDefault();
+        // }
 
 
 
@@ -71,9 +72,10 @@ namespace BackendDotnetCore.DAO
             _page=(_page<=0)?1:_page;
             var tmp = dbContext.Products.Where(X => X.deleted == false)
 
-              .Include(x => x.Specifics).ThenInclude(x => x.Ram)
-              .Include(x => x.Specifics).ThenInclude(x => x.Rom)
+             
               .Include(x => x.Brand)
+               .Include(x => x.Ram)
+               .Include(x => x.Rom)
               .Include("Images")
               
               //.Include("Informations")
@@ -104,13 +106,14 @@ namespace BackendDotnetCore.DAO
             if (rom_id > 0)
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
-                tmp = tmp.Where(x => x.Specifics.Any(y => y.Rom.Id == rom_id));
+                tmp = tmp.Where(x => x.RomId == rom_id);
             }
             if (ram_id > 0)
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
-                tmp = tmp.Where(x => x.Specifics.Any(y => y.Ram.Id == ram_id));
+                tmp = tmp.Where(x => x.RamId == ram_id);
             }
+          
             if (isHot > 0)
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
@@ -124,30 +127,7 @@ namespace BackendDotnetCore.DAO
             foreach (var str in strs)
             {
                 string key = str.ToLower();
-               /* if (key.CompareTo("idasc")==0)
-                {
-                    //Console.WriteLine("asc");
-                    tmp=tmp.OrderBy(x => x.Id);
-
-                }
-                else if (key.CompareTo("iddesc")==0)
-                {
-                    //Console.WriteLine("desc");
-                    tmp=tmp.OrderByDescending(x => x.Id);
-
-                }
-                else if (key.CompareTo("salepricedesc") == 0)
-                {
-                    //Console.WriteLine("desc");
-                    tmp = tmp.OrderByDescending(x => x.OriginalPrice * (100 - x.promotionPercents));
-
-                }
-                else if (key.CompareTo("salepriceasc") == 0)
-                {
-                    //Console.WriteLine("desc");
-                    tmp = tmp.OrderBy(x => x.OriginalPrice * (100 - x.promotionPercents));
-
-                }else*/
+              
                 // format :asc
                 if (key.CompareTo("id:asc") == 0)
                 {
@@ -212,8 +192,7 @@ namespace BackendDotnetCore.DAO
             
             var tmp = dbContext.Products.Where(X => X.deleted == false)
 
-              .Include(x => x.Specifics).ThenInclude(x => x.Ram)
-              .Include(x => x.Specifics).ThenInclude(x => x.Rom)
+             
               .Include(x => x.Brand)
               .Include("Images")
                 //.Include("Informations")
@@ -244,7 +223,7 @@ namespace BackendDotnetCore.DAO
                 //Console.WriteLine(brand_id);
                 tmp = tmp.Where(x => x.Brand.Id == brand_id);
             }
-            if (rom_id > 0)
+            /*if (rom_id > 0)
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
                 tmp = tmp.Where(x => x.Specifics.Any(y => y.Rom.Id == rom_id));
@@ -253,7 +232,7 @@ namespace BackendDotnetCore.DAO
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
                 tmp = tmp.Where(x => x.Specifics.Any(y => y.Ram.Id == ram_id));
-            }
+            }*/
             if (isHot > 0)
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               

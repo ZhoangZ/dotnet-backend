@@ -14,16 +14,18 @@ namespace BackendDotnetCore.Entities
         [Column("id")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [JsonIgnore]
         public long Id { set; get; }
         [Column("amount")]
-        public int Amount { set; get; }
-       
-       
+        public int Quantity { set; get; }
 
+
+        [JsonIgnore]
         [Column("actived")]
         public bool Actived { set; get; }
 
         [Column("deleted")]
+        [JsonIgnore]
         public bool Deleted { set; get; }
 
 
@@ -33,13 +35,13 @@ namespace BackendDotnetCore.Entities
         [JsonIgnore]
         public virtual OrderEntity Order { set; get; }
 
-       [Column("product_specific_id")]
-       // [NotMapped]
+        [Column("product_id")]
+        // [NotMapped]
         [JsonIgnore]
-        public long ProductSpecificId { set; get; }       
+        public int ProductId { set; get; }
+        public virtual Product2 Product { set; get; }
 
-       // [NotMapped]
-        public virtual Product2Specific ProductSpecific { set; get; }
+
 
     }
 }

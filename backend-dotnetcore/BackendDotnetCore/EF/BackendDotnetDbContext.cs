@@ -19,7 +19,7 @@ namespace BackendDotnetCore.EF
         public DbSet<RoleEntity> roles { set; get; }
         public DbSet<ImageProduct> image_product { set; get; }
         public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<Product2Specific> product2Specifics { set; get; }
+       
         public DbSet<CommentEntity> Comments { set; get; }
         public DbSet<CartItemEntity> CartItems { set; get; }
         public DbSet<OrderItemEntity> OrderItems { set; get; }
@@ -36,7 +36,7 @@ namespace BackendDotnetCore.EF
             modelBuilder.ApplyConfiguration(new Configurations.UserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.ImageProductConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.InformationProductConfiguration());
-            modelBuilder.ApplyConfiguration(new Configurations.Product2SpecificConfiguration());
+           
             modelBuilder.ApplyConfiguration(new Configurations.RamConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.RomConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.CommentConfiguration());

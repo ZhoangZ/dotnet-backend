@@ -33,9 +33,7 @@ namespace BackendDotnetCore.DTO
     public class CartItem2DTO
     {
         [JsonIgnore]
-        public long Id { set; get; }
-
-        public long ProductSpecificId { set; get; }
+        public long Id { set; get; }       
         public int Quantity { set; get; }
         [JsonIgnore]
         public bool Actived { set; get; }
@@ -45,14 +43,11 @@ namespace BackendDotnetCore.DTO
         public CartItem2DTO(CartItemEntity cartItemEntity)
         {
             Id = cartItemEntity.Id;
-            Quantity = cartItemEntity.Amount;
+            Quantity = cartItemEntity.Quantity;
             Actived = cartItemEntity.Actived;
-            Deleted = cartItemEntity.Deleted;
-            
-            Product = cartItemEntity.ProductSpecific.Product;
-            ProductSpecificId = cartItemEntity.ProductSpecific.Id;
-            Product.Specific = cartItemEntity.ProductSpecific;
-            Product.Specifics = new List<Product2Specific>() { Product.Specific };
+            Deleted = cartItemEntity.Deleted;            
+            Product = cartItemEntity.Product;
+          
             
         } 
 

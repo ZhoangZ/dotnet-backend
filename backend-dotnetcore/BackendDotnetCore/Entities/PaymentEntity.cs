@@ -181,6 +181,10 @@ namespace BackendDotnetCore.Entities
             {
                 Console.WriteLine("vnp_TransactionStatus :" + match.Groups["vnp_TransactionStatus"]);
                 this.ParamsUrlStatus = responseBody;
+                if (match.Groups["vnp_TransactionStatus"].ToString().Equals("00")){
+                    this.TransactionStatus = "SUCCESS";
+
+                }
 
             }
             else

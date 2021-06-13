@@ -97,12 +97,12 @@ namespace BackendDotnetCore.DTO
         public CustomOrderItem toCustomOrderItem(OrderItemEntity orderItemEntity)
         {
             CustomOrderItem csi = new CustomOrderItem();
-            csi.productID = (int)orderItemEntity.ProductSpecific.Product.Id;
-            //csi.productImg = orderItemEntity.ProductSpecific.Product.Images[0].Image;
-            csi.productName = orderItemEntity.ProductSpecific.Product.Name;
-            csi.quatity = orderItemEntity.Amount;
-            csi.pricePerOne = orderItemEntity.ProductSpecific.Product.OriginalPrice;
-            csi.priceAll = csi.computePriceAllByProduct();
+            //csi.productID = (int)orderItemEntity.ProductSpecific.Product.Id;
+            ////csi.productImg = orderItemEntity.ProductSpecific.Product.Images[0].Image;
+            //csi.productName = orderItemEntity.ProductSpecific.Product.Name;
+            //csi.quatity = orderItemEntity.Amount;
+            //csi.pricePerOne = orderItemEntity.ProductSpecific.Product.OriginalPrice;
+            //csi.priceAll = csi.computePriceAllByProduct();
 
             return csi;
         }

@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 03/06/2021 23:50:38
+ Date: 13/06/2021 23:42:10
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `cart`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `iduser`(`user_id`) USING BTREE,
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
@@ -49,7 +49,8 @@ INSERT INTO `cart` VALUES (15, 18, 0, 0);
 INSERT INTO `cart` VALUES (16, 19, 0, 0);
 INSERT INTO `cart` VALUES (17, 20, 0, 0);
 INSERT INTO `cart` VALUES (18, 21, 0, 0);
-INSERT INTO `cart` VALUES (19, 25, 27801000, 1);
+INSERT INTO `cart` VALUES (19, 25, 0, 0);
+INSERT INTO `cart` VALUES (20, 26, 0, 0);
 
 -- ----------------------------
 -- Triggers structure for table cart
