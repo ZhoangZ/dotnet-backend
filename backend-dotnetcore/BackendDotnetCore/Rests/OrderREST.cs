@@ -135,7 +135,7 @@ namespace BackendDotnetCore.Rests
             paymentEntity.Amount = c.TotalPrice*100;
             paymentEntity.CurrCode = "VND";
             //paymentEntity.UrlReturn = "htpp://localhost:3000/accept";
-            paymentEntity.UrlReturn = formAddCart.ReturnUrl;
+            paymentEntity.UrlReturn = formAddCart.UrlReturn;
             paymentEntity.CreateTime = DateTime.Now;
             paymentEntity.IpAddress = "119.17.249.22";
             paymentEntity = paymentDAO.AddPayment(paymentEntity);
@@ -157,7 +157,7 @@ namespace BackendDotnetCore.Rests
     {
         public List<OrderItem> CartItems { get; set; }
         public string AddressDelivery { get; set; }
-        public string ReturnUrl { get; set; }
+        public string UrlReturn { get; set; }
 
     }
     public class OrderItem
