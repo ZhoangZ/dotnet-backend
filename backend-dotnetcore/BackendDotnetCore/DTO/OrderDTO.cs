@@ -11,8 +11,6 @@ namespace BackendDotnetCore.DTO
     public class OrderDTO
 
     {
-        
-
         public Decimal TotalPrice { set; get; }
         public int TotalItem { set; get; }
         [JsonIgnore]
@@ -55,6 +53,5 @@ namespace BackendDotnetCore.DTO
 
     }
 
-   
     
 }

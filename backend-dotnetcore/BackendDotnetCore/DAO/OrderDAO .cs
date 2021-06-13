@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace BackendDotnetCore.DAO
 {
@@ -12,9 +13,11 @@ namespace BackendDotnetCore.DAO
     {
 
         private BackendDotnetDbContext dbContext;
+        public Product2DAO productDAO;
         public OrderDAO()
         {
             this.dbContext = new BackendDotnetDbContext();
+            productDAO = new Product2DAO();
         }
 
 
@@ -172,6 +175,27 @@ namespace BackendDotnetCore.DAO
 
             return cartItemEntity;
 
+        }
+
+
+        //user action with orders
+        public ArrayList GetOrdersByUserID(int userID)
+        {
+            ArrayList listOrderUser = new ArrayList();
+            var list = dbContext.Orders.Where(x => x.UserId == userID).ToList();
+            foreach(OrderEntity o in list)
+            {
+                var orderItem = dbContext.OrderItems.Where(x => x.OrderId == o.Id).ToList();
+                foreach (OrderItemEntity oi in orderItem) {
+                    var productSpecifics = dbContext.product2Specifics.Where(x => x.Id == oi.ProductSpecificId).SingleOrDefault();
+                    var product = productDAO.getProductBySpecificID((int)productSpecifics.Id);
+                    productSpecifics.Product = product;
+                    oi.ProductSpecific = productSpecifics;
+                }
+                o.Items = orderItem;
+                listOrderUser.Add(o);
+            }
+            return listOrderUser;
         }
 
     }

@@ -12,6 +12,9 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using BackendDotnetCore.Ultis;
+using System.Collections.Generic;
+using System.Collections;
+using BackendDotnetCore.DTO;
 
 namespace WebApi.Controllers
 {
@@ -20,13 +23,13 @@ namespace WebApi.Controllers
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
+        private OrderDAO orderDAO;
 
         public UsersController(IUserService userService, IHttpContextAccessor httpContextAccessor)
         {
             _userService = userService;
+            orderDAO = new OrderDAO();
         }
-
-       
 
         [Authorize]
         [HttpGet]
@@ -38,7 +41,6 @@ namespace WebApi.Controllers
             return Ok(user);
         }
        
-
         [HttpPost("forgot-pass")]
         public IActionResult ForgotPassword([FromBody] ResetPassForm fr)
         {
@@ -153,5 +155,26 @@ namespace WebApi.Controllers
         }
 
        
+        //user orders management
+        [HttpGet("orders-manage")]
+        public ArrayList GetListOrder(int userID)
+        {
+            ArrayList listResponse = new ArrayList();
+            UserEntity user = _userService.getUserById(userID);
+            Console.WriteLine("USER = " + user.Fullname + ", " + user.phone);
+            if (null == user) return new ArrayList();
+            ArrayList listOrder = orderDAO.GetOrdersByUserID(userID);
+            foreach(OrderEntity oe in listOrder)
+            {
+                CustomOrderResponse coresp = new CustomOrderResponse();
+                coresp.name = user.Fullname;
+                coresp.phone = user.phone;
+                listResponse.Add(coresp.toOrderResponse(oe));
+            }
+            return listResponse;
+        }
+
+
+        
     }
 }
