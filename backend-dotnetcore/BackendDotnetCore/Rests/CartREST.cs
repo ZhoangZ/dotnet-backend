@@ -106,32 +106,27 @@ namespace BackendDotnetCore.Rests
             foreach (CartItem ci in formAddCart.CartItems)
             {
 
-                Console.WriteLine("productId: {0}, amount: {1}", ci.ProductSpecificId, ci.Quantity);
-                long productSpecificId = 0;
+                int productId = 0;
                 if(ci.Product!=null )
                 {
-                    if (ci.Product.Specific != null)
+                  Console.WriteLine("productId: {0}, amount: {1}", ci.Product.Id, ci.Quantity);
+                    if (productId==0 && ci.Product.Id != 0)
                     {
-                        productSpecificId = ci.Product.Specific.Id;
+                        productId = ci.Product.Id;
                     }
-                        else
-                    if (ci.Product.Specifics != null)
-                    {
-                        productSpecificId =ci.Product.Specifics[0].Id;
-
-                    }
+                       
 
                 }
-                if (ci.ProductSpecificId != 0) productSpecificId = ci.ProductSpecificId;
-                Console.WriteLine("productSpecificId {0}", productSpecificId);
-                Product2Specific p = product2DAO.getSpecific(productSpecificId);
+               
+                Console.WriteLine("productSpecificId {0}", productId);
+                Product2 p = product2DAO.getProduct(productId);
                 if (p == null) return BadRequest();
 
                 try
                 {
                     CartItemEntity cartItemEntity = null;
                     if (c.Items != null)
-                        cartItemEntity = c.Items.Find(X => X.ProductSpecificId.CompareTo(productSpecificId) == 0);
+                        cartItemEntity = c.Items.Find(X => X.Product.Id.CompareTo(productId) == 0);
                     else
                     {
                         c.Items = new List<CartItemEntity>();
@@ -141,8 +136,8 @@ namespace BackendDotnetCore.Rests
                     if (cartItemEntity == null)
                     {
                         cartItemEntity = new CartItemEntity();
-                        cartItemEntity.Amount = ci.Quantity;
-                        cartItemEntity.ProductSpecificId = productSpecificId;
+                        cartItemEntity.Quantity = ci.Quantity;
+                        cartItemEntity.ProductId = productId;
                         cartItemEntity.CartId = c.Id;
                         //
                         if (cartItemEntity.Deleted == false)
@@ -152,8 +147,8 @@ namespace BackendDotnetCore.Rests
                     {
                         Console.WriteLine("Increase amount");
                         //cartItemEntity.Amount += ci.Amount;
-                        cartItemEntity.Amount = ci.Quantity;
-                        if (cartItemEntity.Amount < 0) return BadRequest("Số lượng item trong giỏ hàng nhỏ hơn 0, hãy xóa item này khỏi giỏ hàng");
+                        cartItemEntity.Quantity = ci.Quantity;
+                        if (cartItemEntity.Quantity < 0) return BadRequest("Số lượng item trong giỏ hàng nhỏ hơn 0, hãy xóa item này khỏi giỏ hàng");
                     }
 
                     cartItemEntity.Actived = ci.Actived;
@@ -165,13 +160,14 @@ namespace BackendDotnetCore.Rests
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.InnerException.Message);
                     return BadRequest(e.Message);
                 }
             }
 
             c = cartDAO.getCart(c);
-            return Ok(new CartDTO(c));
+            return Ok(c);
+            //return Ok(new CartDTO(c));
 
         }
     }
@@ -183,7 +179,7 @@ namespace BackendDotnetCore.Rests
     }
     public class CartItem
     {
-        public long ProductSpecificId { get; set; }
+       
         public int Quantity { get; set; }
         public bool Actived { get; set; }
         public bool Deleted { get; set; }
@@ -194,7 +190,7 @@ namespace BackendDotnetCore.Rests
             Quantity = 1;
             Actived = true;
             Deleted = false;
-            ProductSpecificId = 0;
+            Product = new Product3() { Id = 0};
         }
     }
 
@@ -205,13 +201,9 @@ namespace BackendDotnetCore.Rests
     }
     public class Product3
     {
-        public long Id { get; set; }
-        public ProductSpecific3 Specific { get; set; }
-        public List<ProductSpecific3> Specifics { get; set; }
+        public int Id { get; set; }
+      
     }
-    public class ProductSpecific3
-    {
-        public long Id { get; set; }
-    }
+  
 }
 

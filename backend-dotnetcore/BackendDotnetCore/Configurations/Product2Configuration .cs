@@ -20,8 +20,7 @@ namespace BackendDotnetCore.Configurations
         .UsePropertyAccessMode(PropertyAccessMode.Property);
             builder.Navigation(b => b.Informations)
        .UsePropertyAccessMode(PropertyAccessMode.Property);
-            builder.Navigation(b => b.Specifics)
-      .UsePropertyAccessMode(PropertyAccessMode.Property);
+           
 
 
             builder.Property<int>("brand_id");

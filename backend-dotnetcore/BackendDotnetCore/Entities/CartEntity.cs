@@ -20,7 +20,7 @@ namespace BackendDotnetCore.Entities
 
         [Column("total_price")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public Decimal TotalPrice { set; get; }
+        public decimal TotalPrice { set; get; }
 
         [Column("total_item")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

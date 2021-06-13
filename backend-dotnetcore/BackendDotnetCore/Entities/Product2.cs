@@ -29,7 +29,7 @@ namespace BackendDotnetCore.Entities
         [JsonIgnore]
         public bool deleted { get; set; }
         [Column("price")]
-        public long OriginalPrice { get; set; }
+        public decimal OriginalPrice { get; set; }
 
         [Column("DESCRIPTION")]
         public string Description { get; set; }
@@ -49,11 +49,20 @@ namespace BackendDotnetCore.Entities
         public virtual List<ImageProduct> Images { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual List<InformationProduct> Informations { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public virtual List<Product2Specific> Specifics { get; set; }
+      
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual List<CommentEntity> comments { get; set; } = new List<CommentEntity>();
 
+
+        [Column("ram_id")]
+        [JsonIgnore]
+        public int RamId { get; set; }
+        public virtual RamEntity Ram { get; set; }
+
+        [Column("rom_id")]
+        [JsonIgnore]
+        public int RomId { get; set; }
+        public virtual RamEntity Rom { get; set; }
         public Product2()
         {
             //this.IsHot = true;
@@ -61,15 +70,12 @@ namespace BackendDotnetCore.Entities
         }
         [Column("SALE_PRICE")]
 
-        public long SalePrice { get; set; }
+        public decimal SalePrice { get; set; }
         [NotMapped]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public CommentResponse commentResponse{get;set;}
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [NotMapped]
-        public Product2Specific Specific { get; set; }
-
+       
 
 
 

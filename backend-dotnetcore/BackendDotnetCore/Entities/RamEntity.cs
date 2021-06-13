@@ -17,7 +17,6 @@ namespace BackendDotnetCore.Entities
 
         [Column("ram")]
         public string Ram { get; set; }
-        [JsonIgnore]
-        public List<Product2Specific> Product2Specifics { get; set; }
+        
     }
 }
