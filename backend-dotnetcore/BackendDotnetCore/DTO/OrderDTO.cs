@@ -17,7 +17,7 @@ namespace BackendDotnetCore.DTO
         public int TotalItem { set; get; }
         [JsonIgnore]
         public UserEntity User { set; get; }
-
+       
         public IEnumerable<OrderItem2DTO> Items { set; get; }
         public OrderDTO(OrderEntity cartEntity)
         {
@@ -31,9 +31,13 @@ namespace BackendDotnetCore.DTO
     }
     public class OrderItem2DTO
     {
+        [JsonIgnore]
         public long Id { set; get; }
+        public long ProductSpecificId { set; get; }
         public int Quantity { set; get; }
-        public bool Actived { set; get; }        
+        [JsonIgnore]
+        public bool Actived { set; get; }
+        [JsonIgnore]
         public bool Deleted { set; get; }        
         public Product2 Product { set; get; }
         public OrderItem2DTO(OrderItemEntity cartItemEntity)
@@ -42,7 +46,7 @@ namespace BackendDotnetCore.DTO
             Quantity = cartItemEntity.Amount;
             Actived = cartItemEntity.Actived;
             Deleted = cartItemEntity.Deleted;
-            
+            ProductSpecificId = cartItemEntity.ProductSpecific.Id;
             Product = cartItemEntity.ProductSpecific.Product;
             Product.Specific = cartItemEntity.ProductSpecific;
             Product.Specifics = null;
