@@ -21,6 +21,18 @@ namespace BackendDotnetCore.Entities
         [Column("address_delivery")]
         public string AddressDelivery { set; get; }
 
+        [Column("name_consumer")]
+        public string Fullname { set; get; } 
+        [Column("phone_number")]
+        public string Phone { set; get; }
+
+        [Column("email")]
+        public string Email { set; get; }
+
+        [Column("note")]
+        public string Note { set; get; }
+
+
         [Column("total_price")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public decimal TotalPrice { set; get; }
@@ -36,7 +48,7 @@ namespace BackendDotnetCore.Entities
         public virtual UserEntity User { set; get; }
 
         [Column("payment_id")]
-       // [JsonIgnore]
+        [JsonIgnore]
         public long? PaymentId { set; get; }
         public virtual PaymentEntity Payment { set; get; }
 

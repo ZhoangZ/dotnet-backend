@@ -8,16 +8,11 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.DTO
 {
-    public class CartDTO
+    public class CartDTO:CartEntity
 
     {
 
-        [JsonIgnore]
-        public Decimal TotalPrice { set; get; }
-        [JsonIgnore]
-        public int TotalItem { set; get; }
-        [JsonIgnore]
-        public UserEntity User { set; get; }
+       
 
         public IEnumerable<CartItem2DTO> Items { set; get; }
         public CartDTO(CartEntity cartEntity)
@@ -30,16 +25,17 @@ namespace BackendDotnetCore.DTO
         }
 
     }
-    public class CartItem2DTO
+    public class CartItem2DTO:CartItemEntity
     {
-        [JsonIgnore]
-        public long Id { set; get; }       
-        public int Quantity { set; get; }
-        [JsonIgnore]
-        public bool Actived { set; get; }
-        [JsonIgnore]
-        public bool Deleted { set; get; }        
-        public Product2 Product { set; get; }
+               
+        public int Idp
+        {
+            get
+            {
+                
+                return Product.Id;
+            }
+        }
         public CartItem2DTO(CartItemEntity cartItemEntity)
         {
             Id = cartItemEntity.Id;

@@ -41,6 +41,8 @@ namespace BackendDotnetCore.Entities
         [JsonIgnore]
         public int ProductId { set; get; }
         public virtual Product2 Product { set; get; }
+        
+        
 
 
 

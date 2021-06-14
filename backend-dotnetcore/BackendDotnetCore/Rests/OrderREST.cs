@@ -57,7 +57,7 @@ namespace BackendDotnetCore.Rests
         [HttpPost]
         [Authorize]
 
-        public ActionResult postOrder([FromBody] FormPutOrder formAddCart)
+        public ActionResult postOrder([FromBody] FormPutOrder formOrder)
         {
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];
@@ -69,7 +69,14 @@ namespace BackendDotnetCore.Rests
             orderDAO.deleteAllItemCart(user.Id);
 
             OrderEntity c = new OrderEntity();
-            c.AddressDelivery = formAddCart.AddressDelivery;
+            c.AddressDelivery = formOrder.Address;
+            c.Email = formOrder.Email;
+            c.Phone = formOrder.Phone;
+            c.Fullname = formOrder.Fullname;
+            c.Note = formOrder.Note;
+
+
+
             c.UserId = user.Id;
             c=orderDAO.SaveOrder(c);
            // c = orderDAO.getOrder(c);
@@ -79,29 +86,23 @@ namespace BackendDotnetCore.Rests
 
            // return Ok(c);
            
-            foreach (OrderItem ci in formAddCart.CartItems)
+            foreach (OrderItem ci in formOrder.CartItems)
             {
 
-                int productId = 0;
-                if (ci.Product != null)
+                Console.WriteLine("productId: {0}, amount: {1}", ci.Idp, ci.Quantity);
+                if (ci.Idp == 0)
                 {
-                    Console.WriteLine("productId: {0}, amount: {1}", ci.Product.Id, ci.Quantity);
-                    if (productId == 0 && ci.Product.Id != 0)
-                    {
-                        productId = ci.Product.Id;
-                    }
-
-
+                    return BadRequest("Thiếu tham số idp.");
                 }
 
-                Console.WriteLine("productSpecificId {0}", productId);
-                Product2 p = product2DAO.getProduct(productId); if (p == null) return BadRequest();
+                Console.WriteLine("productSpecificId {0}", ci.Idp);
+                Product2 p = product2DAO.getProduct(ci.Idp); if (p == null) return BadRequest();
 
                 try
                 {
                     OrderItemEntity cartItemEntity = null;
                     if (c.Items != null)
-                        cartItemEntity = c.Items.Find(X => X.ProductId.CompareTo(productId) == 0);
+                        cartItemEntity = c.Items.Find(X => X.ProductId.CompareTo(ci.Idp) == 0);
                     else c.Items = new List<OrderItemEntity>();
 
                     Console.WriteLine("orderItemEntity: {0}" , cartItemEntity);
@@ -109,8 +110,9 @@ namespace BackendDotnetCore.Rests
                     {
                         cartItemEntity = new OrderItemEntity();
                         cartItemEntity.Quantity = ci.Quantity;
-                        cartItemEntity.ProductId = productId;
+                        cartItemEntity.ProductId = ci.Idp;
                         cartItemEntity.OrderId = c.Id;
+                        cartItemEntity.Product = p;
                         //
                         if (cartItemEntity.Deleted == false)
                             c.Items.Add(cartItemEntity);
@@ -148,7 +150,7 @@ namespace BackendDotnetCore.Rests
             paymentEntity.Amount = c.TotalPrice*100;
             paymentEntity.CurrCode = "VND";
             //paymentEntity.UrlReturn = "htpp://localhost:3000/accept";
-            paymentEntity.UrlReturn = formAddCart.UrlReturn;
+            paymentEntity.UrlReturn = formOrder.UrlReturn;
             paymentEntity.CreateTime = DateTime.Now;
             paymentEntity.IpAddress = "119.17.249.22";
             paymentEntity = paymentDAO.AddPayment(paymentEntity);
@@ -160,8 +162,10 @@ namespace BackendDotnetCore.Rests
             orderDAO.UpdateOrder(c);
 
             c = orderDAO.getOrder(c);
-            //  return Ok(new OrderDTO(c));
-            return Ok(c);
+           
+           // return Ok((OrderDTO)c);
+            return Ok(new OrderDTO(c));
+            //return Ok(c);
 
         }
     }
@@ -169,8 +173,15 @@ namespace BackendDotnetCore.Rests
     public class FormPutOrder
     {
         public List<OrderItem> CartItems { get; set; }
-        public string AddressDelivery { get; set; }
+        public string Address { get; set; }
+        public string Fullname { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Note { get; set; }
         public string UrlReturn { get; set; }
+
+
+       
 
     }
     public class OrderItem
@@ -179,21 +190,20 @@ namespace BackendDotnetCore.Rests
         public int Quantity { get; set; }
         public bool Actived { get; set; }
         public bool Deleted { get; set; }
-        public Product4 Product { get; set; }
+        public int Idp { get; set; }
+      
 
         public OrderItem()
         {
             Quantity = 1;
             Actived = true;
             Deleted = false;
-            Product = new Product4() { Id = 0 };
+            Idp = 0;
+
+
         }
     }
-    public class Product4
-    {
-        public int Id { get; set; }
-
-    }
+   
     public class FormDeleteOrderItem
     {
         public long CartItemId { get; set; }

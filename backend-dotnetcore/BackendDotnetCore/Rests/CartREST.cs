@@ -106,27 +106,42 @@ namespace BackendDotnetCore.Rests
             foreach (CartItem ci in formAddCart.CartItems)
             {
 
-                int productId = 0;
-                if(ci.Product!=null )
-                {
-                  Console.WriteLine("productId: {0}, amount: {1}", ci.Product.Id, ci.Quantity);
-                    if (productId==0 && ci.Product.Id != 0)
+               
+               
+                  Console.WriteLine("productId: {0}, amount: {1}", ci.Idp, ci.Quantity);
+                    if (ci.Idp == 0 )
                     {
-                        productId = ci.Product.Id;
+                    return BadRequest("Thiếu tham số idp.");
                     }
                        
 
-                }
                
-                Console.WriteLine("productSpecificId {0}", productId);
-                Product2 p = product2DAO.getProduct(productId);
+               
+                Console.WriteLine("productSpecificId {0}", ci.Idp);
+                Product2 p = product2DAO.getProduct(ci.Idp);
                 if (p == null) return BadRequest();
 
                 try
                 {
                     CartItemEntity cartItemEntity = null;
-                    if (c.Items != null)
-                        cartItemEntity = c.Items.Find(X => X.Product.Id.CompareTo(productId) == 0);
+                    if (c.Items != null)                 
+                    {
+                        
+                        cartItemEntity = c.Items.Find(X =>
+                        {
+                           
+                            
+                            int tmp=X.Product.Id;
+                            Console.WriteLine("ProductId : {0}", tmp);
+                            return
+                                tmp.CompareTo(ci.Idp) == 0;
+
+                            
+                           
+
+
+                        });
+                    }
                     else
                     {
                         c.Items = new List<CartItemEntity>();
@@ -137,7 +152,8 @@ namespace BackendDotnetCore.Rests
                     {
                         cartItemEntity = new CartItemEntity();
                         cartItemEntity.Quantity = ci.Quantity;
-                        cartItemEntity.ProductId = productId;
+                        cartItemEntity.ProductId = ci.Idp;
+                        cartItemEntity.Product = p;
                         cartItemEntity.CartId = c.Id;
                         //
                         if (cartItemEntity.Deleted == false)
@@ -160,14 +176,15 @@ namespace BackendDotnetCore.Rests
                 }
                 catch (Exception e)
                 {
+                    if(e.InnerException!=null)
                     Console.WriteLine(e.InnerException.Message);
                     return BadRequest(e.Message);
                 }
             }
 
             c = cartDAO.getCart(c);
-            return Ok(c);
-            //return Ok(new CartDTO(c));
+            //return Ok(c);
+            return Ok(new CartDTO(c));
 
         }
     }
@@ -183,14 +200,15 @@ namespace BackendDotnetCore.Rests
         public int Quantity { get; set; }
         public bool Actived { get; set; }
         public bool Deleted { get; set; }
+        public int Idp { get; set; }
 
-        public Product3 Product { get; set; }
+      
         public CartItem()
         {
             Quantity = 1;
             Actived = true;
             Deleted = false;
-            Product = new Product3() { Id = 0};
+            Idp = 0;
         }
     }
 
@@ -199,11 +217,7 @@ namespace BackendDotnetCore.Rests
         public long CartItemId { get; set; }
 
     }
-    public class Product3
-    {
-        public int Id { get; set; }
-      
-    }
+   
   
 }
 

@@ -8,21 +8,26 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.DTO
 {
-    public class OrderDTO
+    public class OrderDTO:OrderEntity
 
     {
-        public Decimal TotalPrice { set; get; }
-        public int TotalItem { set; get; }
-        [JsonIgnore]
-        public UserEntity User { set; get; }
+      
         public IEnumerable<OrderItem2DTO> Items { set; get; }
-        public OrderDTO(OrderEntity cartEntity)
+
+       
+        public OrderDTO(OrderEntity orderEntity)
         {
-            
-            TotalPrice = cartEntity.TotalPrice;
-            TotalItem = cartEntity.TotalItem;
-            User = cartEntity.User;
-            Items = cartEntity.Items.Select(X=> new OrderItem2DTO(X));
+            Payment = orderEntity.Payment;
+            TotalPrice = orderEntity.TotalPrice;
+            TotalItem = orderEntity.TotalItem;
+            User = orderEntity.User;
+            Items = orderEntity.Items.Select(X=> new OrderItem2DTO(X));
+            AddressDelivery = orderEntity.AddressDelivery;
+            Email = orderEntity.Email;
+            Phone = orderEntity.Phone;
+            Fullname = orderEntity.Fullname;
+            Note = orderEntity.Note;
+
         }
 
     }
@@ -37,6 +42,15 @@ namespace BackendDotnetCore.DTO
         [JsonIgnore]
         public bool Deleted { set; get; }        
         public Product2 Product { set; get; }
+
+        public int Idp
+        {
+            get
+            {
+
+                return Product.Id;
+            }
+        }
         public OrderItem2DTO(OrderItemEntity cartItemEntity)
         {
             Id = cartItemEntity.Id;
