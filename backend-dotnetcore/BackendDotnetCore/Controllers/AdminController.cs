@@ -25,6 +25,7 @@ namespace BackendDotnetCore.Controllers
             return roles;
         }
 
+        //add new a role
         [HttpPost("role")]
         public IActionResult CreateNewRole(RoleEntity roleEntity)
         {
@@ -39,12 +40,25 @@ namespace BackendDotnetCore.Controllers
             }
         }
 
+
+        //admin get all users
         [HttpGet("users")]
         public List<UserEntity> GetAllUsers()
         {
-            List<UserEntity> users = userDAO.getAll();
+            List<UserEntity> users = userDAO.GetListUsers();
             return users;
         }
 
+        //admin blocked a account user
+        [HttpPut("users/blocked/{id}")]
+        public IActionResult BlockedAUser(int id)
+        {
+            UserEntity userBlocked;
+            if(null == (userBlocked = userDAO.getOneById(id)))
+            return BadRequest(new { message = "Không tồn tại tài khoản người dùng trong hệ thống!" });
+
+            if (true == userDAO.BlockedOneUser(id)) return Ok(userBlocked);
+            return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thử lại sau!" });
+        }
     }
 }

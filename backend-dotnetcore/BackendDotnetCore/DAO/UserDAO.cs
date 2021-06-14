@@ -71,6 +71,15 @@ namespace BackendDotnetCore.DAO
             }
             
         }
+
+        public bool BlockedOneUser(int id)
+        {
+            var user = dbContext.users.Where(x => x.Id == id).SingleOrDefault();
+            user.Active = 0;
+            UserEntity userBlocked = Save(user);
+            return userBlocked.Active == 0 ? true : false;
+        }
+
         public RoleEntity GetRoleFirst()
         {
             var role = dbContext.roles.Where(x => x.Type == "2");
@@ -91,7 +100,7 @@ namespace BackendDotnetCore.DAO
             return role;
         }
 
-        public List<UserEntity> getAll()
+        public List<UserEntity> GetListUsers()
         {
             var users = dbContext.users.FromSqlRaw("SELECT * FROM users").ToList();
             UserRoleDAO userRoleDAO = new UserRoleDAO();
@@ -119,11 +128,11 @@ namespace BackendDotnetCore.DAO
 
         public bool loginByEmailVer2(string email, string password)
         {
+            Console.Write("LOGIN WITH EMAIL = {0}, {1}, {2} ", email, password, EncodeUltis.MD5(password));
             var userLogin = dbContext.users.Where(x => x.Email.Equals(email) && x.Password.Equals(EncodeUltis.MD5(password))).SingleOrDefault();
             if (null != userLogin) return true;
             return false;
         }
-
         public UserEntity loginMD5(string email, string password)
         {
             var userLogin = dbContext.users.Where(x => x.Email.Equals(email) && x.Password.Equals(EncodeUltis.MD5(password))).SingleOrDefault();

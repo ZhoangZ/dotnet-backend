@@ -156,6 +156,8 @@ namespace WebApi.Controllers
 
        
         //user orders management
+
+        //lay toan bo danh sach don hang theo user
         [HttpGet("orders-manage")]
         public ArrayList GetListOrder(int userID)
         {
@@ -171,6 +173,30 @@ namespace WebApi.Controllers
                 listResponse.Add(coresp.toOrderResponse(oe));
             }
             return listResponse;
+        }
+
+        //huy don hang, tham so id
+        [HttpPut("orders-manage/deny/{id}")]
+        public IActionResult DenyAOrder(int id)
+        {
+            OrderEntity orderDeny;
+            if (null == (orderDeny = orderDAO.GetOrderByID(id)))
+            return BadRequest(new { message = "Thông tin đơn hàng không hợp lệ!" });
+
+            if (true == orderDAO.DenyOrderByID(id)) 
+                return Ok(orderDeny);
+            return BadRequest(new { message = "Hệ thống đang xảy ra lỗi. Vui lòng thực hiện sau!" });
+        }
+
+        //xem chi tiet don hang, tham  so id
+        [HttpGet("orders-manage{id}")]
+        public IActionResult GetDetailOrderByID(int id)
+        {
+            OrderEntity orderDetail;
+            if(null == (orderDetail = orderDAO.GetOrderByID(id)))
+            return BadRequest(new { message = "Không có đơn hàng nào được hiển thị!" });
+
+            return Ok(orderDetail);
         }
 
 

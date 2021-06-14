@@ -189,8 +189,22 @@ namespace BackendDotnetCore.DAO
             }
             return listOrderUser;
         }
+        public OrderEntity GetOrderByID(int id)
+        {
+            var rs = dbContext.Orders.Where(x => x.Id == id).SingleOrDefault();
+            return rs;
+        }
+
+        public bool DenyOrderByID(int id)
+        {
+            var rs = dbContext.Orders.Where(x => x.Id == id).SingleOrDefault();
+            //check this order has status is 1 or difference 1;
+            //if(rs.status == 1) ==>deny else false
+            return true;
+        }
 
     }
+
 
 
 }
