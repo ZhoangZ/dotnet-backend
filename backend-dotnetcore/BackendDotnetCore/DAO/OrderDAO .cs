@@ -184,12 +184,6 @@ namespace BackendDotnetCore.DAO
             foreach(OrderEntity o in list)
             {
                 var orderItem = dbContext.OrderItems.Where(x => x.OrderId == o.Id).ToList();
-                foreach (OrderItemEntity oi in orderItem) {
-                    // var productSpecifics = dbContext.product2Specifics.Where(x => x.Id == oi.ProductSpecificId).SingleOrDefault();
-                    // var product = productDAO.getProductBySpecificID((int)productSpecifics.Id);
-                    // productSpecifics.Product = product;
-                    // oi.ProductSpecific = productSpecifics;
-                }
                 o.Items = orderItem;
                 listOrderUser.Add(o);
             }

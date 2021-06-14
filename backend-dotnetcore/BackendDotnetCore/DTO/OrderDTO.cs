@@ -15,7 +15,6 @@ namespace BackendDotnetCore.DTO
         public int TotalItem { set; get; }
         [JsonIgnore]
         public UserEntity User { set; get; }
-       
         public IEnumerable<OrderItem2DTO> Items { set; get; }
         public OrderDTO(OrderEntity cartEntity)
         {

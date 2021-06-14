@@ -161,7 +161,6 @@ namespace WebApi.Controllers
         {
             ArrayList listResponse = new ArrayList();
             UserEntity user = _userService.getUserById(userID);
-            Console.WriteLine("USER = " + user.Fullname + ", " + user.phone);
             if (null == user) return new ArrayList();
             ArrayList listOrder = orderDAO.GetOrdersByUserID(userID);
             foreach(OrderEntity oe in listOrder)

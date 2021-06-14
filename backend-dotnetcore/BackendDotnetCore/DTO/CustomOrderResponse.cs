@@ -1,4 +1,5 @@
-﻿using BackendDotnetCore.Entities;
+﻿using BackendDotnetCore.DAO;
+using BackendDotnetCore.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace BackendDotnetCore.DTO
             cs.listItems = toListItemsResponse(orderEntity.Items);
             cs.totalItems = cs.listItems.Count;
             cs.paymentType = (orderEntity.PaymentId != 0) ? "Online" : "Tiền mặt";
-            cs.note = "Chỉ là test";
+            cs.note = "Nhớ thêm trường note ở bảng order, trường created-date, status lưu trạng thái 1,2,3 or 4.";//thêm note vào bảng
             cs.lastPrice = (double) orderEntity.TotalPrice;
             return cs;
         }
@@ -97,12 +98,15 @@ namespace BackendDotnetCore.DTO
         public CustomOrderItem toCustomOrderItem(OrderItemEntity orderItemEntity)
         {
             CustomOrderItem csi = new CustomOrderItem();
-            //csi.productID = (int)orderItemEntity.ProductSpecific.Product.Id;
-            ////csi.productImg = orderItemEntity.ProductSpecific.Product.Images[0].Image;
-            //csi.productName = orderItemEntity.ProductSpecific.Product.Name;
-            //csi.quatity = orderItemEntity.Amount;
-            //csi.pricePerOne = orderItemEntity.ProductSpecific.Product.OriginalPrice;
-            //csi.priceAll = csi.computePriceAllByProduct();
+            Product2DAO product2DAO = new Product2DAO();
+
+            csi.productID = orderItemEntity.ProductId;
+            Product2 productItem = product2DAO.getProduct(csi.productID);
+            //csi.productImg = productItem.Images[0].Image;
+            csi.productName = productItem.Name;
+            csi.pricePerOne = (double)productItem.OriginalPrice;
+            csi.quatity = orderItemEntity.Quantity;
+            csi.priceAll = csi.computePriceAllByProduct();
 
             return csi;
         }

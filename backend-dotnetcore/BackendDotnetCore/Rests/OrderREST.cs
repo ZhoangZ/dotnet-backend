@@ -172,8 +172,6 @@ namespace BackendDotnetCore.Rests
         public string AddressDelivery { get; set; }
         public string UrlReturn { get; set; }
 
-        
-
     }
     public class OrderItem
     {
@@ -182,6 +180,7 @@ namespace BackendDotnetCore.Rests
         public bool Actived { get; set; }
         public bool Deleted { get; set; }
         public Product4 Product { get; set; }
+
         public OrderItem()
         {
             Quantity = 1;
