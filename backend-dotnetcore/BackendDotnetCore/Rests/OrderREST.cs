@@ -168,6 +168,121 @@ namespace BackendDotnetCore.Rests
             //return Ok(c);
 
         }
+
+        [HttpPost(("cod"))]
+        [Authorize]
+
+        public ActionResult postOrderCod([FromBody] FormPutOrder formOrder)
+        {
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            Console.WriteLine("User: " + user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+
+            //Xóa hết tất cả sản phẩm trong giỏ hàng
+            orderDAO.deleteAllItemCart(user.Id);
+
+            OrderEntity c = new OrderEntity();
+            c.AddressDelivery = formOrder.Address;
+            c.Email = formOrder.Email;
+            c.Phone = formOrder.Phone;
+            c.Fullname = formOrder.Fullname;
+            c.Note = formOrder.Note;
+
+
+
+            c.UserId = user.Id;
+            c = orderDAO.SaveOrder(c);
+            // c = orderDAO.getOrder(c);
+            if (c == null) return BadRequest("Not save orderEntity");
+            Console.WriteLine("Order: {0}", c.Id);
+            // if(c!=null) return Ok(c); ;
+
+            // return Ok(c);
+
+            foreach (OrderItem ci in formOrder.CartItems)
+            {
+
+                Console.WriteLine("productId: {0}, amount: {1}", ci.Idp, ci.Quantity);
+                if (ci.Idp == 0)
+                {
+                    return BadRequest("Thiếu tham số idp.");
+                }
+
+                Console.WriteLine("productSpecificId {0}", ci.Idp);
+                Product2 p = product2DAO.getProduct(ci.Idp); if (p == null) return BadRequest();
+
+                try
+                {
+                    OrderItemEntity cartItemEntity = null;
+                    if (c.Items != null)
+                        cartItemEntity = c.Items.Find(X => X.ProductId.CompareTo(ci.Idp) == 0);
+                    else c.Items = new List<OrderItemEntity>();
+
+                    Console.WriteLine("orderItemEntity: {0}", cartItemEntity);
+                    if (cartItemEntity == null)
+                    {
+                        cartItemEntity = new OrderItemEntity();
+                        cartItemEntity.Quantity = ci.Quantity;
+                        cartItemEntity.ProductId = ci.Idp;
+                        cartItemEntity.OrderId = c.Id;
+                        cartItemEntity.Product = p;
+                        //
+                        if (cartItemEntity.Deleted == false)
+                            c.Items.Add(cartItemEntity);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Increase amount");
+                        cartItemEntity.Quantity += ci.Quantity;
+                        //cartItemEntity.Quantity = ci.Quantity;
+                        if (cartItemEntity.Quantity < 0) return BadRequest("Số lượng item trong giỏ hàng nhỏ hơn 0, hãy xóa item này khỏi giỏ hàng");
+                    }
+
+                    cartItemEntity.Actived = ci.Actived;
+                    cartItemEntity.Deleted = ci.Deleted;
+                    cartItemEntity = orderDAO.SaveOrder(cartItemEntity);
+
+
+
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException != null)
+                        Console.WriteLine(e.InnerException.Message);
+                    return BadRequest(e.Message);
+                }
+            }
+
+
+
+            //Payment
+            c = orderDAO.getOrder(c);
+
+            PaymentEntity paymentEntity = new PaymentEntity();
+            paymentEntity.userId = user.Id;
+            paymentEntity.Amount = c.TotalPrice * 100;
+            paymentEntity.CurrCode = "VND";
+            //paymentEntity.UrlReturn = "htpp://localhost:3000/accept";
+            paymentEntity.UrlReturn = formOrder.UrlReturn;
+            paymentEntity.CreateTime = DateTime.Now;
+            paymentEntity.IpAddress = "119.17.249.22";
+            paymentEntity = paymentDAO.AddPayment(paymentEntity);
+            paymentEntity.gender("https://localhost:25002/payment/redirect");
+            paymentEntity = paymentDAO.UpdatePayment(paymentEntity);
+            c.Payment = paymentEntity;
+            c.PaymentId = paymentEntity.Id;
+            Console.WriteLine("REST-Payment Id: {0}", c.PaymentId);
+            orderDAO.UpdateOrder(c);
+
+            c = orderDAO.getOrder(c);
+
+            // return Ok((OrderDTO)c);
+            return Ok(new OrderDTO(c));
+            //return Ok(c);
+
+        }
     }
 
     public class FormPutOrder
