@@ -27,6 +27,7 @@ namespace BackendDotnetCore.DTO
             Phone = orderEntity.Phone;
             Fullname = orderEntity.Fullname;
             Note = orderEntity.Note;
+            Id = orderEntity.Id;
 
         }
 
