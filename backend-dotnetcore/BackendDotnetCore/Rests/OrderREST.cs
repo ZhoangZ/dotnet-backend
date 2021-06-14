@@ -120,8 +120,8 @@ namespace BackendDotnetCore.Rests
                     else
                     {
                         Console.WriteLine("Increase amount");
-                        //cartItemEntity.Amount += ci.Amount;
-                        cartItemEntity.Quantity = ci.Quantity;
+                        cartItemEntity.Quantity += ci.Quantity;
+                        //cartItemEntity.Quantity = ci.Quantity;
                         if (cartItemEntity.Quantity < 0) return BadRequest("Số lượng item trong giỏ hàng nhỏ hơn 0, hãy xóa item này khỏi giỏ hàng");
                     }
 
