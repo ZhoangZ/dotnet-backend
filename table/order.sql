@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 13/06/2021 23:41:53
+ Date: 14/06/2021 23:15:08
 */
 
 SET NAMES utf8mb4;
@@ -33,15 +33,26 @@ CREATE TABLE `order`  (
   `total_item` int(11) UNSIGNED NOT NULL DEFAULT 0,
   `deleled` int(1) UNSIGNED NOT NULL DEFAULT 0,
   `payment_id` bigint(20) NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `note` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (42, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 26);
+INSERT INTO `order` VALUES (42, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 26, NULL, NULL);
+INSERT INTO `order` VALUES (43, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 27, NULL, NULL);
+INSERT INTO `order` VALUES (44, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 28, NULL, NULL);
+INSERT INTO `order` VALUES (45, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 29, NULL, NULL);
+INSERT INTO `order` VALUES (46, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 30, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (47, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 31, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (48, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 32, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (49, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 33, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (50, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 34, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (51, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 35, 'tanhoang99.999@gmail.com', '...');
 
 SET FOREIGN_KEY_CHECKS = 1;
