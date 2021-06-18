@@ -203,6 +203,17 @@ namespace BackendDotnetCore.DAO
             return true;
         }
 
+
+        //checkComment before
+        public bool checkCommentOrder(int productID, int userID)
+        {
+            foreach(OrderEntity order in GetOrdersByUserID(userID))
+            {
+                foreach(OrderItemEntity oi in order.Items)
+                if (oi.ProductId == productID) return true;
+            }
+            return false;
+        }
     }
 
 
