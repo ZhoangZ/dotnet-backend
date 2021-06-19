@@ -200,8 +200,8 @@ namespace BackendDotnetCore.Rests
             // if(c!=null) return Ok(c); ;
 
             // return Ok(c);
-
-            foreach (OrderItem ci in formOrder.CartItems)
+            if (formOrder.CartItems != null) //return BadRequest();
+                foreach (OrderItem ci in formOrder.CartItems)
             {
 
                 Console.WriteLine("productId: {0}, amount: {1}", ci.Idp, ci.Quantity);

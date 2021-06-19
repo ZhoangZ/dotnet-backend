@@ -103,6 +103,7 @@ namespace BackendDotnetCore.Rests
             cartDAO.deleteAllItemCart(user.Id);
            
             CartEntity c = cartDAO.getCart(user.Id);
+            if (formAddCart.CartItems != null) //return BadRequest();
             foreach (CartItem ci in formAddCart.CartItems)
             {
 
