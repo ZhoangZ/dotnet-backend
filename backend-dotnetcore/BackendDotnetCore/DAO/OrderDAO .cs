@@ -199,7 +199,7 @@ namespace BackendDotnetCore.DAO
         {
             var rs = dbContext.Orders.Where(x => x.Id == id).SingleOrDefault();
             //check this order has status is 1 or difference 1;
-            //if(rs.status == 1) ==>deny else false
+            //if (rs.status != 1) return false;
             return true;
         }
 

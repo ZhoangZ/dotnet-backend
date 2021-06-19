@@ -61,7 +61,7 @@ namespace BackendDotnetCore.Rests
 
             try
             {
-                // Lấy UserEntity đang đăng nhập từ jwt
+                // Lấy UserEntity đang đăng nhập từ jwtf
                 UserEntity user = (UserEntity)HttpContext.Items["User"];
                 Console.WriteLine("User: " + user);
                 // Xóa bộ nhớ đệm chứa userentity

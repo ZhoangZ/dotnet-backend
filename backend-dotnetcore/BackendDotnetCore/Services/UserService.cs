@@ -67,6 +67,7 @@ namespace BackendDotnetCore.Services
         {
             var dao = new UserDAO();           
             UserEntity account =  dao.getOneById(userId);
+            if (account.Blocked == 1) return null;
             return account;
         }
 
@@ -86,7 +87,7 @@ namespace BackendDotnetCore.Services
                 userResponse.UserRoles = new UserRoleDAO().getAllRoleOfUserId(userResponse.Id);
                 
             }
-            if (userResponse.Active == 0) return new AuthenticateResponse("inactive", userResponse);
+            //xac dinh blocked
             var token = generateJwtToken(userResponse);
             return new AuthenticateResponse(token, userResponse);
         }
@@ -117,5 +118,6 @@ namespace BackendDotnetCore.Services
         {
             return userDAO.getOneByEmail(email);
         }
+
     }
 }

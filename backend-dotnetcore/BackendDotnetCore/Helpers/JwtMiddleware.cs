@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BackendDotnetCore.Services;
+using BackendDotnetCore.Entities;
 
 namespace BackendDotnetCore.Helpers
 {
@@ -51,6 +52,7 @@ namespace BackendDotnetCore.Helpers
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
+                
                 // attach user to context on successful jwt validation
                 context.Items["User"] = userService.getUserById(userId);
             }

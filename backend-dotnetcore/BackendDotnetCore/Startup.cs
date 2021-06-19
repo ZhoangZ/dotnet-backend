@@ -80,7 +80,7 @@ namespace BackendDotnetCore
             app.UseSession();
             app.UseMiddleware<JwtMiddleware>();
             app.UseCorsMiddleware();
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints => 
             {
                 endpoints.MapControllerRoute(
                     name: "default",

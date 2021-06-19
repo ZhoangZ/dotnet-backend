@@ -102,7 +102,7 @@ namespace BackendDotnetCore.DTO
 
             csi.productID = orderItemEntity.ProductId;
             Product2 productItem = product2DAO.getProduct(csi.productID);
-            //csi.productImg = productItem.Images[0].Image;
+            csi.productImg = productItem.Images[0].Image;
             csi.productName = productItem.Name;
             csi.pricePerOne = (double)productItem.OriginalPrice;
             csi.quatity = orderItemEntity.Quantity;

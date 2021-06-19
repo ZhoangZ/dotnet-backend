@@ -159,12 +159,13 @@ namespace WebApi.Controllers
 
         //lay toan bo danh sach don hang theo user
         [HttpGet("orders-manage")]
-        public ArrayList GetListOrder(int userID)
+        [Authorize]
+        public ArrayList GetListOrder()
         {
             ArrayList listResponse = new ArrayList();
-            UserEntity user = _userService.getUserById(userID);
-            if (null == user) return new ArrayList();
-            ArrayList listOrder = orderDAO.GetOrdersByUserID(userID);
+            //lay user tu token
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            ArrayList listOrder = orderDAO.GetOrdersByUserID(user.Id);
             foreach(OrderEntity oe in listOrder)
             {
                 CustomOrderResponse coresp = new CustomOrderResponse();
@@ -173,7 +174,7 @@ namespace WebApi.Controllers
                 listResponse.Add(coresp.toOrderResponse(oe));
             }
             return listResponse;
-        }
+        } 
 
         //huy don hang, tham so id
         [HttpPut("orders-manage/deny/{id}")]
