@@ -29,26 +29,29 @@ namespace BackendDotnetCore.Configurations
         }
 
         [HttpPost("new")]
+        [Authorize]
         public IActionResult postComment([FromBody] CommentDTO commentPost)
         {
             CommentResponse cmtRp = new CommentResponse();
             ICollection<CommentEntity> listCommentOfProduct;
-            if (commentPost.userID == 0 || null==userDAO.getOneById(commentPost.userID))
+            //lay user tu token
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            if (null == user)
             {
                return BadRequest(new { message = "Vui lòng đăng nhập trước khi thực hiện chức năng này." });
             }
             else
             {
                 CommentEntity commentResponse = new CommentEntity();
-                commentResponse.userID = commentPost.userID;
-                commentResponse.user = userDAO.getOneById(commentPost.userID);
+                commentResponse.userID = user.Id;
+                commentResponse.user = userDAO.getOneById(user.Id);
                 if (commentPost.productID == 0 || null == product2DAO.getProduct(commentPost.productID)) //cần thêm kiểm tra trên order của khách hàng
                 {
                     return BadRequest(new { message = "Sản phẩm không tồn tại trong hệ thống!" });
                 }
                 else
                 {
-                    if (null != commentDAO.checkUserCommentProductById(commentPost.productID, commentPost.userID)) return BadRequest(new { message = "Bạn đã đánh giá sản phẩm này rồi. Cảm ơn bạn đã mua sản phẩm!" });
+                    if (null != commentDAO.checkUserCommentProductById(commentPost.productID, user.Id)) return BadRequest(new { message = "Bạn đã đánh giá sản phẩm này rồi. Cảm ơn bạn đã mua sản phẩm!" });
                     //save to table
                     commentResponse.createdDate = System.DateTime.Now;
                     commentResponse.rate = commentPost.rate;
@@ -61,8 +64,7 @@ namespace BackendDotnetCore.Configurations
                     commentResponse.content = commentPost.content;
                     int commentID = commentDAO.Save(commentResponse);
                     //kiem tra xem trong order của user có productID này không ?
-                    //TODO
-                    if (!new OrderDAO().checkCommentOrder(commentPost.productID, commentPost.userID)) return BadRequest(new { message = "Sản phẩm không có trong đơn hàng nào của bạn.\n Vui lòng đặt hàng trước khi trải nghiệm tính năng này nhé!" });
+                    if (!new OrderDAO().checkCommentOrder(commentPost.productID, user.Id)) return BadRequest(new { message = "Sản phẩm không có trong đơn hàng nào của bạn.\n Vui lòng đặt hàng trước khi trải nghiệm tính năng này nhé!" });
                     //
                     if (commentID == 0)
                     {
