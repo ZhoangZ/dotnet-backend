@@ -160,9 +160,9 @@ namespace WebApi.Controllers
         //lay toan bo danh sach don hang theo user
         [HttpGet("orders-manage")]
         [Authorize]
-        public ArrayList GetListOrder()
+        public List<CustomOrderResponse> GetListOrder()
         {
-            ArrayList listResponse = new ArrayList();
+            List<CustomOrderResponse> listResponse = new List<CustomOrderResponse>();
             //lay user tu token
             UserEntity user = (UserEntity)HttpContext.Items["User"];
             ArrayList listOrder = orderDAO.GetOrdersByUserID(user.Id);
@@ -173,6 +173,9 @@ namespace WebApi.Controllers
                 coresp.phone = user.phone;
                 listResponse.Add(coresp.toOrderResponse(oe));
             }
+
+            listResponse.Sort();
+            listResponse.Reverse();
             return listResponse;
         } 
 

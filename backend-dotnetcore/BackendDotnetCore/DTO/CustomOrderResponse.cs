@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.DTO
 {
-    public class CustomOrderResponse
+    public class CustomOrderResponse: IComparable<CustomOrderResponse>
     {
         public int id { set; get; }
         public string name { set; get; }
@@ -32,16 +32,16 @@ namespace BackendDotnetCore.DTO
             switch (statusID)
             {
                 case 1:
-                    statusString = "Chờ xử lý";
+                    statusString = "Đang tiếp nhận";
                     break;
                 case 2:
-                    statusString = "Đang giao hàng";
+                    statusString = "Đang vận chuyển";
                     break;
                 case 3:
-                    statusString = "Giao thành công";
+                    statusString = "Đã giao hàng";
                     break;
                 case 4:
-                    statusString = "Đã hủy";
+                    statusString = "Hủy đơn hàng";
                     break;
             }
             return statusString;
@@ -58,7 +58,7 @@ namespace BackendDotnetCore.DTO
             cs.status = toStatusString(1);//thêm vào order entity status có kiểu int
             cs.listItems = toListItemsResponse(orderEntity.Items);
             cs.totalItems = cs.listItems.Count;
-            cs.paymentType = (orderEntity.PaymentId != 0) ? "Online" : "Tiền mặt";
+            cs.paymentType = (orderEntity.PaymentId != 0) ? "VNPay" : "COD";
             cs.note = "Nhớ thêm trường note ở bảng order, trường created-date, status lưu trạng thái 1,2,3 or 4.";//thêm note vào bảng
             cs.lastPrice = (double) orderEntity.TotalPrice;
             return cs;
@@ -74,6 +74,13 @@ namespace BackendDotnetCore.DTO
                 listResponse.Add(csi.toCustomOrderItem(oe));
             }
             return listResponse;
+        }
+
+        public int CompareTo(CustomOrderResponse other)
+        {
+            if (other.id > id) return -1;
+            if (other.id == id) return 0;
+            return 1;
         }
     }
     public class CustomOrderItem
