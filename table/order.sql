@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : My SQL
+ Source Server         : demo
  Source Server Type    : MySQL
- Source Server Version : 100417
+ Source Server Version : 100418
  Source Host           : localhost:3306
  Source Schema         : dotnet
 
  Target Server Type    : MySQL
- Target Server Version : 100417
+ Target Server Version : 100418
  File Encoding         : 65001
 
- Date: 14/06/2021 23:15:08
+ Date: 23/06/2021 23:23:53
 */
 
 SET NAMES utf8mb4;
@@ -37,22 +37,21 @@ CREATE TABLE `order`  (
   `note` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `iduser`(`user_id`) USING BTREE,
-  INDEX `donhang2`(`order_status`) USING BTREE,
-  CONSTRAINT `order_ibfk_2` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  INDEX `donhang2`(`order_status`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (42, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 26, NULL, NULL);
-INSERT INTO `order` VALUES (43, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 27, NULL, NULL);
-INSERT INTO `order` VALUES (44, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 28, NULL, NULL);
-INSERT INTO `order` VALUES (45, 25, NULL, NULL, 'An Bình', NULL, NULL, 55602000, 2, 0, 29, NULL, NULL);
-INSERT INTO `order` VALUES (46, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 30, 'tanhoang99.999@gmail.com', '...');
-INSERT INTO `order` VALUES (47, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 31, 'tanhoang99.999@gmail.com', '...');
-INSERT INTO `order` VALUES (48, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 32, 'tanhoang99.999@gmail.com', '...');
-INSERT INTO `order` VALUES (49, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 33, 'tanhoang99.999@gmail.com', '...');
-INSERT INTO `order` VALUES (50, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 34, 'tanhoang99.999@gmail.com', '...');
-INSERT INTO `order` VALUES (51, 25, NULL, NULL, 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 35, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (42, 25, 1, '2021-06-22', 'An Bình', NULL, NULL, 55602000, 2, 0, 26, NULL, NULL);
+INSERT INTO `order` VALUES (43, 25, 1, '2021-06-14', 'An Bình', NULL, NULL, 55602000, 2, 0, 27, NULL, NULL);
+INSERT INTO `order` VALUES (44, 25, 1, '2021-06-23', 'An Bình', NULL, NULL, 55602000, 2, 0, 28, NULL, NULL);
+INSERT INTO `order` VALUES (45, 25, 1, '2021-06-23', 'An Bình', NULL, NULL, 55602000, 2, 0, 29, NULL, NULL);
+INSERT INTO `order` VALUES (46, 25, 1, '2021-06-23', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 30, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (47, 25, 1, '2021-06-23', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 31, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (48, 25, 1, '2021-06-23', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 32, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (49, 25, 1, '2021-06-23', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 33, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (50, 21, 4, '2021-06-23', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 34, 'tanhoang99.999@gmail.com', '...');
+INSERT INTO `order` VALUES (51, 21, 1, '2021-06-23', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 35, 'tanhoang99.999@gmail.com', '...');
 
 SET FOREIGN_KEY_CHECKS = 1;
