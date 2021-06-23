@@ -42,7 +42,7 @@ namespace BackendDotnetCore.Controllers
             CartEntity c = cartDAO.getCart(response.user.Id);
             response.cart = new CartDTO(c);
             //check user has been blocked by admin
-            if (response.jwt.Equals("inactive")) return BadRequest(new { message = "Tài khoản của bạn hiện đang khóa. Thực hiện đổi mật khẩu mới để mở khóa!" });
+            if (response.user.Active == 0) return BadRequest(new { message = "Tài khoản hiện đang bị khóa. Vui lòng liên hệ quản trị viên để được trợ giúp!" });
             return Ok(response);
 
         }

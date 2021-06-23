@@ -50,5 +50,16 @@ namespace BackendDotnetCore.Entities
 
         //public virtual CartEntity Cart { set; get; }
 
+
+
+        public bool isAdmin()
+        {
+            foreach(UserRole ur in UserRoles)
+            {
+                if (ur.Role.Id == 2) return true;
+            }
+            return false;
+        }
+
     }
 }

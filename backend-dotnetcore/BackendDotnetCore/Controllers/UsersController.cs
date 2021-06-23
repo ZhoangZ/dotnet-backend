@@ -40,7 +40,10 @@ namespace WebApi.Controllers
             HttpContext.Items["User"] = null;
             return Ok(user);
         }
-       
+
+        /*
+         * USER MANAGEMENT YOURSELF ACCOUNT
+         */
         [HttpPost("forgot-pass")]
         public IActionResult ForgotPassword([FromBody] ResetPassForm fr)
         {
@@ -153,10 +156,12 @@ namespace WebApi.Controllers
                 return  BadRequest(new { message= "Có lỗi xảy ra với user!"});
             }
         }
-
+        //END
        
-        //user orders management
-
+        /*
+         * USER ORDER MANAGEMENT
+         * 
+        */
         //lay toan bo danh sach don hang theo user
         [HttpGet("orders-manage")]
         [Authorize]
@@ -169,8 +174,8 @@ namespace WebApi.Controllers
             foreach(OrderEntity oe in listOrder)
             {
                 CustomOrderResponse coresp = new CustomOrderResponse();
-                coresp.name = user.Fullname;
-                coresp.phone = user.phone;
+                coresp.name = oe.Fullname;
+                coresp.phone = oe.Phone;
                 listResponse.Add(coresp.toOrderResponse(oe));
             }
 
@@ -181,29 +186,68 @@ namespace WebApi.Controllers
 
         //huy don hang, tham so id
         [HttpPut("orders-manage/deny/{id}")]
+        [Authorize]
         public IActionResult DenyAOrder(int id)
         {
             OrderEntity orderDeny;
-            if (null == (orderDeny = orderDAO.GetOrderByID(id)))
-            return BadRequest(new { message = "Thông tin đơn hàng không hợp lệ!" });
+            UserEntity userEntity = (UserEntity)HttpContext.Items["User"];
+            if (null == (orderDeny = orderDAO.GetOrderByID(id))||orderDeny.UserId != userEntity.Id )
+            return BadRequest(new { message = "Đơn hàng của bạn không tồn tại!" });
 
-            if (true == orderDAO.DenyOrderByID(id)) 
-                return Ok(orderDeny);
+            if (true == orderDAO.DenyOrderByID(id))
+            {
+                orderDeny.Status = 4;
+                CustomOrderResponse coresp = new CustomOrderResponse();
+                coresp.name = orderDeny.Fullname;
+                coresp.phone = orderDeny.Phone;
+                return Ok(coresp.toOrderResponse(orderDAO.UpdateOrder(orderDeny)));
+            }
             return BadRequest(new { message = "Hệ thống đang xảy ra lỗi. Vui lòng thực hiện sau!" });
         }
 
-        //xem chi tiet don hang, tham  so id
-        [HttpGet("orders-manage{id}")]
-        public IActionResult GetDetailOrderByID(int id)
+        //lay du lieu order bang status
+        [HttpGet("orders-manage/status/{status}")]
+        [Authorize]
+        public List<CustomOrderResponse> GetOrdersByStatus(int status)
         {
-            OrderEntity orderDetail;
-            if(null == (orderDetail = orderDAO.GetOrderByID(id)))
-            return BadRequest(new { message = "Không có đơn hàng nào được hiển thị!" });
+            List<CustomOrderResponse> listRes = new List<CustomOrderResponse>();
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            List<OrderEntity> list = orderDAO.GetOrdersByUserIDAndStatus(user.Id, status);
 
-            return Ok(orderDetail);
+            foreach (OrderEntity oe in list)
+            {
+                CustomOrderResponse coresp = new CustomOrderResponse();
+                coresp.name = user.Fullname;
+                coresp.phone = user.phone;
+                listRes.Add(coresp.toOrderResponse(oe));
+            }
+
+            listRes.Sort();
+            listRes.Reverse();
+            return listRes;
+
         }
 
-
+        /*
+         * USER UNBLOCKED ACCOUNT
+         */
+        //contact amdin unblocked account(chua xong)
+        [HttpPost("unblocked")]
+        public IActionResult UnblockedAccount([FromBody] UnblockedFromRequest req)
+        {
+            //auto send email when call this link
+            UserEntity user;
+            if (null == (user = _userService.getUserByEmail(req.email)))
+            {
+                return BadRequest(new { message = "Email không tồn tại trong hệ thống!" });
+            }
+            else
+            {
+                return Ok("Email = "+req.email +", content = ");
+            }
+        }
         
+        
+
     }
 }

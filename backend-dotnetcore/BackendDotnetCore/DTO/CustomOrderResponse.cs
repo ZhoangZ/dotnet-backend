@@ -54,12 +54,12 @@ namespace BackendDotnetCore.DTO
             cs.name = name;
             cs.phone = phone;
             cs.address = orderEntity.AddressDelivery;
-            cs.date = DateTime.Now.ToString();//thêm vào order createdDate có kiểu DateTime
-            cs.status = toStatusString(1);//thêm vào order entity status có kiểu int
+            cs.date = orderEntity.CreatedDate.ToString();
+            cs.status = toStatusString(orderEntity.Status);
             cs.listItems = toListItemsResponse(orderEntity.Items);
             cs.totalItems = cs.listItems.Count;
             cs.paymentType = (orderEntity.PaymentId != 0) ? "VNPay" : "COD";
-            cs.note = "Nhớ thêm trường note ở bảng order, trường created-date, status lưu trạng thái 1,2,3 or 4.";//thêm note vào bảng
+            cs.note = orderEntity.Note;
             cs.lastPrice = (double) orderEntity.TotalPrice;
             return cs;
         }

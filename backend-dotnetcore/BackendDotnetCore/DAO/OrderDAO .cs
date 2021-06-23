@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
+using BackendDotnetCore.DTO;
 
 namespace BackendDotnetCore.DAO
 {
@@ -192,6 +193,8 @@ namespace BackendDotnetCore.DAO
         public OrderEntity GetOrderByID(int id)
         {
             var rs = dbContext.Orders.Where(x => x.Id == id).SingleOrDefault();
+            var orderItems = dbContext.OrderItems.Where(x => x.OrderId == rs.Id).ToList();
+            rs.Items = orderItems;
             return rs;
         }
 
@@ -199,7 +202,7 @@ namespace BackendDotnetCore.DAO
         {
             var rs = dbContext.Orders.Where(x => x.Id == id).SingleOrDefault();
             //check this order has status is 1 or difference 1;
-            //if (rs.status != 1) return false;
+            if (rs.Status != 1) return false;
             return true;
         }
 
@@ -213,6 +216,19 @@ namespace BackendDotnetCore.DAO
                 if (oi.ProductId == productID) return true;
             }
             return false;
+        }
+
+        public List<OrderEntity> GetOrdersByUserIDAndStatus(int userID, int status)
+        {
+            List<OrderEntity> listOrderUser = new List<OrderEntity>();
+            var list = dbContext.Orders.Where(x => x.UserId == userID && x.Status == status).ToList();
+            foreach (OrderEntity o in list)
+            {
+                var orderItem = dbContext.OrderItems.Where(x => x.OrderId == o.Id).ToList();
+                o.Items = orderItem;
+                listOrderUser.Add(o);
+            }
+            return listOrderUser;
         }
     }
 
