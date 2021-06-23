@@ -66,9 +66,9 @@ namespace BackendDotnetCore.Rests
                 if (id != 0) tmp = id;
                 Product2 product = ProductDAO.getProduct(tmp);
                 if (product == null) return BadRequest(tmp);
-                product.Images.ForEach(delegate (ImageProduct ip) {
+                foreach ( ImageProduct ip in product.Images) { 
                     ip.setRequest(Request);
-                });
+                };
 
                 CommentResponse commentResponse = new CommentResponse();
                 product.commentResponse = commentResponse;
@@ -100,13 +100,15 @@ namespace BackendDotnetCore.Rests
         {
             try
             {
-                Product.CreatedAt = DateTime.UtcNow;
+                Product.CreatedAt = DateTime.Now;
                 Product2 product = ProductDAO.AddProduct(Product);
                 if (product == null) return BadRequest();
-                product.Images.ForEach(delegate (ImageProduct ip) {
+
+                var a = ProductDAO.getProduct(product.Id);
+                foreach (ImageProduct ip  in a.Images){
                     ip.setRequest(Request);
-                });
-                return Ok(product);
+                };
+                return Ok(a);
             }
             catch (Exception e)
             {
@@ -119,14 +121,17 @@ namespace BackendDotnetCore.Rests
         [HttpPut("{id}")]
         //phương thức cập nhật một sản phẩm theo id
         //tham số truyền vào [FromBody] Product Product và id
-        public ActionResult UpdateProductById([FromBody] Product2 Product)
+        public ActionResult UpdateProductById([FromBody] Product2 Product, int id)
         {
             try
             {
-                int rs = ProductDAO.Save(Product);
-                if (rs != 0)
-                    return Ok();
-                return BadRequest();
+                Product.Id = id;
+                //Console.WriteLine(Product.BrandId);
+                Product= ProductDAO.Save(Product);               
+                var a=ProductDAO.getProduct(id);
+                return Ok(a);
+
+               
             }
             catch (Exception e)
             {

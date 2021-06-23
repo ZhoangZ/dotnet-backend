@@ -23,8 +23,6 @@ namespace BackendDotnetCore.Entities
         public uint promotionPercents { get; set; }
         public string Name { get; set; }
        
-        public Brand Brand { get; set; }
-        
         [Column("DELETED")]
         [JsonIgnore]
         public bool deleted { get; set; }
@@ -42,33 +40,32 @@ namespace BackendDotnetCore.Entities
         [Column("AMOUNT_SOLD")]
 
         public int AmoutSold { get; set; }
-        [Column("OS")]
-        public string Os { get; set; }
+       
         [Column("IS_HOT")]
         public bool IsHot { get; set; }
-        public virtual List<ImageProduct> Images { get; set; }
+        public virtual ICollection<ImageProduct> Images { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public virtual List<InformationProduct> Informations { get; set; }
+        public virtual ICollection<InformationProduct> Informations { get; set; }
       
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public virtual List<CommentEntity> comments { get; set; } = new List<CommentEntity>();
+        public virtual ICollection<CommentEntity> comments { get; set; } = new List<CommentEntity>();
 
 
         [Column("ram_id")]
-        [JsonIgnore]
+        //[JsonIgnore]
         public int RamId { get; set; }
         public virtual RamEntity Ram { get; set; }
+        [Column("brand_id")]
+        public int BrandId { get; set; }
+        public virtual Brand Brand { get; set; }
 
         [Column("rom_id")]
-        [JsonIgnore]
+        //[JsonIgnore]
         public int RomId { get; set; }
         public virtual RamEntity Rom { get; set; }
-        public Product2()
-        {
-            //this.IsHot = true;
-
-        }
+        
         [Column("SALE_PRICE")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 
         public decimal SalePrice { get; set; }
         [NotMapped]

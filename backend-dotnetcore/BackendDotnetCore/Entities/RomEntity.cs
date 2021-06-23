@@ -17,6 +17,17 @@ namespace BackendDotnetCore.Entities
        
         [Column("rom")]
         public string Rom { get; set; }
-       
+
+        [Column("deleted")]
+        public bool Deleted { get; set; }
+
+        [Column("actived")]
+        public bool Actived { get; set; }
+        public RomEntity()
+        {
+            Deleted = false;
+            Actived = true;
+        }
+
     }
 }
