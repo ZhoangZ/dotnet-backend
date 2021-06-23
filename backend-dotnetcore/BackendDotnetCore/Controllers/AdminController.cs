@@ -1,4 +1,5 @@
 ﻿using BackendDotnetCore.DAO;
+using BackendDotnetCore.DTO;
 using BackendDotnetCore.Entities;
 using BackendDotnetCore.Ultis;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,7 @@ namespace BackendDotnetCore.Controllers
 
         private RoleDAO roleDAO = new RoleDAO();
         private UserDAO userDAO = new UserDAO();
+        private OrderDAO orderDAO = new OrderDAO();
 
         [HttpGet]
         public List<RoleEntity> GetAllElementRole()
@@ -24,7 +26,9 @@ namespace BackendDotnetCore.Controllers
             List<RoleEntity> roles = roleDAO.getAllRole();
             return roles;
         }
-
+        /*
+         * ADMIN USER AND ROLE MANAGEMENT
+         */
         //add new a role
         [HttpPost("role")]
         public IActionResult CreateNewRole(RoleEntity roleEntity)
@@ -39,7 +43,6 @@ namespace BackendDotnetCore.Controllers
                 return BadRequest(roleEntity);
             }
         }
-
 
         //admin get all users
         [HttpGet("users")]
@@ -73,6 +76,68 @@ namespace BackendDotnetCore.Controllers
         }
 
 
+
+        /*
+         * ADMIN ORDERS MANAGEMENT
+         */
+        [HttpGet("orders")]
+        [Authorize]
+        public IActionResult GetAllOrders()
+        {
+            UserEntity userAction = (UserEntity)HttpContext.Items["User"];
+            if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
+            var listOrders = orderDAO.GetAllOrders();
+            
+            return Ok(new CustomOrderResponse().toListCustomOrderResponse(listOrders));
+        }
+
+        //get orders by status
+        [HttpGet("orders/status/{status}")]
+        [Authorize]
+        public IActionResult GetAllOrdersByStatus(int status)
+        {
+            UserEntity userAction = (UserEntity)HttpContext.Items["User"];
+            if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
+            var listOrders = new List<OrderEntity>();
+            if (status == 0)
+                listOrders = orderDAO.GetAllOrders();
+            else listOrders = orderDAO.GetAllOrdersByStatus(status);
+
+            return Ok(new CustomOrderResponse().toListCustomOrderResponse(listOrders));
+        }
         
+        //accept a order by id
+        [HttpPut("orders/active/{orderID}")]
+        [Authorize]
+        public IActionResult ActiveOrderPending(int orderID)
+        {
+            UserEntity userAction = (UserEntity)HttpContext.Items["User"];
+            if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
+            if (orderDAO.AcceptOrderPending(orderID))
+            {
+                CustomOrderResponse cs = new CustomOrderResponse();
+                OrderEntity oe = orderDAO.GetOrderByID(orderID);
+                return Ok(cs.toOrderResponse(oe));
+            }
+            else
+            {
+                return BadRequest("Đơn hàng không được phép hủy!");
+            }
+        }
+
+        //tim kiem don hang bang ma don hang
+        [HttpGet("orders/{orderID}")]
+        [Authorize]
+        public IActionResult FindOrderByID(int orderID)
+        {
+            UserEntity userAction = (UserEntity)HttpContext.Items["User"];
+            if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
+
+            CustomOrderResponse cs = new CustomOrderResponse();
+            OrderEntity oe = orderDAO.GetOrderByID(orderID);
+            if (null == oe) return BadRequest(new { message = "Không tồn tại đơn hàng có mã {0} trong hệ thống!", orderID});
+            return Ok(cs.toOrderResponse(oe));
+        }
+
     }
 }

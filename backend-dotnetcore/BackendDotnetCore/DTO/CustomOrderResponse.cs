@@ -51,8 +51,8 @@ namespace BackendDotnetCore.DTO
         {
             CustomOrderResponse cs = new CustomOrderResponse();
             cs.id = (int) orderEntity.Id;
-            cs.name = name;
-            cs.phone = phone;
+            cs.name = orderEntity.Fullname;
+            cs.phone = orderEntity.Phone;
             cs.address = orderEntity.AddressDelivery;
             cs.date = orderEntity.CreatedDate.ToString();
             cs.status = toStatusString(orderEntity.Status);
@@ -62,6 +62,16 @@ namespace BackendDotnetCore.DTO
             cs.note = orderEntity.Note;
             cs.lastPrice = (double) orderEntity.TotalPrice;
             return cs;
+        }
+
+        public List<CustomOrderResponse> toListCustomOrderResponse(List<OrderEntity> listOE)
+        {
+            List<CustomOrderResponse> list = new List<CustomOrderResponse>();
+            foreach(OrderEntity oe in listOE)
+            {
+                list.Add(toOrderResponse(oe));
+            }
+            return list;
         }
 
 

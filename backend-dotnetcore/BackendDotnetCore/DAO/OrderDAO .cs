@@ -20,8 +20,6 @@ namespace BackendDotnetCore.DAO
             this.dbContext = new BackendDotnetDbContext();
             productDAO = new Product2DAO();
         }
-
-
         public OrderEntity getOrder(OrderEntity cartEntity)
         {
             dbContext.Entry(cartEntity).State = EntityState.Detached;
@@ -177,7 +175,9 @@ namespace BackendDotnetCore.DAO
         }
 
 
-        //user action with orders
+        /*
+         * USER ACTION WITH ORDER (DENY, GET BY STATUS)
+         */
         public ArrayList GetOrdersByUserID(int userID)
         {
             ArrayList listOrderUser = new ArrayList();
@@ -197,7 +197,6 @@ namespace BackendDotnetCore.DAO
             rs.Items = orderItems;
             return rs;
         }
-
         public bool DenyOrderByID(int id)
         {
             var rs = dbContext.Orders.Where(x => x.Id == id).SingleOrDefault();
@@ -205,8 +204,6 @@ namespace BackendDotnetCore.DAO
             if (rs.Status != 1) return false;
             return true;
         }
-
-
         //checkComment before
         public bool checkCommentOrder(int productID, int userID)
         {
@@ -217,7 +214,6 @@ namespace BackendDotnetCore.DAO
             }
             return false;
         }
-
         public List<OrderEntity> GetOrdersByUserIDAndStatus(int userID, int status)
         {
             List<OrderEntity> listOrderUser = new List<OrderEntity>();
@@ -230,6 +226,43 @@ namespace BackendDotnetCore.DAO
             }
             return listOrderUser;
         }
+
+        /*
+         * ADMIN ACTION WITH ORDER (GET ALL, GET BY STATUS, ACCEPT ORDERS PENDING)
+         */
+        public List<OrderEntity> GetAllOrders()
+        {
+            var list = dbContext.Orders.ToList();
+            foreach(OrderEntity oe in list)
+            {
+                var listItems = dbContext.OrderItems.Where(x => x.OrderId == oe.Id).ToList();
+                oe.Items = listItems;
+            }
+            list.Reverse();
+            return list;
+        }
+
+        public List<OrderEntity> GetAllOrdersByStatus(int status)
+        {
+            var list = dbContext.Orders.Where(x=>x.Status == status).ToList();
+            foreach (OrderEntity oe in list)
+            {
+                var listItems = dbContext.OrderItems.Where(x => x.OrderId == oe.Id).ToList();
+                oe.Items = listItems;
+            }
+            list.Reverse();
+            return list;
+        }
+
+        public bool AcceptOrderPending(int orderID)
+        {
+            OrderEntity oe = GetOrderByID(orderID);
+            if (null == oe || oe.Status != 1) return false;
+            oe.Status = 2;//giao cho bo phan giao hang
+            UpdateOrder(oe);
+            return oe.Status == 2?true:false;
+        }
+
     }
 
 

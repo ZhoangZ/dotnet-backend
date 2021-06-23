@@ -37,7 +37,6 @@ namespace BackendDotnetCore.Entities
         [Column("note")]
         public string Note { set; get; }
 
-
         [Column("total_price")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public decimal TotalPrice { set; get; }
