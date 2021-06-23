@@ -115,7 +115,12 @@ namespace BackendDotnetCore.DAO
         public UserEntity getOneById(int userID)
         {
             Console.WriteLine("UserDAO userID = " + userID);
-            var user = dbContext.users.Where(x => x.Id == userID).SingleOrDefault();
+            dbContext.ChangeTracker.LazyLoadingEnabled = false;
+            var user = dbContext.users.Where(x => x.Id == userID)
+                .Include(x=>x.UserRoles)
+                .ThenInclude(x=>x.Role)
+                .SingleOrDefault();
+            //dbContext.ChangeTracker.LazyLoadingEnabled = true;
             if (null == user) return null;
             return user;
         }

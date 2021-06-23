@@ -28,10 +28,10 @@ namespace BackendDotnetCore.Entities
         [Column("deleted")]
         [JsonIgnore]
         public bool Deleted { set; get; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("amount")]
-        [JsonIgnore]
-        public bool Amount { set; get; }
+        
+        public int Amount { set; get; }
 
         [JsonIgnore]
         public List<Product2> Product2s { get; set; }

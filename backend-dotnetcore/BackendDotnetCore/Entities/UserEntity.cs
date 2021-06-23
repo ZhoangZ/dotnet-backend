@@ -49,17 +49,21 @@ namespace BackendDotnetCore.Entities
         //public virtual ICollection<CartItemEntity> CartItemEntities { set; get; } = new HashSet<CartItemEntity>();
 
         //public virtual CartEntity Cart { set; get; }
-
-
-
-        public bool isAdmin()
+        [NotMapped]
+        public bool IsAdmin
         {
-            foreach(UserRole ur in UserRoles)
+            get { 
+            if (UserRoles != null)
             {
-                if (ur.Role.Id == 2) return true;
+                foreach(UserRole u in UserRoles)
+                {
+                    if (u.Role != null)
+                    {
+                        if (u.Role.Name.Equals("ADMIN")) return true;
+                    }
+                }
             }
-            return false;
+            return false;}
         }
-
     }
 }

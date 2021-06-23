@@ -14,9 +14,9 @@ namespace BackendDotnetCore.Ultis
         public static void setRequset(this List<Product2> lst, HttpRequest request)
         {
             lst.ForEach(delegate (Product2 p) {
-                p.Images.ForEach(delegate (ImageProduct ip) {
+                foreach (var ip in p.Images){
                     ip.setRequest(request);
-                });
+                };
             });
         }
 
