@@ -115,17 +115,20 @@ namespace BackendDotnetCore.DAO
         public UserEntity getOneById(int userID)
         {
             Console.WriteLine("UserDAO userID = " + userID);
-            var user = dbContext.users.Where(x => x.Id == userID).SingleOrDefault();
+            dbContext.ChangeTracker.LazyLoadingEnabled = false;
+            var user = dbContext.users.Where(x => x.Id == userID)
+                .Include(x=>x.UserRoles)
+                .ThenInclude(x=>x.Role)
+                .SingleOrDefault();
+            //dbContext.ChangeTracker.LazyLoadingEnabled = true;
             if (null == user) return null;
             return user;
         }
-
         public UserEntity getOneByEmail(string email)
         {
             var user = dbContext.users.Where(x => x.Email.Equals(email)).SingleOrDefault();
             return user;
         }
-
         public bool loginByEmailVer2(string email, string password)
         {
             Console.Write("LOGIN WITH EMAIL = {0}, {1}, {2} ", email, password, EncodeUltis.MD5(password));
@@ -137,6 +140,14 @@ namespace BackendDotnetCore.DAO
         {
             var userLogin = dbContext.users.Where(x => x.Email.Equals(email) && x.Password.Equals(EncodeUltis.MD5(password))).SingleOrDefault();
             return userLogin;
+        }
+
+        public bool isAdmin(int userID)
+        {
+            foreach (UserRole ur in new UserRoleDAO().getAllRoleOfUserId(userID))
+                if (ur.Role.Id == 2) return true;
+
+            return false;
         }
 
     }

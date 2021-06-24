@@ -10,45 +10,30 @@ namespace BackendDotnetCore.DAO
     public class Product2DAO
     {
         private BackendDotnetDbContext dbContext;
-        private ImageProductDAO imageProductDAO;
+        
 
-        public object Product { get; private set; }
+       
 
         public Product2DAO()
         {
-            this.dbContext = new BackendDotnetDbContext();
-            this.imageProductDAO = new ImageProductDAO();
-        }
-        public Product2 getAccount(int Id)
-
-        {
+            dbContext = new BackendDotnetDbContext();
            
-          var tmp = from accounts in dbContext.Products
-                      where accounts.Id == Id
-                      select new Product2
-                      {
-                          Id = accounts.Id,
-                          Name = accounts.Name,
-                          
-                          
-                        
-
-                      } ;
-            return tmp.ToList()[0];
         }
+       
         public Product2 getProduct(int Id)
 
         {
 
-            var tmp = dbContext.Products.Where(s => s.Id == Id).Where(X => X.deleted == false)
-
+            var tmp = dbContext.Products.Where(s => s.Id == Id)
+                .Where(X => X.deleted == false)
                 .Include("Images")
                 .Include(x => x.Ram)
-               .Include(x => x.Rom)
-                .Include(x => x.Informations).Include(x => x.Brand)
-                      ;
+                .Include(x => x.Rom)
+                .Include(x => x.Informations)
+                .Include(x => x.Brand)
+                ;
          
-            return tmp.FirstOrDefault(); 
+            return tmp.SingleOrDefault(); 
 
         }
 
@@ -252,22 +237,35 @@ namespace BackendDotnetCore.DAO
         //phương thức insert into table product
         public Product2 AddProduct(Product2 Product)
         {
-            dbContext.Products.AddAsync(Product);
-            dbContext.SaveChangesAsync();
+            dbContext.Entry(Product).Reference(x => x.Ram).IsModified = false;
+            dbContext.Entry(Product).Reference(x => x.Rom).IsModified = false;
+            dbContext.Entry(Product).Reference(x => x.Brand).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.Images).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.Informations).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.comments).IsModified = false;
+            dbContext.Products.Add(Product);
+            dbContext.SaveChanges();
             return Product;
         }
+
         
+
         //phương thức cập nhật product by id
-        public int Save(Product2 Product)
+        public Product2 Save(Product2 Product)
         {
-            int rs = 0;
-            if (Product != null)
-            {
-                dbContext.Update<Product2>(Product);
-                rs = dbContext.SaveChanges();
-            }
-               
-            return rs;
+            dbContext.Entry(Product).Reference(x => x.Ram).IsModified = false;
+            dbContext.Entry(Product).Reference(x => x.Rom).IsModified = false;
+            dbContext.Entry(Product).Reference(x => x.Brand).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.Images).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.Informations).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.comments).IsModified = false;
+
+            dbContext.Update<Product2>(Product);
+            dbContext.SaveChanges();
+            return Product;
+
+
+           
         }
    
         //phương thức xóa từng phần tử product bằng id khi nhận từ request
@@ -299,17 +297,17 @@ namespace BackendDotnetCore.DAO
         public List<Brand> GetActivedBrands()
         {
 
-            return dbContext.Brands.Where(e => e.Actived).ToList();
+            return dbContext.Brands.Where(e => e.Actived).Where(e=>!e.Deleted).ToList();
         }
         public List<RomEntity> GetRoms()
         {
 
-            return dbContext.Roms.ToList();
+            return dbContext.Roms.Where(e => !e.Deleted).ToList();
         }
         public List<RamEntity> GetRams()
         {
 
-            return dbContext.Rams.ToList();
+            return dbContext.Rams.Where(e => !e.Deleted).ToList();
         }
 
 

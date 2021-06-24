@@ -51,17 +51,27 @@ namespace BackendDotnetCore.DTO
         {
             CustomOrderResponse cs = new CustomOrderResponse();
             cs.id = (int) orderEntity.Id;
-            cs.name = name;
-            cs.phone = phone;
+            cs.name = orderEntity.Fullname;
+            cs.phone = orderEntity.Phone;
             cs.address = orderEntity.AddressDelivery;
-            cs.date = DateTime.Now.ToString();//thêm vào order createdDate có kiểu DateTime
-            cs.status = toStatusString(1);//thêm vào order entity status có kiểu int
+            cs.date = orderEntity.CreatedDate.ToString();
+            cs.status = toStatusString(orderEntity.Status);
             cs.listItems = toListItemsResponse(orderEntity.Items);
             cs.totalItems = cs.listItems.Count;
             cs.paymentType = (orderEntity.PaymentId != 0) ? "VNPay" : "COD";
-            cs.note = "Nhớ thêm trường note ở bảng order, trường created-date, status lưu trạng thái 1,2,3 or 4.";//thêm note vào bảng
+            cs.note = orderEntity.Note;
             cs.lastPrice = (double) orderEntity.TotalPrice;
             return cs;
+        }
+
+        public List<CustomOrderResponse> toListCustomOrderResponse(List<OrderEntity> listOE)
+        {
+            List<CustomOrderResponse> list = new List<CustomOrderResponse>();
+            foreach(OrderEntity oe in listOE)
+            {
+                list.Add(toOrderResponse(oe));
+            }
+            return list;
         }
 
 
@@ -109,7 +119,7 @@ namespace BackendDotnetCore.DTO
 
             csi.productID = orderItemEntity.ProductId;
             Product2 productItem = product2DAO.getProduct(csi.productID);
-            csi.productImg = productItem.Images[0].Image;
+            csi.productImg = productItem.Images.ToArray()[0].Image;
             csi.productName = productItem.Name;
             csi.pricePerOne = (double)productItem.OriginalPrice;
             csi.quatity = orderItemEntity.Quantity;

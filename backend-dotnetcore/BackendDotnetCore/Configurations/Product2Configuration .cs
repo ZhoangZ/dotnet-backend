@@ -23,11 +23,7 @@ namespace BackendDotnetCore.Configurations
            
 
 
-            builder.Property<int>("brand_id");
-            builder.HasOne(x => x.Brand)
-                .WithMany(x => x.Product2s)
-                .HasForeignKey("brand_id");
-            //forgein key brand
+          
 
 
 

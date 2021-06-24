@@ -55,7 +55,6 @@ namespace BackendDotnetCore.Configurations
                     //save to table
                     commentResponse.createdDate = System.DateTime.Now;
                     commentResponse.rate = commentPost.rate;
-                    Console.WriteLine("rating post = " + commentPost.rate+", db="+commentResponse.rate);
 
                     commentResponse.productID = commentPost.productID;
                     commentResponse.Product = product2DAO.getProduct(commentPost.productID);

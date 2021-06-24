@@ -15,8 +15,13 @@ namespace BackendDotnetCore.Entities
         [Column("id")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //[JsonIgnore]
         public long Id { set; get; }
+
+        [Column("order_status")]
+        public int Status { set; get; }
+
+        [Column("created_date")]
+        public DateTime CreatedDate { set; get; }
 
         [Column("address_delivery")]
         public string AddressDelivery { set; get; }
@@ -32,7 +37,6 @@ namespace BackendDotnetCore.Entities
         [Column("note")]
         public string Note { set; get; }
 
-
         [Column("total_price")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public decimal TotalPrice { set; get; }
@@ -44,7 +48,6 @@ namespace BackendDotnetCore.Entities
         [Column("user_id")]
         [JsonIgnore]
         public int UserId { set; get; }      
-        //[JsonIgnore]
         public virtual UserEntity User { set; get; }
 
         [Column("payment_id")]

@@ -74,6 +74,8 @@ namespace BackendDotnetCore.Rests
             c.Phone = formOrder.Phone;
             c.Fullname = formOrder.Fullname;
             c.Note = formOrder.Note;
+            c.Status = 1;
+            c.CreatedDate = DateTime.Now;
 
 
 
