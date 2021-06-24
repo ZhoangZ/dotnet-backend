@@ -64,7 +64,7 @@ namespace BackendDotnetCore.Configurations
                     commentResponse.content = commentPost.content;
                     int commentID = commentDAO.Save(commentResponse);
                     //kiem tra xem trong order của user có productID này không ?
-                    if (!new OrderDAO().checkCommentOrder(commentPost.productID, user.Id)) return BadRequest(new { message = "Sản phẩm không có trong đơn hàng nào của bạn.\n Vui lòng đặt hàng trước khi trải nghiệm tính năng này nhé!" });
+                    //if (!new OrderDAO().checkCommentOrder(commentPost.productID, user.Id)) return BadRequest(new { message = "Sản phẩm không có trong đơn hàng nào của bạn.\n Vui lòng đặt hàng trước khi trải nghiệm tính năng này nhé!" });
                     //
                     if (commentID == 0)
                     {
