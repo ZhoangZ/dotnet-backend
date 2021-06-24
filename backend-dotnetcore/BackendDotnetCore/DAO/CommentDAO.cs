@@ -49,10 +49,31 @@ namespace BackendDotnetCore.DAO
             return cmt;
         }
 
+
+        /*
+         * ADMIN ACTION WITH COMMENTS (Get all, Active/Disable a comment)
+         */
         public List<CommentEntity> GetAllComments()
         {
-
-            return null;
+            var listComments = dbContext.Comments.ToList();
+            return listComments;
         }
+
+        public bool ActiveAComment(int commentID, bool isActive)
+        {
+            var cmt = dbContext.Comments.Where(X => X.id == commentID).SingleOrDefault();
+            if (isActive)//request active
+            {
+                cmt.active = 1;
+            }
+            else//request disable
+            {
+                cmt.active = 0;
+            }
+            dbContext.Update(cmt);//update into db
+            dbContext.SaveChanges();
+            return true;
+        }
+
     }
 }
