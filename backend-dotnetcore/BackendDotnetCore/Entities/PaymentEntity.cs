@@ -73,7 +73,7 @@ namespace BackendDotnetCore.Entities
 
             vnp_Params["vnp_ReturnUrl"] = returnUrl;
             vnp_Params["vnp_TxnRef"] = this.Id+"";
-            this.CreateTime=new DateTime();
+            this.CreateTime=DateTime.Now;
             vnp_Params["vnp_CreateDate"]= this.CreateTime.ToString("yyyyMMddHHmmss");
 
             ArrayList fieldNames = new ArrayList(vnp_Params.Keys);
