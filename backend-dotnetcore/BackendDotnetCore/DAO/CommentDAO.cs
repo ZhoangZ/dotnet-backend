@@ -48,5 +48,11 @@ namespace BackendDotnetCore.DAO
             var cmt = dbContext.Comments.Where(x => x.productID == productID && x.userID == userID).SingleOrDefault();
             return cmt;
         }
+
+        public List<CommentEntity> GetAllComments()
+        {
+
+            return null;
+        }
     }
 }
