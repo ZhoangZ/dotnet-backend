@@ -22,6 +22,12 @@ namespace BackendDotnetCore.Entities
         [Column("IMAGE")]
         public string _image;
         private HttpRequest request;
+
+
+        [Column("product_id")]
+        public int ProductId;
+        [JsonIgnore]
+        public virtual Product2 Product { get; set; }
         public void setRequest(HttpRequest request)
         {
             this.request = request;
@@ -51,8 +57,7 @@ namespace BackendDotnetCore.Entities
             } 
             set { this._image = value; } }
       
-        [JsonIgnore]
-        public Product2 Product { get; set; }
+      
 
         public override String ToString()
         {
