@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : My SQL
+ Source Server         : demo
  Source Server Type    : MySQL
- Source Server Version : 100417
+ Source Server Version : 100418
  Source Host           : localhost:3306
  Source Schema         : dotnet
 
  Target Server Type    : MySQL
- Target Server Version : 100417
+ Target Server Version : 100418
  File Encoding         : 65001
 
- Date: 02/06/2021 08:10:17
+ Date: 25/06/2021 18:21:41
 */
 
 SET NAMES utf8mb4;
@@ -34,27 +34,15 @@ CREATE TABLE `users`  (
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `opt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'test', NULL, NULL, NULL, 'test', b'0', b'0', NULL, NULL, NULL);
-INSERT INTO `users` VALUES (5, 'ongdinh6@gmail.com', NULL, NULL, NULL, '', b'1', b'1', 'A8AE104615CB4E966DDB435F3E575A02', NULL, NULL);
-INSERT INTO `users` VALUES (6, 'abc@gmail.com', NULL, NULL, NULL, NULL, b'0', b'1', '12312', NULL, NULL);
-INSERT INTO `users` VALUES (7, 'anguyen@gmail.com', NULL, NULL, NULL, NULL, b'0', b'0', '827ccb0eea8a706c4c34a16891f84e7b', 'image/avatar/momo.webp', NULL);
-INSERT INTO `users` VALUES (11, 'dinhdinh@gmail.com', 'Trần Quang Diệm', '0988766567', 'Dong Nai', NULL, b'0', b'0', NULL, NULL, NULL);
-INSERT INTO `users` VALUES (12, 'dinh2@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'1', '****', NULL, NULL);
-INSERT INTO `users` VALUES (13, 'dinh3@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
-INSERT INTO `users` VALUES (14, 'dinh5@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
-INSERT INTO `users` VALUES (15, 'dinh6@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
-INSERT INTO `users` VALUES (16, 'dinh7@gmail.com', 'Trần Quang Diệm', '0988766567', 'Dong Nai', NULL, b'0', b'0', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
-INSERT INTO `users` VALUES (17, 'dinh8@gmail.com', 'Lê Tấn Hoàng', '0988766567', 'Dong Nai', NULL, b'0', b'0', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
-INSERT INTO `users` VALUES (18, 'dinh10@gmail.com', 'Lê Tấn Hoàng', '0988766567', 'Đồng Nai', NULL, b'0', b'0', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
-INSERT INTO `users` VALUES (19, 'dinh11@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'1', 'F59BD65F7EDAFB087A81D4DCA06C4910', NULL, NULL);
-INSERT INTO `users` VALUES (20, 'dinh20@gmail.com', 'Lê Tấn Hoàng', '0988766567', 'Đồng Nai', NULL, b'0', b'0', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
-INSERT INTO `users` VALUES (21, 'dinh12@gmail.com', 'Ông Minh Đình', '0988766567', 'HCM', NULL, b'0', b'1', '827CCB0EEA8A706C4C34A16891F84E7B', NULL, NULL);
 INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
+INSERT INTO `users` VALUES (26, 'thiendaopk1@gmail.com', 'Đào  Chí Thiện', '0399115950', 'Thủ Đúc', NULL, b'0', b'1', '9B96DC2A8B1BA2CCF23EDAA930FC83BD', NULL, NULL);
+INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0988766567', '47/16 Đường số 10, khu phố 3, phường Linh Xuân, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
+INSERT INTO `users` VALUES (28, 'admin@gmail.com', 'Nguyen Van A', '0988766567', 'Đường số 10, phường Linh Trung, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
 
 -- ----------------------------
 -- Triggers structure for table users

@@ -15,6 +15,7 @@ using BackendDotnetCore.Ultis;
 using System.Collections.Generic;
 using System.Collections;
 using BackendDotnetCore.DTO;
+using BackendDotnetCore.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -47,12 +48,23 @@ namespace WebApi.Controllers
         [HttpPost("forgot-pass")]
         public IActionResult ForgotPassword([FromBody] ResetPassForm fr)
         {
-            Console.WriteLine(fr.email);
             if (_userService.checkEmail(fr.email) == false) return BadRequest( new { message = "Email không tồn tại trong hệ thống. Vui lòng thực hiện lại!" });
             string rdOtp = new Random().Next(10000000).ToString();
-            return SendEmail(fr.email, rdOtp);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Yêu cầu xác thực mật khẩu nhập, bạn vui lòng nhập mã sau trong quá trình thiết lập mật khẩu mới: \n");
+            sb.Append("Mã OPT: " + rdOtp + "\n");
+            sb.Append("Lưu ý: Đây là mã bảo mật, vì vậy không được tiết lộ cho bất kỳ cá nhân hay tổ chức nào, điều này có thể khiến bạn mất tài khoản. Mã này sẽ tự động hủy sau 15 phút!");
+            UserEntity userAction = _userService.getUserByEmail(fr.email);
+            //saved otp code into table
+            userAction.optCode = rdOtp;
+            _userService.save(userAction);
+            if (SendMailService.SendEmail("DHDT: Yêu cầu cấp mật khẩu mới ?", fr.email, sb.ToString())) return Ok("Hệ thống đã nhận được yêu cầu. Hãy kiểm tra email của bạn!");
+            return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thực hiện sau ít phút!" });
         }
-        public IActionResult SendEmail(string email, string opt)
+
+        //remove this function
+        public IActionResult SendEmail(string subject, string toEmail, string body, string otp)
         {
             try
             {
@@ -60,14 +72,10 @@ namespace WebApi.Controllers
                 SmtpClient smtp = new SmtpClient();
                 string SystemMail = "ongdinh1099@gmail.com";
                 message.From = new MailAddress("ongdinh1099@gmail.com");
-                message.To.Add(new MailAddress(email));
+                message.To.Add(new MailAddress(toEmail));
                 message.Subject = "DHDTMobile: Yêu cầu cấp mật khẩu ?";
                 message.IsBodyHtml = true; //to make message body as html  
-                StringBuilder sb = new StringBuilder();
-                sb.Append("Yêu cầu xác thực mật khẩu nhập, bạn vui lòng nhập mã sau trong quá trình thiết lập mật khẩu mới: \n");
-                sb.Append("Mã OPT: " + opt + "\n");
-                sb.Append("Lưu ý: Đây là mã bảo mật, vì vậy không được tiết lộ cho bất kỳ cá nhân hay tổ chức nào, điều này có thể khiến bạn mất tài khoản. Mã này sẽ tự động hủy sau 15 phút!");
-                message.Body = sb.ToString();
+                message.Body = body;
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com"; //for gmail host  
                 smtp.EnableSsl = true;
@@ -77,8 +85,8 @@ namespace WebApi.Controllers
                 smtp.Send(message);
 
                 //save opt on database
-                UserEntity ueRequest = _userService.getUserByEmail(email);
-                ueRequest.optCode = opt;
+                UserEntity ueRequest = _userService.getUserByEmail(toEmail);
+                ueRequest.optCode = otp;
                 _userService.save(ueRequest);
 
                 return Ok("Yêu cầu đã được tiếp nhận. Hãy kiểm tra email của bạn!");
@@ -231,11 +239,10 @@ namespace WebApi.Controllers
         /*
          * USER UNBLOCKED ACCOUNT
          */
-        //contact amdin unblocked account(chua xong)
+        //contact amdin unblocked account
         [HttpPost("unblocked")]
         public IActionResult UnblockedAccount([FromBody] UnblockedFromRequest req)
         {
-            //auto send email when call this link
             UserEntity user;
             if (null == (user = _userService.getUserByEmail(req.email)))
             {
@@ -243,11 +250,20 @@ namespace WebApi.Controllers
             }
             else
             {
-                return Ok("Email = "+req.email +", content = ");
+                if (user.Active == 1) return Ok("Tài khoản của bạn đã được mở khóa. Hãy trải nghiệm sản phẩm tại website bạn nhé!");
+                StringBuilder sb = new StringBuilder();
+                sb.Append("<p>Tài khoản của bạn đã được mở khóa thành công. Hãy truy cập website và sử dụng các tính năng có trong hệ thống.</p> <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>");
+                sb.Append("<b><a href=\"http://localhost:3000\">NHẤN VÀO ĐÂY ĐỂ TRUY CẬP WEBSITE!</a></b>");
+                if (SendMailService.SendEmail("DHDT: Yêu cầu mở khóa tài khoản người dùng", req.email, sb.ToString()))
+                {
+                    user.Active = 1;
+                    _userService.save(user);
+                    return Ok("Chúng tôi đã nhận được yêu cầu của bạn. Hãy kiểm tra email của bạn!");
+                }
+                return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thực hiện lại sau ít phút!" });
             }
+            
         }
-        
-        
 
     }
 }

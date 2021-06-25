@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : My SQL
+ Source Server         : demo
  Source Server Type    : MySQL
- Source Server Version : 100417
+ Source Server Version : 100418
  Source Host           : localhost:3306
  Source Schema         : dotnet
 
  Target Server Type    : MySQL
- Target Server Version : 100417
+ Target Server Version : 100418
  File Encoding         : 65001
 
- Date: 06/05/2021 00:24:33
+ Date: 25/06/2021 18:21:52
 */
 
 SET NAMES utf8mb4;
@@ -36,10 +36,6 @@ CREATE TABLE `role`  (
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES (1, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (2, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (3, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (4, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (5, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (6, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (2, 'ADMIN', 'Authentication Administractor', '1', '1', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
