@@ -55,6 +55,11 @@ namespace BackendDotnetCore.Entities
         public long? PaymentId { set; get; }
         public virtual PaymentEntity Payment { set; get; }
 
+        [Column("cod")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public bool Cod { set; get; }
+
+
         public virtual List<OrderItemEntity> Items { set; get; }
 
         public OrderEntity()
