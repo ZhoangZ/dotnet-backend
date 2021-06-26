@@ -58,7 +58,7 @@ namespace BackendDotnetCore.DTO
             cs.status = toStatusString(orderEntity.Status);
             cs.listItems = toListItemsResponse(orderEntity.Items);
             cs.totalItems = cs.listItems.Count;
-            cs.paymentType =(new PaymentDAO().getPayment((int)orderEntity.PaymentId)).TransactionStatus==null ? "COD" : "VNPay";
+            cs.paymentType = orderEntity.Cod==true ? "COD" : "VNPay";
             cs.note = orderEntity.Note;
             cs.lastPrice = (double) orderEntity.TotalPrice;
             return cs;
