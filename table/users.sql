@@ -36,13 +36,6 @@ CREATE TABLE `users`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of users
--- ----------------------------
-INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
-INSERT INTO `users` VALUES (26, 'thiendaopk1@gmail.com', 'Đào  Chí Thiện', '0399115950', 'Thủ Đúc', NULL, b'0', b'1', '9B96DC2A8B1BA2CCF23EDAA930FC83BD', NULL, NULL);
-INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0988766567', '47/16 Đường số 10, khu phố 3, phường Linh Xuân, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
-INSERT INTO `users` VALUES (28, 'admin@gmail.com', 'Nguyen Van A', '0988766567', 'Đường số 10, phường Linh Trung, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
 
 -- ----------------------------
 -- Triggers structure for table users
@@ -72,3 +65,12 @@ CREATE TRIGGER `before_delete_users` BEFORE DELETE ON `users` FOR EACH ROW BEGIN
 delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
+INSERT INTO `users` VALUES (26, 'thiendaopk1@gmail.com', 'Đào  Chí Thiện', '0399115950', 'Thủ Đúc', NULL, b'0', b'1', '9B96DC2A8B1BA2CCF23EDAA930FC83BD', NULL, NULL);
+INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0988766567', '47/16 Đường số 10, khu phố 3, phường Linh Xuân, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
+INSERT INTO `users` VALUES (28, 'admin@gmail.com', 'Nguyen Van A', '0988766567', 'Đường số 10, phường Linh Trung, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
+

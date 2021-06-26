@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 25/06/2021 16:44:48
+ Date: 26/06/2021 14:42:28
 */
 
 SET NAMES utf8mb4;
@@ -99,13 +99,15 @@ CREATE TABLE `cart`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `iduser`(`user_id`) USING BTREE,
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES (19, 25, 0, 0);
-INSERT INTO `cart` VALUES (20, 26, 0, 0);
+INSERT INTO `cart` VALUES (23, 25, 0, 0);
+INSERT INTO `cart` VALUES (24, 26, 0, 0);
+INSERT INTO `cart` VALUES (25, 27, 0, 0);
+INSERT INTO `cart` VALUES (26, 28, 0, 0);
 
 -- ----------------------------
 -- Table structure for cart_item
@@ -6491,6 +6493,7 @@ CREATE TABLE `order`  (
   `payment_id` bigint(20) NULL DEFAULT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `note` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `cod` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
@@ -6500,10 +6503,10 @@ CREATE TABLE `order`  (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (57, 25, 1, '2021-06-24', 'Bình Dương', 'Tấn Hoàng', '0399115950', 1549000, 1, 0, 53, 'tanhoang99.999@gmail.com', '');
-INSERT INTO `order` VALUES (58, 25, 1, '2021-06-24', 'Bình Dương', 'Tấn Hoàng', '0399115950', 95823000, 3, 0, 54, 'tanhoang99.999@gmail.com', '');
-INSERT INTO `order` VALUES (59, 25, 1, '2021-06-24', 'Bình Dương', 'Tấn Hoàng', '0399115950', 95823000, 3, 0, 55, 'tanhoang99.999@gmail.com', '');
-INSERT INTO `order` VALUES (60, 25, 1, '2021-06-24', 'Bình Dương', 'Tấn Hoàng', '0399115950', 63882000, 2, 0, 56, 'tanhoang99.999@gmail.com', '');
+INSERT INTO `order` VALUES (57, 25, 1, '2021-06-24', 'Bình Dương', 'Tấn Hoàng', '0399115950', 1549000, 1, 0, 53, 'tanhoang99.999@gmail.com', '', b'1');
+INSERT INTO `order` VALUES (58, 25, 1, '2021-06-24', 'Bình Dương', 'Tấn Hoàng', '0399115950', 95823000, 3, 0, 54, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (59, 25, 1, '2021-06-24', 'Bình Dương', 'Tấn Hoàng', '0399115950', 95823000, 3, 0, 55, 'tanhoang99.999@gmail.com', '', b'1');
+INSERT INTO `order` VALUES (60, 25, 1, '2021-06-24', 'Bình Dương', 'Tấn Hoàng', '0399115950', 63882000, 2, 0, 56, 'tanhoang99.999@gmail.com', '', b'1');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -6579,8 +6582,8 @@ CREATE TABLE `payment`  (
 -- Records of payment
 -- ----------------------------
 INSERT INTO `payment` VALUES (53, 25, '2021-06-24 15:32:52', 154900000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=154900000&vnp_Command=pay&vnp_CreateDate=20210624153252&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/53&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=53&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=7496febbd9cf0b5ef09defbf2683e1badcd47b587291d08ce073cf8a36ab3924', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210624153252&vnp_TxnRef=53&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=c74ccfdc9c10d7f3b60b9ccc30d82b702301e34b0a6dcd08b9196115f44614b2', 'vnp_Amount=154900000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210624153305&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13531104&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=53&vnp_SecureHash=5b2a660bb559f918af22b1546bdd0d1aac1ea1cebfee67c759a9e092c15a4dff', 'http://localhost:3000/payment-success');
-INSERT INTO `payment` VALUES (54, 25, '2021-06-24 15:54:20', 9582300000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=9582300000&vnp_Command=pay&vnp_CreateDate=20210624155420&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/54&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=54&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=04344396b82243b41871c4f90105f4faa788dc82a6f24a1f02a5855d5636f2a0', NULL, NULL, 'http://localhost:3000/payment-success');
-INSERT INTO `payment` VALUES (55, 25, '2021-06-24 15:54:20', 9582300000, '119.17.249.22', 'VND', NULL, 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=9582300000&vnp_Command=pay&vnp_CreateDate=20210624155420&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/55&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=55&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=345769bf1f08166db4f56f7a96d28796ad594d52f8e62277ecfb7e6651b01af2', NULL, NULL, 'http://localhost:3000/payment-success');
+INSERT INTO `payment` VALUES (54, 25, '2021-06-24 15:54:20', 9582300000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=9582300000&vnp_Command=pay&vnp_CreateDate=20210624155420&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/54&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=54&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=04344396b82243b41871c4f90105f4faa788dc82a6f24a1f02a5855d5636f2a0', NULL, NULL, 'http://localhost:3000/payment-success');
+INSERT INTO `payment` VALUES (55, 25, '2021-06-24 15:54:20', 9582300000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=9582300000&vnp_Command=pay&vnp_CreateDate=20210624155420&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/55&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=55&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=345769bf1f08166db4f56f7a96d28796ad594d52f8e62277ecfb7e6651b01af2', NULL, NULL, 'http://localhost:3000/payment-success');
 INSERT INTO `payment` VALUES (56, 25, '2021-06-24 15:57:14', 6388200000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=6388200000&vnp_Command=pay&vnp_CreateDate=20210624155714&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/56&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=56&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=57f49ca46b5ea59d9a903fe4d76613b45e06c1b17a8261650030b80550ae919d', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210624155714&vnp_TxnRef=56&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=947c2afd39c8f6f1b346139cd13fa51d8806faed49b50470677641c98d754c6e', 'vnp_Amount=6388200000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210624155746&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13531142&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=56&vnp_SecureHash=919b7bf8f2abd337d4c9e89705918ed4d2ebdfe7264c84ebac5c20c34e2c260d', 'http://localhost:3000/payment-success');
 
 -- ----------------------------
@@ -6916,11 +6919,7 @@ CREATE TABLE `role`  (
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES (1, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (2, 'ADMIN', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (3, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (4, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (5, 'USER', 'Authentication User', '2', '1', NULL, NULL);
-INSERT INTO `role` VALUES (6, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (2, 'ADMIN', 'Authentication Administractor', '1', '1', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rom
@@ -6976,7 +6975,7 @@ CREATE TABLE `user_role`  (
   INDEX `role_id`(`role_id`) USING BTREE,
   CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
@@ -6985,6 +6984,9 @@ INSERT INTO `user_role` VALUES (25, 1, 3);
 INSERT INTO `user_role` VALUES (25, 2, 5);
 INSERT INTO `user_role` VALUES (26, 1, 7);
 INSERT INTO `user_role` VALUES (26, 2, 8);
+INSERT INTO `user_role` VALUES (27, 1, 9);
+INSERT INTO `user_role` VALUES (28, 1, 10);
+INSERT INTO `user_role` VALUES (28, 2, 12);
 
 -- ----------------------------
 -- Table structure for users
@@ -7003,13 +7005,15 @@ CREATE TABLE `users`  (
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `opt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
 INSERT INTO `users` VALUES (26, 'thiendaopk1@gmail.com', 'Đào  Chí Thiện', '0399115950', 'Thủ Đúc', NULL, b'0', b'1', '9B96DC2A8B1BA2CCF23EDAA930FC83BD', NULL, NULL);
+INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0988766567', '47/16 Đường số 10, khu phố 3, phường Linh Xuân, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
+INSERT INTO `users` VALUES (28, 'admin@gmail.com', 'Nguyen Van A', '0988766567', 'Đường số 10, phường Linh Trung, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
 
 -- ----------------------------
 -- Triggers structure for table cart
@@ -7111,6 +7115,19 @@ CREATE TRIGGER `before_delete_order_detail` BEFORE DELETE ON `order_detail` FOR 
 				
 				
 
+	 END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Triggers structure for table payment
+-- ----------------------------
+DROP TRIGGER IF EXISTS `before_update_payment`;
+delimiter ;;
+CREATE TRIGGER `before_update_payment` BEFORE UPDATE ON `payment` FOR EACH ROW BEGIN
+			if (new.transaction_Status = "SUCCESS") then
+				UPDATE `order` set `order`.cod=0 WHERE `order`.payment_id=new.id;
+			end if;
 	 END
 ;;
 delimiter ;
