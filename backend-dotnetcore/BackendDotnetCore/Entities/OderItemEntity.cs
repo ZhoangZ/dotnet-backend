@@ -23,7 +23,7 @@ namespace BackendDotnetCore.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public decimal SalePrice { set; get; }
         [Column("price")]
-       
+        
         public decimal Price { set; get; }
 
 
@@ -34,8 +34,7 @@ namespace BackendDotnetCore.Entities
         [Column("deleted")]
         [JsonIgnore]
         public bool Deleted { set; get; }
-
-
+       
         [Column("order_id")]
         //[JsonIgnore]
         public long OrderId { set; get; }
