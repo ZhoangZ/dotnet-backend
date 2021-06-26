@@ -65,5 +65,9 @@ namespace BackendDotnetCore.Entities
             }
             return false;}
         }
+        [NotMapped]
+        public static string EmailAdminFinal = "trandiem1006@gmail.com";
+
+
     }
 }

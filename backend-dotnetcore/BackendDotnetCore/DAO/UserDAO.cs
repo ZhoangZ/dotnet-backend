@@ -72,12 +72,13 @@ namespace BackendDotnetCore.DAO
             
         }
 
-        public bool BlockedOneUser(int id)
+        public bool BlockedAndUnblockedOneUser(int id, bool blocked)
         {
             var user = dbContext.users.Where(x => x.Id == id).SingleOrDefault();
-            user.Active = 0;
+            int active = user.Active;
+            user.Active = blocked ? 1 : 0;
             UserEntity userBlocked = Save(user);
-            return userBlocked.Active == 0 ? true : false;
+            return userBlocked.Active != active ? true : false;
         }
 
         public RoleEntity GetRoleFirst()

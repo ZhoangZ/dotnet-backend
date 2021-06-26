@@ -1,12 +1,15 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.DTO;
 using BackendDotnetCore.Entities;
+using BackendDotnetCore.Helpers;
+using BackendDotnetCore.Services;
 using BackendDotnetCore.Ultis;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Controllers
@@ -20,6 +23,8 @@ namespace BackendDotnetCore.Controllers
         private UserDAO userDAO = new UserDAO();
         private OrderDAO orderDAO = new OrderDAO();
         private CommentDAO commentDAO = new CommentDAO();
+        private static string emailUserRequestActive = "";
+
         [HttpGet]
         public List<RoleEntity> GetAllElementRole()
         {
@@ -58,10 +63,10 @@ namespace BackendDotnetCore.Controllers
             return users;
         }
 
-        //admin blocked a account user
-        [HttpPost("users/blocked")]
+        //admin blocked and unblocked a account user
+        [HttpPut("users/blocked/{userID}")]
         [Authorize]
-        public IActionResult BlockedAUser([FromBody] int userID)
+        public IActionResult BlockedAndUnblockedAUser(int userID)
         {
             //lay tai khoan dang dang nhap tu token
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
@@ -70,11 +75,26 @@ namespace BackendDotnetCore.Controllers
             UserEntity userBlocked;
             if(null == (userBlocked = userDAO.getOneById(userID)))
             return BadRequest(new { message = "Không tồn tại tài khoản người dùng trong hệ thống!" });
+            bool blocked = userBlocked.Active == 0 ? true : false;
 
-            if (true == userDAO.BlockedOneUser(userID)) return Ok(userBlocked);
+            if (blocked == false && SendMailFeedBack(userBlocked))
+            if (true == userDAO.BlockedAndUnblockedOneUser(userID, blocked)) return Ok(userDAO.GetListUsers());
+            if (true == userDAO.BlockedAndUnblockedOneUser(userID, blocked)) return Ok(userDAO.GetListUsers());
             return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thử lại sau!" });
         }
 
+        //Admin send email when check active user
+        private bool SendMailFeedBack(UserEntity userRequest)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<p>Tài khoản của bạn đã được mở khóa thành công. Hãy truy cập website và sử dụng các tính năng có trong hệ thống.</p> <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>");
+            sb.Append("<b><a href=\"http://localhost:3000\">NHẤN VÀO ĐÂY ĐỂ TRUY CẬP WEBSITE!</a></b>");
+            if (SendMailService.SendEmail("DHDTMobile: Mở khóa tài khoản người dùng", userRequest.Email, sb.ToString()))
+            {
+                return true;
+            }
+            return false;
+        }
 
 
         /*

@@ -252,13 +252,11 @@ namespace WebApi.Controllers
             {
                 if (user.Active == 1) return Ok("Tài khoản của bạn đã được mở khóa. Hãy trải nghiệm sản phẩm tại website bạn nhé!");
                 StringBuilder sb = new StringBuilder();
-                sb.Append("<p>Tài khoản của bạn đã được mở khóa thành công. Hãy truy cập website và sử dụng các tính năng có trong hệ thống.</p> <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>");
-                sb.Append("<b><a href=\"http://localhost:3000\">NHẤN VÀO ĐÂY ĐỂ TRUY CẬP WEBSITE!</a></b>");
-                if (SendMailService.SendEmail("DHDT: Yêu cầu mở khóa tài khoản người dùng", req.email, sb.ToString()))
+                sb.Append("<p>Hệ thống nhận được yêu cầu mở khóa từ người dùng.</p>Nội dung mở khóa cho tài khoản: "+req.email+"</br>");
+                sb.Append("<b><a>Truy cập website với tài khoản quản trị viên để mở khóa tài khoản người dùng!</b>");
+                if (SendMailService.SendEmail("DHDTMobile: YÊU CẦU TỪ NGƯỜI DÙNG", UserEntity.EmailAdminFinal, sb.ToString()))
                 {
-                    user.Active = 1;
-                    _userService.save(user);
-                    return Ok("Chúng tôi đã nhận được yêu cầu của bạn. Hãy kiểm tra email của bạn!");
+                    return Ok("Chúng tôi đã nhận được yêu cầu của bạn. Vui lòng kiểm tra email thường xuyên để nhận được phản hồi từ quản trị viên!");
                 }
                 return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thực hiện lại sau ít phút!" });
             }
