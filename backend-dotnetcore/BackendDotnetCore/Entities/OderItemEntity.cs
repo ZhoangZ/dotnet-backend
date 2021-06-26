@@ -19,6 +19,13 @@ namespace BackendDotnetCore.Entities
         [Column("amount")]
         public int Quantity { set; get; }
 
+        [Column("saled_price")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public decimal SalePrice { set; get; }
+        [Column("price")]
+       
+        public decimal Price { set; get; }
+
 
         [JsonIgnore]
         [Column("actived")]

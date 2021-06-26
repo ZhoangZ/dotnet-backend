@@ -17,7 +17,7 @@ namespace BackendDotnetCore.EF
         public DbSet<Product2> Products { get; set; }
         public DbSet<UserEntity> users { set; get; }
         public DbSet<RoleEntity> roles { set; get; }
-        public DbSet<ImageProduct> image_product { set; get; }
+        public DbSet<ImageProduct> Images { set; get; }
         public DbSet<UserRole> UserRoles { get; set; }
        
         public DbSet<CommentEntity> Comments { set; get; }

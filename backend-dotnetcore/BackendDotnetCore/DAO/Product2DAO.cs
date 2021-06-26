@@ -151,6 +151,20 @@ namespace BackendDotnetCore.DAO
                     tmp = tmp.OrderBy(x => x.CreatedAt);
 
                 }
+
+                // sort UpdatedAt
+                else if (key.CompareTo("updateat:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.UpdatedAt);
+
+                }
+                else if (key.CompareTo("updateat:asc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderBy(x => x.UpdatedAt);
+
+                }
                 // sort AmoutSold
                 else if (key.CompareTo("amountsold:desc") == 0)
                 {
@@ -272,6 +286,7 @@ namespace BackendDotnetCore.DAO
         public int RemoveProductById(int Id)
         {
             Product2 product = getProduct(Id);
+            product.UpdatedAt = DateTime.Now;
             int rs = 0;
             if (product != null)
             {

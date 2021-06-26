@@ -58,7 +58,7 @@ namespace BackendDotnetCore.DTO
             cs.status = toStatusString(orderEntity.Status);
             cs.listItems = toListItemsResponse(orderEntity.Items);
             cs.totalItems = cs.listItems.Count;
-            cs.paymentType = (orderEntity.PaymentId != 0) ? "VNPay" : "COD";
+            cs.paymentType =(new PaymentDAO().getPayment((int)orderEntity.PaymentId)).TransactionStatus==null ? "COD" : "VNPay";
             cs.note = orderEntity.Note;
             cs.lastPrice = (double) orderEntity.TotalPrice;
             return cs;
@@ -121,7 +121,7 @@ namespace BackendDotnetCore.DTO
             Product2 productItem = product2DAO.getProduct(csi.productID);
             csi.productImg = productItem.Images.ToArray()[0].Image;
             csi.productName = productItem.Name;
-            csi.pricePerOne = (double)productItem.OriginalPrice;
+            csi.pricePerOne = (double)productItem.SalePrice;
             csi.quatity = orderItemEntity.Quantity;
             csi.priceAll = csi.computePriceAllByProduct();
 

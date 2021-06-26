@@ -19,7 +19,7 @@ namespace BackendDotnetCore.Controllers
         private RoleDAO roleDAO = new RoleDAO();
         private UserDAO userDAO = new UserDAO();
         private OrderDAO orderDAO = new OrderDAO();
-
+        private CommentDAO commentDAO = new CommentDAO();
         [HttpGet]
         public List<RoleEntity> GetAllElementRole()
         {
@@ -139,5 +139,32 @@ namespace BackendDotnetCore.Controllers
             return Ok(cs.toOrderResponse(oe));
         }
 
+
+
+        /*
+         * ADMIN COMMENTS MANAGEMENT
+         */
+        [HttpGet("comments")]
+        [Authorize]
+        public IActionResult GetAllComments()
+        {
+            UserEntity ue =(UserEntity) HttpContext.Items["User"];
+            if (!ue.IsAdmin) return BadRequest(new { message = "Giới hạn bởi quyền truy cập. Hãy thử với tài khoản admin!" });
+            var listComments = commentDAO.GetAllComments();
+
+            return Ok(listComments);
+        }
+
+        [HttpPost("comments/active")]
+        [Authorize]
+        public IActionResult ActiveDisableAComment(int commentID, bool isActive)
+        {
+            Console.WriteLine("Disable or active a comment {0}, {1} ", commentID, isActive);
+            UserEntity ue = (UserEntity)HttpContext.Items["User"];
+            if (!ue.IsAdmin) return BadRequest(new { message = "Giới hạn bởi quyền truy cập. Hãy thử với tài khoản admin!" });
+            var commentActive = commentDAO.ActiveAComment(commentID, isActive);
+
+            return Ok("Response for request is "+commentActive);
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace BackendDotnetCore.DAO
 
         }
 
-        public Brand getRamById(int Id)
+        public Brand getEntityById(int Id)
 
         {
 

@@ -20,7 +20,7 @@ namespace BackendDotnetCore.DAO
 
         }
 
-        public RomEntity getRamById(int Id)
+        public RomEntity getEntityById(int Id)
 
         {
 

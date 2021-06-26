@@ -37,6 +37,8 @@ namespace BackendDotnetCore.Entities
 
         [Column("DATE_SUBMITTED")]
         public DateTime CreatedAt { get; set; }
+        [Column("UPDATE_AT")]
+        public DateTime UpdatedAt { get; set; }
         [Column("AMOUNT_SOLD")]
 
         public int AmoutSold { get; set; }

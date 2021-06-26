@@ -101,6 +101,7 @@ namespace BackendDotnetCore.Rests
             try
             {
                 Product.CreatedAt = DateTime.Now;
+                Product.UpdatedAt = DateTime.Now;
                 Product2 product = ProductDAO.AddProduct(Product);
                 if (product == null) return BadRequest();
 
@@ -126,8 +127,9 @@ namespace BackendDotnetCore.Rests
             try
             {
                 Product.Id = id;
+                Product.UpdatedAt = DateTime.Now;
                 //Console.WriteLine(Product.BrandId);
-                Product= ProductDAO.Save(Product);               
+                Product = ProductDAO.Save(Product);               
                 var a=ProductDAO.getProduct(id);
                 return Ok(a);
 
@@ -149,6 +151,7 @@ namespace BackendDotnetCore.Rests
         {
             foreach (int id in ids)
             {
+
                 ProductDAO.RemoveProductById(id);
                 Console.WriteLine("Remove productID={0}", id);
             }

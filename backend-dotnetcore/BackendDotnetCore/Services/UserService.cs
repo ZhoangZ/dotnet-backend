@@ -67,7 +67,8 @@ namespace BackendDotnetCore.Services
         {
             var dao = new UserDAO();           
             UserEntity account =  dao.getOneById(userId);
-            if (account.Blocked == 1) return null;
+
+            if (account!=null  && account.Blocked == 1) return null;
             return account;
         }
 

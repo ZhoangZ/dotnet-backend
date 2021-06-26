@@ -33,5 +33,29 @@ namespace BackendDotnetCore.DAO
                 }
             
         }
+
+
+        public ImageProduct getEntityById(int Id)
+
+        {
+
+            var tmp = dbContext.Images.Where(s => s.Id == Id);
+
+            return tmp.FirstOrDefault();
+
+        }
+
+        public ImageProduct AddEntity(ImageProduct Product)
+        {
+            dbContext.Images.Add(Product);
+            dbContext.SaveChanges();
+            return Product;
+        }
+        public ImageProduct UpdateEntity(ImageProduct Product)
+        {
+            dbContext.Images.Update(Product);
+            dbContext.SaveChanges();
+            return Product;
+        }
     }
 }
