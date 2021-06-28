@@ -178,28 +178,33 @@ namespace BackendDotnetCore.DAO
         /*
          * USER ACTION WITH ORDER (DENY, GET BY STATUS)
          */
-        public ArrayList GetOrdersByUserID(int userID)
+        public ICollection GetOrdersByUserID(int userID)
         {
-            ArrayList listOrderUser = new ArrayList();
-            var list = dbContext.Orders.Where(x => x.UserId == userID).ToList();
-            foreach(OrderEntity o in list)
-            {
-                var orderItem = dbContext.OrderItems.Where(x => x.OrderId == o.Id).ToList();
-                o.Items = orderItem;
-                listOrderUser.Add(o);
-            }
-            return listOrderUser;
+            
+            var list = dbContext.Orders
+                .Include(x=>x.Payment)
+                .Include(x=>x.Items)                
+                .Where(x => x.UserId == userID)
+                .ToList();
+            
+            return list;
         }
         public OrderEntity GetOrderByID(int id)
         {
-            var rs = dbContext.Orders.Where(x => x.Id == id).SingleOrDefault();
-            var orderItems = dbContext.OrderItems.Where(x => x.OrderId == rs.Id).ToList();
-            rs.Items = orderItems;
+            var rs = dbContext.Orders
+                .Where(x => x.Id == id)
+                .Include(x=>x.Items)
+                .Include(x=>x.Payment)
+                .SingleOrDefault();
+           
             return rs;
         }
         public bool DenyOrderByID(int id)
         {
-            var rs = dbContext.Orders.Where(x => x.Id == id).SingleOrDefault();
+            var rs = dbContext.Orders.Where(x => x.Id == id)
+                /* .Include(x => x.Items)
+                .Include(x => x.Payment)*/
+                .SingleOrDefault();
             //check this order has status is 1 or difference 1;
             if (rs.Status != 1) return false;
             return true;
@@ -214,16 +219,15 @@ namespace BackendDotnetCore.DAO
             }
             return false;
         }
-        public List<OrderEntity> GetOrdersByUserIDAndStatus(int userID, int status)
+        public ICollection<OrderEntity> GetOrdersByUserIDAndStatus(int userID, int status)
         {
-            List<OrderEntity> listOrderUser = new List<OrderEntity>();
-            var list = dbContext.Orders.Where(x => x.UserId == userID && x.Status == status).ToList();
-            foreach (OrderEntity o in list)
-            {
-                var orderItem = dbContext.OrderItems.Where(x => x.OrderId == o.Id).ToList();
-                o.Items = orderItem;
-                listOrderUser.Add(o);
-            }
+            ICollection<OrderEntity> listOrderUser = new List<OrderEntity>();
+            var list = dbContext.Orders
+                .Where(x => x.UserId == userID && x.Status == status)
+                .Include(x=>x.Payment)
+                .Include(x=>x.Items)
+                .ToList();
+           
             return listOrderUser;
         }
 
@@ -232,24 +236,22 @@ namespace BackendDotnetCore.DAO
          */
         public List<OrderEntity> GetAllOrders()
         {
-            var list = dbContext.Orders.ToList();
-            foreach(OrderEntity oe in list)
-            {
-                var listItems = dbContext.OrderItems.Where(x => x.OrderId == oe.Id).ToList();
-                oe.Items = listItems;
-            }
+            var list = dbContext.Orders
+                 .Include(x => x.Items)
+                .Include(x => x.Payment)
+                .ToList();
+           
             list.Reverse();
             return list;
         }
 
         public List<OrderEntity> GetAllOrdersByStatus(int status)
         {
-            var list = dbContext.Orders.Where(x=>x.Status == status).ToList();
-            foreach (OrderEntity oe in list)
-            {
-                var listItems = dbContext.OrderItems.Where(x => x.OrderId == oe.Id).ToList();
-                oe.Items = listItems;
-            }
+            var list = dbContext.Orders.Where(x=>x.Status == status)
+                 .Include(x => x.Items)
+                .Include(x => x.Payment)
+                .ToList();
+          
             list.Reverse();
             return list;
         }

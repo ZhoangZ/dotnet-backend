@@ -178,7 +178,7 @@ namespace WebApi.Controllers
             List<CustomOrderResponse> listResponse = new List<CustomOrderResponse>();
             //lay user tu token
             UserEntity user = (UserEntity)HttpContext.Items["User"];
-            ArrayList listOrder = orderDAO.GetOrdersByUserID(user.Id);
+            ICollection listOrder = orderDAO.GetOrdersByUserID(user.Id);
             foreach(OrderEntity oe in listOrder)
             {
                 CustomOrderResponse coresp = new CustomOrderResponse();
@@ -220,7 +220,7 @@ namespace WebApi.Controllers
         {
             List<CustomOrderResponse> listRes = new List<CustomOrderResponse>();
             UserEntity user = (UserEntity)HttpContext.Items["User"];
-            List<OrderEntity> list = orderDAO.GetOrdersByUserIDAndStatus(user.Id, status);
+            ICollection<OrderEntity> list = orderDAO.GetOrdersByUserIDAndStatus(user.Id, status);
 
             foreach (OrderEntity oe in list)
             {

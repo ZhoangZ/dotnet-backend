@@ -76,7 +76,7 @@ namespace BackendDotnetCore.Rests
             c.Note = formOrder.Note;
             c.Status = 1;
             c.CreatedDate = DateTime.Now;
-
+            c.Cod = false;
 
 
             c.UserId = user.Id;
@@ -155,6 +155,7 @@ namespace BackendDotnetCore.Rests
             paymentEntity.UrlReturn = formOrder.UrlReturn;
             paymentEntity.CreateTime = DateTime.Now;
             paymentEntity.IpAddress = "119.17.249.22";
+            paymentEntity.TransactionStatus = Models.EPaymentStatus.PENDING;
             paymentEntity = paymentDAO.AddPayment(paymentEntity);
             paymentEntity.gender("https://localhost:25002/payment/redirect");
             paymentEntity = paymentDAO.UpdatePayment(paymentEntity);
@@ -171,14 +172,14 @@ namespace BackendDotnetCore.Rests
 
         }
 
-        [HttpPost(("cod"))]
+        [HttpPost("cod")]
         [Authorize]
 
         public ActionResult postOrderCod([FromBody] FormPutOrder formOrder)
         {
+            Console.WriteLine("POST-Cod------------");
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];
-            Console.WriteLine("User: " + user);
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
 
@@ -186,6 +187,7 @@ namespace BackendDotnetCore.Rests
             orderDAO.deleteAllItemCart(user.Id);
 
             OrderEntity c = new OrderEntity();
+            c.Cod = true;
             c.AddressDelivery = formOrder.Address;
             c.Email = formOrder.Email;
             c.Phone = formOrder.Phone;
@@ -259,30 +261,13 @@ namespace BackendDotnetCore.Rests
 
 
 
-            //Payment
-            c = orderDAO.getOrder(c);
-
-            PaymentEntity paymentEntity = new PaymentEntity();
-            paymentEntity.userId = user.Id;
-            paymentEntity.Amount = c.TotalPrice * 100;
-            paymentEntity.CurrCode = "VND";
-            //paymentEntity.UrlReturn = "htpp://localhost:3000/accept";
-            paymentEntity.UrlReturn = formOrder.UrlReturn;
-            paymentEntity.CreateTime = DateTime.Now;
-            paymentEntity.IpAddress = "119.17.249.22";
-            paymentEntity = paymentDAO.AddPayment(paymentEntity);
-            paymentEntity.gender("https://localhost:25002/payment/redirect");
-            paymentEntity = paymentDAO.UpdatePayment(paymentEntity);
-            c.Payment = paymentEntity;
-            c.PaymentId = paymentEntity.Id;
-            Console.WriteLine("REST-Payment Id: {0}", c.PaymentId);
-            orderDAO.UpdateOrder(c);
+            
 
             c = orderDAO.getOrder(c);
 
             // return Ok((OrderDTO)c);
-            return Ok(new OrderDTO(c));
-            //return Ok(c);
+            //return Ok(new OrderDTO(c));
+            return Ok(c);
 
         }
     }

@@ -1,4 +1,5 @@
 ﻿using BackendDotnetCore.Controllers;
+using BackendDotnetCore.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Entities
 {
-    [Table("payment")]
+    
     public class PaymentEntity
     {
         [Key]
@@ -34,10 +35,10 @@ namespace BackendDotnetCore.Entities
         public DateTime CreateTime { get; set; }
 
         [Column("amount")]
-        public Decimal Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [Column("transaction_Status")]
-        public string TransactionStatus { get; set; }
+        public EPaymentStatus TransactionStatus { get; set; }
 
         [Column("url_pay")]
         public string UrlPay { get; set; }
@@ -182,7 +183,7 @@ namespace BackendDotnetCore.Entities
                 Console.WriteLine("vnp_TransactionStatus :" + match.Groups["vnp_TransactionStatus"]);
                 this.ParamsUrlStatus = responseBody;
                 if (match.Groups["vnp_TransactionStatus"].ToString().Equals("00")){
-                    this.TransactionStatus = "SUCCESS";
+                    this.TransactionStatus = EPaymentStatus.SUCCESS;
 
                 }
 

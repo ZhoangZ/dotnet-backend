@@ -71,7 +71,8 @@ namespace BackendDotnetCore.Rests
                 cartDAO.RemoveCart(c.Items);
 
                 c = cartDAO.getCart(c);
-                return Ok(new CartDTO(c));
+                //return Ok(new CartDTO(c));
+                return Ok(c);
 
             }
             catch (Exception e)
@@ -184,8 +185,8 @@ namespace BackendDotnetCore.Rests
             }
 
             c = cartDAO.getCart(c);
-            //return Ok(c);
-            return Ok(new CartDTO(c));
+            return Ok(c);
+            //return Ok(new CartDTO(c));
 
         }
     }

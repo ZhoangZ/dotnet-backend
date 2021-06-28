@@ -51,12 +51,14 @@ namespace BackendDotnetCore.Entities
         public virtual UserEntity User { set; get; }
 
         [Column("payment_id")]
-        [JsonIgnore]
+       
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public long? PaymentId { set; get; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual PaymentEntity Payment { set; get; }
 
         [Column("cod")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public bool Cod { set; get; }
 
 

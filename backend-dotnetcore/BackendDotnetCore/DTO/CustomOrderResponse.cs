@@ -1,9 +1,11 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.Entities;
+using BackendDotnetCore.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BackendDotnetCore.DTO
@@ -21,6 +23,9 @@ namespace BackendDotnetCore.DTO
         public string note { set; get; }
         public double lastPrice { set; get; }
         public ArrayList listItems { set; get; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public EPaymentStatus? transactionStatus { set; get; }
         public CustomOrderResponse()
         {
 
@@ -61,6 +66,12 @@ namespace BackendDotnetCore.DTO
             cs.paymentType = orderEntity.Cod==true ? "COD" : "VNPay";
             cs.note = orderEntity.Note;
             cs.lastPrice = (double) orderEntity.TotalPrice;
+
+            if (orderEntity.Payment != null)
+            {
+                cs.transactionStatus = orderEntity.Payment.TransactionStatus;
+            }
+
             return cs;
         }
 
@@ -75,7 +86,7 @@ namespace BackendDotnetCore.DTO
         }
 
 
-        public ArrayList toListItemsResponse(List<OrderItemEntity> items)
+        public ArrayList toListItemsResponse(ICollection<OrderItemEntity> items)
         {
             ArrayList listResponse = new ArrayList();
             foreach(OrderItemEntity oe in items)

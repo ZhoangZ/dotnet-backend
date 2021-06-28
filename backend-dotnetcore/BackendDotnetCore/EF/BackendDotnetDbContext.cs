@@ -38,6 +38,7 @@ namespace BackendDotnetCore.EF
             modelBuilder.ApplyConfiguration(new Configurations.InformationProductConfiguration());
            
             modelBuilder.ApplyConfiguration(new Configurations.RamConfiguration());
+            modelBuilder.ApplyConfiguration(new Configurations.PaymentConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.RomConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.CommentConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.CartItemConfiguration());
