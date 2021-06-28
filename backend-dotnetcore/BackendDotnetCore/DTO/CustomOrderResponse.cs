@@ -1,6 +1,8 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.Entities;
 using BackendDotnetCore.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +27,8 @@ namespace BackendDotnetCore.DTO
         public ArrayList listItems { set; get; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public EPaymentStatus? transactionStatus { set; get; }
+       
+        public string transactionStatus { set; get; }
         public CustomOrderResponse()
         {
 
@@ -69,7 +72,7 @@ namespace BackendDotnetCore.DTO
 
             if (orderEntity.Payment != null)
             {
-                cs.transactionStatus = orderEntity.Payment.TransactionStatus;
+                cs.transactionStatus = (orderEntity.Payment.TransactionStatus!=null)? orderEntity.Payment.TransactionStatus.ToString():null;
             }
 
             return cs;
