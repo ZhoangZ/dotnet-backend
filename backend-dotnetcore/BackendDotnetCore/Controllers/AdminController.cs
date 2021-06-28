@@ -70,15 +70,15 @@ namespace BackendDotnetCore.Controllers
         {
             //lay tai khoan dang dang nhap tu token
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
-            if (userDAO.isAdmin(userAction.Id) == false) return BadRequest(new { message = "Không có quyền truy xuất. Thử lại với tài khoản quản trị viên." });
+            if (userAction.IsAdmin == false) return BadRequest(new { message = "Không có quyền truy xuất. Thử lại với tài khoản quản trị viên." });
 
             UserEntity userBlocked;
-            if(null == (userBlocked = userDAO.getOneById(userID)))
-            return BadRequest(new { message = "Không tồn tại tài khoản người dùng trong hệ thống!" });
+            if (null == (userBlocked = userDAO.getOneById(userID)))
+                return BadRequest(new { message = "Không tồn tại tài khoản người dùng trong hệ thống!" });
             bool blocked = userBlocked.Active == 0 ? true : false;
 
-            if (blocked == false && SendMailFeedBack(userBlocked))
-            if (true == userDAO.BlockedAndUnblockedOneUser(userID, blocked)) return Ok(userDAO.GetListUsers());
+            if (blocked == false)
+                if (SendMailFeedBack(userBlocked) == false) return BadRequest(new { message = "Hệ thống không thể gửi mail đến người dùng!" });
             if (true == userDAO.BlockedAndUnblockedOneUser(userID, blocked)) return Ok(userDAO.GetListUsers());
             return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thử lại sau!" });
         }
