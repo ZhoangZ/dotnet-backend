@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 28/06/2021 21:25:10
+ Date: 30/06/2021 18:04:34
 */
 
 SET NAMES utf8mb4;
@@ -201,7 +201,7 @@ CREATE TABLE `image_product`  (
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `PRODUCT_ID`(`PRODUCT_ID`) USING BTREE,
   CONSTRAINT `image_product_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1291 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1298 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of image_product
@@ -965,10 +965,6 @@ INSERT INTO `image_product` VALUES (1262, 258, 'Xiaomi_Redmi_8_64GB_Ram_3GB_3.pn
 INSERT INTO `image_product` VALUES (1263, 259, 'Neffos_C5_3.png');
 INSERT INTO `image_product` VALUES (1264, 260, 'Symphony_V75_3.png');
 INSERT INTO `image_product` VALUES (1265, 261, 'Xiaomi_Mi_9_SE_64GB_3.png');
-INSERT INTO `image_product` VALUES (1287, 1, 'anh-1-1600587301890166145683.webp');
-INSERT INTO `image_product` VALUES (1288, 1, 'anh-1-1600587301890166145683.webp');
-INSERT INTO `image_product` VALUES (1289, 1, 'anh-1-1600587301890166145683.webp');
-INSERT INTO `image_product` VALUES (1290, 1, 'girl.bmp');
 
 -- ----------------------------
 -- Table structure for information_product

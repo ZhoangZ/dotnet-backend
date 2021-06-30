@@ -20,7 +20,7 @@ namespace BackendDotnetCore.Entities
         public long Id { get; set; }
         [JsonIgnore]
         [Column("IMAGE")]
-        public string _image;
+        public string _image { get; set; }
         private HttpRequest request;
 
 
@@ -32,8 +32,10 @@ namespace BackendDotnetCore.Entities
         {
             this.request = request;
         }
-        public string Image { 
-            get {
+        public string Image
+        {
+            get
+            {
                 if (FileProcess.FileProcess.fileIsExists("product\\" + this._image))
                 {
                     if (request == null)
@@ -46,16 +48,17 @@ namespace BackendDotnetCore.Entities
                     {
                         string scheme = request.Scheme;
                         Microsoft.AspNetCore.Http.HostString host = request.Host;
-                        string img=String.Format("{0}://{1}/resource/product/{2}", scheme, host.ToString(),this._image);
+                        string img = String.Format("{0}://{1}/resource/product/{2}", scheme, host.ToString(), this._image);
                         //Console.WriteLine(img);
                         return img;
                     }
-                   
+
                 }
 
-                return this._image; 
-            } 
-            set { this._image = value; } }
+                return this._image;
+            }
+        }
+            
       
       
 
