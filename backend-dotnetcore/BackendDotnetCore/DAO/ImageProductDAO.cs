@@ -3,6 +3,7 @@ using BackendDotnetCore.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,6 +35,36 @@ namespace BackendDotnetCore.DAO
             
         }
 
+        public ImageProduct DeletedEntity(ImageProduct deleted)
+        {
+            dbContext.Images.Remove(deleted);
+            dbContext.SaveChanges();
+           
+            var a=FileProcess.FileProcess.getFullPath("product\\" + deleted._image); //we are using Temp file name just for the example. Add your own file path.
+            if (File.Exists(a))
+            {
+                // If file found, delete it    
+                File.Delete(a);
+               
+                Console.WriteLine("File deleted.");
+            }
+            return deleted;
+        }
+        public ImageProduct DeletedEntity2(ImageProduct deleted)
+        {
+            dbContext.Images.Remove(deleted);
+            dbContext.SaveChanges();
+            if (Count(deleted._image) != 1) return deleted;
+            var a = FileProcess.FileProcess.getFullPath("product\\" + deleted._image); //we are using Temp file name just for the example. Add your own file path.
+            if (File.Exists(a))
+            {
+                // If file found, delete it    
+                File.Delete(a);
+
+                Console.WriteLine("File deleted.");
+            }
+            return deleted;
+        }
 
         public ImageProduct getEntityById(int Id)
 
@@ -42,6 +73,16 @@ namespace BackendDotnetCore.DAO
             var tmp = dbContext.Images.Where(s => s.Id == Id);
 
             return tmp.FirstOrDefault();
+
+        }
+
+        public int Count(string image)
+
+        {
+
+            var tmp = dbContext.Images.Where(s => s._image == image);
+            int rs=tmp.Count();
+            return rs;
 
         }
 

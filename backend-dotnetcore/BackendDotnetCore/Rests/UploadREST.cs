@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Rests
@@ -29,8 +30,17 @@ namespace BackendDotnetCore.Rests
 
                 if (file.Length > 0)
                 {
+
+                string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss");
+                Regex regex = new Regex("\\.(?<ext>.+)$");
+                Match match = regex.Match(file.FileName);
+                if (match.Success)
+                {
+                    timeNow += "." + match.Groups["ext"];
+                }
+                Console.WriteLine(timeNow);
                 // full path to file in temp location
-                filePath = FileProcess.FileProcess.getFullPath("product\\"+file.FileName); //we are using Temp file name just for the example. Add your own file path.
+                filePath = FileProcess.FileProcess.getFullPath("product\\"+ timeNow); //we are using Temp file name just for the example. Add your own file path.
                      Console.WriteLine(filePath);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -52,8 +62,17 @@ namespace BackendDotnetCore.Rests
             {
                 if (formFile.Length > 0)
                 {
+
+                    string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    Regex regex = new Regex("\\.(?<ext>.+)$");
+                    Match match = regex.Match(formFile.FileName);
+                    if (match.Success)
+                    {
+                        timeNow += "." + match.Groups["ext"];
+                    }
+                    Console.WriteLine(timeNow);
                     // full path to file in temp location
-                    string filePath=FileProcess.FileProcess.getFullPath("product\\" + formFile.FileName); //we are using Temp file name just for the example. Add your own file path.
+                    string filePath=FileProcess.FileProcess.getFullPath("product\\" + timeNow); //we are using Temp file name just for the example. Add your own file path.
                     filePaths.Add(filePath);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -79,17 +98,29 @@ namespace BackendDotnetCore.Rests
                 {
                     ImageProduct entity = new ImageProduct();
                     entity.ProductId = productId;
+                    string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    Regex regex = new Regex("\\.(?<ext>.+)$");
+                    Match match = regex.Match(formFile.FileName);
+                    if (match.Success)
+                    {
+                        timeNow += "." + match.Groups["ext"];
+                    }
+                    Console.WriteLine(timeNow);
+
                     // full path to file in temp location
-                    string filePath = FileProcess.FileProcess.getFullPath("product\\" + formFile.FileName); //we are using Temp file name just for the example. Add your own file path.
+
+
+                    string filePath = FileProcess.FileProcess.getFullPath("product\\" + timeNow); //we are using Temp file name just for the example. Add your own file path.
                     filePaths.Add(filePath);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await formFile.CopyToAsync(stream);
                     }
 
-                    entity.Image = formFile.FileName;
+                    entity._image = timeNow;
 
                     var a = entityDAO.AddEntity(entity);
+                    a.setRequest(Request);
                     images.Add(a);
                 }
             }
@@ -101,23 +132,34 @@ namespace BackendDotnetCore.Rests
         [HttpPost("one/{productId}")]
         public async Task<IActionResult> Index3(IFormFile file, int productId)
         {
+            if (file == null) return BadRequest("Phải có file.");
             string filePath = "";
 
             ImageProduct entity = new ImageProduct();
             entity.ProductId = productId;
+            string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss");
+            Regex regex = new Regex("\\.(?<ext>.+)$");
+            Match match = regex.Match(file.FileName);
+            if (match.Success)
+            {
+                timeNow += "."+match.Groups["ext"];
+            }
+            Console.WriteLine(timeNow);
             if (file.Length > 0)
             {
                 // full path to file in temp location
-                filePath = FileProcess.FileProcess.getFullPath("product\\" + file.FileName); //we are using Temp file name just for the example. Add your own file path.
+                filePath = FileProcess.FileProcess.getFullPath("product\\" + timeNow); //we are using Temp file name just for the example. Add your own file path.
                 Console.WriteLine(filePath);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
             }
-            entity.Image = file.FileName;
+            entity._image = timeNow;
 
             var a =entityDAO.AddEntity(entity);
+
+            a.setRequest(Request);
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
             return Ok(a);
