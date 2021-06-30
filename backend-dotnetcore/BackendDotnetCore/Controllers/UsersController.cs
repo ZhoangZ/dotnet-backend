@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Collections;
 using BackendDotnetCore.DTO;
 using BackendDotnetCore.Helpers;
+using BackendDotnetCore.Models;
 
 namespace WebApi.Controllers
 {
@@ -234,6 +235,33 @@ namespace WebApi.Controllers
             listRes.Reverse();
             return listRes;
 
+        }
+
+        /*
+         * quản lý đơn hàng (version 2)
+         * lấy ds đơn hàng (lọc theo tình trạng, pagination, tìm kiếm đơn hàng bằng mã)
+         */
+        [HttpGet("orders")]
+        [Authorize]
+        public IActionResult GetListMyOrder(int _orderID = 0, int _status = 0, int _limit = 10, int _page = 1)
+        {
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            if (_orderID == 0)
+            {
+                List<CustomOrderResponse> listRes = new List<CustomOrderResponse>();
+                List<OrderEntity> list = (_status != 0) ? orderDAO.GetOrdersByUserIDAndStatus(user.Id, _status, _limit, _page) : orderDAO.GetOrdersByUserID(user.Id, _limit, _page);
+
+                listRes = new CustomOrderResponse().toListCustomOrderResponse(list);
+                PageResponse<CustomOrderResponse> pageResponse = new PageResponse<CustomOrderResponse>();
+                pageResponse.Data = listRes;
+                pageResponse.Pagination = new Pagination(_limit, _page, orderDAO.GetCountOrdersByUserID(user.Id));
+                return Ok(pageResponse);
+            }
+            else
+            {
+                if (null == orderDAO.getOrderByIDAndUserID(_orderID, user.Id)) return BadRequest(new { message = "Không tìm thấy đơn hàng có mã là " + _orderID + " trong danh sách!" });
+                return Ok(new CustomOrderResponse().toOrderResponse(orderDAO.GetOrderByID(_orderID)));
+            }
         }
 
         /*

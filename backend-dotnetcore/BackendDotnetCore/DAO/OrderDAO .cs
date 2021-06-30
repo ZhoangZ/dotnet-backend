@@ -176,7 +176,7 @@ namespace BackendDotnetCore.DAO
 
 
         /*
-         * USER ACTION WITH ORDER (DENY, GET BY STATUS)
+         * USER ACTION WITH ORDER (DENY, GET BY STATUS, GET ONE BY ID)
          */
         public ICollection GetOrdersByUserID(int userID)
         {
@@ -231,6 +231,54 @@ namespace BackendDotnetCore.DAO
             return listOrderUser;
         }
 
+
+        /*
+         * ORDER MANAGEMENT VERSION 2
+         */
+        public int GetCountOrdersByUserID(int userID)
+        {
+            var list = dbContext.Orders
+                .Include(x => x.Payment)
+                .Include(x => x.Items)
+                .Where(x => x.UserId == userID).ToList();
+            return list.Count;
+        }
+        public List<OrderEntity> GetOrdersByUserID(int userID, int limit, int page)
+        {
+            page = (page <= 0) ? 1 : page;
+            var list = dbContext.Orders
+                .Include(x => x.Payment)
+                .Include(x => x.Items)
+                .Where(x => x.UserId == userID).OrderByDescending(x=>x.Id);
+            List<OrderEntity> rs = list.Skip(limit * (page - 1)).Take(limit)
+                        .ToList();
+            return rs;
+        }
+
+        public List<OrderEntity> GetOrdersByUserIDAndStatus(int userID, int status, int limit, int page)
+        {
+            page = (page <= 0) ? 1 : page;
+            var list = dbContext.Orders
+                .Where(x => x.UserId == userID && x.Status == status)
+                .Include(x => x.Payment)
+                .Include(x => x.Items).OrderByDescending(x => x.Id);
+            List<OrderEntity> rs = list.Skip(limit * (page - 1)).Take(limit)
+                        .ToList();
+
+            return rs;
+        }
+
+        public OrderEntity getOrderByIDAndUserID(int orderID, int userID)
+        {
+            var rs = dbContext.Orders
+               .Where(x => x.UserId == userID && x.Id == orderID)
+               .Include(x => x.Payment)
+               .Include(x => x.Items).SingleOrDefault();
+            return rs;
+        }
+
+
+
         /*
          * ADMIN ACTION WITH ORDER (GET ALL, GET BY STATUS, ACCEPT ORDERS PENDING)
          */
@@ -240,8 +288,6 @@ namespace BackendDotnetCore.DAO
                  .Include(x => x.Items)
                 .Include(x => x.Payment)
                 .ToList();
-           
-            list.Reverse();
             return list;
         }
 
@@ -251,8 +297,6 @@ namespace BackendDotnetCore.DAO
                  .Include(x => x.Items)
                 .Include(x => x.Payment)
                 .ToList();
-          
-            list.Reverse();
             return list;
         }
 
@@ -265,6 +309,31 @@ namespace BackendDotnetCore.DAO
             return oe.Status == 2?true:false;
         }
 
+        //add version 2
+        public List<OrderEntity> GetListOrdersPage(int limit, int page, int status)
+        {
+           
+            if (status != 0)
+            {
+               var list =  dbContext.Orders.Where(x => x.Status == status)
+                                .Include(x => x.Items)
+                                .Include(x => x.Payment);
+                list.Skip(limit * (page - 1)).Take(limit)
+                        .ToList();
+                List<OrderEntity> ls = new List<OrderEntity>(list);
+                return ls;
+            }
+            else
+            {
+                var list = dbContext.Orders.Include(x => x.Items)
+                                .Include(x => x.Payment);
+                list.Skip(limit * (page - 1)).Take(limit)
+                        .ToList();
+                List<OrderEntity> ls = new List<OrderEntity>(list);
+                return ls;
+            }
+            
+        }
     }
 
 

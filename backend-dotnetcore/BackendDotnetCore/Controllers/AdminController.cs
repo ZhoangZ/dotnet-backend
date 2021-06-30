@@ -2,6 +2,7 @@
 using BackendDotnetCore.DTO;
 using BackendDotnetCore.Entities;
 using BackendDotnetCore.Helpers;
+using BackendDotnetCore.Models;
 using BackendDotnetCore.Services;
 using BackendDotnetCore.Ultis;
 using Microsoft.AspNetCore.Http;
@@ -125,7 +126,37 @@ namespace BackendDotnetCore.Controllers
 
             return Ok(new CustomOrderResponse().toListCustomOrderResponse(listOrders));
         }
+
+
+        //admin get orders with filter and pagination (get one order by id)
+        [HttpGet("orders-version2")]
+        [Authorize]
+        public IActionResult GetAllOrdersPage(int _status = 0, int _limit = 10, int _page = 1, int _orderID = 0)
+        {
+            _page = (_page <= 0) ? 1 : _page;
+            //get and check user access modifier
+            UserEntity userAction = (UserEntity)HttpContext.Items["User"];
+            if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
+            PageResponse<CustomOrderResponse> pageResponse = new PageResponse<CustomOrderResponse>();
+            if (_status < 0 && _status > 4) return BadRequest(new { message = "Trạng thái đơn hàng không hợp lệ!" });
+            if (_orderID == 0)
+            {
+                var listOrders = orderDAO.GetListOrdersPage(_limit, _page, _status);
+                List<CustomOrderResponse> ls = new CustomOrderResponse().toListCustomOrderResponse(listOrders);
+                ls.Reverse();
+                pageResponse.Data = ls;
+                pageResponse.Pagination = new Pagination(_limit, _page, pageResponse.Data.Count);
+                return Ok(pageResponse);
+            }
+            else
+            {
+                OrderEntity oe;
+                if (null == (oe = orderDAO.GetOrderByID(_orderID))) return BadRequest(new { message = "Không tồn tại đơn hàng có mã " + _orderID + " trong hệ thống!" });
+                return Ok(new CustomOrderResponse().toOrderResponse(oe));
+            }
+        }
         
+
         //accept a order by id
         [HttpPut("orders/active/{orderID}")]
         [Authorize]

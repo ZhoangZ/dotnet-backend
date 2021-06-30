@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Models
 {
-    public class PageResponse
+    public class PageResponse<T>
     {
-        public List<Product2> Data { get; set; }
+        public List<T> Data { get; set; }
         public Pagination Pagination { get; set; }
     }
 

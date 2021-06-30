@@ -41,7 +41,7 @@ namespace BackendDotnetCore.Rests
                 List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot);
                 int toltal = ProductDAO.getCount(salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot);
                 lst.setRequset(Request);
-                PageResponse pageResponse = new PageResponse();
+                PageResponse<Product2> pageResponse = new PageResponse<Product2>();
                 pageResponse.Data = lst;
                 pageResponse.Pagination = new Pagination(_limit, _page, toltal);
                 return Ok(pageResponse);

@@ -69,11 +69,11 @@ namespace BackendDotnetCore.DTO
             cs.paymentType = orderEntity.Cod==true ? "COD" : "VNPay";
             cs.note = orderEntity.Note;
             cs.lastPrice = (double) orderEntity.TotalPrice;
-
             if (orderEntity.Payment != null)
             {
-                cs.transactionStatus = (orderEntity.Payment.TransactionStatus!=null)? orderEntity.Payment.TransactionStatus.ToString():null;
+                cs.transactionStatus = (orderEntity.Payment.TransactionStatus.ToString() != null) ? orderEntity.Payment.TransactionStatus.ToString() : null;
             }
+
 
             return cs;
         }
