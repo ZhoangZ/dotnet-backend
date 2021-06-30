@@ -61,17 +61,3 @@ Tài khoản ngân hàng dùng để test thanh toán
 [Danh sách tài khoản test]( https://sandbox.vnpayment.vn/apis/vnpay-demo/)
 
 
-## Kiểm tra api trên front-end
-
-| API           | Status |
-| ------------- | ------ |
-| /products | OK  |
-| /products/{number} | Bug  |
-| / | Bug  |
-
-- [x] Đã fix
-- [ ] /products/103 Hình không thấy
-- [ ] / Không click vào tên sản phẩm để vào trang xem sản phẩm được
-
-## Kiểm tra console
-- [ ] Faulture writeline console
