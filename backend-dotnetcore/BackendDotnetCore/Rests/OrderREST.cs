@@ -270,6 +270,13 @@ namespace BackendDotnetCore.Rests
             return Ok(c);
 
         }
+
+        //get list orders status
+        [HttpGet("status")]
+        public IActionResult GetListStatusOrders()
+        {
+            return Ok(OrderEntity.GetListStatusOrders());
+        }
     }
 
     public class FormPutOrder

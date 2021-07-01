@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackendDotnetCore.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -64,11 +65,48 @@ namespace BackendDotnetCore.Entities
 
         public virtual List<OrderItemEntity> Items { set; get; }
 
+        public enum StatusString
+        {
+             PENDING,
+             DELIVERING,
+             FINISH,
+             DENY
+        }
+
         public OrderEntity()
         {
             TotalPrice = 0;
             TotalItem = 0;
         }
 
+
+        //get list status
+        public static List<MyStatusOrder> GetListStatusOrders()
+        {
+            List<MyStatusOrder> ls = new List<MyStatusOrder>();
+            int i = 0;
+            foreach (StatusString s in (StatusString[])Enum.GetValues(typeof(StatusString)))
+            {
+                MyStatusOrder ms = new MyStatusOrder();
+                ms.id = ++i;
+                switch (s)
+                {
+                    case StatusString.PENDING:
+                        ms.statusString = "Đang tiếp nhận";
+                        break;
+                    case StatusString.DELIVERING:
+                        ms.statusString = "Đang vận chuyển";
+                        break;
+                    case StatusString.FINISH:
+                        ms.statusString = "Đã giao hàng";
+                        break;
+                    case StatusString.DENY:
+                        ms.statusString = "Hủy đơn hàng";
+                        break;
+                }
+                ls.Add(ms);
+            }
+            return ls;
+        }
     }
 }
