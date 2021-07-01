@@ -9,5 +9,16 @@ namespace BackendDotnetCore.DTO
     {
         public int id { set; get; }
         public string statusString { set; get; }
+
+        public MyStatusOrder()
+        {
+
+        }
+
+        public MyStatusOrder(int id, string statusString)
+        {
+            this.id = id;
+            this.statusString = statusString;
+        }
     }
 }
