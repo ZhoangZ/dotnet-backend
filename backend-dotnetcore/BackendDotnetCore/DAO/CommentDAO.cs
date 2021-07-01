@@ -84,7 +84,6 @@ namespace BackendDotnetCore.DAO
 
         public bool ActiveAComment(int commentID)
         {
-            Console.WriteLine("commentID = " + commentID);
             int Active;
             var cmt = dbContext.Comments.Where(X => X.id == commentID).SingleOrDefault();
             Active = cmt.active;

@@ -226,14 +226,15 @@ namespace BackendDotnetCore.Controllers
             
         }
 
-        [HttpPut("comments/{_commentID}")]//đang update
+        [HttpPut("comments/{_commentID}")]
         [Authorize]
-        public IActionResult ActiveDisableAComment(int _commentID, int _page, int _limit)
+        public IActionResult ActiveDisableAComment(int _commentID = 0, int _page = 1, int _limit = 10)
         {
             UserEntity ue = (UserEntity)HttpContext.Items["User"];
             if (!ue.IsAdmin) return BadRequest(new { message = "Giới hạn bởi quyền truy cập. Hãy thử với tài khoản admin!" });
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
+            if (null == commentDAO.GetCommentByID(_commentID)) return BadRequest(new { message = "Không có comment nào có mã "+_commentID+" trong hệ thống!" });
             if (commentDAO.ActiveAComment(_commentID) == false) return BadRequest(new { message = "Hệ thống đang gặp sự cố, không thể sao lưu dữ liệu!" });
 
             var listComments = commentDAO.GetAllComments(_limit, _page, -1);
