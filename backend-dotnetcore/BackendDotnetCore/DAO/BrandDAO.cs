@@ -42,7 +42,12 @@ namespace BackendDotnetCore.DAO
             dbContext.SaveChanges();
             return Product;
         }
-
+        public Brand DeletedEntity(Brand deleted)
+        {
+            dbContext.Brands.Remove(deleted);
+            dbContext.SaveChanges();
+            return deleted;
+        }
 
     }
 }
