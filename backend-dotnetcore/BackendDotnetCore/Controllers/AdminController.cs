@@ -137,6 +137,8 @@ namespace BackendDotnetCore.Controllers
             //get and check user access modifier
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
             if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
             PageResponse<CustomOrderResponse> pageResponse = new PageResponse<CustomOrderResponse>();
             if (_status < 0 && _status > 4) return BadRequest(new { message = "Trạng thái đơn hàng không hợp lệ!" });
             if (_orderID == 0)
@@ -163,6 +165,8 @@ namespace BackendDotnetCore.Controllers
         {
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
             if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
             if (orderDAO.AcceptOrderPending(orderID))
             {
                 CustomOrderResponse cs = new CustomOrderResponse();
@@ -182,7 +186,8 @@ namespace BackendDotnetCore.Controllers
         {
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
             if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
-
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
             CustomOrderResponse cs = new CustomOrderResponse();
             OrderEntity oe = orderDAO.GetOrderByID(orderID);
             if (null == oe) return BadRequest(new { message = "Không tồn tại đơn hàng có mã {0} trong hệ thống!", orderID});
@@ -197,25 +202,46 @@ namespace BackendDotnetCore.Controllers
          */
         [HttpGet("comments")]
         [Authorize]
-        public IActionResult GetAllComments()
+        public IActionResult GetAllCommentsPagination(int _limit = 10, int _commentID = 0, int _active = -1, int _page = 1)
         {
             UserEntity ue =(UserEntity) HttpContext.Items["User"];
             if (!ue.IsAdmin) return BadRequest(new { message = "Giới hạn bởi quyền truy cập. Hãy thử với tài khoản admin!" });
-            var listComments = commentDAO.GetAllComments();
-
-            return Ok(listComments);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+            PageResponse<CustomCommentResponse> pageResponse = new PageResponse<CustomCommentResponse>();
+            if (_commentID == 0)
+            {
+                var listComments = commentDAO.GetAllComments(_limit, _page, _active);
+                List<CustomCommentResponse> listResponse = new CustomCommentResponse().toListCustomCommentResponses(listComments);
+                pageResponse.Data = listResponse;
+                pageResponse.Pagination = new Pagination(_limit, _page, new CommentDAO().GetCountComments());
+                return Ok(pageResponse);
+            }
+            else
+            {
+                CommentEntity cmt = commentDAO.GetCommentByID(_commentID);
+                if (null == cmt) return BadRequest(new { message = "Không tồn tại comment có id " + _commentID + " trong hệ thống!" });
+                return Ok(new CustomCommentResponse().toCustomCommentResponse(cmt));
+            }
+            
         }
 
-        [HttpPost("comments/active")]
+        [HttpPut("comments/{_commentID}")]//đang update
         [Authorize]
-        public IActionResult ActiveDisableAComment(int commentID, bool isActive)
+        public IActionResult ActiveDisableAComment(int _commentID, int _page, int _limit)
         {
-            Console.WriteLine("Disable or active a comment {0}, {1} ", commentID, isActive);
             UserEntity ue = (UserEntity)HttpContext.Items["User"];
             if (!ue.IsAdmin) return BadRequest(new { message = "Giới hạn bởi quyền truy cập. Hãy thử với tài khoản admin!" });
-            var commentActive = commentDAO.ActiveAComment(commentID, isActive);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+            if (commentDAO.ActiveAComment(_commentID) == false) return BadRequest(new { message = "Hệ thống đang gặp sự cố, không thể sao lưu dữ liệu!" });
 
-            return Ok("Response for request is "+commentActive);
+            var listComments = commentDAO.GetAllComments(_limit, _page, -1);
+            List<CustomCommentResponse> listResponse = new CustomCommentResponse().toListCustomCommentResponses(listComments);
+            PageResponse<CustomCommentResponse> pageResponse = new PageResponse<CustomCommentResponse>();
+            pageResponse.Data = listResponse;
+            pageResponse.Pagination = new Pagination(_limit, _page, new CommentDAO().GetCountComments());
+            return Ok(pageResponse);
         }
     }
 }

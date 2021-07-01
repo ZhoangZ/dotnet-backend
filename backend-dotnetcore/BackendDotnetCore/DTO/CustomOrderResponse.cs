@@ -19,6 +19,7 @@ namespace BackendDotnetCore.DTO
         public string address { set; get; }
         public string phone { set; get; }
         public string date { set; get; }
+        public int statusID { set; get; }
         public MyStatusOrder status { set; get; }
         public int totalItems { set; get; }
         public string paymentType { set; get; }
@@ -63,6 +64,7 @@ namespace BackendDotnetCore.DTO
             cs.phone = orderEntity.Phone;
             cs.address = orderEntity.AddressDelivery;
             cs.date = orderEntity.CreatedDate.ToString();
+            cs.statusID = orderEntity.Status;
             cs.status = new MyStatusOrder(orderEntity.Status, toStatusString(orderEntity.Status));
             cs.listItems = toListItemsResponse(orderEntity.Items);
             cs.totalItems = cs.listItems.Count;

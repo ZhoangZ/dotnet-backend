@@ -53,26 +53,51 @@ namespace BackendDotnetCore.DAO
         /*
          * ADMIN ACTION WITH COMMENTS (Get all, Active/Disable a comment)
          */
-        public List<CommentEntity> GetAllComments()
+        public int GetCountComments()
         {
-            var listComments = dbContext.Comments.ToList();
+            var ls = dbContext.Comments
+                       .ToList();
+            return ls.Count;
+        }
+
+        public List<CommentEntity> GetAllComments(int limit, int page, int active)
+        {
+            page = page <= 0 ? 1 : page;
+            List<CommentEntity> listComments = new List<CommentEntity>();
+            if (active == -1)
+            {
+                var ls = dbContext.Comments.Skip(limit * (page - 1)).Take(limit)
+                        .ToList();
+
+                listComments = ls;
+            }
+            else
+            {
+                var ls = dbContext.Comments.Where(x=>x.active == active).Skip(limit * (page - 1)).Take(limit)
+                        .ToList();
+
+                listComments = ls;
+            }
+
             return listComments;
         }
 
-        public bool ActiveAComment(int commentID, bool isActive)
+        public bool ActiveAComment(int commentID)
         {
+            Console.WriteLine("commentID = " + commentID);
+            int Active;
             var cmt = dbContext.Comments.Where(X => X.id == commentID).SingleOrDefault();
-            if (isActive)//request active
-            {
-                cmt.active = 1;
-            }
-            else//request disable
-            {
-                cmt.active = 0;
-            }
+            Active = cmt.active;
+            cmt.active = cmt.active == 1 ? 0 : 1;
             dbContext.Update(cmt);//update into db
             dbContext.SaveChanges();
-            return true;
+            return cmt.active!=Active?true:false;
+        }
+
+        public CommentEntity GetCommentByID(int commentID)
+        {
+            var rs = dbContext.Comments.Where(x => x.id == commentID).SingleOrDefault();
+            return rs;
         }
 
     }
