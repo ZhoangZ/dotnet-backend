@@ -22,6 +22,8 @@ namespace BackendDotnetCore.Entities
         [Column("NAME_FIELD")]
         public string name { get; set; }
 
+        [JsonIgnore]
+        public int ProductId { get; set; }
 
 
 

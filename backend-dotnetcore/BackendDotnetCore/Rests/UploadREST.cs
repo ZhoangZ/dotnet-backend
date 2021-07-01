@@ -86,8 +86,19 @@ namespace BackendDotnetCore.Rests
         }
 
         [HttpPost("many/{productId}")]
+        [Authorize]
         public async Task<IActionResult> Index45(List<IFormFile> files, int productId)
         {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+
+
+            if (files == null) return BadRequest("Phải có files.");
+            if (user == null) return BadRequest("Chưa đăng nhập.");
             long size = files.Sum(f => f.Length);
 
             var filePaths = new List<string>();
@@ -98,7 +109,7 @@ namespace BackendDotnetCore.Rests
                 {
                     ImageProduct entity = new ImageProduct();
                     entity.ProductId = productId;
-                    string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss") + productId + user.Id;
                     Regex regex = new Regex("\\.(?<ext>.+)$");
                     Match match = regex.Match(formFile.FileName);
                     if (match.Success)
@@ -130,14 +141,24 @@ namespace BackendDotnetCore.Rests
         }
 
         [HttpPost("one/{productId}")]
+        [Authorize]
         public async Task<IActionResult> Index3(IFormFile file, int productId)
         {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+
+
             if (file == null) return BadRequest("Phải có file.");
+            if (user == null) return BadRequest("Chưa đăng nhập.");
             string filePath = "";
 
             ImageProduct entity = new ImageProduct();
             entity.ProductId = productId;
-            string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss")+productId+ user.Id;
             Regex regex = new Regex("\\.(?<ext>.+)$");
             Match match = regex.Match(file.FileName);
             if (match.Success)

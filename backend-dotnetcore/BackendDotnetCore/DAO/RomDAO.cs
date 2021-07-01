@@ -43,6 +43,13 @@ namespace BackendDotnetCore.DAO
             return Product;
         }
 
+        public RomEntity DeletedEntity(RomEntity deleted)
+        {
+            dbContext.Roms.Remove(deleted);
+            dbContext.SaveChanges();
+            return deleted;
+        }
+
 
     }
 }

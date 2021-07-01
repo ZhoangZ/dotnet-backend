@@ -42,6 +42,12 @@ namespace BackendDotnetCore.DAO
             dbContext.SaveChanges();
             return Product;
         }
+        public RamEntity DeletedEntity(RamEntity deleted)
+        {
+            dbContext.Rams.Remove(deleted);
+            dbContext.SaveChanges();
+            return deleted;
+        }
 
 
     }
