@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BackendDotnetCore.DTO
 {
-    public class CustomOrderResponse: IComparable<CustomOrderResponse>
+    public class CustomOrderResponse : IComparable<CustomOrderResponse>
     {
         public int id { set; get; }
         public string name { set; get; }
@@ -25,10 +25,10 @@ namespace BackendDotnetCore.DTO
         public string paymentType { set; get; }
         public string note { set; get; }
         public double lastPrice { set; get; }
-        public ArrayList listItems { set; get; }
+        public ArrayList cartItems { set; get; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-       
+
         public string transactionStatus { set; get; }
         public CustomOrderResponse()
         {
@@ -59,18 +59,18 @@ namespace BackendDotnetCore.DTO
         public CustomOrderResponse toOrderResponse(OrderEntity orderEntity)
         {
             CustomOrderResponse cs = new CustomOrderResponse();
-            cs.id = (int) orderEntity.Id;
+            cs.id = (int)orderEntity.Id;
             cs.name = orderEntity.Fullname;
             cs.phone = orderEntity.Phone;
             cs.address = orderEntity.AddressDelivery;
             cs.date = orderEntity.CreatedDate.ToString();
             cs.statusID = orderEntity.Status;
             cs.status = new MyStatusOrder(orderEntity.Status, toStatusString(orderEntity.Status));
-            cs.listItems = toListItemsResponse(orderEntity.Items);
-            cs.totalItems = cs.listItems.Count;
-            cs.paymentType = orderEntity.Cod==true ? "COD" : "VNPay";
+            cs.cartItems = toListItemsResponse(orderEntity.Items);
+            cs.totalItems = cs.cartItems.Count;
+            cs.paymentType = orderEntity.Cod == true ? "COD" : "VNPay";
             cs.note = orderEntity.Note;
-            cs.lastPrice = (double) orderEntity.TotalPrice;
+            cs.lastPrice = (double)orderEntity.TotalPrice;
             if (orderEntity.Payment != null)
             {
                 cs.transactionStatus = (orderEntity.Payment.TransactionStatus.ToString() != null) ? orderEntity.Payment.TransactionStatus.ToString() : null;
@@ -83,7 +83,7 @@ namespace BackendDotnetCore.DTO
         public List<CustomOrderResponse> toListCustomOrderResponse(List<OrderEntity> listOE)
         {
             List<CustomOrderResponse> list = new List<CustomOrderResponse>();
-            foreach(OrderEntity oe in listOE)
+            foreach (OrderEntity oe in listOE)
             {
                 list.Add(toOrderResponse(oe));
             }
@@ -94,7 +94,7 @@ namespace BackendDotnetCore.DTO
         public ArrayList toListItemsResponse(ICollection<OrderItemEntity> items)
         {
             ArrayList listResponse = new ArrayList();
-            foreach(OrderItemEntity oe in items)
+            foreach (OrderItemEntity oe in items)
             {
                 CustomOrderItem csi = new CustomOrderItem();
                 listResponse.Add(csi.toCustomOrderItem(oe));
@@ -111,38 +111,60 @@ namespace BackendDotnetCore.DTO
     }
     public class CustomOrderItem
     {
-        public int productID { set; get; }
-        public string productImg { set; get; }
-        public string productName { set; get; }
-        public int quatity { set; get; }
-        public double pricePerOne { set; get; }
-        public double priceAll { set; get; }
-
+        public int idp { set; get; }
+        public int quantity { set; get; }
+        public Product2 product { set; get; }
+       
         public CustomOrderItem()
         {
 
         }
-
-        public double computePriceAllByProduct()
-        {
-            return pricePerOne * quatity;
-        }
-
+       
         public CustomOrderItem toCustomOrderItem(OrderItemEntity orderItemEntity)
         {
             CustomOrderItem csi = new CustomOrderItem();
             Product2DAO product2DAO = new Product2DAO();
 
-            csi.productID = orderItemEntity.ProductId;
-            Product2 productItem = product2DAO.getProduct(csi.productID);
-            csi.productImg = productItem.Images.ToArray()[0].Image;
-            csi.productName = productItem.Name;
-            csi.pricePerOne = (double)productItem.SalePrice;
-            csi.quatity = orderItemEntity.Quantity;
-            csi.priceAll = csi.computePriceAllByProduct();
+            csi.idp = orderItemEntity.ProductId;
+            Product2 productItem = product2DAO.getProduct(csi.idp);
+            List<Image> ls = new List<Image>();
+            ls.Add(new Image(productItem.Images.ToArray()[0].Image));
+            csi.quantity = orderItemEntity.Quantity;
+            ProductObjItem productObj = new ProductObjItem();
+            productObj.quantity = orderItemEntity.Quantity;
+            productObj.images = ls;
+            productObj.name = productItem.Name;
+            productObj.salePrice = (double)productItem.SalePrice;
+            productObj.priceAll = productObj.computePriceAllByProduct();
+            csi.product = productItem;
 
             return csi;
         }
 
+    }
+    public class ProductObjItem{
+        public List<Image> images { set; get; }
+        public string name { set; get; }
+        public int quantity { set; get; }
+        public int promotionPercents { set; get; }
+        public double originalPrice { set; get; }
+        public double salePrice { set; get; }
+        public double priceAll { set; get; }
+
+        public double computePriceAllByProduct()
+        {
+            return salePrice * quantity;
+        }
+
+    }
+
+    public class Image
+    {
+        public string image { get; set; }
+
+        public Image(string image)
+        {
+            this.image = image;
+        }
     }
 }
