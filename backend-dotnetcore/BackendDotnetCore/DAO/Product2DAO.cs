@@ -158,13 +158,13 @@ namespace BackendDotnetCore.DAO
                 }
 
                 // sort UpdatedAt
-                else if (key.CompareTo("updateat:desc") == 0)
+                else if (key.CompareTo("updatedat:desc") == 0)
                 {
                     //Console.WriteLine("desc");
                     tmp = tmp.OrderByDescending(x => x.UpdatedAt);
 
                 }
-                else if (key.CompareTo("updateat:asc") == 0)
+                else if (key.CompareTo("updatedat:asc") == 0)
                 {
                     //Console.WriteLine("desc");
                     tmp = tmp.OrderBy(x => x.UpdatedAt);
