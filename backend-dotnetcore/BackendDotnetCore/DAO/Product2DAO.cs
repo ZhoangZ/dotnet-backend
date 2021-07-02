@@ -51,7 +51,7 @@ namespace BackendDotnetCore.DAO
 
 
 
-        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot)
+        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like)
 
         {
             _page=(_page<=0)?1:_page;
@@ -103,6 +103,11 @@ namespace BackendDotnetCore.DAO
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
                 tmp = tmp.Where(x => x.IsHot==true);
+            }
+            if (title_like !=null && title_like.Length>0)
+            {
+                //Console.WriteLine("rom_id {0}", rom_id);               
+                tmp = tmp.Where(x => x.Name.Contains(title_like));
             }
 
             string [] strs=_sort.Split(",");
@@ -185,16 +190,19 @@ namespace BackendDotnetCore.DAO
             return rs;
 
         }
-        public int getCount(int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot)
+        public int getCount(int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like)
 
         {
             
             var tmp = dbContext.Products.Where(X => X.deleted == false)
 
              
-              .Include(x => x.Brand)
+             
+               .Include(x => x.Brand)
+               .Include(x => x.Ram)
+               .Include(x => x.Rom)
               .Include("Images")
-                //.Include("Informations")
+               //.Include("Informations")
                ;
            
           
@@ -222,16 +230,16 @@ namespace BackendDotnetCore.DAO
                 //Console.WriteLine(brand_id);
                 tmp = tmp.Where(x => x.Brand.Id == brand_id);
             }
-            /*if (rom_id > 0)
+            if (rom_id > 0)
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
-                tmp = tmp.Where(x => x.Specifics.Any(y => y.Rom.Id == rom_id));
+                tmp = tmp.Where(x => x.Rom.Id == rom_id);
             }
             if (ram_id > 0)
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
-                tmp = tmp.Where(x => x.Specifics.Any(y => y.Ram.Id == ram_id));
-            }*/
+                tmp = tmp.Where(x => x.RamId==ram_id);
+            }
             if (isHot > 0)
             {
                 //Console.WriteLine("rom_id {0}", rom_id);               
@@ -239,8 +247,12 @@ namespace BackendDotnetCore.DAO
             }
 
 
+            if (title_like != null && title_like.Length > 0)
+            {
+                //Console.WriteLine("rom_id {0}", rom_id);               
+                tmp = tmp.Where(x => x.Name.Contains(title_like));
+            }
 
-            
 
             int rs = tmp.Count();
             return rs;
