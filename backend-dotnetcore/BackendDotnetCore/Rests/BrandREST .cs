@@ -62,9 +62,10 @@ namespace BackendDotnetCore.Rests
         [HttpDelete("{id}")]
         [Authorize]
         //[Authorize(Roles = "Admin")]
-        public ActionResult ramD([FromBody] Brand entity, int id)
+        public ActionResult ramD( int id)
         {
-            entity.Id = id;
+            var entity = brandDAO.getEntityById(id);
+            if(entity==null) return BadRequest("Không tìm thấy Brand");
             entity.Deleted = true;
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];

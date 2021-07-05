@@ -79,9 +79,10 @@ namespace BackendDotnetCore.Rests
         [HttpDelete("{id}")]
         [Authorize]
         //[Authorize(Roles = "Admin")]
-        public ActionResult ramD([FromBody] RomEntity entity, int id)
+        public ActionResult ramD( int id)
         {
-            entity.Id = id;
+            var entity = romDAO.getEntityById(id);
+            if (entity == null) return BadRequest("Không tìm thấy Rom");
             entity.Deleted = true;
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];
