@@ -318,19 +318,17 @@ namespace BackendDotnetCore.DAO
                var list =  dbContext.Orders.Where(x => x.Status == status)
                                 .Include(x => x.Items)
                                 .Include(x => x.Payment);
-                list.Skip(limit * (page - 1)).Take(limit)
-                        .ToList();
-                List<OrderEntity> ls = new List<OrderEntity>(list);
-                return ls;
+                List<OrderEntity> rs = list.Skip(limit * (page - 1)).Take(limit)
+                      .ToList();
+                return rs;
             }
             else
             {
                 var list = dbContext.Orders.Include(x => x.Items)
                                 .Include(x => x.Payment);
-                list.Skip(limit * (page - 1)).Take(limit)
-                        .ToList();
-                List<OrderEntity> ls = new List<OrderEntity>(list);
-                return ls;
+                List<OrderEntity> rs = list.Skip(limit * (page - 1)).Take(limit)
+                      .ToList();
+                return rs;
             }
             
         }
