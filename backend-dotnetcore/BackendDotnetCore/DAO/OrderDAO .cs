@@ -333,7 +333,23 @@ namespace BackendDotnetCore.DAO
             
         }
 
-      
+        public int GetCountOrdersByStatus(int status)
+        {
+            if (status == 0)
+            {
+                var list = dbContext.Orders.ToList();
+                return list.Count;
+            }
+            else
+            {
+              var list = dbContext.Orders
+                                  .Include(x => x.Payment)
+                                  .Include(x => x.Items)
+                                  .Where(x => x.Status == status).ToList();
+                 return list.Count;
+            }
+        }
+
     }
 
 
