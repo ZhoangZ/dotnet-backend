@@ -145,7 +145,6 @@ namespace BackendDotnetCore.Controllers
             {
                 var listOrders = orderDAO.GetListOrdersPage(_limit, _page, _status);
                 List<CustomOrderResponse> ls = new CustomOrderResponse().toListCustomOrderResponse(listOrders);
-                ls.Reverse();
                 pageResponse.Data = ls;
                 pageResponse.Pagination = new Pagination(_limit, _page, pageResponse.Data.Count);
                 return Ok(pageResponse);
