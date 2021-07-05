@@ -174,13 +174,13 @@ namespace BackendDotnetCore.DAO
                 else if (key.CompareTo("amountsold:desc") == 0)
                 {
                     //Console.WriteLine("desc");
-                    tmp = tmp.OrderByDescending(x => x.AmoutSold);
+                    tmp = tmp.OrderByDescending(x => x.AmountSold);
 
                 }
                 else if (key.CompareTo("amountsold:asc") == 0)
                 {
                     //Console.WriteLine("desc");
-                    tmp = tmp.OrderBy(x => x.AmoutSold);
+                    tmp = tmp.OrderBy(x => x.AmountSold);
 
                 }
             }
