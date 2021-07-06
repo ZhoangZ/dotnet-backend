@@ -68,6 +68,7 @@ namespace BackendDotnetCore.DAO
                     else
                     {
                         var tmp2=getEntityById(e.Id);
+                        if (tmp2 == null) continue;
                         if (!e.Deleted)
                         {
                             e.ProductId = productId;

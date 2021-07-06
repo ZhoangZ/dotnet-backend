@@ -49,7 +49,7 @@ namespace BackendDotnetCore.Rests
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
             if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
-            dao.DeleteAllByProductId(productId);
+            //dao.DeleteAllByProductId(productId);
             if (entitys != null)
             {
                 var rs = dao.AddEntitys(entitys, productId);
