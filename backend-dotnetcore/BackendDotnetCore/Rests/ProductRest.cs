@@ -104,7 +104,7 @@ namespace BackendDotnetCore.Rests
 
         }
 
-        [HttpPost("origin")]
+        [HttpPost]
         //truyền vào tham số [FromBody] Product Product
         public ActionResult CreateNewProduct([FromBody] Product2 Product)
         {
