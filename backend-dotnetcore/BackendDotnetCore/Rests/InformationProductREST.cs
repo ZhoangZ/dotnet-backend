@@ -38,6 +38,32 @@ namespace BackendDotnetCore.Rests
             return Ok(a);
 
         }
+        [HttpPost("many")]
+        [Authorize]
+        public ActionResult many([FromBody] ICollection<InformationProduct> entitys, int productId)
+        {
+           
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+            if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+            dao.DeleteAllByProductId(productId);
+            if (entitys != null)
+            {
+                var rs = dao.AddEntitys(entitys, productId);
+
+
+            return Ok(rs);
+
+            }
+            else
+            {
+                return BadRequest("Đã xóa hết tất cả information của product này.");
+            }
+
+        }
 
         [HttpPut("{id}")]
         [Authorize]

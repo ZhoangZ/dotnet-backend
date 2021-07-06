@@ -30,6 +30,9 @@ namespace BackendDotnetCore.Entities
         [JsonIgnore]
         public Product2 Product { get; set; }
 
+        [NotMapped]
+        public bool Deleted { get; set; }
+
         public override String ToString()
         {
             Type objType = this.GetType();
