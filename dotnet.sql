@@ -1,33 +1,21 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : My SQL
+ Source Server         : demo
  Source Server Type    : MySQL
- Source Server Version : 100417
+ Source Server Version : 100418
  Source Host           : localhost:3306
  Source Schema         : dotnet
 
  Target Server Type    : MySQL
- Target Server Version : 100417
+ Target Server Version : 100418
  File Encoding         : 65001
 
- Date: 30/06/2021 18:04:34
+ Date: 07/07/2021 21:55:01
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for base_entity
--- ----------------------------
-DROP TABLE IF EXISTS `base_entity`;
-CREATE TABLE `base_entity`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
-  `update_at` datetime(0) NOT NULL DEFAULT utc_timestamp,
-  `deleted` bit(1) NOT NULL DEFAULT b'0',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for brand
@@ -153,15 +141,15 @@ CREATE TABLE `comment`  (
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES (4, 17, 11, 0, 'San pham nay rat tuyet', '2021-06-09', 1);
-INSERT INTO `comment` VALUES (5, 17, 11, 0, 'San pham nay rat tuyet', '0001-01-01', 1);
-INSERT INTO `comment` VALUES (6, 19, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
-INSERT INTO `comment` VALUES (7, 19, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
-INSERT INTO `comment` VALUES (8, 18, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
-INSERT INTO `comment` VALUES (9, 16, 11, 5, 'San pham nay rat tuyet boi 16', '2021-05-30', 1);
-INSERT INTO `comment` VALUES (10, 15, 11, 4, 'San pham nay rat tuyet boi 15', '2021-05-30', 1);
-INSERT INTO `comment` VALUES (11, 14, 11, 4, 'San pham nay rat tuyet boi 14', '2021-05-30', 1);
-INSERT INTO `comment` VALUES (12, 14, 11, 4, 'San pham nay rat tuyet boi 14', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (4, 28, 11, 0, 'San pham nay rat tuyet', '2021-06-09', 1);
+INSERT INTO `comment` VALUES (5, 27, 11, 0, 'San pham nay rat tuyet', '0001-01-01', 1);
+INSERT INTO `comment` VALUES (6, 27, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (7, 27, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (8, 27, 11, 4, 'San pham nay rat tuyet boi 19', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (9, 28, 11, 5, 'San pham nay rat tuyet boi 16', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (10, 28, 11, 4, 'San pham nay rat tuyet boi 15', '2021-05-30', 0);
+INSERT INTO `comment` VALUES (11, 26, 11, 4, 'San pham nay rat tuyet boi 14', '2021-05-30', 1);
+INSERT INTO `comment` VALUES (12, 26, 11, 4, 'San pham nay rat tuyet boi 14', '2021-05-30', 1);
 INSERT INTO `comment` VALUES (13, 25, 7, 1, '213131', '2021-06-05', 1);
 
 -- ----------------------------
@@ -201,7 +189,7 @@ CREATE TABLE `image_product`  (
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `PRODUCT_ID`(`PRODUCT_ID`) USING BTREE,
   CONSTRAINT `image_product_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1298 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1291 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of image_product
@@ -965,6 +953,10 @@ INSERT INTO `image_product` VALUES (1262, 258, 'Xiaomi_Redmi_8_64GB_Ram_3GB_3.pn
 INSERT INTO `image_product` VALUES (1263, 259, 'Neffos_C5_3.png');
 INSERT INTO `image_product` VALUES (1264, 260, 'Symphony_V75_3.png');
 INSERT INTO `image_product` VALUES (1265, 261, 'Xiaomi_Mi_9_SE_64GB_3.png');
+INSERT INTO `image_product` VALUES (1287, 1, 'anh-1-1600587301890166145683.webp');
+INSERT INTO `image_product` VALUES (1288, 1, 'anh-1-1600587301890166145683.webp');
+INSERT INTO `image_product` VALUES (1289, 1, 'anh-1-1600587301890166145683.webp');
+INSERT INTO `image_product` VALUES (1290, 1, 'girl.bmp');
 
 -- ----------------------------
 -- Table structure for information_product
@@ -6483,7 +6475,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
-  `order_status` int(10) NULL DEFAULT NULL,
+  `order_status` int(10) NULL DEFAULT 1,
   `created_date` datetime(0) NULL DEFAULT NULL,
   `address_delivery` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `name_consumer` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
@@ -6499,7 +6491,7 @@ CREATE TABLE `order`  (
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
@@ -6508,13 +6500,14 @@ INSERT INTO `order` VALUES (57, 25, 1, '2021-06-24 00:00:00', 'Bình Dương', '
 INSERT INTO `order` VALUES (58, 25, 1, '2021-06-24 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 95823000, 3, 0, 54, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (59, 25, 1, '2021-06-24 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 95823000, 3, 0, 55, 'tanhoang99.999@gmail.com', '', b'1');
 INSERT INTO `order` VALUES (60, 25, 1, '2021-06-24 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 63882000, 2, 0, 56, 'tanhoang99.999@gmail.com', '', b'1');
-INSERT INTO `order` VALUES (61, 25, 1, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 17272000, 1, 0, 57, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (62, 25, 1, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 58, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (63, 25, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 59, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (64, 25, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 2016000, 1, 0, 60, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (65, 25, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 2016000, 1, 0, 61, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (66, 25, 0, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
-INSERT INTO `order` VALUES (67, 25, 0, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
+INSERT INTO `order` VALUES (61, 27, 1, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 17272000, 1, 0, 57, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (62, 27, 1, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 58, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (63, 27, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 59, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (64, 27, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 2016000, 1, 0, 60, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (65, 27, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 2016000, 1, 0, 61, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (66, 27, 1, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
+INSERT INTO `order` VALUES (67, 27, 1, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
+INSERT INTO `order` VALUES (68, 27, 1, '2021-07-07 21:52:48', 'An Bình', 'Test Test Test', '0399155950', 55602000, 2, 0, 62, 'tanhoang99.999@gmail.com', '...', b'0');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -6535,14 +6528,14 @@ CREATE TABLE `order_detail`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `chitietdonhang1`(`order_id`) USING BTREE,
   CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_detail
 -- ----------------------------
 INSERT INTO `order_detail` VALUES (66, 57, 1549000, 15490000, 7, '2021-06-19 03:51:54', '2021-06-19 03:51:54', b'0', 1, b'1', 10);
 INSERT INTO `order_detail` VALUES (67, 58, 1549000, 15490000, 7, '2021-06-19 03:53:53', '2021-06-19 03:53:53', b'0', 2, b'1', 10);
-INSERT INTO `order_detail` VALUES (73, 57, 1549000, 15490000, 7, '2021-06-24 08:32:51', '2021-06-24 08:32:51', b'0', 1, b'1', 10);
+INSERT INTO `order_detail` VALUES (73, 57, 1549000, 15490000, 13, '2021-06-24 08:32:51', '2021-06-24 08:32:51', b'0', 1, b'1', 10);
 INSERT INTO `order_detail` VALUES (74, 58, 3549000, 35490000, 10, '2021-06-24 08:54:19', '2021-06-24 08:54:19', b'0', 3, b'1', 10);
 INSERT INTO `order_detail` VALUES (75, 59, 3549000, 35490000, 10, '2021-06-24 08:54:20', '2021-06-24 08:54:20', b'0', 3, b'1', 10);
 INSERT INTO `order_detail` VALUES (76, 60, 3549000, 35490000, 10, '2021-06-24 08:57:14', '2021-06-24 08:57:14', b'0', 2, b'1', 10);
@@ -6553,6 +6546,7 @@ INSERT INTO `order_detail` VALUES (80, 64, 504000, 2520000, 3, '2021-06-28 13:22
 INSERT INTO `order_detail` VALUES (81, 65, 504000, 2520000, 3, '2021-06-28 13:32:22', '2021-06-28 13:32:22', b'0', 1, b'1', 20);
 INSERT INTO `order_detail` VALUES (82, 66, 3089000, 30890000, 1, '2021-06-28 14:14:09', '2021-06-28 14:14:09', b'0', 2, b'1', 10);
 INSERT INTO `order_detail` VALUES (83, 67, 3089000, 30890000, 1, '2021-06-28 14:21:00', '2021-06-28 14:21:00', b'0', 2, b'1', 10);
+INSERT INTO `order_detail` VALUES (84, 68, 3089000, 30890000, 1, '2021-07-07 14:52:49', '2021-07-07 14:52:49', b'0', 2, b'1', 10);
 
 -- ----------------------------
 -- Table structure for order_status
@@ -6591,7 +6585,7 @@ CREATE TABLE `payment`  (
   `url_return` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payment
@@ -6605,6 +6599,7 @@ INSERT INTO `payment` VALUES (58, 25, '2021-06-28 20:18:21', 1394100000, '119.17
 INSERT INTO `payment` VALUES (59, 25, '2021-06-28 20:21:19', 1394100000, '119.17.249.22', 'VND', 'PENDING', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1394100000&vnp_Command=pay&vnp_CreateDate=20210628202119&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/59&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=59&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=696b809bf1e837ce5895fe3ffef3efd6a8cbd7447ab05cea2a78701d2288f69d', NULL, NULL, 'http://localhost:3000/payment-success');
 INSERT INTO `payment` VALUES (60, 25, '2021-06-28 20:22:33', 201600000, '119.17.249.22', 'VND', 'PENDING', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=201600000&vnp_Command=pay&vnp_CreateDate=20210628202233&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/60&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=60&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=bdc3f686bc8b37daea9d83cd56e864b58dd00d7e5ddc53785fbde708be1bcd55', NULL, NULL, 'http://localhost:3000/payment-success');
 INSERT INTO `payment` VALUES (61, 25, '2021-06-28 20:32:22', 201600000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=201600000&vnp_Command=pay&vnp_CreateDate=20210628203222&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/61&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=61&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=91fc1b73ad71193e5859ce90626a6b85313da25d4de497cc88bb6632caf28665', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210628203222&vnp_TxnRef=61&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=5f8d7fa89c27970d6b9ee5944ef1cc33dc501dbe7bcad945886326a05acd9e8f', 'vnp_Amount=201600000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210628203254&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13533921&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=61&vnp_SecureHash=f65c601be1ca164f3fdfa46e87492b53b5c0c927e4fce66534167dce7b3335a2', 'http://localhost:3000/payment-success');
+INSERT INTO `payment` VALUES (62, 27, '2021-07-07 21:52:49', 5560200000, '119.17.249.22', 'VND', 'PENDING', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=5560200000&vnp_Command=pay&vnp_CreateDate=20210707215249&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/62&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=62&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=d259cf2154321f9054f7c2d9a6b0b46d87e99125d6e98f1de06a636af0f5cd96', NULL, NULL, 'https://localhost:25002/test/hello');
 
 -- ----------------------------
 -- Table structure for product_2
@@ -7029,7 +7024,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
 INSERT INTO `users` VALUES (26, 'thiendaopk1@gmail.com', 'Đào  Chí Thiện', '0399115950', 'Thủ Đúc', NULL, b'0', b'1', '9B96DC2A8B1BA2CCF23EDAA930FC83BD', NULL, NULL);
-INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0988766567', '47/16 Đường số 10, khu phố 3, phường Linh Xuân, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
+INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0988766567', '47/16 Đường số 10, khu phố 3, phường Linh Xuân, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '198701FCA0F4CC76F0E05E2FE5F47BA0', NULL, NULL);
 INSERT INTO `users` VALUES (28, 'admin@gmail.com', 'Nguyen Van A', '0988766567', 'Đường số 10, phường Linh Trung, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
 
 -- ----------------------------
