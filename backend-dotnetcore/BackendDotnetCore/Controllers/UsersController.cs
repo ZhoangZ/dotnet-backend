@@ -196,22 +196,29 @@ namespace WebApi.Controllers
         //huy don hang, tham so id
         [HttpPut("orders-manage/deny/{id}")]
         [Authorize]
-        public IActionResult DenyAOrder(int id)
+        public IActionResult DenyAOrder(int id, int _limit =10, int _page = 1)
         {
             OrderEntity orderDeny;
-            UserEntity userEntity = (UserEntity)HttpContext.Items["User"];
-            if (null == (orderDeny = orderDAO.GetOrderByID(id))||orderDeny.UserId != userEntity.Id )
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            HttpContext.Items["User"] = null;//xoa bo nho dem
+            if (null == (orderDeny = orderDAO.GetOrderByID(id))||orderDeny.UserId != user.Id )
             return BadRequest(new { message = "Đơn hàng của bạn không tồn tại!" });
 
             if (true == orderDAO.DenyOrderByID(id))
             {
                 orderDeny.Status = 4;
-                CustomOrderResponse coresp = new CustomOrderResponse();
-                coresp.name = orderDeny.Fullname;
-                coresp.phone = orderDeny.Phone;
-                return Ok(coresp.toOrderResponse(orderDAO.UpdateOrder(orderDeny)));
+                orderDAO.UpdateOrder(orderDeny);//update status order into db
+                //to list
+                List<CustomOrderResponse> listRes = new List<CustomOrderResponse>();
+                List<OrderEntity> list = orderDAO.GetOrdersByUserID(user.Id, _limit, _page);
+
+                listRes = new CustomOrderResponse().toListCustomOrderResponse(list);
+                PageResponse<CustomOrderResponse> pageResponse = new PageResponse<CustomOrderResponse>();
+                pageResponse.Data = listRes;
+                pageResponse.Pagination = new Pagination(_limit, _page, orderDAO.GetCountOrdersByUserID(user.Id));
+                return Ok(pageResponse);
             }
-            return BadRequest(new { message = "Hệ thống đang xảy ra lỗi. Vui lòng thực hiện sau!" });
+            return BadRequest(new { message = "Thông tin đơn hàng muốn hủy không hợp lệ hoặc đơn hàng đã được hủy từ trước!" });
         }
 
         //lay du lieu order bang status
