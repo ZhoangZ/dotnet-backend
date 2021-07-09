@@ -77,9 +77,14 @@ namespace BackendDotnetCore.Entities
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public CommentResponse commentResponse{get;set;}
 
-       
 
 
+        [Column("rating")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int Rating { set; get; }
+        [Column("sum_rating")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int SumRating { set; get; }
 
 
 
