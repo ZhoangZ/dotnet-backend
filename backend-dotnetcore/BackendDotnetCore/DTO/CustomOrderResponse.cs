@@ -75,7 +75,10 @@ namespace BackendDotnetCore.DTO
             {
                 cs.transactionStatus = (orderEntity.Payment.TransactionStatus.ToString() != null) ? orderEntity.Payment.TransactionStatus.ToString() : null;
             }
-
+            if (cs.transactionStatus != null && cs.transactionStatus.Equals("PENDING"))
+            {
+                cs.status = new MyStatusOrder(4, toStatusString(4));//huy
+            }
 
             return cs;
         }

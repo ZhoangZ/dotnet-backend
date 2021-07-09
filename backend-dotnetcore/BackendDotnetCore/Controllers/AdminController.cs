@@ -1,6 +1,7 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.DTO;
 using BackendDotnetCore.Entities;
+using BackendDotnetCore.Forms;
 using BackendDotnetCore.Helpers;
 using BackendDotnetCore.Models;
 using BackendDotnetCore.Services;
@@ -243,5 +244,21 @@ namespace BackendDotnetCore.Controllers
             pageResponse.Pagination = new Pagination(_limit, _page, new CommentDAO().GetCountComments());
             return Ok(pageResponse);
         }
+
+        /*
+         * ADMIN THỐNG KÊ API CHART (DỮ LIỆU HIỆN TẠI ĐANG LÀ DỮ LIỆU GIẢ)
+         * Doanh thu theo tháng (tháng, doanh thu) + Thống kê thể loại bán được (tên hãng, số tiền, số lượng)
+         */
+        [HttpGet("thong-ke")]
+        [Authorize]
+        public IActionResult getChartData()
+        {
+            UserEntity userAction = (UserEntity) HttpContext.Items["User"];
+            if (!userAction.IsAdmin) return BadRequest(new { message = "Giới hạn bởi quyền truy cập. Hãy thử với tài khoản quản trị viên!" });
+            HttpContext.Items["User"] = null;//xoa bo nho dem
+            BieuDo bieuDo = new BieuDo();//du lieu fake
+            return Ok(bieuDo);
+        }
+
     }
 }
