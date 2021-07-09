@@ -16,7 +16,7 @@ namespace BackendDotnetCore.Configurations
             builder.HasKey(e => e.id);
             builder.Property(e => e.content).IsRequired().HasColumnName("content");
 
-           // builder.HasOne(x => x.user).WithOne(u => u.comment).IsRequired().HasForeignKey<UserEntity>(e => e.Id);
+            builder.HasOne(x => x.user).WithMany(u => u.comments).HasForeignKey(x => x.userID);//moi them include voi user
             builder.Property(x => x.productID).HasColumnName("product_id").IsRequired();
             builder.HasOne(x => x.Product).WithMany(p => p.comments).IsRequired();
 

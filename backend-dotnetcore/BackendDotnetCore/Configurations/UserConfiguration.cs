@@ -20,7 +20,8 @@ namespace BackendDotnetCore.Configurations
             .UsePropertyAccessMode(PropertyAccessMode.Property);
             //builder.Navigation(b => b.Cart).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-
+            builder.Navigation(b => b.comments)//moi them
+      .UsePropertyAccessMode(PropertyAccessMode.Property);
 
 
             /*builder.HasOne(a => a.roleCreate)

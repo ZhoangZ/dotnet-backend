@@ -27,7 +27,18 @@ namespace BackendDotnetCore.Entities
         public virtual Product2 Product { set; get; }
         public int productID { set; get; }
 
-     
+        [NotMapped]
+        public string fullName
+        {
+            set
+            {
+                this.fullName = this.user.Fullname;
+            }
+            get
+            {
+                return this.user.Fullname;
+            }
+        }
 
 
         public override String ToString()

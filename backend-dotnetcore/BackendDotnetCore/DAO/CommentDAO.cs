@@ -1,5 +1,6 @@
 ﻿using BackendDotnetCore.EF;
 using BackendDotnetCore.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +27,9 @@ namespace BackendDotnetCore.DAO
                 productID = commentEntity.productID,
                 userID = commentEntity.userID,
                 rate = commentEntity.rate,
-                createdDate = commentEntity.createdDate
+                createdDate = commentEntity.createdDate,
             };
+            dbContext.Entry(commentEntity).Reference(x => x.user).IsModified = false;//moi them vao
             dbContext.Comments.Add(cmt);
             dbContext.SaveChanges();
             return cmt.id;
@@ -37,7 +39,9 @@ namespace BackendDotnetCore.DAO
         public ICollection<CommentEntity> getAllByProductID(int productID)
         {
             List<CommentEntity> listRs = new List<CommentEntity>();
-            var ls = dbContext.Comments.Where(x => x.active == 1 && x.Product.Id == productID).ToList<CommentEntity>();
+            var ls = dbContext.Comments.Include(d => d.user)
+                                    .ThenInclude(s => s.comments)
+                .Where(x => x.active == 1 && x.Product.Id == productID).ToList<CommentEntity>();
             if (null != ls) listRs = ls;
             Console.WriteLine(ls.Count);
             return listRs;
