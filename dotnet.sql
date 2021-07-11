@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 09/07/2021 12:31:57
+ Date: 11/07/2021 14:53:36
 */
 
 SET NAMES utf8mb4;
@@ -6489,7 +6489,7 @@ CREATE TABLE `order`  (
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
@@ -6507,6 +6507,7 @@ INSERT INTO `order` VALUES (66, 27, 1, '0001-01-01 00:00:00', 'An Bình', 'Lê T
 INSERT INTO `order` VALUES (67, 27, 1, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
 INSERT INTO `order` VALUES (68, 27, 1, '2021-07-07 21:52:48', 'An Bình', 'Test Test Test', '0399155950', 55602000, 2, 0, 62, 'tanhoang99.999@gmail.com', '...', b'0');
 INSERT INTO `order` VALUES (69, 25, 1, '2021-07-08 20:56:50', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 63, 'tanhoang99.999@gmail.com', '...', b'0');
+INSERT INTO `order` VALUES (70, 25, 1, '2021-07-11 14:16:26', 'Bình Dương', 'Tấn Hoàng', '0399115950', 710101, 1, 0, 64, 'tanhoang99.999@gmail.com', '', b'0');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -6527,7 +6528,7 @@ CREATE TABLE `order_detail`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `chitietdonhang1`(`order_id`) USING BTREE,
   CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 86 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_detail
@@ -6547,6 +6548,7 @@ INSERT INTO `order_detail` VALUES (82, 66, 3089000, 30890000, 1, '2021-06-28 14:
 INSERT INTO `order_detail` VALUES (83, 67, 3089000, 30890000, 1, '2021-06-28 14:21:00', '2021-06-28 14:21:00', b'0', 2, b'1', 10);
 INSERT INTO `order_detail` VALUES (84, 68, 3089000, 30890000, 1, '2021-07-07 14:52:49', '2021-07-07 14:52:49', b'0', 2, b'1', 10);
 INSERT INTO `order_detail` VALUES (85, 69, 3089000, 30890000, 1, '2021-07-08 13:56:50', '2021-07-08 13:56:50', b'0', 2, b'1', 10);
+INSERT INTO `order_detail` VALUES (86, 70, 78900, 789001, 61, '2021-07-11 07:16:27', '2021-07-11 07:16:27', b'0', 1, b'1', 10);
 
 -- ----------------------------
 -- Table structure for order_status
@@ -6585,7 +6587,7 @@ CREATE TABLE `payment`  (
   `url_return` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payment
@@ -6601,6 +6603,7 @@ INSERT INTO `payment` VALUES (60, 25, '2021-06-28 20:22:33', 201600000, '119.17.
 INSERT INTO `payment` VALUES (61, 25, '2021-06-28 20:32:22', 201600000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=201600000&vnp_Command=pay&vnp_CreateDate=20210628203222&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/61&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=61&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=91fc1b73ad71193e5859ce90626a6b85313da25d4de497cc88bb6632caf28665', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210628203222&vnp_TxnRef=61&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=5f8d7fa89c27970d6b9ee5944ef1cc33dc501dbe7bcad945886326a05acd9e8f', 'vnp_Amount=201600000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210628203254&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13533921&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=61&vnp_SecureHash=f65c601be1ca164f3fdfa46e87492b53b5c0c927e4fce66534167dce7b3335a2', 'http://localhost:3000/payment-success');
 INSERT INTO `payment` VALUES (62, 27, '2021-07-07 21:52:49', 5560200000, '119.17.249.22', 'VND', 'PENDING', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=5560200000&vnp_Command=pay&vnp_CreateDate=20210707215249&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/62&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=62&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=d259cf2154321f9054f7c2d9a6b0b46d87e99125d6e98f1de06a636af0f5cd96', NULL, NULL, 'https://localhost:25002/test/hello');
 INSERT INTO `payment` VALUES (63, 25, '2021-07-08 20:56:53', 5560200000, '119.17.249.22', 'VND', 'PENDING', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=5560200000&vnp_Command=pay&vnp_CreateDate=20210708205653&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/63&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=63&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=40921c799862b8886201ce012cf815eae4bad9c37746f6e3b46ed849472849dc', NULL, NULL, 'https://localhost:25002/test/hello');
+INSERT INTO `payment` VALUES (64, 25, '2021-07-11 14:16:27', 71010100, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=71010100&vnp_Command=pay&vnp_CreateDate=20210711141627&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/64&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=64&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=d54d8019c9e55410bf965545f8b60f10b38a4b16f34e09ba20652b098fc43bde', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210711141627&vnp_TxnRef=64&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=6acab5de6553fb132084b9274ec8b66a0a17451572d3ba45a1be962050b64002', 'vnp_Amount=71010100&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210711211627&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13542218&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=64&vnp_SecureHash=7a3c5765428545edfb8a5b847ade778de1cc8fca97ce79fc742d86296981e887', 'http://localhost:3000/payment-success');
 
 -- ----------------------------
 -- Table structure for product_2
@@ -6919,6 +6922,28 @@ INSERT INTO `ram` VALUES (11, '2200 GB', b'1', b'1');
 INSERT INTO `ram` VALUES (12, '12313', b'1', b'0');
 
 -- ----------------------------
+-- Table structure for revenue
+-- ----------------------------
+DROP TABLE IF EXISTS `revenue`;
+CREATE TABLE `revenue`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `deleted` bit(1) NULL DEFAULT b'0',
+  `create_at` datetime(0) NULL DEFAULT utc_timestamp,
+  `update_at` datetime(0) NULL DEFAULT utc_timestamp,
+  `month` int(255) NULL DEFAULT NULL,
+  `year` int(255) NULL DEFAULT NULL,
+  `money` decimal(60, 0) UNSIGNED NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `unque_key`(`month`, `year`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of revenue
+-- ----------------------------
+INSERT INTO `revenue` VALUES (53, b'0', '2021-07-11 07:16:52', '2021-07-11 07:16:52', 7, 2021, 710101);
+INSERT INTO `revenue` VALUES (54, b'0', '2021-06-01 07:19:02', '2021-06-30 07:19:02', 6, 2021, 500000);
+
+-- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -7198,6 +7223,28 @@ CREATE TRIGGER `before_update_payment` BEFORE UPDATE ON `payment` FOR EACH ROW B
 -- 				 UPDATE `order` set `order`.cod=0 WHERE `order`.payment_id=new.id;
 -- 			end if;
 
+	 END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Triggers structure for table payment
+-- ----------------------------
+DROP TRIGGER IF EXISTS `after_update_payment`;
+delimiter ;;
+CREATE TRIGGER `after_update_payment` AFTER UPDATE ON `payment` FOR EACH ROW BEGIN
+				
+				
+			if old.transaction_Status <> new.transaction_Status and new.transaction_Status = 'SUCCESS' then			
+				SET @_year = YEAR(NOW());
+				SET @_month = MONTH(NOW());
+				SELECT revenue.id  into @revenue_id	FROM revenue WHERE revenue.`year` = YEAR(NOW()) and revenue.`month` = MONTH(NOW());
+				if @revenue_id is null then 				
+					insert  INTO revenue (`month`, `year`) VALUES( @_month, @_year);
+				end if;				
+				UPDATE revenue SET revenue.money=revenue.money+new.amount/100 WHERE revenue.`year` = @_year and revenue.`month` =  @_month;	
+		
+		end if;
 	 END
 ;;
 delimiter ;

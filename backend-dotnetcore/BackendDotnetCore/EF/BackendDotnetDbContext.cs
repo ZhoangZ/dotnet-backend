@@ -12,6 +12,7 @@ namespace BackendDotnetCore.EF
         public DbSet<Brand> Brands { get; set; }
         public DbSet<PaymentEntity> Payments { get; set; }
         public DbSet<RomEntity> Roms { get; set; }
+        public DbSet<RevenueEntity> Revenues { get; set; }
         public DbSet<RamEntity> Rams { get; set; }
        
         public DbSet<Product2> Products { get; set; }
