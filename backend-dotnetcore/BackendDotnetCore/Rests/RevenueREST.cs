@@ -136,6 +136,25 @@ namespace BackendDotnetCore.Rests
 
         }
 
+        [HttpGet("chart/quantity")]
+        [Authorize]
+        public ActionResult chartQuantity()
+        {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+            if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+            int year = DateTime.Now.Year;
+            var entitys = revenueEntityDAO.getEntitys(year);
+            if (entitys == null) return BadRequest("Năm nay chưa có thông tin ");
+            var a = entitys.Select(x => new { name = x.Month, quantity = x.Quantity });
+            return Ok(a);
+
+        }
+
         [HttpGet("chart/money/year/{year}")]
         [Authorize]
         public ActionResult chartMoney(int year)
@@ -154,6 +173,26 @@ namespace BackendDotnetCore.Rests
             return Ok(a);
 
         }
+
+        [HttpGet("chart/quantity/year/{year}")]
+        [Authorize]
+        public ActionResult chartQuantity(int year)
+        {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+            if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+
+            var entitys = revenueEntityDAO.getEntitys(year);
+            if (entitys == null) return BadRequest("Năm nay chưa có thông tin ");
+            var a = entitys.Select(x => new { name = x.Month, Quantity = x.Quantity });
+            return Ok(a);
+
+        }
+
 
     }
 }
