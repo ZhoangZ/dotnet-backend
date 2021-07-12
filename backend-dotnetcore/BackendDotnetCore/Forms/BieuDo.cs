@@ -33,18 +33,18 @@ namespace BackendDotnetCore.Forms
         public static List<Thang> createdDataFake()
         {
             List<Thang> list = new List<Thang>();
-            list.Add(new Thang("1", 170000000L));
-            list.Add(new Thang("2", 210000000L));
-            list.Add(new Thang("3", 227000000L));
-            list.Add(new Thang("4", 227568000L));
-            list.Add(new Thang("5", 231750000L));
-            list.Add(new Thang("6", 197589000L));
-            list.Add(new Thang("7", 210195000L));
-            list.Add(new Thang("8", 198890000L));
-            list.Add(new Thang("9", 221989000L));
-            list.Add(new Thang("10", 250000000L));
-            list.Add(new Thang("11", 191159000L));
-            list.Add(new Thang("12", 285598500L));
+            list.Add(new Thang("1", 17));
+            list.Add(new Thang("2", 21));
+            list.Add(new Thang("3", 22));
+            list.Add(new Thang("4", 22));
+            list.Add(new Thang("5", 23));
+            list.Add(new Thang("6", 19));
+            list.Add(new Thang("7", 21));
+            list.Add(new Thang("8", 0));
+            list.Add(new Thang("9", 0));
+            list.Add(new Thang("10", 0));
+            list.Add(new Thang("11", 0));
+            list.Add(new Thang("12", 0));
 
             return list;
         }
@@ -72,14 +72,14 @@ namespace BackendDotnetCore.Forms
         {
             List<TheLoai> ls = new List<TheLoai>();
             //samsung, xiaomi, huawei, realmi, oppo,vsmat, apple, nokia
-            ls.Add(new TheLoai("SamSung", 75559000L, 57));
-            ls.Add(new TheLoai("Xiaomi", 57709000L, 46));
-            ls.Add(new TheLoai("Huawei", 25590000L, 24));
-            ls.Add(new TheLoai("Realmi", 75559000L, 57));
-            ls.Add(new TheLoai("Oppo", 35597000L, 26));
-            ls.Add(new TheLoai("VSmart", 34590000L, 30));
-            ls.Add(new TheLoai("Apple", 105597000L, 25));
-            ls.Add(new TheLoai("Nokia", 17457000L, 17));
+            ls.Add(new TheLoai("SamSung", 175, 57));
+            ls.Add(new TheLoai("Xiaomi", 150, 46));
+            ls.Add(new TheLoai("Huawei", 70, 24));
+            ls.Add(new TheLoai("Realmi", 17, 57));
+            ls.Add(new TheLoai("Oppo", 12, 26));
+            ls.Add(new TheLoai("VSmart", 15, 30));
+            ls.Add(new TheLoai("Apple", 350, 25));
+            ls.Add(new TheLoai("Nokia", 17, 17));
             return ls;
         }
     }
