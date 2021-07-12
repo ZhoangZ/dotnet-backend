@@ -33,18 +33,18 @@ namespace BackendDotnetCore.Forms
         public static List<Thang> createdDataFake()
         {
             List<Thang> list = new List<Thang>();
-            list.Add(new Thang("January", 170000000L));
-            list.Add(new Thang("February", 210000000L));
-            list.Add(new Thang("March", 227000000L));
-            list.Add(new Thang("April", 227568000L));
-            list.Add(new Thang("May", 231750000L));
-            list.Add(new Thang("June", 197589000L));
-            list.Add(new Thang("July", 210195000L));
-            list.Add(new Thang("August", 198890000L));
-            list.Add(new Thang("September", 221989000L));
-            list.Add(new Thang("October", 250000000L));
-            list.Add(new Thang("November", 191159000L));
-            list.Add(new Thang("December", 285598500L));
+            list.Add(new Thang("1", 170000000L));
+            list.Add(new Thang("2", 210000000L));
+            list.Add(new Thang("3", 227000000L));
+            list.Add(new Thang("4", 227568000L));
+            list.Add(new Thang("5", 231750000L));
+            list.Add(new Thang("6", 197589000L));
+            list.Add(new Thang("7", 210195000L));
+            list.Add(new Thang("8", 198890000L));
+            list.Add(new Thang("9", 221989000L));
+            list.Add(new Thang("10", 250000000L));
+            list.Add(new Thang("11", 191159000L));
+            list.Add(new Thang("12", 285598500L));
 
             return list;
         }
