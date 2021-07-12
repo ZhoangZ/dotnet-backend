@@ -67,9 +67,10 @@ namespace BackendDotnetCore.Rests
 
             if (now == null ) return BadRequest("Tháng này chưa có thông tin ");
             if (before == null) return BadRequest("Tháng trước chưa có thông tin");
-            decimal rising=((now.Money - before.Money) / before.Money) * 100;
+            decimal risingMoney = ((now.Money - before.Money) / before.Money) * 100;
+            decimal risingQuantity = ((now.Quantity - before.Quantity) / before.Quantity) * 100;
             //Console.WriteLine("rising" + rising);
-            return Ok(new {now=now, before=before, rising= rising });
+            return Ok(new {now=now, before=before, risingMoney= Math.Round(risingMoney,2) , risingQuantity= Math.Round(risingQuantity,2) });
 
         }
 
@@ -87,9 +88,11 @@ namespace BackendDotnetCore.Rests
             int year = DateTime.Now.Year;
           
             var now = revenueEntityDAO.sumYearMoney(year);          
+            var now2 = revenueEntityDAO.sumYearQuantity(year);
 
-         
-            return Ok(new { sumMoneyOfYear = now});
+
+
+            return Ok(new { sumMoneyOfYear = now, sumQuantityOfYear = now2});
 
         }
 
@@ -104,12 +107,14 @@ namespace BackendDotnetCore.Rests
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
             if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
-           
+
 
             var now = revenueEntityDAO.sumYearMoney(year);
-           // if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+            var now2 = revenueEntityDAO.sumYearQuantity(year);
 
-            return Ok(new { sumMoneyOfYear = now });
+
+
+            return Ok(new { sumMoneyOfYear = now, sumQuantityOfYear = now2 });
 
         }
 
