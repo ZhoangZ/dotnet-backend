@@ -67,9 +67,10 @@ namespace BackendDotnetCore.Rests
 
             if (now == null ) return BadRequest("Tháng này chưa có thông tin ");
             if (before == null) return BadRequest("Tháng trước chưa có thông tin");
-            decimal rising=((now.Money - before.Money) / before.Money) * 100;
+            decimal risingMoney = ((now.Money - before.Money) / before.Money) * 100;
+            decimal risingQuantity = ((now.Quantity - before.Quantity) / before.Quantity) * 100;
             //Console.WriteLine("rising" + rising);
-            return Ok(new {now=now, before=before, rising= rising });
+            return Ok(new {now=now, before=before, risingMoney= Math.Round(risingMoney,2) , risingQuantity= Math.Round(risingQuantity,2) });
 
         }
 
@@ -87,9 +88,11 @@ namespace BackendDotnetCore.Rests
             int year = DateTime.Now.Year;
           
             var now = revenueEntityDAO.sumYearMoney(year);          
+            var now2 = revenueEntityDAO.sumYearQuantity(year);
 
-         
-            return Ok(new { sumMoneyOfYear = now});
+
+
+            return Ok(new { sumMoneyOfYear = now, sumQuantityOfYear = now2});
 
         }
 
@@ -104,12 +107,14 @@ namespace BackendDotnetCore.Rests
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
             if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
-           
+
 
             var now = revenueEntityDAO.sumYearMoney(year);
-           // if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+            var now2 = revenueEntityDAO.sumYearQuantity(year);
 
-            return Ok(new { sumMoneyOfYear = now });
+
+
+            return Ok(new { sumMoneyOfYear = now, sumQuantityOfYear = now2 });
 
         }
 
@@ -136,6 +141,25 @@ namespace BackendDotnetCore.Rests
 
         }
 
+        [HttpGet("chart/quantity")]
+        [Authorize]
+        public ActionResult chartQuantity()
+        {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+            if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+            int year = DateTime.Now.Year;
+            var entitys = revenueEntityDAO.getEntitys(year);
+            if (entitys == null) return BadRequest("Năm nay chưa có thông tin ");
+            var a = entitys.Select(x => new { name = x.Month, quantity = x.Quantity });
+            return Ok(a);
+
+        }
+
         [HttpGet("chart/money/year/{year}")]
         [Authorize]
         public ActionResult chartMoney(int year)
@@ -154,6 +178,26 @@ namespace BackendDotnetCore.Rests
             return Ok(a);
 
         }
+
+        [HttpGet("chart/quantity/year/{year}")]
+        [Authorize]
+        public ActionResult chartQuantity(int year)
+        {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+            if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+
+            var entitys = revenueEntityDAO.getEntitys(year);
+            if (entitys == null) return BadRequest("Năm nay chưa có thông tin ");
+            var a = entitys.Select(x => new { name = x.Month, Quantity = x.Quantity });
+            return Ok(a);
+
+        }
+
 
     }
 }

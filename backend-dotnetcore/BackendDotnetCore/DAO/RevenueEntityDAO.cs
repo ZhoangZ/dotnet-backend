@@ -60,6 +60,16 @@ namespace BackendDotnetCore.DAO
 
         }
 
+        public decimal sumYearQuantity(int year)
+
+        {
+
+            var tmp = dbContext.Revenues.Where(s => s.Year == year).Sum(i => i.Quantity);
+
+            return tmp;
+
+        }
+
         public RevenueEntity AddEntity(RevenueEntity Product)
         {
             dbContext.Revenues.Add(Product);

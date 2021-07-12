@@ -30,6 +30,11 @@ namespace BackendDotnetCore.Entities
         [Column("money")]        
         public decimal Money { set; get; }
 
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Column("quantity")]
+        public decimal Quantity { set; get; }
+
         [Column("UPDATE_AT")]
         public DateTime UpdatedAt { get; set; }
 

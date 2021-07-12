@@ -102,6 +102,10 @@ namespace BackendDotnetCore.Rests
             }
             catch (Exception e)
             {
+                if (e.InnerException != null)
+                {
+                    Console.WriteLine(e.InnerException.Message);
+                }
                 return BadRequest(new { err=e.Message });
             }
 
