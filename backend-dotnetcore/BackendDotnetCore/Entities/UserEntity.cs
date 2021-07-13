@@ -68,6 +68,15 @@ namespace BackendDotnetCore.Entities
         [NotMapped]
         public static string EmailAdminFinal = "trandiem1006@gmail.com";
 
+        public bool updateRole(RoleEntity role)
+        {
+            UserRoles = new List<UserRole>();
+            UserRole ur = new UserRole();
+            ur.Role = role;
+            UserRoles.Add(ur);
 
+            return this.UserRoles.Count > 0 ? true : false;
+        }
+       
     }
 }

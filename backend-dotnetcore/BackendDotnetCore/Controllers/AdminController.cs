@@ -8,6 +8,7 @@ using BackendDotnetCore.Services;
 using BackendDotnetCore.Ultis;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,6 +99,58 @@ namespace BackendDotnetCore.Controllers
             return false;
         }
         
+        //admin create new account
+        [HttpPost("users/new")]
+        [Authorize]
+        public IActionResult createdNewAccount([FromBody] RegisterForm registerForm)
+        {
+            //lay tai khoan dang dang nhap tu token
+            UserEntity userAction = (UserEntity)HttpContext.Items["User"];
+            if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Vui lòng thử lại với tài khoản quản trị viên!"});
+            HttpContext.Items["User"] = null;//xoa du lieu bo nho
+            if (null != userDAO.getOneByEmail(registerForm.email)) return BadRequest(new { message = "Email đã tồn tại trong hệ thống. Thử lại với email khác!" });
+            if (registerForm.checkInfo().Equals("success"))
+            {
+                UserEntity userEntity = registerForm.parseEntity();
+                userEntity.Active = 1;
+                RoleEntity role = userDAO.GetRoleByID(registerForm.role);
+                UserRole us = new UserRole();
+                us.Role = role;
+                us.User = userEntity;
+                userEntity.UserRoles.Add(us);
+                userEntity.Password = EncodeUltis.MD5(userEntity.Password);
+
+                UserEntity uResp = userDAO.Save(userEntity);
+                if (uResp.Id == 0) return BadRequest(new { message = "Không thể lưu dữ liệu. Hệ thống đang gặp sự cố. Quay lại sau!" });
+                //lưu thành công
+                return Ok(userDAO.GetListUsers());
+            }
+            else
+            {
+                return BadRequest(new { message = registerForm.checkInfo() });
+            }
+        }
+        
+        //admin modify role of an account
+        [HttpPut("users/role/{id}")]
+        [Authorize]
+        public IActionResult updateRoleUserByID(int id, [FromBody] Object role)
+        {
+            //access user acction
+            UserEntity userAction = (UserEntity) HttpContext.Items["User"];
+            if (!userAction.IsAdmin) return BadRequest("Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!");
+            HttpContext.Items["User"] = null;//xoa bo nho dem
+
+            UserEntity userEdited;
+            if (null == (userEdited = userDAO.getOneById(id))) return BadRequest("Thông tin mã người dùng không hợp lệ!");
+            //todo 
+            bool updated = userEdited.updateRole(userDAO.GetRoleByID(role));
+            //update into db
+            userDAO.Save(userEdited);
+            return updated==true?Ok(userDAO.GetListUsers()):BadRequest("Hệ thống không thể cập nhật quyền truy cập người dùng. Thử lại sau!");
+        }
+        
+
 
         /*
          * ADMIN ORDERS MANAGEMENT

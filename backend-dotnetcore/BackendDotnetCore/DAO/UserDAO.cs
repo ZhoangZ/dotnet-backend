@@ -17,7 +17,6 @@ namespace BackendDotnetCore.DAO
             this.dbContext = new BackendDotnetDbContext();
         }
 
-
         //phuong thuc insert into table user
         public UserEntity Save(UserEntity userEntity)
         {
@@ -85,8 +84,13 @@ namespace BackendDotnetCore.DAO
         {
             var role = dbContext.roles.Where(x => x.Type == "2");
 
-            return role.FirstOrDefault(); ;
+            return role.FirstOrDefault(); 
 
+        }
+        public RoleEntity GetRoleByID(int id)
+        {
+            var role = dbContext.roles.Where(x => x.Id == id);
+            return role.FirstOrDefault();
         }
         public UserEntity GetUserFirst()
         {

@@ -51,8 +51,10 @@ namespace BackendDotnetCore.DAO
             return roles.ToList();
         }
 
-
-        
-
+        public RoleEntity getOneByID(int role)
+        {
+            var re = dbContext.roles.Where(x => x.Id == role).SingleOrDefault();
+            return re;
+        }
     }
 }

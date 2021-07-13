@@ -15,6 +15,7 @@ namespace BackendDotnetCore.Forms
         public string fullname { set; get; }
         public string phone { set; get; }
         public string address { set; get; }
+        public int role { set; get; }
 
         public string checkInfo()
         {
