@@ -132,9 +132,9 @@ namespace BackendDotnetCore.Controllers
         }
         
         //admin modify role of an account
-        [HttpPut("users/role/{id}")]
+        [HttpPut("users/role/{id}/{role}")]
         [Authorize]
-        public IActionResult updateRoleUserByID(int id, [FromBody] Object role)
+        public IActionResult updateRoleUserByID(int id, int role)
         {
             //access user acction
             UserEntity userAction = (UserEntity) HttpContext.Items["User"];

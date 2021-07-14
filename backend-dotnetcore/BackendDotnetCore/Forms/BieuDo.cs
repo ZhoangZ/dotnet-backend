@@ -1,4 +1,5 @@
-﻿using BackendDotnetCore.Entities;
+﻿using BackendDotnetCore.DAO;
+using BackendDotnetCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace BackendDotnetCore.Forms
             list.Add(new Thang("4", 22));
             list.Add(new Thang("5", 23));
             list.Add(new Thang("6", 19));
-            list.Add(new Thang("7", 21));
+            list.Add(new Thang("7", (long) new RevenueEntityDAO().getEntity(DateTime.Now.Year, 7).Money));
             list.Add(new Thang("8", 0));
             list.Add(new Thang("9", 0));
             list.Add(new Thang("10", 0));
