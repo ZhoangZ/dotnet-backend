@@ -77,6 +77,7 @@ namespace BackendDotnetCore.Entities
 
             return this.UserRoles.Count > 0 ? true : false;
         }
+
        
     }
 }

@@ -17,6 +17,8 @@ using System.Collections;
 using BackendDotnetCore.DTO;
 using BackendDotnetCore.Helpers;
 using BackendDotnetCore.Models;
+using BackendDotnetCore.FileProcess;
+using System.IO;
 
 namespace WebApi.Controllers
 {
@@ -166,7 +168,49 @@ namespace WebApi.Controllers
             }
         }
         //END
-       
+        //update user info version 2
+        [HttpPut("edit-version2")]
+        public async Task<IActionResult> EditUserInfoVersion2Async([FromForm] UserEntity info, [FromForm] IFormFile fileAvatar)
+        {
+            //getuser action 
+            UserEntity ueUpdate = (UserEntity) HttpContext.Items["User"];
+            if (null == ueUpdate) return BadRequest(new { message = "Vui lòng đăng nhập để sử dụng chức năng này!" });
+            //xoa bo nhơ đệm
+            HttpContext.Items["User"] = null;
+            string nameImage = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + ueUpdate.Id;
+            string filePath = FileProcess.getFullPath("image-avatar\\" + nameImage);
+            info.Avatar = nameImage;
+            Console.WriteLine("avatar update = " + info.Avatar);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await fileAvatar.CopyToAsync(stream);
+            }
+
+            if (null != ueUpdate)
+            {
+                info.Id = ueUpdate.Id;
+                info.Password = ueUpdate.Password;
+                if (!ueUpdate.Email.Equals(info.Email))
+                    if (_userService.checkEmail(info.Email) == true) return BadRequest(new { message = "Email cập nhật đã tồn tại trong hệ thống! Thử lại với một mail khác." });
+                ueUpdate = info;
+                ueUpdate.UserRoles = new UserRoleDAO().getAllRoleOfUserId(ueUpdate.Id);
+                bool updated = _userService.save(ueUpdate);
+                if (updated == true)
+                {
+                    return Ok(_userService.createUserJWT(ueUpdate));
+                }
+                else
+                {
+                    return BadRequest(new { message = "Hệ thống đang gặp sự cố!" });
+                }
+            }
+            else
+            {
+                return BadRequest(new { message = "Có lỗi xảy ra với user!" });
+            }
+        }
+        //END
+
         /*
          * USER ORDER MANAGEMENT
          * 

@@ -36,7 +36,7 @@ namespace BackendDotnetCore.Controllers
         {
             if (userDAO.getOneByEmail(loginForm.Email) == null) return BadRequest(new { message = "Email không tồn tại trong hệ thống!" });
             var response = _userService.loginAuthenticateByEmail(loginForm);
-            if (response == null) return BadRequest(new { message = "Mật khẩu không đúng!" });
+            if (response == null) return BadRequest(new { message = "Mật khẩu hoặc email không đúng!" });
 
             //Lấy Cart
             CartEntity c = cartDAO.getCart(response.user.Id);
