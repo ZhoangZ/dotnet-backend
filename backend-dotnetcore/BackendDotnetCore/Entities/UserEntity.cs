@@ -74,6 +74,7 @@ namespace BackendDotnetCore.Entities
             UserRole ur = new UserRole();
             ur.Role = role;
             UserRoles.Add(ur);
+            Console.WriteLine("role of user after update = " + ur.Id +", "+ ur.Role.Name);
 
             return this.UserRoles.Count > 0 ? true : false;
         }

@@ -118,15 +118,19 @@ namespace WebApi.Controllers
             //check timeout for opt code
         }
 
+        [Authorize]
         [HttpPost("update-pass")]
         public IActionResult UpdatePassword(ResetPassForm form)
         {
-            if(form.id==0) return BadRequest(new { message = "Thông tin request không hợp lệ 'id = 0'!" });
-            UserEntity ueUpdate = _userService.getUserById(form.id);
+            //if(form.id==0) return BadRequest(new { message = "Thông tin request không hợp lệ 'id = 0'!" });
+            //UserEntity ueUpdate = _userService.getUserById(form.id);
+            UserEntity ueUpdate = (UserEntity) HttpContext.Items["User"];
+            HttpContext.Items["User"] = null;
+
             if (null != ueUpdate)
             {
                 form.currentPass = EncodeUltis.MD5(form.currentPass);//check password hiện tại có đúng không ?
-                if (form.checkOldPass(ueUpdate.Password) == false) return BadRequest(new { message = "Mật khẩu hiện tại không đúng!"});
+                if (form.checkOldPass(ueUpdate.Password) == false) return BadRequest(new { message = "Mật khẩu hiện tại không đúng!" });
                 if (form.checkRepass() == false) return BadRequest(new { message = "Mật khẩu không trùng khớp!" });
                 form.newpass = EncodeUltis.MD5(form.newpass);
                 if (form.checkNewPassEqualsOldPass(ueUpdate.Password) == true) return BadRequest(new { message = "Mật khẩu mới hiện tại đang được sử dụng. Hãy thử với mật khẩu mới!" });
@@ -137,13 +141,19 @@ namespace WebApi.Controllers
 
                 return Ok(_userService.createUserJWT(ueUpdate));
             }
-            return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thực hiện sau!" });
+            else
+            {
+                return BadRequest(new { message = "Hệ thống đang gặp sự cố. Vui lòng thực hiện sau!" });
+            }
         }
 
+        [Authorize]
         [HttpPut("edit/{id}")]
         public IActionResult EditUserInfo(int id, UserEntity info)
         {
-            UserEntity ueUpdate = _userService.getUserById(id);
+            //UserEntity ueUpdate = _userService.getUserById(id);
+            UserEntity ueUpdate = (UserEntity) HttpContext.Items["User"];
+            HttpContext.Items["User"] = null;
             if (null != ueUpdate)
             {
                 info.Id = id;
@@ -297,6 +307,8 @@ namespace WebApi.Controllers
         public IActionResult GetListMyOrder(int _orderID = 0, int _status = 0, int _limit = 10, int _page = 1)
         {
             UserEntity user = (UserEntity)HttpContext.Items["User"];
+            if (user == null) return BadRequest(new { message = "Vui lòng đăng nhập trước khi sử dụng chức năng này!" });
+           
             if (_orderID == 0)
             {
                 List<CustomOrderResponse> listRes = new List<CustomOrderResponse>();

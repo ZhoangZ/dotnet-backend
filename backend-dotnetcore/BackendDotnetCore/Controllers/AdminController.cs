@@ -55,15 +55,16 @@ namespace BackendDotnetCore.Controllers
         //admin get all users
         [HttpGet("users")]
         [Authorize]
-        public List<UserEntity> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
             //lay tai khoan dang dang nhap tu token
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
             Console.WriteLine("userAction = "+userAction.ToString());
-            if (userDAO.isAdmin(userAction.Id) == false) return new List<UserEntity>();
+            if (null == userAction) return BadRequest(new { message = "Vui lòng đăng nhập trước khi sử dụng chức năng này!" });
+            else if (userAction.IsAdmin == false) return BadRequest(new { message = "Không có quyền truy xuất. Thử lại với tài khoản quản trị viên." });
 
             List<UserEntity> users = userDAO.GetListUsers();
-            return users;
+            return Ok(users);
         }
 
         //admin blocked and unblocked a account user
@@ -73,7 +74,8 @@ namespace BackendDotnetCore.Controllers
         {
             //lay tai khoan dang dang nhap tu token
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
-            if (userAction.IsAdmin == false) return BadRequest(new { message = "Không có quyền truy xuất. Thử lại với tài khoản quản trị viên." });
+            if (null == userAction) return BadRequest(new { message = "Vui lòng đăng nhập trước khi sử dụng chức năng này!" });
+            else if (userAction.IsAdmin == false) return BadRequest(new { message = "Không có quyền truy xuất. Thử lại với tài khoản quản trị viên." });
 
             UserEntity userBlocked;
             if (null == (userBlocked = userDAO.getOneById(userID)))
@@ -106,7 +108,8 @@ namespace BackendDotnetCore.Controllers
         {
             //lay tai khoan dang dang nhap tu token
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
-            if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Vui lòng thử lại với tài khoản quản trị viên!"});
+            if (userAction == null) return BadRequest(new { message = "Vui lòng đăng nhập trước khi sử dụng chức năng này!" });
+            else if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Vui lòng thử lại với tài khoản quản trị viên!"});
             HttpContext.Items["User"] = null;//xoa du lieu bo nho
             if (null != userDAO.getOneByEmail(registerForm.email)) return BadRequest(new { message = "Email đã tồn tại trong hệ thống. Thử lại với email khác!" });
             if (registerForm.checkInfo().Equals("success"))
@@ -136,9 +139,11 @@ namespace BackendDotnetCore.Controllers
         [Authorize]
         public IActionResult updateRoleUserByID(int id, int role)
         {
+            Console.WriteLine("Role need update = " + role);
             //access user acction
             UserEntity userAction = (UserEntity) HttpContext.Items["User"];
-            if (!userAction.IsAdmin) return BadRequest("Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!");
+            if (userAction == null) return BadRequest(new { message = "Vui lòng đăng nhập trước khi sử dụng chức năng này!" });
+            else if (!userAction.IsAdmin) return BadRequest("Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!");
             HttpContext.Items["User"] = null;//xoa bo nho dem
 
             UserEntity userEdited;
@@ -146,8 +151,15 @@ namespace BackendDotnetCore.Controllers
             //todo 
             bool updated = userEdited.updateRole(userDAO.GetRoleByID(role));
             //update into db
-            userDAO.Save(userEdited);
-            return updated==true?Ok(userDAO.GetListUsers()):BadRequest("Hệ thống không thể cập nhật quyền truy cập người dùng. Thử lại sau!");
+            if (updated == true)
+            {
+                userDAO.Save(userEdited);
+                return Ok(userDAO.GetListUsers());
+            }
+            else
+            {
+                return BadRequest("Hệ thống không thể cập nhật quyền truy cập người dùng. Thử lại sau!");
+            }
         }
         
 
@@ -190,7 +202,8 @@ namespace BackendDotnetCore.Controllers
             _page = (_page <= 0) ? 1 : _page;
             //get and check user access modifier
             UserEntity userAction = (UserEntity)HttpContext.Items["User"];
-            if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
+            if (userAction == null) return BadRequest(new { message = "Vui lòng đăng nhập trước khi sử dụng chức năng này!" });
+            else if (!userAction.IsAdmin) return BadRequest(new { message = "Hạn chế bởi quyền truy cập. Thử lại với tài khoản quản trị viên!" });
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
             PageResponse<CustomOrderResponse> pageResponse = new PageResponse<CustomOrderResponse>();
