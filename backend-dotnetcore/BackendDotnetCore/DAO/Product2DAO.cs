@@ -326,14 +326,16 @@ namespace BackendDotnetCore.DAO
 
             return dbContext.Brands.Where(e => e.Actived).Where(e=>!e.Deleted).ToList();
         }
-        public List<RomEntity> GetRoms()
+        public List<RomEntity> GetRoms(int deleted)
         {
 
+            if (deleted != -1)  return dbContext.Roms.Where(e => e.Deleted == (deleted == 1)).ToList();
             return dbContext.Roms.Where(e => !e.Deleted).ToList();
         }
-        public List<RamEntity> GetRams()
+        public List<RamEntity> GetRams(int deleted)
         {
 
+            if (deleted != -1)  return dbContext.Rams.Where(e => e.Deleted == (deleted == 1)).ToList();
             return dbContext.Rams.Where(e => !e.Deleted).ToList();
         }
 

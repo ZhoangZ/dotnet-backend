@@ -369,7 +369,7 @@ namespace BackendDotnetCore.Rests
 
         [HttpGet("brands")]
 
-        public ActionResult GetBrand(int deleted = -1)
+        public ActionResult GetBrand(int deleted = 0)
         {
 
             try
@@ -411,12 +411,12 @@ namespace BackendDotnetCore.Rests
         }
         [HttpGet("rams")]
 
-        public ActionResult GetRam()
+        public ActionResult GetRam(int deleted = 0)
         {
 
             try
             {
-                List<RamEntity> product = ProductDAO.GetRams();
+                List<RamEntity> product = ProductDAO.GetRams(deleted);
                 if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
                 /*product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);
@@ -433,12 +433,12 @@ namespace BackendDotnetCore.Rests
 
         [HttpGet("roms")]
 
-        public ActionResult GetRom()
+        public ActionResult GetRom(int deleted = 0)
         {
 
             try
             {
-                List<RomEntity> product = ProductDAO.GetRoms();
+                List<RomEntity> product = ProductDAO.GetRoms(deleted);
                 if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
                 /*product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);

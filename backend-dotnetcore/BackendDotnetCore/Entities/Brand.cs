@@ -26,7 +26,7 @@ namespace BackendDotnetCore.Entities
         public bool Actived { set; get; }
 
         [Column("deleted")]
-        [JsonIgnore]
+        //[JsonIgnore]
         public bool Deleted { set; get; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("amount")]
