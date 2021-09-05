@@ -44,12 +44,13 @@ namespace BackendDotnetCore.Rests
             int rom_id = 0,
             int ram_id = 0, 
             string title_like = null, 
+            int deleted=0,
             int isHot =0)
         {
             try
             {
-                List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot, title_like);
-                int toltal = ProductDAO.getCount(salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot,title_like);
+                List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot, title_like, deleted);
+                int toltal = ProductDAO.getCount(salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot,title_like, deleted);
                 lst.setRequset(Request);
                 PageResponse<Product2> pageResponse = new PageResponse<Product2>();
                 pageResponse.Data = lst;
@@ -369,12 +370,12 @@ namespace BackendDotnetCore.Rests
 
         [HttpGet("brands")]
 
-        public ActionResult GetBrand()
+        public ActionResult GetBrand(int deleted = 0)
         {
 
             try
             {
-                List<Brand> product = ProductDAO.GetBrands();
+                List<Brand> product = ProductDAO.GetBrands(deleted);
                 if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
                 /*product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);
@@ -411,12 +412,12 @@ namespace BackendDotnetCore.Rests
         }
         [HttpGet("rams")]
 
-        public ActionResult GetRam()
+        public ActionResult GetRam(int deleted = 0)
         {
 
             try
             {
-                List<RamEntity> product = ProductDAO.GetRams();
+                List<RamEntity> product = ProductDAO.GetRams(deleted);
                 if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
                 /*product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);
@@ -433,12 +434,12 @@ namespace BackendDotnetCore.Rests
 
         [HttpGet("roms")]
 
-        public ActionResult GetRom()
+        public ActionResult GetRom(int deleted = 0)
         {
 
             try
             {
-                List<RomEntity> product = ProductDAO.GetRoms();
+                List<RomEntity> product = ProductDAO.GetRoms(deleted);
                 if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
                 /*product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);

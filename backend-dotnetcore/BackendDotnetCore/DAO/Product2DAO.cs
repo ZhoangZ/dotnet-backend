@@ -51,14 +51,20 @@ namespace BackendDotnetCore.DAO
 
 
 
-        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like)
+        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like, int deleted)
 
         {
             _page=(_page<=0)?1:_page;
-            var tmp = dbContext.Products.Where(X => X.deleted == false)
+            IQueryable<Product2> tmp1;
+            if (deleted != -1)
+            {
+                tmp1 = dbContext.Products.Where(X => X.deleted == (deleted == 1));
+            }
+                else
+                tmp1 = dbContext.Products;
 
-             
-              .Include(x => x.Brand)
+
+            var tmp=tmp1.Include(x => x.Brand)
                .Include(x => x.Ram)
                .Include(x => x.Rom)
               .Include("Images")
@@ -190,11 +196,17 @@ namespace BackendDotnetCore.DAO
             return rs;
 
         }
-        public int getCount(int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like)
+        public int getCount(int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like, int deleted)
 
         {
-            
-            var tmp = dbContext.Products.Where(X => X.deleted == false)
+            IQueryable<Product2> tmp1;
+            if (deleted != -1)
+            {
+                tmp1 = dbContext.Products.Where(X => X.deleted == (deleted == 1));
+            }
+            else
+                tmp1 = dbContext.Products;
+            var tmp = tmp1
 
              
              
@@ -316,9 +328,9 @@ namespace BackendDotnetCore.DAO
            int rs= dbContext.Products.Where(X => X.deleted == false).Count();
             return rs;
         }
-        public List<Brand> GetBrands()
+        public List<Brand> GetBrands(int deleted)
         {
-
+            if(deleted!=-1)return dbContext.Brands.Where(e=>e.Deleted==(deleted==1)).ToList();
             return dbContext.Brands.ToList();
         }
         public List<Brand> GetActivedBrands()
@@ -326,14 +338,16 @@ namespace BackendDotnetCore.DAO
 
             return dbContext.Brands.Where(e => e.Actived).Where(e=>!e.Deleted).ToList();
         }
-        public List<RomEntity> GetRoms()
+        public List<RomEntity> GetRoms(int deleted)
         {
 
+            if (deleted != -1)  return dbContext.Roms.Where(e => e.Deleted == (deleted == 1)).ToList();
             return dbContext.Roms.Where(e => !e.Deleted).ToList();
         }
-        public List<RamEntity> GetRams()
+        public List<RamEntity> GetRams(int deleted)
         {
 
+            if (deleted != -1)  return dbContext.Rams.Where(e => e.Deleted == (deleted == 1)).ToList();
             return dbContext.Rams.Where(e => !e.Deleted).ToList();
         }
 
