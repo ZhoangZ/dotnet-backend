@@ -369,12 +369,12 @@ namespace BackendDotnetCore.Rests
 
         [HttpGet("brands")]
 
-        public ActionResult GetBrand()
+        public ActionResult GetBrand(int deleted = -1)
         {
 
             try
             {
-                List<Brand> product = ProductDAO.GetBrands();
+                List<Brand> product = ProductDAO.GetBrands(deleted);
                 if (product == null) return BadRequest(new MessageResponse("Lỗi.", "Error"));
                 /*product.Images.ForEach(delegate (ImageProduct ip) {
                     ip.setRequest(Request);

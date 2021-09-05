@@ -316,9 +316,9 @@ namespace BackendDotnetCore.DAO
            int rs= dbContext.Products.Where(X => X.deleted == false).Count();
             return rs;
         }
-        public List<Brand> GetBrands()
+        public List<Brand> GetBrands(int deleted)
         {
-
+            if(deleted!=-1)return dbContext.Brands.Where(e=>e.Deleted==(deleted==1)).ToList();
             return dbContext.Brands.ToList();
         }
         public List<Brand> GetActivedBrands()
