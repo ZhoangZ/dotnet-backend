@@ -44,12 +44,13 @@ namespace BackendDotnetCore.Rests
             int rom_id = 0,
             int ram_id = 0, 
             string title_like = null, 
+            int deleted=0,
             int isHot =0)
         {
             try
             {
-                List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot, title_like);
-                int toltal = ProductDAO.getCount(salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot,title_like);
+                List<Product2> lst = ProductDAO.getList(_page, _limit, _sort, salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot, title_like, deleted);
+                int toltal = ProductDAO.getCount(salePrice_lte, salePrice_gte, brand_id, rom_id, ram_id, isHot,title_like, deleted);
                 lst.setRequset(Request);
                 PageResponse<Product2> pageResponse = new PageResponse<Product2>();
                 pageResponse.Data = lst;

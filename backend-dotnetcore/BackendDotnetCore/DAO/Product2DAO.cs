@@ -51,14 +51,20 @@ namespace BackendDotnetCore.DAO
 
 
 
-        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like)
+        public List<Product2> getList(int _page, int _limit, string _sort, int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like, int deleted)
 
         {
             _page=(_page<=0)?1:_page;
-            var tmp = dbContext.Products.Where(X => X.deleted == false)
+            IQueryable<Product2> tmp1;
+            if (deleted != -1)
+            {
+                tmp1 = dbContext.Products.Where(X => X.deleted == (deleted == 1));
+            }
+                else
+                tmp1 = dbContext.Products;
 
-             
-              .Include(x => x.Brand)
+
+            var tmp=tmp1.Include(x => x.Brand)
                .Include(x => x.Ram)
                .Include(x => x.Rom)
               .Include("Images")
@@ -190,11 +196,17 @@ namespace BackendDotnetCore.DAO
             return rs;
 
         }
-        public int getCount(int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like)
+        public int getCount(int salePrice_lte, int salePrice_gte, int brand_id, int rom_id, int ram_id,int isHot, string title_like, int deleted)
 
         {
-            
-            var tmp = dbContext.Products.Where(X => X.deleted == false)
+            IQueryable<Product2> tmp1;
+            if (deleted != -1)
+            {
+                tmp1 = dbContext.Products.Where(X => X.deleted == (deleted == 1));
+            }
+            else
+                tmp1 = dbContext.Products;
+            var tmp = tmp1
 
              
              
