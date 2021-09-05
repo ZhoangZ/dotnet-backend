@@ -65,6 +65,9 @@ namespace BackendDotnetCore.Entities
 
         public virtual List<OrderItemEntity> Items { set; get; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual List<CommentEntity> Comments { get; set; }
+
         public enum StatusString
         {
              PENDING,

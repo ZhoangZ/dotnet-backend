@@ -1,0 +1,925 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BackendDotnetCore.Program" Collapsed="true">
+    <Position X="20" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Startup" Collapsed="true">
+    <Position X="11.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgAAACAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.BrandConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\BrandConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.CartConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\CartConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.CartItemConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\CartItemConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.CommentConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\CommentConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.ImageProductConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\ImageProductConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.InformationProductConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\InformationProductConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.OrderConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\OrderConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.OrderItemConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\OrderItemConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.PaymentConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\PaymentConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.Product2Configuration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\Product2Configuration .cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.RamConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\RamConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.RoleEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\RoleEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.RomConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\RomConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.UserConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\UserConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.UserRoleConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\UserRoleConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Configurations.CommentController" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAACAASCAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\CommentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Consts.SessionConsts" Collapsed="true">
+    <Position X="6" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Consts\SessionConsts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.AdminController" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAABEggCQgBCAACIQAgAgAAAAAAAAAACAAAAAEAABg=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.LoginController" Collapsed="true">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAggAAAAAAAAAAgAEAAAAAAA=</HashCode>
+      <FileName>Controllers\LoginController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.LogoutController" Collapsed="true">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\LogoutController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.PaymentController" Collapsed="true">
+    <Position X="20" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAACgAgAAEAAAAAIAAAhAAAA=</HashCode>
+      <FileName>Controllers\PaymentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.ReservationController" Collapsed="true">
+    <Position X="16.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAABAAAAAAAAACAEAQAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\ReservationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.ResgiterController" Collapsed="true">
+    <Position X="20" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Controllers\ResgiterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.ResourceController" Collapsed="true">
+    <Position X="21.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Controllers\ResourceController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.RoleController" Collapsed="true">
+    <Position X="9.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Controllers\RoleController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.TestRest" Collapsed="true">
+    <Position X="13" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAQAAAAAAAACAAAAAAABAAAAAiAAAAEA=</HashCode>
+      <FileName>Controllers\TestRest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Controllers.VNPayConfig" Collapsed="true">
+    <Position X="16.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAIAAAAAAQCAAAAAAAAACAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\VNPayConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.BrandDAO" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAQCAAAAAAAAAAAAAAIAAACAAAAA=</HashCode>
+      <FileName>DAO\BrandDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.CartDAO" Collapsed="true">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAFAAAAQQAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>DAO\CartDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.CartItemDAO" Collapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\CartItemDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.CommentDAO" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIEAAAAAAABAAQAAAAIAAAIAIAAAAAAAAAAABAA=</HashCode>
+      <FileName>DAO\CommentDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.ImageProductDAO" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACAAAAAAAAAAQCAAAQAAAAAAACAAIAAACAAAAA=</HashCode>
+      <FileName>DAO\ImageProductDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.InformationProductDAO" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAEAAAAQCAAAAAAAAAAAAAAIBAACAAAEA=</HashCode>
+      <FileName>DAO\InformationProductDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.OrderDAO" Collapsed="true">
+    <Position X="23.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oQkAAAAgAAAEAQAARUAAAAAAAAAEAAAIAAAAJAAAAAk=</HashCode>
+      <FileName>DAO\OrderDAO .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.PaymentDAO" Collapsed="true">
+    <Position X="21.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABIAAAAAAAAAAAQAAAAAAAAACAAAAAIAAAgAAAAA=</HashCode>
+      <FileName>DAO\PaymentDAO .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.Product2DAO" Collapsed="true">
+    <Position X="11.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAIAAAAAAAAAAgQAAQQAAAAAAQAAAEAAAAgAEABg=</HashCode>
+      <FileName>DAO\Product2DAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.RamDAO" Collapsed="true">
+    <Position X="23.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAAAAAAQAAAAAAAAAAAAAAAIAAACAAAAA=</HashCode>
+      <FileName>DAO\RamDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.RevenueEntityDAO" Collapsed="true">
+    <Position X="6" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAACACAAAAEQCAAAAAAQAAAAAAAIAAACAAAAA=</HashCode>
+      <FileName>DAO\RevenueEntityDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.RoleDAO" Collapsed="true">
+    <Position X="11.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIIQAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\RoleDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.RomDAO" Collapsed="true">
+    <Position X="18.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAQCAAAAAAAAAAAAAAIAAACAAAAA=</HashCode>
+      <FileName>DAO\RomDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.UserDAO" Collapsed="true">
+    <Position X="6" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAIAAAAAIAAACAQiAABAAAAgAAAgAgACAQAAAAAA=</HashCode>
+      <FileName>DAO\UserDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DAO.UserRoleDAO" Collapsed="true">
+    <Position X="13" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\UserRoleDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.CartDTO" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTO\CartDTO .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.CartItem2DTO">
+    <Position X="3.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTO\CartDTO .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.CustomCommentResponse" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAEAAAAAEAAAAACAAAAAAACAAAAAAAAAAIAIAAgA=</HashCode>
+      <FileName>DTO\CustomCommentResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.ProductComment" Collapsed="true">
+    <Position X="13" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>DTO\CustomCommentResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.UserComment" Collapsed="true">
+    <Position X="21.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACCAAAEAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>DTO\CustomCommentResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.CustomOrderResponse" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQSAAAEABAIAABQAAAAABIAAAAIECAAgAAgAAQAAAgA=</HashCode>
+      <FileName>DTO\CustomOrderResponse.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.CustomOrderItem" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAQAAAAAAAAAAAAAAACAAAAAAAAAAgA=</HashCode>
+      <FileName>DTO\CustomOrderResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.ProductObjItem" Collapsed="true">
+    <Position X="16.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAABAAAAAEQIEAACAAAAAQAAAAAA=</HashCode>
+      <FileName>DTO\CustomOrderResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.Image" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTO\CustomOrderResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.MyStatusOrder" Collapsed="true">
+    <Position X="20" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAgA=</HashCode>
+      <FileName>DTO\MyStatusOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.OrderDTO" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTO\OrderDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.OrderItem2DTO" Collapsed="true">
+    <Position X="7.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>DTO\OrderDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.DTO.UnblockedFromRequest" Collapsed="true">
+    <Position X="18.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTO\UnblockedFromRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.EF.BackendDotnetDbContext" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAAAAAgQFAAEAAAAACCAAAEBAAABgAAAAAAAABIAU=</HashCode>
+      <FileName>EF\BackendDotnetDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.EF.SnakeCaseExtensions" Collapsed="true">
+    <Position X="7.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>EF\SnakeCaseExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.Brand" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAAAAAAAAAEgSAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Brand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.CartEntity" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAACAAAAAAIAAgAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\CartEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.CartItemEntity">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAEAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAgAAACAA=</HashCode>
+      <FileName>Entities\CartItemEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.CommentEntity" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAFAAAAAAAAAECACAAAAAAAAAAAAAAAAAIAIAAwA=</HashCode>
+      <FileName>Entities\CommentEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.ImageProduct" Collapsed="true">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAAgAAAAEAAAAAACAAAAAQBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\ImageProduct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.InformationProduct" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAAAAAAAEAAAAEAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\InformationProduct .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.Menu" Collapsed="true">
+    <Position X="13" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.OrderEntity">
+    <Position X="1.25" Y="0.5" Width="1.75" />
+    <NestedTypes>
+      <Enum Name="BackendDotnetCore.Entities.OrderEntity.StatusString" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Entities\OderEntity.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACIDAAAEACAACAAAAIAIAAggAAEAQBAAAgAAIAEAAAA=</HashCode>
+      <FileName>Entities\OderEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.OrderItemEntity" Collapsed="true">
+    <Position X="11.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECAAAACQAAAAAAAAAAEgAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Entities\OderItemEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.PaymentEntity" Collapsed="true">
+    <Position X="23.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGACAAAAAAAAAABACACQgACDAAkAQAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Entities\PaymentEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.Product2" Collapsed="true">
+    <Position X="7.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiEAAACEAgCAAEACFAAASAABAAIxFAAAAIAAARABA=</HashCode>
+      <FileName>Entities\Product2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RamEntity" Collapsed="true">
+    <Position X="6" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAACAAAAAAAEgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\RamEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RequireAttribute" Collapsed="true">
+    <Position X="13" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\RequireAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RevenueEntity" Collapsed="true">
+    <Position X="23.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAABAAACAAAACAAEAAAAAAAAAAEAAAAgAAAAAA=</HashCode>
+      <FileName>Entities\RevenueEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RoleEntity" Collapsed="true">
+    <Position X="13" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAEAAAAAAQAAAAAAAggAQAAAAAAAAA=</HashCode>
+      <FileName>Entities\RoleEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RomEntity" Collapsed="true">
+    <Position X="20" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAEgAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\RomEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.UserEntity" Collapsed="true">
+    <Position X="7.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIiAAAAACAEAAAAAARIAAAACAIAABwiAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\UserEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.UserRole" Collapsed="true">
+    <Position X="9.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\UserRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.CommentDTO" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAFAAAAAAAAAECAAAAAAAAAAAAAAAAAAAIAEAAgA=</HashCode>
+      <FileName>Forms\CommentDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.FileProcess.FileProcess" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAACAAAAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>FileProcess\FileProcess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Forms.BieuDo" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\BieuDo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Forms.Thang" Collapsed="true">
+    <Position X="14.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEACAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\BieuDo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Forms.TheLoai" Collapsed="true">
+    <Position X="16.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAACAAAAAAAAAIQAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Forms\BieuDo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Forms.RegisterForm" Collapsed="true">
+    <Position X="9.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQIgAAAAABAAAAIAAAAgAAAAAgACIAA=</HashCode>
+      <FileName>Forms\RegisterForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Forms.ResetPassForm" Collapsed="true">
+    <Position X="18.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoAAAAAAAAAAgCAAwAAAAAAAAAAgAAAAIAAAAAgA=</HashCode>
+      <FileName>Forms\ResetPassForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Froms.LoginForm" Collapsed="true">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAEAQAAAAAAAAAAAAACAAAAAAQAAAA=</HashCode>
+      <FileName>Forms\LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Helpers.AppSettings" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Helpers\AppSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Helpers.JwtMiddleware" Collapsed="true">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAABAAAAAAAAAgAAAAABAAAAA=</HashCode>
+      <FileName>Helpers\JwtMiddleware.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Helpers.SendMailService" Collapsed="true">
+    <Position X="23.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\SendMailService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.JsonConverter.JsonCoverter" Collapsed="true">
+    <Position X="23.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JsonConverter\JsonCoverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Middleware.CorsMiddleware" Collapsed="true">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Middleware\CorsMiddleware.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Middleware.CorsMiddlewareExtensions" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Middleware\CorsMiddleware.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Models.AuthenticateRequest" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AuthenticateRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Models.AuthenticateResponse" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAQA=</HashCode>
+      <FileName>Models\AuthenticateResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Models.CommentResponse" Collapsed="true">
+    <Position X="23.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAQIAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CommentResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Models.PageResponse&lt;T&gt;" Collapsed="true">
+    <Position X="14.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PageResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Models.Pagination" Collapsed="true">
+    <Position X="16.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAIAAAAACAAAAAAAA=</HashCode>
+      <FileName>Models\PageResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Models.Repository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAWAgAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\Repository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Models.Reservation" Collapsed="true">
+    <Position X="14.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAAAAAAAAAEAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Reservation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.MoMo.MoMoSecurity" Collapsed="true">
+    <Position X="18.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>MoMo\MoMoSecurity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.MoMo.PaymentRequest" Collapsed="true">
+    <Position X="6" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>MoMo\PaymentRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Response.MessageResponse" Collapsed="true">
+    <Position X="16.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Response\MessageResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Response.Message" Collapsed="true">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Response\MessageResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.BrandREST" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAACAAAAAAAAAAAAAEAAgAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Rests\BrandREST .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.CartREST" Collapsed="true">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABACAAAAQAAAAAgAIBAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rests\CartREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.FormAddCart" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rests\CartREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.CartItem" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Rests\CartREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.FormDeleteCart" Collapsed="true">
+    <Position X="23.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rests\CartREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.InformationProductREST" Collapsed="true">
+    <Position X="21.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAgAAAAAACAAAAAAAAAAAAAAAAgAAgAAAAAAAIEAAA=</HashCode>
+      <FileName>Rests\InformationProductREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.OrderREST" Collapsed="true">
+    <Position X="13" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAgCAAAAAQAAAAAAABAAAAAAAAAAAAAAAgE=</HashCode>
+      <FileName>Rests\OrderREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.FormPutOrder" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgCAAAAAAAAAAAAACAAAAAAACAAAAIAEAAAA=</HashCode>
+      <FileName>Rests\OrderREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.OrderItem" Collapsed="true">
+    <Position X="6" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Rests\OrderREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.FormDeleteOrderItem" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rests\OrderREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.ProductImageREST" Collapsed="true">
+    <Position X="14.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Rests\ProductImageREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.ProductRest" Collapsed="true">
+    <Position X="18.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAEAAAAgEIAAQCIAAAASAAAAAAAAAAEAAAIAABAEA=</HashCode>
+      <FileName>Rests\ProductRest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.RamREST" Collapsed="true">
+    <Position X="7.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACA=</HashCode>
+      <FileName>Rests\RamREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.RevenueREST" Collapsed="true">
+    <Position X="7.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgAAAAAAAACAQAAAAAAAAAAQAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Rests\RevenueREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.RomREST" Collapsed="true">
+    <Position X="21.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAACAAAAAAAAAAAAEAAAgAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Rests\RomREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.UploadREST" Collapsed="true">
+    <Position X="20" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAEACAAAAAA=</HashCode>
+      <FileName>Rests\UploadREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.VNPayREST" Collapsed="true">
+    <Position X="18.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgIAABAAAAgAAAQAAAAAAAA=</HashCode>
+      <FileName>Rests\VNPayREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Rests.DonateRequest" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACCAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Rests\VNPayREST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Services.UserService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAgAACAAAACAAAAAoAAAAAAAAAQAAQAABAAAAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BackendDotnetCore.Ultis.EncodeUltis" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ultis\EncodeUltis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Ultis.FileUltils" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ultis\FileUltils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Ultis.SortHelper" Collapsed="true">
+    <Position X="9.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ultis\SortHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="BackendDotnetCore.Models.IProductResponse" Collapsed="true">
+    <Position X="6" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Models\IProductResponse.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BackendDotnetCore.Models.IRepository" Collapsed="true">
+    <Position X="7.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAWAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BackendDotnetCore.Services.IUserService" Collapsed="true">
+    <Position X="9.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAACAAAACAAAAAIAAAAIAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="BackendDotnetCore.Models.EPaymentStatus" Collapsed="true">
+    <Position X="6" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAACAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\EPaymentStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

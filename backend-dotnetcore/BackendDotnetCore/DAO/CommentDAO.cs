@@ -28,6 +28,7 @@ namespace BackendDotnetCore.DAO
                 userID = commentEntity.userID,
                 rate = commentEntity.rate,
                 createdDate = commentEntity.createdDate,
+                orderID = commentEntity.orderID
             };
             dbContext.Entry(commentEntity).Reference(x => x.user).IsModified = false;//moi them vao
             dbContext.Comments.Add(cmt);
@@ -47,9 +48,9 @@ namespace BackendDotnetCore.DAO
             return listRs;
         }
 
-        public CommentEntity checkUserCommentProductById(int productID, int userID)
+        public CommentEntity checkUserCommentProductById(int productID, int userID, int ido)
         {
-            var cmt = dbContext.Comments.Where(x => x.productID == productID && x.userID == userID).SingleOrDefault();
+            var cmt = dbContext.Comments.Where(x => x.productID == productID && x.userID == userID && x.orderID == ido).SingleOrDefault();
             return cmt;
         }
 

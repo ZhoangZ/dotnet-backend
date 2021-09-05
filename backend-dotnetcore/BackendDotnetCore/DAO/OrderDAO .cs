@@ -210,12 +210,12 @@ namespace BackendDotnetCore.DAO
             return true;
         }
         //checkComment before
-        public bool checkCommentOrder(int productID, int userID)
+        public bool checkCommentOrder(int productID, int userID, long ido)
         {
             foreach(OrderEntity order in GetOrdersByUserID(userID))
             {
                 foreach(OrderItemEntity oi in order.Items)
-                if (oi.ProductId == productID) return true;
+                if (oi.ProductId == productID && oi.OrderId == ido) return true;
             }
             return false;
         }

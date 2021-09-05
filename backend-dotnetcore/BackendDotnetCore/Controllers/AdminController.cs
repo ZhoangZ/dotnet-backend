@@ -26,7 +26,6 @@ namespace BackendDotnetCore.Controllers
         private UserDAO userDAO = new UserDAO();
         private OrderDAO orderDAO = new OrderDAO();
         private CommentDAO commentDAO = new CommentDAO();
-        private static string emailUserRequestActive = "";
 
         [HttpGet]
         public List<RoleEntity> GetAllElementRole()

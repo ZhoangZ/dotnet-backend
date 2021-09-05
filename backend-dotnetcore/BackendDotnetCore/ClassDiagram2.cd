@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="BackendDotnetCore.Entities.Brand">
+    <Position X="1.25" Y="0.75" Width="2.25" />
+    <AssociationLine Name="Product2s" Type="BackendDotnetCore.Entities.Product2">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.318" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAAAAAAAAAEgSAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Brand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Product2s" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.CartEntity">
+    <Position X="8" Y="11.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAACAAAAAAIAAgAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\CartEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Items" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.CartItemEntity">
+    <Position X="13.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAEAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAgAAACAA=</HashCode>
+      <FileName>Entities\CartItemEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Cart" />
+      <Property Name="Product" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.CommentEntity">
+    <Position X="19.75" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAACAFAAAAAAAAAECACAAAAAAAAAAAAAAAAAIAIAAwA=</HashCode>
+      <FileName>Entities\CommentEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="user" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.ImageProduct">
+    <Position X="0.75" Y="3.75" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAAgAAAAEAAAAAACAAAAAQBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\ImageProduct.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Product" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.InformationProduct">
+    <Position X="6" Y="0.5" Width="3.25" />
+    <AssociationLine Name="Product" Type="BackendDotnetCore.Entities.Product2">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.001" Y="0.088" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAAAAAAAEAAAAEAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\InformationProduct .cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Product" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.OrderEntity">
+    <Position X="20" Y="11.75" Width="3.25" />
+    <NestedTypes>
+      <Enum Name="BackendDotnetCore.Entities.OrderEntity.StatusString" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Entities\OderEntity.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACIDAAAEACAACAAAAIAIAAggAAEAQBAAAgAAIAEAAAA=</HashCode>
+      <FileName>Entities\OderEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.OrderItemEntity">
+    <Position X="19.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAECAAAACQAAAAAAAAAAEgAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Entities\OderItemEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Order" />
+      <Property Name="Product" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.PaymentEntity">
+    <Position X="0.5" Y="7.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AGACAAAAAAAAAABACACQgACDAAkAQAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Entities\PaymentEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TransactionStatus" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.Product2">
+    <Position X="4" Y="6.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAiEAAACEAgCAAEACFAAASAABAAIxFAAAAIAAARABA=</HashCode>
+      <FileName>Entities\Product2.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Brand" />
+      <Property Name="commentResponse" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="comments" />
+      <Property Name="Images" />
+      <Property Name="Informations" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RamEntity">
+    <Position X="3.5" Y="14.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAACAAAAAAAEgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\RamEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RevenueEntity">
+    <Position X="12" Y="14" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAABAAACAAAACAAEAAAAAAAAAAEAAAAgAAAAAA=</HashCode>
+      <FileName>Entities\RevenueEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RoleEntity">
+    <Position X="15.75" Y="14" Width="2.75" />
+    <AssociationLine Name="UserRoles" Type="BackendDotnetCore.Entities.UserRole" FixedFromPoint="true">
+      <Path>
+        <Point X="17.75" Y="14" />
+        <Point X="17.75" Y="7.103" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAEAAAAAAQAAAAAAAggAQAAAAAAAAA=</HashCode>
+      <FileName>Entities\RoleEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="UserRoles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.RomEntity">
+    <Position X="0.75" Y="14.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAEgAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\RomEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.UserEntity">
+    <Position X="10" Y="4.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAIiAAAAACAEAAAAAARIAAAACAIAABwiAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\UserEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="UserRoles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Entities.UserRole">
+    <Position X="16.25" Y="6" Width="2" />
+    <AssociationLine Name="Role" Type="BackendDotnetCore.Entities.RoleEntity" FixedFromPoint="true">
+      <Path>
+        <Point X="16.375" Y="7.103" />
+        <Point X="16.375" Y="14" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\UserRole.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Role" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackendDotnetCore.Models.CommentResponse">
+    <Position X="7.25" Y="14.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAQIAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CommentResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BackendDotnetCore.Models.EPaymentStatus">
+    <Position X="3.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAACAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\EPaymentStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

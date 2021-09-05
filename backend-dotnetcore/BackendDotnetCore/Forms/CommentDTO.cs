@@ -8,9 +8,10 @@ namespace BackendDotnetCore.Entities
     public class CommentDTO
     {
         public int id { set; get; }
+        public int ido { set; get; }
         public string content { set; get; }
         public int active {set;get; }
-        public int productID { set; get; }
+        public int idp { set; get; }
         public int userID { set; get; }
         public double rate { set; get; }
         public int sumOfProduct { set; get; }
@@ -18,7 +19,7 @@ namespace BackendDotnetCore.Entities
 
         public override string ToString()
         {
-            return "CommentDTO = "+id+", content=" + content + ", productID =" + productID + ", userID=" + userID+", sum="+sumOfProduct;
+            return "CommentDTO = "+id+", content=" + content + ", productID =" + idp + ", userID=" + userID+", sum="+sumOfProduct;
         }
 
     }

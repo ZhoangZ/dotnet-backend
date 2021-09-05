@@ -24,6 +24,10 @@ namespace BackendDotnetCore.Entities
         public int userID { set; get; }
 
         [JsonIgnore]
+        public virtual OrderEntity order { set; get; }
+        public long orderID { set; get; }
+
+        [JsonIgnore]
         public virtual Product2 Product { set; get; }
         public int productID { set; get; }
 

@@ -38,7 +38,7 @@ namespace BackendDotnetCore.DAO
             else
             {
                 Console.WriteLine("Cap nhat");
-                dbContext.users.Where(x => x.Id == userEntity.Id).AsNoTracking();
+                dbContext.users.Where(x => x.Id == userEntity.Id).AsTracking();//??
                 var local = dbContext.Set<UserEntity>()
                                      .Local
                                      .FirstOrDefault(entry => entry.Id.Equals(userEntity.Id));
