@@ -38,10 +38,6 @@ namespace BackendDotnetCore.Entities
             {
                 this.fullName = this.user.Fullname;
             }
-            get
-            {
-                return this.user.Fullname;
-            }
         }
 
 

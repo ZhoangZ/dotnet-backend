@@ -11,7 +11,7 @@
  Target Server Version : 100418
  File Encoding         : 65001
 
- Date: 05/09/2021 22:31:17
+ Date: 06/09/2021 17:33:36
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment`  (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
-  `order_id` int(10) NOT NULL,
+  `order_id` bigint(20) NOT NULL,
   `product_id` int(255) NOT NULL,
   `rate` double(1, 0) NOT NULL DEFAULT 0,
   `content` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -33,16 +33,17 @@ CREATE TABLE `comment`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+  INDEX `order_id`(`order_id`) USING BTREE,
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES (16, 27, 61, 1, 4, 'San pham so 1 don hang 64 that tuyet voi.', '2021-09-05', 1);
-INSERT INTO `comment` VALUES (17, 27, 68, 1, 4, 'San pham so 1 don hang 68 that tuyet voi.', '2021-09-05', 1);
-INSERT INTO `comment` VALUES (18, 27, 69, 1, 4, 'San pham so 1 don hang 69 that tuyet voi.', '2021-09-05', 1);
-INSERT INTO `comment` VALUES (19, 27, 61, 9, 4, 'San pham so 9 don hang 69 that tuyet voi.', '2021-09-05', 1);
+INSERT INTO `comment` VALUES (27, 27, 61, 9, 4, 'San pham 9 don hang 61 tot [mang]', '2021-09-06', 1);
+INSERT INTO `comment` VALUES (28, 27, 67, 1, 4, 'San pham 1 don hang 67 tot', '2021-09-06', 1);
+INSERT INTO `comment` VALUES (29, 27, 61, 7, 4, 'San pham 7 don hang 61 tot', '2021-09-06', 1);
 
 -- ----------------------------
 -- Triggers structure for table comment

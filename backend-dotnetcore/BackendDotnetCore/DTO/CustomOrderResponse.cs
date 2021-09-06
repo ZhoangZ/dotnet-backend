@@ -26,6 +26,7 @@ namespace BackendDotnetCore.DTO
         public string note { set; get; }
         public double lastPrice { set; get; }
         public ArrayList cartItems { set; get; }
+        public ArrayList comments { set; get; }//moi them 609
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 
@@ -64,13 +65,14 @@ namespace BackendDotnetCore.DTO
             cs.phone = orderEntity.Phone;
             cs.address = orderEntity.AddressDelivery;
             cs.date = orderEntity.CreatedDate.ToString();
-            cs.statusID = orderEntity.Status;
             cs.status = new MyStatusOrder(orderEntity.Status, toStatusString(orderEntity.Status));
+            cs.statusID = orderEntity.Status;
             cs.cartItems = toListItemsResponse(orderEntity.Items);
             cs.totalItems = cs.cartItems.Count;
             cs.paymentType = orderEntity.Cod == true ? "COD" : "VNPay";
             cs.note = orderEntity.Note;
             cs.lastPrice = (double)orderEntity.TotalPrice;
+            cs.comments = orderEntity.Comments==null?new ArrayList(): new ArrayList(orderEntity.Comments);//moi them 06092021
             if (orderEntity.Payment != null)
             {
                 cs.transactionStatus = (orderEntity.Payment.TransactionStatus.ToString() != null) ? orderEntity.Payment.TransactionStatus.ToString() : null;
@@ -78,6 +80,7 @@ namespace BackendDotnetCore.DTO
             if (cs.transactionStatus != null && cs.transactionStatus.Equals("PENDING"))
             {
                 cs.status = new MyStatusOrder(4, toStatusString(4));//huy
+                cs.statusID = 4;
             }
 
             return cs;

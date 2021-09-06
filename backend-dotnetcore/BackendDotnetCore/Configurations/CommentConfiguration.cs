@@ -20,7 +20,7 @@ namespace BackendDotnetCore.Configurations
             builder.HasOne(x => x.order).WithMany(u => u.Comments).HasForeignKey(x => x.orderID);//moi them include voi order
             builder.Property(x => x.productID).HasColumnName("product_id").IsRequired();
             builder.HasOne(x => x.Product).WithMany(p => p.comments).IsRequired();
-
+          
 
 
         }
