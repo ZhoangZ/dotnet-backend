@@ -51,6 +51,7 @@ namespace BackendDotnetCore.Rests
             //Console.WriteLine(user);
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
+            if (user == null) return BadRequest("Chưa đăng nhập.");
             if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
             var a=ramDAO.UpdateRAM(entity);
 
@@ -72,6 +73,7 @@ namespace BackendDotnetCore.Rests
             //Console.WriteLine(user);
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
+            if (user == null) return BadRequest("Chưa đăng nhập.");
             if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
             var a = ramDAO.UpdateRAM(entity);
 
@@ -91,6 +93,7 @@ namespace BackendDotnetCore.Rests
             //Console.WriteLine(user);
             // Xóa bộ nhớ đệm chứa userentity
             HttpContext.Items["User"] = null;
+            if (user == null) return BadRequest("Chưa đăng nhập.");
             if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
             var a = ramDAO.getRamById(id);
             return Ok(a);
