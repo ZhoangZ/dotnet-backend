@@ -307,18 +307,20 @@ namespace BackendDotnetCore.DAO
         }
    
         //phương thức xóa từng phần tử product bằng id khi nhận từ request
-        public int RemoveProductById(int Id)
+        public Product2 RemoveProductById(int Id)
         {
             Product2 product = getProduct(Id);
-            product.UpdatedAt = DateTime.Now;
-            int rs = 0;
+           
             if (product != null)
             {
+                product.UpdatedAt = DateTime.Now;
+                int rs = 0;
                 product.deleted = true;
                 dbContext.Update<Product2>(product);
                 rs=dbContext.SaveChanges();
+                if (rs != 0) return product;
             }
-            return rs;
+            return null;
         }
 
         

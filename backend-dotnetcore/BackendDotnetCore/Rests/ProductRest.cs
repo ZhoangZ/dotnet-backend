@@ -109,6 +109,16 @@ namespace BackendDotnetCore.Rests
         //truyền vào tham số [FromBody] Product Product
         public ActionResult CreateNewProduct([FromBody] Product2 Product)
         {
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+
+
+            if (user == null) return BadRequest("Chưa đăng nhập.");
+            if (!user.IsAdmin) return BadRequest("Không có quyền admin.");
+
             try
             {
                 Product.CreatedAt = DateTime.Now;
@@ -169,6 +179,8 @@ namespace BackendDotnetCore.Rests
 
 
             if (user == null) return BadRequest("Chưa đăng nhập.");
+            if (!user.IsAdmin) return BadRequest("Không có quyền admin.");
+
 
             try
             {
@@ -238,7 +250,7 @@ namespace BackendDotnetCore.Rests
           [FromForm] Product2 Product,          
          [FromForm] List<IFormFile> files)
         {
-          
+
             // Lấy UserEntity đang đăng nhập từ jwt
             UserEntity user = (UserEntity)HttpContext.Items["User"];
             //Console.WriteLine(user);
@@ -247,6 +259,8 @@ namespace BackendDotnetCore.Rests
 
 
             if (user == null) return BadRequest("Chưa đăng nhập.");
+            if (!user.IsAdmin) return BadRequest("Không có quyền admin.");
+
 
             try
             {
@@ -312,6 +326,16 @@ namespace BackendDotnetCore.Rests
         //tham số truyền vào [FromBody] Product Product và id
         public ActionResult UpdateProductById([FromBody] Product2 Product, int id)
         {
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+
+
+            if (user == null) return BadRequest("Chưa đăng nhập.");
+            if (!user.IsAdmin) return BadRequest("Không có quyền admin.");
+
             try
             {
                 Product.Id = id;
@@ -335,14 +359,28 @@ namespace BackendDotnetCore.Rests
         [HttpDelete]
         //phương thức delete danh sách sản phẩm theo id
         //tham số truyền vào là một mảng id
-        public void deleteProducts(int[] ids)
+        public ActionResult deleteProducts(int[] ids)
         {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+
+
+            if (user == null) return BadRequest("Chưa đăng nhập.");
+            if (!user.IsAdmin) return BadRequest("Không có quyền admin.");
+
+            IList<Product2> rs = new List<Product2>();
             foreach (int id in ids)
             {
 
-                ProductDAO.RemoveProductById(id);
+                var a=ProductDAO.RemoveProductById(id);
+                if (a != null) rs.Add(a);
                 Console.WriteLine("Remove productID={0}", id);
             }
+            return Ok(rs);
         }
 
         [HttpDelete("{id}")]
@@ -350,13 +388,24 @@ namespace BackendDotnetCore.Rests
         //tham số truyền vào là một mảng id
         public ActionResult deleteProduct(int id)
         {
+
+            // Lấy UserEntity đang đăng nhập từ jwt
+            UserEntity user = (UserEntity)HttpContext.Items["User"];
+            //Console.WriteLine(user);
+            // Xóa bộ nhớ đệm chứa userentity
+            HttpContext.Items["User"] = null;
+
+
+            if (user == null) return BadRequest("Chưa đăng nhập.");
+            if (!user.IsAdmin) return BadRequest("Không có quyền admin.");
+
             try
             {
 
-                int rs = ProductDAO.RemoveProductById(id);
-                if (rs == 1)
-                    return Ok();
-                return BadRequest();
+                Product2 rs = ProductDAO.RemoveProductById(id);
+                if (rs!=null)
+                    return Ok(rs);
+                return BadRequest(new MessageResponse("Không tìm thấy sản phẩm.", "Request failture"));
             }
             catch (Exception e)
             {

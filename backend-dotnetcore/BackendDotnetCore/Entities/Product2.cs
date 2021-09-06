@@ -24,7 +24,7 @@ namespace BackendDotnetCore.Entities
         public string Name { get; set; }
        
         [Column("DELETED")]
-        [JsonIgnore]
+        //[JsonIgnore]
         public bool deleted { get; set; }
         [Column("price")]
         public decimal OriginalPrice { get; set; }
