@@ -132,7 +132,7 @@ namespace BackendDotnetCore.DTO
             Product2DAO product2DAO = new Product2DAO();
 
             csi.idp = orderItemEntity.ProductId;
-            Product2 productItem = product2DAO.getProduct(csi.idp);
+            Product2 productItem = product2DAO.getProductByOrderID(csi.idp, orderItemEntity.OrderId);//07092021625
             List<Image> ls = new List<Image>();
             ls.Add(new Image(productItem.Images.ToArray()[0].Image));
             csi.quantity = orderItemEntity.Quantity;
