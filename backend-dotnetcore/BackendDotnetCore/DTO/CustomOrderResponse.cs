@@ -143,6 +143,7 @@ namespace BackendDotnetCore.DTO
             productObj.salePrice = (double)productItem.SalePrice;
             productObj.priceAll = productObj.computePriceAllByProduct();
             csi.product = productItem;
+            
 
             return csi;
         }

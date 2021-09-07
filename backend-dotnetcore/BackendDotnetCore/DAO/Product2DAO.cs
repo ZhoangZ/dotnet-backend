@@ -31,7 +31,7 @@ namespace BackendDotnetCore.DAO
                 .Include(x => x.Rom)
                 .Include(x => x.Informations)
                 .Include(x => x.Brand)
-                ;
+                .Include(x => x.commentOrders);//new 070902019                ;
          
             return tmp.SingleOrDefault(); 
 
@@ -280,7 +280,7 @@ namespace BackendDotnetCore.DAO
             dbContext.Entry(Product).Reference(x => x.Brand).IsModified = false;
             dbContext.Entry(Product).Collection(x => x.Images).IsModified = false;
             dbContext.Entry(Product).Collection(x => x.Informations).IsModified = false;
-            dbContext.Entry(Product).Collection(x => x.comments).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.commentOrders).IsModified = false;
             dbContext.Products.Add(Product);
             dbContext.SaveChanges();
             return Product;
@@ -296,7 +296,7 @@ namespace BackendDotnetCore.DAO
             dbContext.Entry(Product).Reference(x => x.Brand).IsModified = false;
             dbContext.Entry(Product).Collection(x => x.Images).IsModified = false;
             dbContext.Entry(Product).Collection(x => x.Informations).IsModified = false;
-            dbContext.Entry(Product).Collection(x => x.comments).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.commentOrders).IsModified = false;
 
             dbContext.Update<Product2>(Product);
             dbContext.SaveChanges();

@@ -52,8 +52,8 @@ namespace BackendDotnetCore.Entities
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<InformationProduct> Informations { get; set; }
       
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public virtual ICollection<CommentEntity> comments { get; set; } = new List<CommentEntity>();
+        //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual ICollection<CommentEntity> commentOrders { get; set; } = new List<CommentEntity>();
 
 
         [Column("ram_id")]

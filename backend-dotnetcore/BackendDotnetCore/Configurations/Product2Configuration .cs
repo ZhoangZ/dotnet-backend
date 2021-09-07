@@ -21,15 +21,7 @@ namespace BackendDotnetCore.Configurations
             builder.Navigation(b => b.Informations)
        .UsePropertyAccessMode(PropertyAccessMode.Property);
             
-
-
-
-
-
-
-
-
-            builder.HasMany(x => x.comments).WithOne(e => e.Product);
+            builder.HasMany(x => x.commentOrders).WithOne(e => e.Product);
         }
     }
 }

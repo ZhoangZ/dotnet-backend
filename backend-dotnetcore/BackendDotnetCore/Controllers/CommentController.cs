@@ -43,9 +43,6 @@ namespace BackendDotnetCore.Configurations
             }
             else
             {
-                CommentEntity commentResponse = new CommentEntity();
-                commentResponse.userID = user.Id;
-                commentResponse.user = userDAO.getOneById(user.Id);
                 foreach (CommentDTO cmtPost in commentPosts)
                 {
                     if (cmtPost.idp == 0 || null == product2DAO.getProduct(cmtPost.idp)) //cần thêm kiểm tra trên order của khách hàng
@@ -55,6 +52,10 @@ namespace BackendDotnetCore.Configurations
 
                     else
                     {
+                        CommentEntity commentResponse = new CommentEntity();
+                        commentResponse.userID = user.Id;
+                        commentResponse.user = userDAO.getOneById(user.Id);
+                        commentResponse.fullName = user.Fullname;
                         //kiem tra xem trong order của user có productID này không ?
                         if (!new OrderDAO().checkCommentOrder(cmtPost.idp, user.Id, cmtPost.ido)) return BadRequest(new { message = "Đơn hàng của bạn không tồn tại sản phẩm này hoặc trạng thái đơn hàng không hợp lệ để đánh giá.\n Vui lòng đặt hàng và trải nghiệm trước khi sử dụng tính năng này nhé!" });
                         //
@@ -66,7 +67,6 @@ namespace BackendDotnetCore.Configurations
                         commentResponse.order = new OrderDAO().getOrderByIDAndUserID(cmtPost.ido, user.Id);//new
                         commentResponse.productID = cmtPost.idp;
                         commentResponse.Product = product2DAO.getProduct(cmtPost.idp);
-                        commentResponse.user = userDAO.getOneById(cmtPost.userID);
                         commentResponse.active = 1;
                         commentResponse.content = cmtPost.content;
                         int commentID = commentDAO.Save(commentResponse);
