@@ -152,7 +152,8 @@ namespace BackendDotnetCore.Controllers
             //update into db
             if (updated == true)
             {
-                userDAO.Save(userEdited);
+                
+                userDAO.updateUserRole(userEdited);
                 return Ok(userDAO.GetListUsers());
             }
             else

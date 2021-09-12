@@ -83,6 +83,35 @@ namespace BackendDotnetCore.DAO
             }
             
         }
+        public bool updateUserRole(UserEntity userEntity)
+        {
+            var localUR = dbContext.Set<UserRole>()
+                                   .Local
+                                   .ToList<UserRole>();
+            foreach (UserRole ur in localUR)
+            {
+                var localRole = dbContext.Set<RoleEntity>()
+                                 .Local
+                                 .FirstOrDefault(entry => entry.Id == ur.Role.Id && ur.User.Id == userEntity.Id);
+                if (localRole != null)
+                {
+                    //detach
+                    dbContext.Entry(localRole).State = EntityState.Detached;
+                    Console.WriteLine("Detached role is success");
+                }
+            }
+            var local = dbContext.Set<UserEntity>()
+                                .Local
+                                .FirstOrDefault(entry => entry.Id == userEntity.Id);
+            if (local != null)
+            {
+                // detach
+                dbContext.Entry(local).State = EntityState.Detached;
+            }
+            dbContext.users.Update(userEntity);
+            dbContext.SaveChanges();
+            return true;
+        }
 
         public bool BlockedAndUnblockedOneUser(int id, bool blocked)
         {

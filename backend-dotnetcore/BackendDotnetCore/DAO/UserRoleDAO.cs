@@ -37,6 +37,5 @@ namespace BackendDotnetCore.DAO
             return userRoles;
         }
 
-        
     }
 }
