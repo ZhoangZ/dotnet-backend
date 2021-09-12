@@ -78,13 +78,13 @@ namespace BackendDotnetCore.Rests
             decimal risingMoney;
             if (before.Money == 0)
             {
-                risingMoney = 0;
+                risingMoney = ((now.Money - before.Money) / 1) * 100;
             }
             else risingMoney = ((now.Money - before.Money) / before.Money) * 100;
             decimal risingQuantity;
             if (before.Quantity == 0)
             {
-                risingQuantity = 0;
+                risingQuantity = ((now.Quantity - before.Quantity) / 1) * 100;
             }
             
             else risingQuantity = ((now.Quantity - before.Quantity) / before.Quantity) * 100;
