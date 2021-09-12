@@ -81,6 +81,7 @@ namespace BackendDotnetCore.DTO
             {
                 cs.status = new MyStatusOrder(4, toStatusString(4));//huy
                 cs.statusID = 4;
+                //todo update status order before get all
             }
 
             return cs;
