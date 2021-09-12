@@ -48,7 +48,9 @@ namespace BackendDotnetCore.Entities
         public virtual ICollection<CommentEntity> comments { set; get; } = new List<CommentEntity>();
         //public virtual ICollection<CartItemEntity> CartItemEntities { set; get; } = new HashSet<CartItemEntity>();
 
-        //public virtual CartEntity Cart { set; get; }
+        //public virtual CartEntity Cart { set; get;
+        //public virtual ICollection<OrderEntity> orders { set; get; } = new List<OrderEntity>();
+
         [NotMapped]
         public bool IsAdmin
         {

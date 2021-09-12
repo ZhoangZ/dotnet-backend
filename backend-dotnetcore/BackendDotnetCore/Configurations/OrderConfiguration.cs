@@ -14,8 +14,7 @@ namespace BackendDotnetCore.Configurations
         {
           
             builder.Navigation(b => b.Items).UsePropertyAccessMode(PropertyAccessMode.Property);
-           
-           
+            //builder.HasOne(x => x.User).WithMany(X => X.orders).HasForeignKey(x=>x.UserId);//moithem 07092021
         }
     }
 }

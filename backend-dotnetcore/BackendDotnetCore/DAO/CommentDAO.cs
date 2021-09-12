@@ -19,6 +19,7 @@ namespace BackendDotnetCore.DAO
         //phuong thuc add comment
         public int Save(CommentEntity commentEntity)
         {
+            Console.WriteLine("BEFORE SAVE CMT = " + commentEntity.fullName);
             var cmt = new CommentEntity()
             {
                 //active
@@ -28,9 +29,11 @@ namespace BackendDotnetCore.DAO
                 userID = commentEntity.userID,
                 rate = commentEntity.rate,
                 createdDate = commentEntity.createdDate,
-                orderID = commentEntity.orderID
+                orderID = commentEntity.orderID,
+                fullName = commentEntity.fullName
             };
             dbContext.Entry(commentEntity).Reference(x => x.user).IsModified = false;//moi them vao
+            dbContext.Entry(commentEntity).Reference(x => x.Product).IsModified = false;//moi them vao(07092021)
             dbContext.Comments.Add(cmt);
             dbContext.SaveChanges();
             return cmt.id;

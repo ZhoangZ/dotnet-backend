@@ -18,9 +18,10 @@ namespace BackendDotnetCore.Configurations
 
             builder.HasOne(x => x.user).WithMany(u => u.comments).HasForeignKey(x => x.userID);//moi them include voi user
             builder.HasOne(x => x.order).WithMany(u => u.Comments).HasForeignKey(x => x.orderID);//moi them include voi order
+            builder.HasOne(x => x.Product).WithMany(u => u.commentOrders).HasForeignKey(x => x.productID);//moi them include voi product
             builder.Property(x => x.productID).HasColumnName("product_id").IsRequired();
-            builder.HasOne(x => x.Product).WithMany(p => p.comments).IsRequired();
-
+            builder.HasOne(x => x.Product).WithMany(p => p.commentOrders).IsRequired();
+          
 
 
         }

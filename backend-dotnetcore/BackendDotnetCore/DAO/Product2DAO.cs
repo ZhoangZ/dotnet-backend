@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+
 namespace BackendDotnetCore.DAO
 {
     public class Product2DAO
@@ -31,9 +33,37 @@ namespace BackendDotnetCore.DAO
                 .Include(x => x.Rom)
                 .Include(x => x.Informations)
                 .Include(x => x.Brand)
-                ;
+                .Include(x => x.commentOrders);//new 070902019                ;
          
             return tmp.SingleOrDefault(); 
+
+        }
+        //lay san pham trong order kem theo comment theo order do
+        public Product2 getProductByOrderID(int Id, long orderID)
+
+        {
+
+            var tmp = dbContext.Products.Where(s => s.Id == Id)
+                .Where(X => X.deleted == false)
+                .Include("Images")
+                .Include(x => x.Ram)
+                .Include(x => x.Rom)
+                .Include(x => x.Informations)
+                .Include(x => x.Brand)
+                .Include(x => x.commentOrders).SingleOrDefault();//new 070902019            
+
+            List<CommentEntity> lsComments = new List<CommentEntity>();
+            foreach(CommentEntity ce in tmp.commentOrders)
+            {
+                if(ce.orderID == orderID)
+                {
+                    lsComments.Add(ce);
+
+                }
+            }
+            tmp.commentOrders = lsComments;
+
+            return tmp;
 
         }
 
@@ -280,7 +310,7 @@ namespace BackendDotnetCore.DAO
             dbContext.Entry(Product).Reference(x => x.Brand).IsModified = false;
             dbContext.Entry(Product).Collection(x => x.Images).IsModified = false;
             dbContext.Entry(Product).Collection(x => x.Informations).IsModified = false;
-            dbContext.Entry(Product).Collection(x => x.comments).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.commentOrders).IsModified = false;
             dbContext.Products.Add(Product);
             dbContext.SaveChanges();
             return Product;
@@ -296,7 +326,7 @@ namespace BackendDotnetCore.DAO
             dbContext.Entry(Product).Reference(x => x.Brand).IsModified = false;
             dbContext.Entry(Product).Collection(x => x.Images).IsModified = false;
             dbContext.Entry(Product).Collection(x => x.Informations).IsModified = false;
-            dbContext.Entry(Product).Collection(x => x.comments).IsModified = false;
+            dbContext.Entry(Product).Collection(x => x.commentOrders).IsModified = false;
 
             dbContext.Update<Product2>(Product);
             dbContext.SaveChanges();

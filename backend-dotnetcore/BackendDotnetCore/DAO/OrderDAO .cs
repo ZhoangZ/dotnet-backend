@@ -215,7 +215,8 @@ namespace BackendDotnetCore.DAO
             foreach(OrderEntity order in GetOrdersByUserID(userID))
             {
                 foreach(OrderItemEntity oi in order.Items)
-                if (oi.ProductId == productID && oi.OrderId == ido) return true;
+                    //status là đã giao mới cho đánh giá
+                if (oi.ProductId == productID && oi.OrderId == ido && order.Status == 3) return true;
             }
             return false;
         }
@@ -249,6 +250,7 @@ namespace BackendDotnetCore.DAO
             var list = dbContext.Orders
                 .Include(x => x.Payment)
                 .Include(x => x.Items)
+                .Include(x => x.Comments)//moithem 06092021
                 .Where(x => x.UserId == userID).OrderByDescending(x=>x.Id);
             List<OrderEntity> rs = list.Skip(limit * (page - 1)).Take(limit)
                         .ToList();
@@ -261,10 +263,11 @@ namespace BackendDotnetCore.DAO
             var list = dbContext.Orders
                 .Where(x => x.UserId == userID && x.Status == status)
                 .Include(x => x.Payment)
+                .Include(x=>x.Comments)//moi them (06/09/2021)
                 .Include(x => x.Items).OrderByDescending(x => x.Id);
             List<OrderEntity> rs = list.Skip(limit * (page - 1)).Take(limit)
                         .ToList();
-
+            
             return rs;
         }
 
@@ -315,6 +318,7 @@ namespace BackendDotnetCore.DAO
            
             if (status != 0)
             {
+                Console.WriteLine("STATUS ORDER TO GET = " + status);
                var list =  dbContext.Orders.Where(x => x.Status == status)
                                 .Include(x => x.Items)
                                 .Include(x => x.Payment).OrderByDescending(x => x.Id);
