@@ -38,35 +38,48 @@ namespace BackendDotnetCore.DAO
             else
             {
                 Console.WriteLine("Cap nhat");
-                dbContext.users.Where(x => x.Id == userEntity.Id).AsTracking();//??
-                var local = dbContext.Set<UserEntity>()
-                                     .Local
-                                     .FirstOrDefault(entry => entry.Id.Equals(userEntity.Id));
                 //check local UserRole
-                var localUR = dbContext.Set<UserRole>().Local.ToList<UserRole>();
-                foreach (UserRole ur in localUR)
-                {
-                    Console.WriteLine(ur.Id+", "+ur.Role.Id+", "+", "+ur.User.Id);
-                    var localRole = dbContext.Set<RoleEntity>()
-                                     .Local
-                                     .FirstOrDefault(entry => entry.Id == ur.Role.Id);
-                    if (localRole != null)
-                    {
-                        //detach
-                        dbContext.Entry(localRole).State = EntityState.Detached;
-                        Console.WriteLine("Detached role is success");
-                    }
-                }
-                
+                var localUR = dbContext.Set<UserRole>().AsNoTracking().Where(x=>x.User.Id == userEntity.Id).ToList<UserRole>();
+                //foreach (UserRole ur in localUR)
+                //{
+                //    dbContext.roles.Where(x => x.Id == ur.Role.Id).AsNoTracking();//12092021
+                //    var localRole = dbContext.Set<RoleEntity>()
+                //                     .Local
+                //                     .FirstOrDefault(entry => entry.Id == ur.Role.Id);
+                //    if (localRole != null)
+                //    {
+                //        //detach
+                //        dbContext.Entry(localRole).State = EntityState.Detached;
+                //        Console.WriteLine("Detached role is success");
+                //    }
+                //}
                 // check if local is not null 
+                //var local = dbContext.Set<UserEntity>()
+                //                    .Local
+                //                    .FirstOrDefault(entry => entry.Id == userEntity.Id);
+                //if (local != null)
+                //{
+                //    // detach
+                //}
+                List<UserRole> userRoles = dbContext.Set<UserRole>().Local.Where(x => x.User.Id == userEntity.Id).ToList();
+                foreach(UserRole ur in userRoles)
+                {
+                    Console.WriteLine("ROLE OF USER UPDATE = " + ur.Role.Id);
+                    var localRole = dbContext.Set<RoleEntity>().Local.FirstOrDefault(x=>x.Id == ur.Role.Id);
+                    if(localRole != null)
+                    dbContext.Entry(localRole).State = EntityState.Detached;
+                }
+                var local = dbContext.Set<UserEntity>()
+                .Local
+                .FirstOrDefault(entry => entry.Id.Equals(userEntity.Id));
                 if (local != null)
                 {
-                    // detach
                     dbContext.Entry(local).State = EntityState.Detached;
                 }
-                dbContext.users.Update(userEntity);
-                    dbContext.SaveChanges();
-                    return userEntity;
+                dbContext.Entry(userEntity).State = EntityState.Modified;
+                //dbContext.users.Update(userEntity);
+                dbContext.SaveChanges();
+              return userEntity;
             }
             
         }

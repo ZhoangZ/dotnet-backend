@@ -156,6 +156,8 @@ namespace WebApi.Controllers
             HttpContext.Items["User"] = null;
             if (null != ueUpdate)
             {
+                info.Email = ueUpdate.Email;//12092021
+                info.Active = ueUpdate.Active;//12092021
                 info.Id = id;
                 info.Password = ueUpdate.Password;
                 if (!ueUpdate.Email.Equals(info.Email))

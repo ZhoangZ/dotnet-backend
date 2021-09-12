@@ -11,7 +11,7 @@
  Target Server Version : 100418
  File Encoding         : 65001
 
- Date: 06/09/2021 17:33:36
+ Date: 07/09/2021 15:55:18
 */
 
 SET NAMES utf8mb4;
@@ -23,6 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment`  (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(10) NOT NULL,
   `order_id` bigint(20) NOT NULL,
   `product_id` int(255) NOT NULL,
@@ -36,14 +37,14 @@ CREATE TABLE `comment`  (
   INDEX `order_id`(`order_id`) USING BTREE,
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES (27, 27, 61, 9, 4, 'San pham 9 don hang 61 tot [mang]', '2021-09-06', 1);
-INSERT INTO `comment` VALUES (28, 27, 67, 1, 4, 'San pham 1 don hang 67 tot', '2021-09-06', 1);
-INSERT INTO `comment` VALUES (29, 27, 61, 7, 4, 'San pham 7 don hang 61 tot', '2021-09-06', 1);
+INSERT INTO `comment` VALUES (48, 'Lê Tấn Hoàng', 27, 61, 9, 4, 'San pham 9 don hang 61 tot [mang]', '2021-09-07', 1);
+INSERT INTO `comment` VALUES (49, 'Lê Tấn Hoàng', 27, 67, 1, 4, 'San pham 1 don hang 67 tot', '2021-09-07', 1);
+INSERT INTO `comment` VALUES (50, 'Lê Tấn Hoàng', 27, 61, 7, 4, 'San pham 7 don hang 61 tot', '2021-09-07', 1);
 
 -- ----------------------------
 -- Triggers structure for table comment

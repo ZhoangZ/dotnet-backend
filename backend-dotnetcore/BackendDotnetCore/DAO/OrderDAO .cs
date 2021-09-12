@@ -246,6 +246,7 @@ namespace BackendDotnetCore.DAO
         }
         public List<OrderEntity> GetOrdersByUserID(int userID, int limit, int page)
         {
+            UpdateStatusWhenCancelVNPay();
             page = (page <= 0) ? 1 : page;
             var list = dbContext.Orders
                 .Include(x => x.Payment)
@@ -259,6 +260,7 @@ namespace BackendDotnetCore.DAO
 
         public List<OrderEntity> GetOrdersByUserIDAndStatus(int userID, int status, int limit, int page)
         {
+            UpdateStatusWhenCancelVNPay();
             page = (page <= 0) ? 1 : page;
             var list = dbContext.Orders
                 .Where(x => x.UserId == userID && x.Status == status)
@@ -296,6 +298,7 @@ namespace BackendDotnetCore.DAO
 
         public List<OrderEntity> GetAllOrdersByStatus(int status)
         {
+            UpdateStatusWhenCancelVNPay();
             var list = dbContext.Orders.Where(x=>x.Status == status)
                  .Include(x => x.Items)
                 .Include(x => x.Payment)
@@ -315,13 +318,15 @@ namespace BackendDotnetCore.DAO
         //add version 2
         public List<OrderEntity> GetListOrdersPage(int limit, int page, int status)
         {
-           
+            UpdateStatusWhenCancelVNPay();
             if (status != 0)
             {
                 Console.WriteLine("STATUS ORDER TO GET = " + status);
                var list =  dbContext.Orders.Where(x => x.Status == status)
                                 .Include(x => x.Items)
                                 .Include(x => x.Payment).OrderByDescending(x => x.Id);
+                
+               
                 List<OrderEntity> rs = list.Skip(limit * (page - 1)).Take(limit)
                       .ToList();
                 return rs;
@@ -351,6 +356,27 @@ namespace BackendDotnetCore.DAO
                                   .Include(x => x.Items)
                                   .Where(x => x.Status == status).ToList();
                  return list.Count;
+            }
+        }
+
+        public void UpdateStatusWhenCancelVNPay()
+        {
+            List<OrderEntity> list = dbContext.Orders
+                                  .Include(x => x.Payment)
+                                  .Include(x => x.Items)
+                                  .ToList();
+            foreach (OrderEntity oe in list)
+            {
+                string transactionStatus = "";
+                if (oe.Payment != null)
+                {
+                    transactionStatus = (oe.Payment.TransactionStatus.ToString() != null) ? oe.Payment.TransactionStatus.ToString() : null;
+                }
+                if (transactionStatus != "" && transactionStatus.Equals("PENDING"))
+                {
+                    oe.Status = 4;
+                }
+                UpdateOrder(oe);
             }
         }
 
