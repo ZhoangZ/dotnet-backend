@@ -65,10 +65,29 @@ namespace BackendDotnetCore.Rests
             }
             var before = revenueEntityDAO.getEntity(beforeYear, beforeMonth);
 
-            if (now == null ) return BadRequest("Tháng này chưa có thông tin ");
-            if (before == null) return BadRequest("Tháng trước chưa có thông tin");
-            decimal risingMoney = ((now.Money - before.Money) / before.Money) * 100;
-            decimal risingQuantity = ((now.Quantity - before.Quantity) / before.Quantity) * 100;
+            if (now == null)
+            {
+                now = new RevenueEntity();
+                //return BadRequest("Tháng này chưa có thông tin ");
+            }
+            if (before == null)
+            {
+                before = new RevenueEntity();
+                //return BadRequest("Tháng trước chưa có thông tin");
+            }
+            decimal risingMoney;
+            if (before.Money == 0)
+            {
+                risingMoney = 0;
+            }
+            else risingMoney = ((now.Money - before.Money) / before.Money) * 100;
+            decimal risingQuantity;
+            if (before.Quantity == 0)
+            {
+                risingQuantity = 0;
+            }
+            
+            else risingQuantity = ((now.Quantity - before.Quantity) / before.Quantity) * 100;
             //Console.WriteLine("rising" + rising);
             return Ok(new {now=now, before=before, risingMoney= Math.Round(risingMoney,2) , risingQuantity= Math.Round(risingQuantity,2) });
 
