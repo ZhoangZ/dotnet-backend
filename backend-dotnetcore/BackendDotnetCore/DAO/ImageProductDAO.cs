@@ -98,5 +98,99 @@ namespace BackendDotnetCore.DAO
             dbContext.SaveChanges();
             return Product;
         }
+
+        public List<ImageProduct> getList(int _page, int _limit, string _sort)
+
+        {
+            _page = (_page <= 0) ? 1 : _page;
+            IQueryable<ImageProduct> tmp;
+           
+            tmp = dbContext.Images;
+
+
+           
+            string[] strs = _sort.Split(",");
+           
+            foreach (var str in strs)
+            {
+                string key = str.ToLower();
+
+                // format :asc
+                if (key.CompareTo("id:asc") == 0)
+                {
+                    //Console.WriteLine("asc");
+                    tmp = tmp.OrderBy(x => x.Id);
+
+                }
+                else if (key.CompareTo("id:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.Id);
+
+                }
+               
+            }
+            
+            List<ImageProduct> rs = tmp.Skip(_limit * (_page - 1)).Take(_limit)
+                        .ToList<ImageProduct>();
+            return rs;
+
+        }
+        public int getCount()
+
+        {
+            IQueryable<ImageProduct> tmp;            
+            tmp = dbContext.Images;          
+            int rs = tmp.Count();
+            return rs;
+
+        }
+
+        public List<ImageProduct> getList(int _page, int _limit, string _sort, int productId)
+
+        {
+            _page = (_page <= 0) ? 1 : _page;
+            IQueryable<ImageProduct> tmp;
+
+            tmp = dbContext.Images.Where(X=>X.ProductId==productId);
+
+
+
+            string[] strs = _sort.Split(",");
+
+            foreach (var str in strs)
+            {
+                string key = str.ToLower();
+
+                // format :asc
+                if (key.CompareTo("id:asc") == 0)
+                {
+                    //Console.WriteLine("asc");
+                    tmp = tmp.OrderBy(x => x.Id);
+
+                }
+                else if (key.CompareTo("id:desc") == 0)
+                {
+                    //Console.WriteLine("desc");
+                    tmp = tmp.OrderByDescending(x => x.Id);
+
+                }
+
+            }
+
+            List<ImageProduct> rs = tmp.Skip(_limit * (_page - 1)).Take(_limit)
+                        .ToList<ImageProduct>();
+            return rs;
+
+        }
+        public int getCount( int productId)
+
+        {
+            IQueryable<ImageProduct> tmp;
+            tmp = dbContext.Images.Where(X => X.ProductId == productId);
+            int rs = tmp.Count();
+            return rs;
+
+        }
     }
 }
