@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 14/09/2021 18:15:55
+ Date: 14/09/2021 18:49:38
 */
 
 SET NAMES utf8mb4;
@@ -41,7 +41,7 @@ CREATE TABLE `brand`  (
   `deleted` bit(1) NOT NULL DEFAULT b'0',
   `amount` int(255) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of brand
@@ -86,6 +86,7 @@ INSERT INTO `brand` VALUES (37, 'SUNTEK', NULL, b'0', b'0', 0);
 INSERT INTO `brand` VALUES (38, 'TECNO', NULL, b'0', b'0', 0);
 INSERT INTO `brand` VALUES (39, '100 GB', NULL, b'0', b'0', 0);
 INSERT INTO `brand` VALUES (40, 'Test', NULL, b'0', b'0', 0);
+INSERT INTO `brand` VALUES (41, 'Test Category', NULL, b'0', b'0', 0);
 
 -- ----------------------------
 -- Table structure for cart
@@ -99,7 +100,7 @@ CREATE TABLE `cart`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `iduser`(`user_id`) USING BTREE,
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
@@ -111,6 +112,7 @@ INSERT INTO `cart` VALUES (26, 28, 0, 0);
 INSERT INTO `cart` VALUES (27, 29, 0, 0);
 INSERT INTO `cart` VALUES (28, 30, 0, 0);
 INSERT INTO `cart` VALUES (29, 31, 0, 0);
+INSERT INTO `cart` VALUES (30, 32, 0, 0);
 
 -- ----------------------------
 -- Table structure for cart_item
@@ -128,7 +130,7 @@ CREATE TABLE `cart_item`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `cart_id`(`cart_id`) USING BTREE,
   CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 105 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for comment
@@ -150,7 +152,7 @@ CREATE TABLE `comment`  (
   INDEX `order_id`(`order_id`) USING BTREE,
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of comment
@@ -160,6 +162,8 @@ INSERT INTO `comment` VALUES (49, 'Lê Tấn Hoàng', 27, 67, 1, 4, 'San pham 1 
 INSERT INTO `comment` VALUES (50, 'Lê Tấn Hoàng', 27, 61, 7, 4, 'San pham 7 don hang 61 tot', '2021-09-07', 1);
 INSERT INTO `comment` VALUES (51, 'Lê Tấn Hoàng', 27, 66, 1, 4, 'San pham 1 don hang 66 tot', '2021-09-07', 1);
 INSERT INTO `comment` VALUES (52, 'Lê Tấn Hoàng', 27, 68, 1, 4, 'San pham 1 don hang 68 tot', '2021-09-07', 1);
+INSERT INTO `comment` VALUES (53, 'Tấn Hoàng', 25, 76, 187, 4, 'Sản phẩm tốt', '2021-09-14', 1);
+INSERT INTO `comment` VALUES (54, 'Tấn Hoàng', 25, 82, 6, 4, 'Sản phẩm tốt', '2021-09-14', 0);
 
 -- ----------------------------
 -- Table structure for favorite
@@ -198,7 +202,7 @@ CREATE TABLE `image_product`  (
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `PRODUCT_ID`(`PRODUCT_ID`) USING BTREE,
   CONSTRAINT `image_product_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1294 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1296 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of image_product
@@ -965,6 +969,8 @@ INSERT INTO `image_product` VALUES (1265, 261, 'Xiaomi_Mi_9_SE_64GB_3.png');
 INSERT INTO `image_product` VALUES (1291, 1, '20210913195732125.webp');
 INSERT INTO `image_product` VALUES (1292, 271, '20210913201615_271_25.webp');
 INSERT INTO `image_product` VALUES (1293, 272, '20210913201708_272_25.webp');
+INSERT INTO `image_product` VALUES (1294, 273, '20210914184106_273_25.jpg');
+INSERT INTO `image_product` VALUES (1295, 273, '2021091418422827325.webp');
 
 -- ----------------------------
 -- Table structure for information_product
@@ -978,7 +984,7 @@ CREATE TABLE `information_product`  (
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `PRODUCT_ID`(`PRODUCT_ID`) USING BTREE,
   CONSTRAINT `information_product_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5493 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5494 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of information_product
@@ -6475,6 +6481,7 @@ INSERT INTO `information_product` VALUES (5489, 261, 'Thương hiệu', 'Xiaomi'
 INSERT INTO `information_product` VALUES (5490, 261, 'Phụ kiện đi kèm', '1 thân máy, 1 cáp sạc, 1 que chọc sim, 1 sách HDSD');
 INSERT INTO `information_product` VALUES (5491, 261, 'FM Radio', 'Không');
 INSERT INTO `information_product` VALUES (5492, 261, 'SKU', '7004774809954');
+INSERT INTO `information_product` VALUES (5493, 273, 'Đèn flash', 'đền flash');
 
 -- ----------------------------
 -- Table structure for order
@@ -6499,7 +6506,7 @@ CREATE TABLE `order`  (
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 83 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
@@ -6525,9 +6532,11 @@ INSERT INTO `order` VALUES (74, 25, 1, '2021-07-12 20:34:13', 'Bình Dương', '
 INSERT INTO `order` VALUES (75, 25, 2, '2021-09-14 17:23:34', 'Bình Dương', 'Tấn Hoàng', '0399115950', 2016000, 1, 0, 80, 'tanhoang99.999@gmail.com', 'Giao hàng nhanh', b'0');
 INSERT INTO `order` VALUES (76, 25, 3, '2021-09-14 17:25:12', 'Bình Dương', 'Tấn Hoàng', '0399115950', 5805000, 3, 0, NULL, 'tanhoang99.999@gmail.com', '', b'1');
 INSERT INTO `order` VALUES (77, 25, 14, '2021-09-14 17:25:44', 'Bình Dương', 'Tấn Hoàng', '0399115950', 8590500, 6, 0, NULL, 'tanhoang99.999@gmail.com', '', b'1');
-INSERT INTO `order` VALUES (78, 25, 1, '2021-09-14 17:26:15', 'Bình Dương', 'Tấn Hoàng', '0399115950', 26869000, 12, 0, 81, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (78, 25, 4, '2021-09-14 17:26:15', 'Bình Dương', 'Tấn Hoàng', '0399115950', 26869000, 12, 0, 81, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (79, 25, 1, '2021-09-14 17:39:33', 'Bình Dương', 'Tấn Hoàng', '0399115950', 54951000, 5, 0, 82, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (80, 25, 4, '2021-09-14 17:40:39', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 83, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (81, 25, 1, '2021-09-14 18:29:51', 'Bình Dương', 'Tấn Hoàng', '0399115950', 41823000, 3, 0, NULL, 'tanhoang99.999@gmail.com', '', b'1');
+INSERT INTO `order` VALUES (82, 25, 3, '2021-09-14 18:31:07', 'Bình Dương', 'Tấn Hoàng', '0399115950', 1451250, 1, 0, 84, 'tanhoang99.999@gmail.com', '', b'0');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -6548,7 +6557,7 @@ CREATE TABLE `order_detail`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `chitietdonhang1`(`order_id`) USING BTREE,
   CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_detail
@@ -6583,6 +6592,8 @@ INSERT INTO `order_detail` VALUES (97, 78, 958000, 4790000, 86, '2021-09-14 10:2
 INSERT INTO `order_detail` VALUES (98, 79, 4318000, 21590000, 9, '2021-09-14 10:39:33', '2021-09-14 10:39:33', b'0', 3, b'1', 20);
 INSERT INTO `order_detail` VALUES (99, 79, 522500, 2090000, 16, '2021-09-14 10:39:33', '2021-09-14 10:39:33', b'0', 2, b'1', 25);
 INSERT INTO `order_detail` VALUES (100, 80, 1549000, 15490000, 7, '2021-09-14 10:40:39', '2021-09-14 10:40:39', b'0', 1, b'1', 10);
+INSERT INTO `order_detail` VALUES (101, 81, 1549000, 15490000, 7, '2021-09-14 11:29:51', '2021-09-14 11:29:51', b'0', 3, b'1', 10);
+INSERT INTO `order_detail` VALUES (102, 82, 483750, 1935000, 6, '2021-09-14 11:31:07', '2021-09-14 11:31:07', b'0', 1, b'1', 25);
 
 -- ----------------------------
 -- Table structure for order_status
@@ -6621,7 +6632,7 @@ CREATE TABLE `payment`  (
   `url_return` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payment
@@ -6646,6 +6657,7 @@ INSERT INTO `payment` VALUES (80, 25, '2021-09-14 17:23:34', 201600000, '119.17.
 INSERT INTO `payment` VALUES (81, 25, '2021-09-14 17:26:16', 2686900000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=2686900000&vnp_Command=pay&vnp_CreateDate=20210914172616&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/81&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=81&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=c4bc23ee93ef3ceedb39d0d6e673d7616a62095df0f16fa51154c6ff284e6de9', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210914172616&vnp_TxnRef=81&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=98df9bc544291fd436a91977e824ed21570eaa994a7a22e6da390b282b78765d', 'vnp_Amount=2686900000&vnp_BankCode=NCB&vnp_CardHolder=nguyen+van+a&vnp_CardNumber=970419xxxxxxxxx2198&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210914172637&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_Trace=266751&vnp_TransactionNo=13583981&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=81&vnp_SecureHash=fe678286f1299716d381b0b61b759266091ac5494f1a8a0faa071cdcbde5785b', 'http://localhost:3000/payment-success');
 INSERT INTO `payment` VALUES (82, 25, '2021-09-14 17:39:33', 5495100000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=5495100000&vnp_Command=pay&vnp_CreateDate=20210914173933&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/82&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=82&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=f7540c2ac66df6086350b7dc7aacdbdd6f45fb9ee294587fce7944397c2a001b', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210914173933&vnp_TxnRef=82&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=ba3558c9bf20268ed2548472f73eb340db8d1f6b92a5d6dbe51e3e3f1fc2c3fd', 'vnp_Amount=5495100000&vnp_BankCode=NCB&vnp_CardHolder=nguyen+van+a&vnp_CardNumber=970419xxxxxxxxx2198&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210914173954&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_Trace=266794&vnp_TransactionNo=13584003&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=82&vnp_SecureHash=3571852f48a15cca9b98615bf5852108ede64ece31cdff11b0c37d41c74331ef', 'http://localhost:3000/payment-success');
 INSERT INTO `payment` VALUES (83, 25, '2021-09-14 17:40:40', 1394100000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1394100000&vnp_Command=pay&vnp_CreateDate=20210914174040&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/83&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=83&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=172f69e7368422a37b2b1d6a96e19626310c0e4eaa916a654cfdaad42261da39', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210914174040&vnp_TxnRef=83&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=5230279815929a22dfb21876c8257238a24ebace7413e5ce0ee8209b8a77a886', 'vnp_Amount=1394100000&vnp_BankCode=NCB&vnp_CardHolder=nguyen+van+a&vnp_CardNumber=970419xxxxxxxxx2198&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210914174052&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_Trace=266798&vnp_TransactionNo=13584005&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=83&vnp_SecureHash=1a37fdf1188e180d049dcc776709c301ce8e791d841951dc8b118dae83f698c1', 'http://localhost:3000/payment-success');
+INSERT INTO `payment` VALUES (84, 25, '2021-09-14 18:31:07', 145125000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=145125000&vnp_Command=pay&vnp_CreateDate=20210914183107&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/84&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=84&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=f970cbb82c65e9c5e788bc8c4c4afc0c703cb9d4aebd658d4c0d1b996fa99865', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210914183107&vnp_TxnRef=84&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=00d12d027dbe95c19f61df251ce9a977a0e96dee9c72e3786dd219dea310c431', 'vnp_Amount=145125000&vnp_BankCode=NCB&vnp_CardHolder=nguyen+van+a&vnp_CardNumber=970419xxxxxxxxx2198&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210914183147&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_Trace=266891&vnp_TransactionNo=13584051&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=84&vnp_SecureHash=5018ebd6744d5e190a23aba55601a302eefc4f8f58e822c60d2ee292c7742909', 'http://localhost:3000/payment-success');
 
 -- ----------------------------
 -- Table structure for product_2
@@ -6676,7 +6688,7 @@ CREATE TABLE `product_2`  (
   INDEX `RAM_ID`(`RAM_ID`) USING BTREE,
   CONSTRAINT `product_2_ibfk_1` FOREIGN KEY (`ROM_ID`) REFERENCES `rom` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `product_2_ibfk_2` FOREIGN KEY (`RAM_ID`) REFERENCES `ram` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 273 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 274 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product_2
@@ -6685,7 +6697,7 @@ INSERT INTO `product_2` VALUES (1, 'Điện Thoại iPhone 11 Pro Max 64GB', 8, 
 INSERT INTO `product_2` VALUES (3, 'Điện Thoại Samsung Galaxy M10', 1, 2520000, 'Được xem như là một quân bài chiến lược mới của Samsung vào đầu năm 2019, chiếc điện thoại Galaxy M10 vừa ra mắt hứa hẹn sẽ gây nên một làn sóng hoàn toàn mới và đủ sức cạnh tranh với các đối thủ khác trong cùng phân khúc giá rẻ.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 20, '2019-12-05 00:00:00', 28, b'0', b'1', 2016000.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (4, 'Điện Thoại Samsung Galaxy A50', 1, 6550000, 'Samsung Galaxy A50 64GB là chiếc smartphone tầm trung mới của Samsung trong năm 2019 với nhiều tính năng hấp dẫn, đặc biệt là có cả cảm biến vân tay dưới màn hình.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 20, '2019-12-05 00:00:00', 39, b'0', b'0', 5240000.00, 3, 3, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (5, 'Điện Thoại Xiaomi Redmi Note 7', 2, 3290000, 'Xiaomi Redmi Note 7 4GB/64GB là chiếc smartphone giá rẻ mới được giới thiệu vào đầu năm 2019 với nhiều trang bị đáng giá như thiết kế notch giọt nước hay camera lên tới 48 MP.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2019-12-05 00:00:00', 0, b'0', b'0', 2467500.00, 2, 2, '2021-06-25 09:04:38', 0, 0);
-INSERT INTO `product_2` VALUES (6, 'Điện Thoại Xiaomi Redmi 7A', 2, 1935000, 'Xiaomi Redmi 7A 2GB/32GB  là một chiếc smartphone theo phong cách truyền thống của Xiaomi, mang tới người dùng trải nghiệm Android ổn trên một chiếc máy có mức giá rất hấp dẫn.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2019-12-05 00:00:00', 12, b'0', b'0', 1451250.00, 1, 2, '2021-06-25 09:04:38', 0, 0);
+INSERT INTO `product_2` VALUES (6, 'Điện Thoại Xiaomi Redmi 7A', 2, 1935000, 'Xiaomi Redmi 7A 2GB/32GB  là một chiếc smartphone theo phong cách truyền thống của Xiaomi, mang tới người dùng trải nghiệm Android ổn trên một chiếc máy có mức giá rất hấp dẫn.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2019-12-05 00:00:00', 12, b'0', b'0', 1451250.00, 1, 2, '2021-06-25 09:04:38', 1, 4);
 INSERT INTO `product_2` VALUES (7, 'Điện Thoại iPhone XR 64GB', 8, 15490000, 'Là chiếc điện thoại iPhone có mức giá dễ chịu, phù hợp với nhiều khách hàng hơn, iPhone Xr vẫn được ưu ái trang bị chip Apple A12 mạnh mẽ, màn hình tai thỏ cùng khả năng chống nước chống bụi.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 44, b'0', b'1', 13941000.00, 2, 3, '2021-06-25 09:04:38', 1, 4);
 INSERT INTO `product_2` VALUES (8, 'Điện Thoại Xiaomi Mi 9 Lite (Mi CC9 Global Version)', 2, 5490000, 'Điện Thoại Xiaomi Mi 9 Lite có thiết kế tinh tế, cao cấp và sang trọng đến từng đường nét khi được chế tác từ kính gradient như người anh em Mi 8 Lite. Phần lưng kính cong cho trải nghiệm cầm nắm chắc chắn và đầy phong cách. Đồng thời, phần khung kim loại', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2019-12-05 00:00:00', 42, b'0', b'0', 4117500.00, 4, 3, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (9, 'Điện Thoại Samsung Galaxy Note 10', 1, 21590000, 'Nếu như từ trước tới nay dòng Galaxy Note của Samsung thường ít được các bạn nữ sử dụng bởi kích thước màn hình khá lớn khiến việc cầm nắm trở nên khó khăn thì Samsung Galaxy Note 10 sẽ là chiếc smartphone nhỏ gọn, phù hợp với cả những bạn có bàn tay nhỏ.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 20, '2019-12-05 00:00:00', 42, b'0', b'1', 17272000.00, 5, 5, '2021-06-25 09:04:38', 1, 4);
@@ -6859,7 +6871,7 @@ INSERT INTO `product_2` VALUES (183, 'Điện thoại di động Vsmart Joy 1+',
 INSERT INTO `product_2` VALUES (184, 'Điện Thoại OPPO Find X', 5, 12950000, 'OPPO Find X tạo nên một cú hích lớn trong làng smartphone hiện nay khi mang trong mình nhiều tính năng đột phá mà nổi bật nhất đến từ thiết kế sáng tạo và một hiệu năng đỉnh cao.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 15, '2019-12-05 00:00:00', 22, b'0', b'0', 11007500.00, 5, 5, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (185, 'Điện Thoại Itel A33', 15, 1050000, 'Itel A33 là một chiếc smartphone giá rẻ nhắm tới đối tượng người dùng có thu nhập thấp muốn trải nghiệm hệ điều hành Android nhiều tính năng hấp dẫn.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 17, b'0', b'1', 945000.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (186, 'Điện Thoại Nony R17 Pro ', 29, 1290000, 'Nony vừa cho ra mắt chiếc Smartphone giá cực rẻ. Nony R17 Pro với thiết kế vỏ ngoài được sơn phủ kim loại sáng bóng mang dáng vẻ sang trọng và đẹp mắt mang dáng vẻ sang trọng và còn sở hữu vẻ ngoài nhỏ gọn, giúp bạn có thể cắm thật thoải mái và dễ dàng tr', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 42, b'0', b'1', 1161000.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
-INSERT INTO `product_2` VALUES (187, 'Điện Thoại Huawei Y5 2017', 3, 2150000, 'Huawei Y5 2017 là phiên bản nâng cấp của Y5 II với cấu hình mạnh mẽ hơn, pin dung lượng cao dùng lâu hơn và thiết kế đẹp mắt, cứng cáp hơn.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 24, b'0', b'1', 1935000.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
+INSERT INTO `product_2` VALUES (187, 'Điện Thoại Huawei Y5 2017', 3, 2150000, 'Huawei Y5 2017 là phiên bản nâng cấp của Y5 II với cấu hình mạnh mẽ hơn, pin dung lượng cao dùng lâu hơn và thiết kế đẹp mắt, cứng cáp hơn.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 24, b'0', b'1', 1935000.00, 1, 1, '2021-06-25 09:04:38', 1, 4);
 INSERT INTO `product_2` VALUES (188, 'Điện Thoại Honor 7S', 17, 2590000, 'Huawei vừa công bố một điện thoại thông minh ngân sách mới, Honor 7S. Điện thoại thông minh này đã được công bố ở Pakistan với giá dưới 3 triệu.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 29, b'0', b'1', 2331000.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (189, 'Điện thoại di động Oukitel K7', 21, 4790000, 'Oukitel của Trung Quốc vừa chính thức trình làng smartphone K10. Oukitel K10 là mẫu smartphone đầu tiên trên thế giới có pin 11.000 mAh và cũng là smartphone mạnh mẽ nhất mà hãng này từng sản xuất.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 25, b'0', b'1', 4311000.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (190, 'Điện Thoại OPPO F3 Lite (A57)', 5, 2890000, 'OPPO A57 là phiên bản rút gọn của Oppo F1s có mức giá dễ chịu hơn nhưng vẫn cho những trải nghiệm gần như tương đương.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 15, '2019-12-05 00:00:00', 30, b'0', b'1', 2456500.00, 2, 2, '2021-06-25 09:04:38', 0, 0);
@@ -6939,6 +6951,7 @@ INSERT INTO `product_2` VALUES (269, 'Điện Thoại iPhone 11 Pro Max 64GB', 8
 INSERT INTO `product_2` VALUES (270, 'Điện Thoại iPhone 11 Pro Max 64GB', 8, 30890000, 'iPhone 11 Pro Max là mẫu smartphone cao cấp nhất của Apple được ra mắt năm 2019. Với thiết kế cao cấp, hệ thống camera 3 camera cùng cấu hình siêu mạnh mẽ thì iPhone 11 Pro Max chính là một chiếc smartphone đáp ứng mọi trải nghiệm của người dùng.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2021-06-23 21:46:04', 14, b'0', b'0', 27801000.00, 3, 3, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (271, 'Sản phẩm test', 9, 10000000, 'Sản phẩm tuyệt vời', '<p></p>\r\n', 0, 20, '2021-09-13 20:16:15', 0, b'0', b'1', 8000000.00, 3, 3, '2021-09-13 20:16:15', 0, 0);
 INSERT INTO `product_2` VALUES (272, 'Sản phẩm test 2', 11, 150000, '12312', '<p>123123</p>\r\n', 0, 1560000, '2021-09-13 20:17:08', 0, b'0', b'1', 0.00, 3, 3, '2021-09-13 20:17:08', 0, 0);
+INSERT INTO `product_2` VALUES (273, 'Sản phẩm demo 2', 1, 1500000, 'Sản phẩm demo ', '<p>Demo sản phẩm</p>\n', 0, 21, '0001-01-01 00:00:00', 0, b'0', b'0', 1185000.00, 3, 3, '2021-09-14 18:42:36', 0, 0);
 
 -- ----------------------------
 -- Table structure for ram
@@ -6950,7 +6963,7 @@ CREATE TABLE `ram`  (
   `actived` bit(1) NOT NULL DEFAULT b'1',
   `deleted` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ram
@@ -6964,6 +6977,7 @@ INSERT INTO `ram` VALUES (6, '12 GB', b'1', b'0');
 INSERT INTO `ram` VALUES (10, '100 GB', b'1', b'0');
 INSERT INTO `ram` VALUES (11, '2200 GB', b'1', b'1');
 INSERT INTO `ram` VALUES (12, '12313', b'1', b'0');
+INSERT INTO `ram` VALUES (13, '150 GB', b'1', b'0');
 
 -- ----------------------------
 -- Table structure for revenue
@@ -6987,7 +7001,7 @@ CREATE TABLE `revenue`  (
 -- ----------------------------
 INSERT INTO `revenue` VALUES (53, b'0', '2021-07-11 07:16:52', '2021-07-12 13:34:34', 7, 2021, 14651101, 2);
 INSERT INTO `revenue` VALUES (54, b'0', '2021-06-01 07:19:02', '2021-06-30 07:19:02', 6, 2021, 500000, 23);
-INSERT INTO `revenue` VALUES (55, b'0', '2021-09-14 10:24:04', '2021-09-14 10:40:55', 9, 2021, 97777000, 19);
+INSERT INTO `revenue` VALUES (55, b'0', '2021-09-14 10:24:04', '2021-09-14 11:31:50', 9, 2021, 99228250, 20);
 
 -- ----------------------------
 -- Table structure for role
@@ -7020,7 +7034,7 @@ CREATE TABLE `rom`  (
   `actived` bit(1) NOT NULL DEFAULT b'1',
   `deleted` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of rom
@@ -7032,6 +7046,7 @@ INSERT INTO `rom` VALUES (4, '128 GB', b'1', b'0');
 INSERT INTO `rom` VALUES (5, '256 GB', b'1', b'0');
 INSERT INTO `rom` VALUES (6, '512 GB', b'1', b'0');
 INSERT INTO `rom` VALUES (9, '12313', b'1', b'1');
+INSERT INTO `rom` VALUES (10, '100 GB', b'1', b'0');
 
 -- ----------------------------
 -- Table structure for slide
@@ -7064,7 +7079,7 @@ CREATE TABLE `user_role`  (
   INDEX `role_id`(`role_id`) USING BTREE,
   CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
@@ -7076,6 +7091,7 @@ INSERT INTO `user_role` VALUES (27, 1, 22);
 INSERT INTO `user_role` VALUES (29, 1, 23);
 INSERT INTO `user_role` VALUES (30, 1, 24);
 INSERT INTO `user_role` VALUES (31, 1, 25);
+INSERT INTO `user_role` VALUES (32, 1, 26);
 
 -- ----------------------------
 -- Table structure for users
@@ -7094,7 +7110,7 @@ CREATE TABLE `users`  (
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `opt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
@@ -7106,6 +7122,7 @@ INSERT INTO `users` VALUES (28, 'admin@gmail.com', 'Nguyen Van A', '0988766567',
 INSERT INTO `users` VALUES (29, 'hearterzouest99.1000@gmail.com', 'Hoàng Lê', '0399115950', '512 vườn', NULL, b'0', b'1', '94C5C38E895403D08764F82234C607DE', NULL, NULL);
 INSERT INTO `users` VALUES (30, 'hearterzouest99.9991@gmail.com', 'Hoàng Lê', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
 INSERT INTO `users` VALUES (31, 'hearterzouest99.9919@gmail.com', 'Quân Lê', '0911595059', 'Bình Dương', NULL, b'0', b'1', '94C5C38E895403D08764F82234C607DE', NULL, NULL);
+INSERT INTO `users` VALUES (32, 'hearterzouest99.999@gmail.com', 'Hoàng Nguyễn', '0399115950', 'Bình Dương', NULL, b'0', b'1', '94C5C38E895403D08764F82234C607DE', NULL, NULL);
 
 -- ----------------------------
 -- Triggers structure for table cart
