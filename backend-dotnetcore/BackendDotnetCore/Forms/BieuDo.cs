@@ -41,12 +41,11 @@ namespace BackendDotnetCore.Forms
             list.Add(new Thang("5", 23));
             list.Add(new Thang("6", 19));
             list.Add(new Thang("7", (long) new RevenueEntityDAO().getEntity(DateTime.Now.Year, 7).Money));
-            list.Add(new Thang("8", 0));
-            list.Add(new Thang("9", 0));
-            list.Add(new Thang("10", 0));
-            list.Add(new Thang("11", 0));
-            list.Add(new Thang("12", 0));
-
+            list.Add(new Thang("8", (null == new RevenueEntityDAO().getEntity(DateTime.Now.Year, 8)) ? 0L : (long)new RevenueEntityDAO().getEntity(DateTime.Now.Year, 8).Money));
+            list.Add(new Thang("9", (null == new RevenueEntityDAO().getEntity(DateTime.Now.Year, 9)) ? 0L : (long)new RevenueEntityDAO().getEntity(DateTime.Now.Year, 9).Money));
+            list.Add(new Thang("10", (null == new RevenueEntityDAO().getEntity(DateTime.Now.Year, 10)) ? 0L : (long)new RevenueEntityDAO().getEntity(DateTime.Now.Year, 10).Money));
+            list.Add(new Thang("11", (null == new RevenueEntityDAO().getEntity(DateTime.Now.Year, 11)) ? 0L : (long)new RevenueEntityDAO().getEntity(DateTime.Now.Year, 11).Money));
+            list.Add(new Thang("12", (null == new RevenueEntityDAO().getEntity(DateTime.Now.Year, 12)) ? 0L : (long)new RevenueEntityDAO().getEntity(DateTime.Now.Year, 12).Money));
             return list;
         }
     }
