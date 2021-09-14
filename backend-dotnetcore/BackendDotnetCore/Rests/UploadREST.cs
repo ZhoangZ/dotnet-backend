@@ -22,7 +22,7 @@ namespace BackendDotnetCore.Rests
 
             entityDAO = new ImageProductDAO();
         }
-        [HttpPost("one")]
+       /* [HttpPost("one")]
         public async Task<IActionResult> Index2(IFormFile file)
         {
                 string filePath="";
@@ -51,8 +51,8 @@ namespace BackendDotnetCore.Rests
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
             return Ok(filePath);
-        }
-        [HttpPost("many")]
+        }*/
+        /*[HttpPost("many")]
         public async Task<IActionResult> Index(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
@@ -83,7 +83,7 @@ namespace BackendDotnetCore.Rests
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
             return Ok(new { count = files.Count, size, filePaths });
-        }
+        }*/
 
         [HttpPost("many/{productId}")]
         [Authorize]

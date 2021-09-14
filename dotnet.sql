@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 12/07/2021 20:35:18
+ Date: 13/09/2021 20:09:56
 */
 
 SET NAMES utf8mb4;
@@ -133,7 +133,9 @@ CREATE TABLE `cart_item`  (
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment`  (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(10) NOT NULL,
+  `order_id` bigint(20) NOT NULL,
   `product_id` int(255) NOT NULL,
   `rate` double(1, 0) NOT NULL DEFAULT 0,
   `content` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -142,13 +144,19 @@ CREATE TABLE `comment`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+  INDEX `order_id`(`order_id`) USING BTREE,
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES (14, 25, 7, 5, 'Sản phẩm tốt', '2021-07-09', 1);
+INSERT INTO `comment` VALUES (48, 'Lê Tấn Hoàng', 27, 61, 9, 4, 'San pham 9 don hang 61 tot [mang]', '2021-09-07', 1);
+INSERT INTO `comment` VALUES (49, 'Lê Tấn Hoàng', 27, 67, 1, 4, 'San pham 1 don hang 67 tot', '2021-09-07', 1);
+INSERT INTO `comment` VALUES (50, 'Lê Tấn Hoàng', 27, 61, 7, 4, 'San pham 7 don hang 61 tot', '2021-09-07', 1);
+INSERT INTO `comment` VALUES (51, 'Lê Tấn Hoàng', 27, 66, 1, 4, 'San pham 1 don hang 66 tot', '2021-09-07', 1);
+INSERT INTO `comment` VALUES (52, 'Lê Tấn Hoàng', 27, 68, 1, 4, 'San pham 1 don hang 68 tot', '2021-09-07', 1);
 
 -- ----------------------------
 -- Table structure for favorite
@@ -187,7 +195,7 @@ CREATE TABLE `image_product`  (
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `PRODUCT_ID`(`PRODUCT_ID`) USING BTREE,
   CONSTRAINT `image_product_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1291 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1292 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of image_product
@@ -951,10 +959,7 @@ INSERT INTO `image_product` VALUES (1262, 258, 'Xiaomi_Redmi_8_64GB_Ram_3GB_3.pn
 INSERT INTO `image_product` VALUES (1263, 259, 'Neffos_C5_3.png');
 INSERT INTO `image_product` VALUES (1264, 260, 'Symphony_V75_3.png');
 INSERT INTO `image_product` VALUES (1265, 261, 'Xiaomi_Mi_9_SE_64GB_3.png');
-INSERT INTO `image_product` VALUES (1287, 1, 'anh-1-1600587301890166145683.webp');
-INSERT INTO `image_product` VALUES (1288, 1, 'anh-1-1600587301890166145683.webp');
-INSERT INTO `image_product` VALUES (1289, 1, 'anh-1-1600587301890166145683.webp');
-INSERT INTO `image_product` VALUES (1290, 1, 'girl.bmp');
+INSERT INTO `image_product` VALUES (1291, 1, '20210913195732125.webp');
 
 -- ----------------------------
 -- Table structure for information_product
@@ -6498,19 +6503,19 @@ INSERT INTO `order` VALUES (57, 25, 1, '2021-06-24 00:00:00', 'Bình Dương', '
 INSERT INTO `order` VALUES (58, 25, 1, '2021-06-24 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 95823000, 3, 0, 54, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (59, 25, 1, '2021-06-24 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 95823000, 3, 0, 55, 'tanhoang99.999@gmail.com', '', b'1');
 INSERT INTO `order` VALUES (60, 25, 1, '2021-06-24 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 63882000, 2, 0, 56, 'tanhoang99.999@gmail.com', '', b'1');
-INSERT INTO `order` VALUES (61, 27, 1, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 17272000, 1, 0, 57, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (62, 27, 1, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 58, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (61, 27, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 31213000, 2, 0, 57, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (62, 27, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 58, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (63, 27, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 59, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (64, 27, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 2016000, 1, 0, 60, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (65, 27, 4, '2021-06-28 00:00:00', 'Bình Dương', 'Tấn Hoàng', '0399115950', 2016000, 1, 0, 61, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (66, 27, 1, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
-INSERT INTO `order` VALUES (67, 27, 1, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
-INSERT INTO `order` VALUES (68, 27, 1, '2021-07-07 21:52:48', 'An Bình', 'Test Test Test', '0399155950', 55602000, 2, 0, 62, 'tanhoang99.999@gmail.com', '...', b'0');
-INSERT INTO `order` VALUES (69, 25, 1, '2021-07-08 20:56:50', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 63, 'tanhoang99.999@gmail.com', '...', b'0');
+INSERT INTO `order` VALUES (66, 27, 3, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
+INSERT INTO `order` VALUES (67, 27, 3, '0001-01-01 00:00:00', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, NULL, 'tanhoang99.999@gmail.com', '...', b'1');
+INSERT INTO `order` VALUES (68, 27, 4, '2021-07-07 21:52:48', 'An Bình', 'Test Test Test', '0399155950', 55602000, 2, 0, 62, 'tanhoang99.999@gmail.com', '...', b'0');
+INSERT INTO `order` VALUES (69, 25, 4, '2021-07-08 20:56:50', 'An Bình', 'Lê Tấn Hoàng', '0399155950', 55602000, 2, 0, 63, 'tanhoang99.999@gmail.com', '...', b'0');
 INSERT INTO `order` VALUES (70, 25, 1, '2021-07-11 14:16:26', 'Bình Dương', 'Tấn Hoàng', '0399115950', 710101, 1, 0, 64, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (71, 25, 1, '2021-07-12 20:30:21', 'Bình Dương', 'Tấn Hoàng', '0399115950', 17272000, 1, 0, 65, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (72, 25, 1, '2021-07-12 20:30:22', 'Bình Dương', 'Tấn Hoàng', '0399115950', 0, 0, 0, 66, 'tanhoang99.999@gmail.com', '', b'0');
-INSERT INTO `order` VALUES (73, 25, 1, '2021-07-12 20:32:33', 'Bình Dương', 'Tấn Hoàng', '0399115950', 765000, 1, 0, 67, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (71, 25, 4, '2021-07-12 20:30:21', 'Bình Dương', 'Tấn Hoàng', '0399115950', 17272000, 1, 0, 65, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (72, 25, 4, '2021-07-12 20:30:22', 'Bình Dương', 'Tấn Hoàng', '0399115950', 0, 0, 0, 66, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (73, 25, 4, '2021-07-12 20:32:33', 'Bình Dương', 'Tấn Hoàng', '0399115950', 765000, 1, 0, 67, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (74, 25, 1, '2021-07-12 20:34:13', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 68, 'tanhoang99.999@gmail.com', '', b'0');
 
 -- ----------------------------
@@ -6532,7 +6537,7 @@ CREATE TABLE `order_detail`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `chitietdonhang1`(`order_id`) USING BTREE,
   CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 91 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_detail
@@ -6556,6 +6561,7 @@ INSERT INTO `order_detail` VALUES (86, 70, 78900, 789001, 61, '2021-07-11 07:16:
 INSERT INTO `order_detail` VALUES (87, 71, 4318000, 21590000, 9, '2021-07-12 13:30:21', '2021-07-12 13:30:21', b'0', 1, b'1', 20);
 INSERT INTO `order_detail` VALUES (88, 73, 85000, 850000, 51, '2021-07-12 13:32:33', '2021-07-12 13:32:33', b'0', 1, b'1', 10);
 INSERT INTO `order_detail` VALUES (89, 74, 1549000, 15490000, 7, '2021-07-12 13:34:13', '2021-07-12 13:34:13', b'0', 1, b'1', 10);
+INSERT INTO `order_detail` VALUES (90, 61, 1549000, 15490000, 7, '2021-07-12 13:34:13', '2021-07-12 13:34:13', b'0', 1, b'1', 10);
 
 -- ----------------------------
 -- Table structure for order_status
@@ -6650,14 +6656,14 @@ CREATE TABLE `product_2`  (
 -- ----------------------------
 -- Records of product_2
 -- ----------------------------
-INSERT INTO `product_2` VALUES (1, 'Điện Thoại iPhone 11 Pro Max 64GB', 8, 30890000, 'iPhone 11 Pro Max là mẫu smartphone cao cấp nhất của Apple được ra mắt năm 2019. Với thiết kế cao cấp, hệ thống camera 3 camera cùng cấu hình siêu mạnh mẽ thì iPhone 11 Pro Max chính là một chiếc smartphone đáp ứng mọi trải nghiệm của người dùng.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '0001-01-01 00:00:00', 14, b'0', b'0', 27801000.00, 3, 3, '2021-06-25 09:04:38', 0, 0);
+INSERT INTO `product_2` VALUES (1, 'Điện Thoại iPhone 11 Pro Max 64GB', 8, 30890000, 'iPhone 11 Pro Max là mẫu smartphone cao cấp nhất của Apple được ra mắt năm 2019. Với thiết kế cao cấp, hệ thống camera 3 camera cùng cấu hình siêu mạnh mẽ thì iPhone 11 Pro Max chính là một chiếc smartphone đáp ứng mọi trải nghiệm của người dùng.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '0001-01-01 00:00:00', 14, b'0', b'0', 27801000.00, 3, 3, '2021-06-25 09:04:38', 3, 12);
 INSERT INTO `product_2` VALUES (3, 'Điện Thoại Samsung Galaxy M10', 1, 2520000, 'Được xem như là một quân bài chiến lược mới của Samsung vào đầu năm 2019, chiếc điện thoại Galaxy M10 vừa ra mắt hứa hẹn sẽ gây nên một làn sóng hoàn toàn mới và đủ sức cạnh tranh với các đối thủ khác trong cùng phân khúc giá rẻ.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 20, '2019-12-05 00:00:00', 28, b'0', b'1', 2016000.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (4, 'Điện Thoại Samsung Galaxy A50', 1, 6550000, 'Samsung Galaxy A50 64GB là chiếc smartphone tầm trung mới của Samsung trong năm 2019 với nhiều tính năng hấp dẫn, đặc biệt là có cả cảm biến vân tay dưới màn hình.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 20, '2019-12-05 00:00:00', 39, b'0', b'0', 5240000.00, 3, 3, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (5, 'Điện Thoại Xiaomi Redmi Note 7', 2, 3290000, 'Xiaomi Redmi Note 7 4GB/64GB là chiếc smartphone giá rẻ mới được giới thiệu vào đầu năm 2019 với nhiều trang bị đáng giá như thiết kế notch giọt nước hay camera lên tới 48 MP.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2019-12-05 00:00:00', 0, b'0', b'0', 2467500.00, 2, 2, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (6, 'Điện Thoại Xiaomi Redmi 7A', 2, 1935000, 'Xiaomi Redmi 7A 2GB/32GB  là một chiếc smartphone theo phong cách truyền thống của Xiaomi, mang tới người dùng trải nghiệm Android ổn trên một chiếc máy có mức giá rất hấp dẫn.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2019-12-05 00:00:00', 12, b'0', b'0', 1451250.00, 1, 2, '2021-06-25 09:04:38', 0, 0);
-INSERT INTO `product_2` VALUES (7, 'Điện Thoại iPhone XR 64GB', 8, 15490000, 'Là chiếc điện thoại iPhone có mức giá dễ chịu, phù hợp với nhiều khách hàng hơn, iPhone Xr vẫn được ưu ái trang bị chip Apple A12 mạnh mẽ, màn hình tai thỏ cùng khả năng chống nước chống bụi.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 44, b'0', b'1', 13941000.00, 2, 3, '2021-06-25 09:04:38', 1, 5);
+INSERT INTO `product_2` VALUES (7, 'Điện Thoại iPhone XR 64GB', 8, 15490000, 'Là chiếc điện thoại iPhone có mức giá dễ chịu, phù hợp với nhiều khách hàng hơn, iPhone Xr vẫn được ưu ái trang bị chip Apple A12 mạnh mẽ, màn hình tai thỏ cùng khả năng chống nước chống bụi.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2019-12-05 00:00:00', 44, b'0', b'1', 13941000.00, 2, 3, '2021-06-25 09:04:38', 1, 4);
 INSERT INTO `product_2` VALUES (8, 'Điện Thoại Xiaomi Mi 9 Lite (Mi CC9 Global Version)', 2, 5490000, 'Điện Thoại Xiaomi Mi 9 Lite có thiết kế tinh tế, cao cấp và sang trọng đến từng đường nét khi được chế tác từ kính gradient như người anh em Mi 8 Lite. Phần lưng kính cong cho trải nghiệm cầm nắm chắc chắn và đầy phong cách. Đồng thời, phần khung kim loại', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2019-12-05 00:00:00', 42, b'0', b'0', 4117500.00, 4, 3, '2021-06-25 09:04:38', 0, 0);
-INSERT INTO `product_2` VALUES (9, 'Điện Thoại Samsung Galaxy Note 10', 1, 21590000, 'Nếu như từ trước tới nay dòng Galaxy Note của Samsung thường ít được các bạn nữ sử dụng bởi kích thước màn hình khá lớn khiến việc cầm nắm trở nên khó khăn thì Samsung Galaxy Note 10 sẽ là chiếc smartphone nhỏ gọn, phù hợp với cả những bạn có bàn tay nhỏ.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 20, '2019-12-05 00:00:00', 42, b'0', b'1', 17272000.00, 5, 5, '2021-06-25 09:04:38', 0, 0);
+INSERT INTO `product_2` VALUES (9, 'Điện Thoại Samsung Galaxy Note 10', 1, 21590000, 'Nếu như từ trước tới nay dòng Galaxy Note của Samsung thường ít được các bạn nữ sử dụng bởi kích thước màn hình khá lớn khiến việc cầm nắm trở nên khó khăn thì Samsung Galaxy Note 10 sẽ là chiếc smartphone nhỏ gọn, phù hợp với cả những bạn có bàn tay nhỏ.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 20, '2019-12-05 00:00:00', 42, b'0', b'1', 17272000.00, 5, 5, '2021-06-25 09:04:38', 1, 4);
 INSERT INTO `product_2` VALUES (10, 'Điện Thoại iPhone 11 Pro Max 256GB', 8, 35490000, 'iPhone 11 Pro Max là sản phẩm dành cho những ai đang kiếm tìm sự hoàn hảo trong quá trình trải nghiệm điện thoại. Với chiếc iPhone này, Apple đã vươn tới đỉnh cao khi tinh chỉnh tối ưu mọi yếu tố bên trong như hiệu năng, camera, pin và thiết kế một cách t', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2020-01-09 00:00:00', 23, b'0', b'0', 31941000.00, 3, 5, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (11, 'Điện Thoại Nokia 3.1', 9, 1790000, 'Nokia 3.1 là chiếc smartphone giá rẻ kế thừa sự thành công của mẫu Nokia 3 - chiếc smartphone bán chạy nhất của hãng trong năm ngoái.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2020-01-09 00:00:00', 3, b'0', b'1', 1342500.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (12, 'Điện Thoại Xiaomi Redmi 7A', 2, 1770000, 'Xiaomi Redmi 7A 2GB/32GB  là một chiếc smartphone theo phong cách truyền thống của Xiaomi, mang tới người dùng trải nghiệm Android ổn trên một chiếc máy có mức giá rất hấp dẫn.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 25, '2019-12-05 00:00:00', 41, b'0', b'0', 1327500.00, 1, 1, '2021-06-25 09:04:38', 0, 0);
@@ -6973,7 +6979,7 @@ CREATE TABLE `role`  (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (1, 'USER', 'Authentication User', '2', '1', NULL, NULL);
+INSERT INTO `role` VALUES (1, 'USER', NULL, '2', '0', NULL, NULL);
 INSERT INTO `role` VALUES (2, 'ADMIN', 'Authentication Administractor', '1', '1', NULL, NULL);
 
 -- ----------------------------
@@ -7030,15 +7036,15 @@ CREATE TABLE `user_role`  (
   INDEX `role_id`(`role_id`) USING BTREE,
   CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES (25, 2, 5);
 INSERT INTO `user_role` VALUES (26, 2, 8);
-INSERT INTO `user_role` VALUES (27, 1, 9);
 INSERT INTO `user_role` VALUES (28, 2, 12);
+INSERT INTO `user_role` VALUES (27, 1, 22);
 
 -- ----------------------------
 -- Table structure for users
@@ -7064,7 +7070,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
 INSERT INTO `users` VALUES (26, 'thiendaopk1@gmail.com', 'Đào  Chí Thiện', '0399115950', 'Thủ Đúc', NULL, b'0', b'1', '9B96DC2A8B1BA2CCF23EDAA930FC83BD', NULL, NULL);
-INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0988766567', '47/16 Đường số 10, khu phố 3, phường Linh Xuân, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '198701FCA0F4CC76F0E05E2FE5F47BA0', NULL, NULL);
+INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0358058540', 'Kiên Giang', NULL, b'0', b'1', '48450B52FA26020D528509FF9030C71F', NULL, NULL);
 INSERT INTO `users` VALUES (28, 'admin@gmail.com', 'Nguyen Van A', '0988766567', 'Đường số 10, phường Linh Trung, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
 
 -- ----------------------------
