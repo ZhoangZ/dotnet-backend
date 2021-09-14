@@ -26,7 +26,7 @@ VNPAY:
 - Password
 
 ```
-> aA@12345
+> aA@123456
 ```
 
 Tài khoản ngân hàng dùng để test thanh toán
