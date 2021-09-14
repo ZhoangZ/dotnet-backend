@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 13/09/2021 20:09:56
+ Date: 14/09/2021 18:15:55
 */
 
 SET NAMES utf8mb4;
@@ -99,7 +99,7 @@ CREATE TABLE `cart`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `iduser`(`user_id`) USING BTREE,
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
@@ -108,6 +108,9 @@ INSERT INTO `cart` VALUES (23, 25, 0, 0);
 INSERT INTO `cart` VALUES (24, 26, 0, 0);
 INSERT INTO `cart` VALUES (25, 27, 0, 0);
 INSERT INTO `cart` VALUES (26, 28, 0, 0);
+INSERT INTO `cart` VALUES (27, 29, 0, 0);
+INSERT INTO `cart` VALUES (28, 30, 0, 0);
+INSERT INTO `cart` VALUES (29, 31, 0, 0);
 
 -- ----------------------------
 -- Table structure for cart_item
@@ -195,7 +198,7 @@ CREATE TABLE `image_product`  (
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `PRODUCT_ID`(`PRODUCT_ID`) USING BTREE,
   CONSTRAINT `image_product_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product_2` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1292 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1294 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of image_product
@@ -960,6 +963,8 @@ INSERT INTO `image_product` VALUES (1263, 259, 'Neffos_C5_3.png');
 INSERT INTO `image_product` VALUES (1264, 260, 'Symphony_V75_3.png');
 INSERT INTO `image_product` VALUES (1265, 261, 'Xiaomi_Mi_9_SE_64GB_3.png');
 INSERT INTO `image_product` VALUES (1291, 1, '20210913195732125.webp');
+INSERT INTO `image_product` VALUES (1292, 271, '20210913201615_271_25.webp');
+INSERT INTO `image_product` VALUES (1293, 272, '20210913201708_272_25.webp');
 
 -- ----------------------------
 -- Table structure for information_product
@@ -6494,7 +6499,7 @@ CREATE TABLE `order`  (
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
@@ -6517,6 +6522,12 @@ INSERT INTO `order` VALUES (71, 25, 4, '2021-07-12 20:30:21', 'Bình Dương', '
 INSERT INTO `order` VALUES (72, 25, 4, '2021-07-12 20:30:22', 'Bình Dương', 'Tấn Hoàng', '0399115950', 0, 0, 0, 66, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (73, 25, 4, '2021-07-12 20:32:33', 'Bình Dương', 'Tấn Hoàng', '0399115950', 765000, 1, 0, 67, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (74, 25, 1, '2021-07-12 20:34:13', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 68, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (75, 25, 2, '2021-09-14 17:23:34', 'Bình Dương', 'Tấn Hoàng', '0399115950', 2016000, 1, 0, 80, 'tanhoang99.999@gmail.com', 'Giao hàng nhanh', b'0');
+INSERT INTO `order` VALUES (76, 25, 3, '2021-09-14 17:25:12', 'Bình Dương', 'Tấn Hoàng', '0399115950', 5805000, 3, 0, NULL, 'tanhoang99.999@gmail.com', '', b'1');
+INSERT INTO `order` VALUES (77, 25, 14, '2021-09-14 17:25:44', 'Bình Dương', 'Tấn Hoàng', '0399115950', 8590500, 6, 0, NULL, 'tanhoang99.999@gmail.com', '', b'1');
+INSERT INTO `order` VALUES (78, 25, 1, '2021-09-14 17:26:15', 'Bình Dương', 'Tấn Hoàng', '0399115950', 26869000, 12, 0, 81, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (79, 25, 1, '2021-09-14 17:39:33', 'Bình Dương', 'Tấn Hoàng', '0399115950', 54951000, 5, 0, 82, 'tanhoang99.999@gmail.com', '', b'0');
+INSERT INTO `order` VALUES (80, 25, 4, '2021-09-14 17:40:39', 'Bình Dương', 'Tấn Hoàng', '0399115950', 13941000, 1, 0, 83, 'tanhoang99.999@gmail.com', '', b'0');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -6537,7 +6548,7 @@ CREATE TABLE `order_detail`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `chitietdonhang1`(`order_id`) USING BTREE,
   CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 91 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_detail
@@ -6562,6 +6573,16 @@ INSERT INTO `order_detail` VALUES (87, 71, 4318000, 21590000, 9, '2021-07-12 13:
 INSERT INTO `order_detail` VALUES (88, 73, 85000, 850000, 51, '2021-07-12 13:32:33', '2021-07-12 13:32:33', b'0', 1, b'1', 10);
 INSERT INTO `order_detail` VALUES (89, 74, 1549000, 15490000, 7, '2021-07-12 13:34:13', '2021-07-12 13:34:13', b'0', 1, b'1', 10);
 INSERT INTO `order_detail` VALUES (90, 61, 1549000, 15490000, 7, '2021-07-12 13:34:13', '2021-07-12 13:34:13', b'0', 1, b'1', 10);
+INSERT INTO `order_detail` VALUES (91, 75, 504000, 2520000, 3, '2021-09-14 10:23:34', '2021-09-14 10:23:34', b'0', 1, b'1', 20);
+INSERT INTO `order_detail` VALUES (92, 76, 215000, 2150000, 187, '2021-09-14 10:25:13', '2021-09-14 10:25:13', b'0', 3, b'1', 10);
+INSERT INTO `order_detail` VALUES (93, 77, 169000, 1690000, 20, '2021-09-14 10:25:44', '2021-09-14 10:25:44', b'0', 3, b'1', 10);
+INSERT INTO `order_detail` VALUES (94, 77, 447500, 1790000, 11, '2021-09-14 10:25:44', '2021-09-14 10:25:44', b'0', 3, b'1', 25);
+INSERT INTO `order_detail` VALUES (95, 78, 129000, 1290000, 35, '2021-09-14 10:26:15', '2021-09-14 10:26:15', b'0', 4, b'1', 10);
+INSERT INTO `order_detail` VALUES (96, 78, 574750, 2299000, 89, '2021-09-14 10:26:16', '2021-09-14 10:26:16', b'0', 4, b'1', 25);
+INSERT INTO `order_detail` VALUES (97, 78, 958000, 4790000, 86, '2021-09-14 10:26:16', '2021-09-14 10:26:16', b'0', 4, b'1', 20);
+INSERT INTO `order_detail` VALUES (98, 79, 4318000, 21590000, 9, '2021-09-14 10:39:33', '2021-09-14 10:39:33', b'0', 3, b'1', 20);
+INSERT INTO `order_detail` VALUES (99, 79, 522500, 2090000, 16, '2021-09-14 10:39:33', '2021-09-14 10:39:33', b'0', 2, b'1', 25);
+INSERT INTO `order_detail` VALUES (100, 80, 1549000, 15490000, 7, '2021-09-14 10:40:39', '2021-09-14 10:40:39', b'0', 1, b'1', 10);
 
 -- ----------------------------
 -- Table structure for order_status
@@ -6600,7 +6621,7 @@ CREATE TABLE `payment`  (
   `url_return` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payment
@@ -6621,6 +6642,10 @@ INSERT INTO `payment` VALUES (65, 25, '2021-07-12 20:30:22', 1727200000, '119.17
 INSERT INTO `payment` VALUES (66, 25, '2021-07-12 20:30:23', 0, '119.17.249.22', 'VND', 'PENDING', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=0&vnp_Command=pay&vnp_CreateDate=20210712203023&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/66&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=66&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=68222278a8250f641053fb21104f457e780c181a187587e28f18007b538080ca', NULL, NULL, 'http://localhost:3000/payment-success');
 INSERT INTO `payment` VALUES (67, 25, '2021-07-12 20:32:33', 76500000, '119.17.249.22', 'VND', 'PENDING', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=76500000&vnp_Command=pay&vnp_CreateDate=20210712203233&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/67&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=67&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=512f85a6ca72e99d30847faee5c26b87fd4aaa258c228e9ab7d68ba7e4f4cc36', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210712203233&vnp_TxnRef=67&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=36062083e9a01b9d74b4f417afc7f5de9950dbdcce6fa775dcc6f5c7b8e4eeb7', NULL, 'http://localhost:3000/payment-success');
 INSERT INTO `payment` VALUES (68, 25, '2021-07-12 20:34:13', 1394100000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1394100000&vnp_Command=pay&vnp_CreateDate=20210712203413&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/68&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=68&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=b24d28ee8691e2ef4a50f67540cf92096be25c455b2e79c19ad87e666faa54c5', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210712203413&vnp_TxnRef=68&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=216f3ec9b56a033ba7a5f64502a41352ab79350a866c1d7a638aecbb221cf6a1', 'vnp_Amount=1394100000&vnp_BankCode=NCB&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210712203428&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_TransactionNo=13543036&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=68&vnp_SecureHash=ace1211dc6b93f8f7e9122bef87e1ac7c3c270f399442c8651bc798bcbaa02b0', 'http://localhost:3000/payment-success');
+INSERT INTO `payment` VALUES (80, 25, '2021-09-14 17:23:34', 201600000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=201600000&vnp_Command=pay&vnp_CreateDate=20210914172334&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/80&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=80&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=3ed5de8c55819b7796dbead9d241d820ce57b5e6ad82a2d531f687650a944804', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210914172334&vnp_TxnRef=80&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=cdc50ebbb0d8f42be9115d2fae0ac2cf09a9582d1ce5fdda708025449fe578e5', 'vnp_Amount=201600000&vnp_BankCode=NCB&vnp_CardHolder=nguyen+van+a&vnp_CardNumber=970419xxxxxxxxx2198&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210914172400&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_Trace=266747&vnp_TransactionNo=13583979&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=80&vnp_SecureHash=07f10ffa90743307c15225377a94d81b38938e168507af4b6fad50b2306a9079', 'http://localhost:3000/payment-success');
+INSERT INTO `payment` VALUES (81, 25, '2021-09-14 17:26:16', 2686900000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=2686900000&vnp_Command=pay&vnp_CreateDate=20210914172616&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/81&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=81&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=c4bc23ee93ef3ceedb39d0d6e673d7616a62095df0f16fa51154c6ff284e6de9', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210914172616&vnp_TxnRef=81&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=98df9bc544291fd436a91977e824ed21570eaa994a7a22e6da390b282b78765d', 'vnp_Amount=2686900000&vnp_BankCode=NCB&vnp_CardHolder=nguyen+van+a&vnp_CardNumber=970419xxxxxxxxx2198&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210914172637&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_Trace=266751&vnp_TransactionNo=13583981&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=81&vnp_SecureHash=fe678286f1299716d381b0b61b759266091ac5494f1a8a0faa071cdcbde5785b', 'http://localhost:3000/payment-success');
+INSERT INTO `payment` VALUES (82, 25, '2021-09-14 17:39:33', 5495100000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=5495100000&vnp_Command=pay&vnp_CreateDate=20210914173933&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/82&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=82&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=f7540c2ac66df6086350b7dc7aacdbdd6f45fb9ee294587fce7944397c2a001b', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210914173933&vnp_TxnRef=82&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=ba3558c9bf20268ed2548472f73eb340db8d1f6b92a5d6dbe51e3e3f1fc2c3fd', 'vnp_Amount=5495100000&vnp_BankCode=NCB&vnp_CardHolder=nguyen+van+a&vnp_CardNumber=970419xxxxxxxxx2198&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210914173954&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_Trace=266794&vnp_TransactionNo=13584003&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=82&vnp_SecureHash=3571852f48a15cca9b98615bf5852108ede64ece31cdff11b0c37d41c74331ef', 'http://localhost:3000/payment-success');
+INSERT INTO `payment` VALUES (83, 25, '2021-09-14 17:40:40', 1394100000, '119.17.249.22', 'VND', 'SUCCESS', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1394100000&vnp_Command=pay&vnp_CreateDate=20210914174040&vnp_CurrCode=VND&vnp_IpAddr=119.17.249.22&vnp_Locale=vn&vnp_OrderInfo=dotnet&vnp_ReturnUrl=https://localhost:25002/payment/redirect/83&vnp_TmnCode=RSS5QRAC&vnp_TxnRef=83&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=172f69e7368422a37b2b1d6a96e19626310c0e4eaa916a654cfdaad42261da39', 'http://sandbox.vnpayment.vn/merchant_webapi/merchant.html?vnp_Command=querydr&vnp_CreateDate=00010101000000&vnp_IpAddr=119.17.249.22&vnp_OrderInfo=dotnet Truy van luc 00010101000000&vnp_TmnCode=RSS5QRAC&vnp_TransDate=20210914174040&vnp_TxnRef=83&vnp_Version=2.0.0&vnp_SecureHashType=SHA256&vnp_SecureHash=5230279815929a22dfb21876c8257238a24ebace7413e5ce0ee8209b8a77a886', 'vnp_Amount=1394100000&vnp_BankCode=NCB&vnp_CardHolder=nguyen+van+a&vnp_CardNumber=970419xxxxxxxxx2198&vnp_Message=QueryDR+Success&vnp_OrderInfo=dotnet&vnp_PayDate=20210914174052&vnp_ResponseCode=00&vnp_TmnCode=RSS5QRAC&vnp_Trace=266798&vnp_TransactionNo=13584005&vnp_TransactionStatus=00&vnp_TransactionType=01&vnp_TxnRef=83&vnp_SecureHash=1a37fdf1188e180d049dcc776709c301ce8e791d841951dc8b118dae83f698c1', 'http://localhost:3000/payment-success');
 
 -- ----------------------------
 -- Table structure for product_2
@@ -6651,7 +6676,7 @@ CREATE TABLE `product_2`  (
   INDEX `RAM_ID`(`RAM_ID`) USING BTREE,
   CONSTRAINT `product_2_ibfk_1` FOREIGN KEY (`ROM_ID`) REFERENCES `rom` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `product_2_ibfk_2` FOREIGN KEY (`RAM_ID`) REFERENCES `ram` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 271 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 273 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product_2
@@ -6912,6 +6937,8 @@ INSERT INTO `product_2` VALUES (261, 'Điện thoại Xiaomi Mi 9 SE 64GB', 2, 6
 INSERT INTO `product_2` VALUES (268, 'Điện Thoại iPhone 11 Pro Max 64GB', 8, 30890000, 'iPhone 11 Pro Max là mẫu smartphone cao cấp nhất của Apple được ra mắt năm 2019. Với thiết kế cao cấp, hệ thống camera 3 camera cùng cấu hình siêu mạnh mẽ thì iPhone 11 Pro Max chính là một chiếc smartphone đáp ứng mọi trải nghiệm của người dùng.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2021-06-23 21:39:42', 14, b'0', b'0', 27801000.00, 3, 3, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (269, 'Điện Thoại iPhone 11 Pro Max 64GB', 8, 30890000, 'iPhone 11 Pro Max là mẫu smartphone cao cấp nhất của Apple được ra mắt năm 2019. Với thiết kế cao cấp, hệ thống camera 3 camera cùng cấu hình siêu mạnh mẽ thì iPhone 11 Pro Max chính là một chiếc smartphone đáp ứng mọi trải nghiệm của người dùng.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2021-06-23 21:40:56', 14, b'0', b'0', 27801000.00, 3, 3, '2021-06-25 09:04:38', 0, 0);
 INSERT INTO `product_2` VALUES (270, 'Điện Thoại iPhone 11 Pro Max 64GB', 8, 30890000, 'iPhone 11 Pro Max là mẫu smartphone cao cấp nhất của Apple được ra mắt năm 2019. Với thiết kế cao cấp, hệ thống camera 3 camera cùng cấu hình siêu mạnh mẽ thì iPhone 11 Pro Max chính là một chiếc smartphone đáp ứng mọi trải nghiệm của người dùng.', '<p>Welcome to the show. </p><p>Here you will find these things: </p><ol>   <li>Thing one</li>   <li>Thing Two</li></ol><p>Visit us at <a href=\"www.google.com\">Google.com</a> if you have any questions.', 15, 10, '2021-06-23 21:46:04', 14, b'0', b'0', 27801000.00, 3, 3, '2021-06-25 09:04:38', 0, 0);
+INSERT INTO `product_2` VALUES (271, 'Sản phẩm test', 9, 10000000, 'Sản phẩm tuyệt vời', '<p></p>\r\n', 0, 20, '2021-09-13 20:16:15', 0, b'0', b'1', 8000000.00, 3, 3, '2021-09-13 20:16:15', 0, 0);
+INSERT INTO `product_2` VALUES (272, 'Sản phẩm test 2', 11, 150000, '12312', '<p>123123</p>\r\n', 0, 1560000, '2021-09-13 20:17:08', 0, b'0', b'1', 0.00, 3, 3, '2021-09-13 20:17:08', 0, 0);
 
 -- ----------------------------
 -- Table structure for ram
@@ -6953,13 +6980,14 @@ CREATE TABLE `revenue`  (
   `quantity` bigint(20) UNSIGNED NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unque_key`(`month`, `year`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of revenue
 -- ----------------------------
 INSERT INTO `revenue` VALUES (53, b'0', '2021-07-11 07:16:52', '2021-07-12 13:34:34', 7, 2021, 14651101, 2);
 INSERT INTO `revenue` VALUES (54, b'0', '2021-06-01 07:19:02', '2021-06-30 07:19:02', 6, 2021, 500000, 23);
+INSERT INTO `revenue` VALUES (55, b'0', '2021-09-14 10:24:04', '2021-09-14 10:40:55', 9, 2021, 97777000, 19);
 
 -- ----------------------------
 -- Table structure for role
@@ -7036,7 +7064,7 @@ CREATE TABLE `user_role`  (
   INDEX `role_id`(`role_id`) USING BTREE,
   CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
@@ -7045,6 +7073,9 @@ INSERT INTO `user_role` VALUES (25, 2, 5);
 INSERT INTO `user_role` VALUES (26, 2, 8);
 INSERT INTO `user_role` VALUES (28, 2, 12);
 INSERT INTO `user_role` VALUES (27, 1, 22);
+INSERT INTO `user_role` VALUES (29, 1, 23);
+INSERT INTO `user_role` VALUES (30, 1, 24);
+INSERT INTO `user_role` VALUES (31, 1, 25);
 
 -- ----------------------------
 -- Table structure for users
@@ -7063,15 +7094,18 @@ CREATE TABLE `users`  (
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `opt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
+INSERT INTO `users` VALUES (25, 'tanhoang99.999@gmail.com', 'Tấn Hoàng', '0399115950', 'Bình Dương', NULL, b'0', b'1', 'DCF8E90E0AFE922B879EA0C3AAD08217', NULL, NULL);
 INSERT INTO `users` VALUES (26, 'thiendaopk1@gmail.com', 'Đào  Chí Thiện', '0399115950', 'Thủ Đúc', NULL, b'0', b'1', '9B96DC2A8B1BA2CCF23EDAA930FC83BD', NULL, NULL);
 INSERT INTO `users` VALUES (27, 'ongdinh6@gmail.com', 'Ông Minh Đình', '0358058540', 'Kiên Giang', NULL, b'0', b'1', '48450B52FA26020D528509FF9030C71F', NULL, NULL);
 INSERT INTO `users` VALUES (28, 'admin@gmail.com', 'Nguyen Van A', '0988766567', 'Đường số 10, phường Linh Trung, Thành phố Thủ Đức, HCM', NULL, b'0', b'1', '9325179D3AC9D30B9093C86ACD2F6237', NULL, NULL);
+INSERT INTO `users` VALUES (29, 'hearterzouest99.1000@gmail.com', 'Hoàng Lê', '0399115950', '512 vườn', NULL, b'0', b'1', '94C5C38E895403D08764F82234C607DE', NULL, NULL);
+INSERT INTO `users` VALUES (30, 'hearterzouest99.9991@gmail.com', 'Hoàng Lê', '0399115950', 'Bình Dương', NULL, b'0', b'1', '0738D0A6141D4E17DB5FCADB94EE0D7A', NULL, NULL);
+INSERT INTO `users` VALUES (31, 'hearterzouest99.9919@gmail.com', 'Quân Lê', '0911595059', 'Bình Dương', NULL, b'0', b'1', '94C5C38E895403D08764F82234C607DE', NULL, NULL);
 
 -- ----------------------------
 -- Triggers structure for table cart

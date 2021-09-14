@@ -67,7 +67,7 @@ namespace BackendDotnetCore.Entities
         [Column("rom_id")]
         //[JsonIgnore]
         public int RomId { get; set; }
-        public virtual RamEntity Rom { get; set; }
+        public virtual RomEntity Rom { get; set; }
         
         [Column("SALE_PRICE")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
