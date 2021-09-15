@@ -16,7 +16,7 @@ namespace BackendDotnetCore.Forms
         public BieuDo()
         {
             listDTTheoThang = Thang.createdDataFake();
-            listTheoTheLoai = TheLoai.createdDataFake();
+            listTheoTheLoai = TheLoai.getDataThongKe();
         }
 
     }
@@ -61,6 +61,10 @@ namespace BackendDotnetCore.Forms
             this.soTien = soTien;
             this.soLuong = soLuong;
         }
+        public TheLoai()
+        {
+
+        }
 
         //biet duoc brand, lay duoc cac don hang, tinh
         public void tinhTien(List<OrderEntity> lsOrdersByName)
@@ -80,6 +84,22 @@ namespace BackendDotnetCore.Forms
             ls.Add(new TheLoai("VSmart", 15, 30));
             ls.Add(new TheLoai("Apple", 350, 25));
             ls.Add(new TheLoai("Nokia", 17, 17));
+            return ls;
+        }
+
+        public static List<TheLoai> getDataThongKe()
+        {
+            List<TheLoai> ls = new List<TheLoai>();
+            //samsung, xiaomi, huawei, realmi, oppo,vsmat, apple, nokia
+            OrderDAO orderDAO = new OrderDAO();
+            ls.Add(orderDAO.getDataThongKe("SAMSUNG"));
+            ls.Add(orderDAO.getDataThongKe("XIAOMI"));
+            ls.Add(orderDAO.getDataThongKe("REALME"));
+            ls.Add(orderDAO.getDataThongKe("OPPO"));
+            ls.Add(orderDAO.getDataThongKe("VSMART"));
+            ls.Add(orderDAO.getDataThongKe("APPLE"));
+            ls.Add(orderDAO.getDataThongKe("NOKIA"));
+
             return ls;
         }
     }

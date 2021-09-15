@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using BackendDotnetCore.DTO;
+using BackendDotnetCore.Forms;
 
 namespace BackendDotnetCore.DAO
 {
@@ -378,6 +379,41 @@ namespace BackendDotnetCore.DAO
                 }
                 UpdateOrder(oe);
             }
+        }
+
+
+        //add 15092021
+        public TheLoai getDataThongKe(string ten)
+        {
+            TheLoai tl = new TheLoai();
+            tl.ten = ten;
+            long totalPrice = 0L;
+            int amountSold = 0;
+            var listOrders = dbContext.Orders
+                                  .Include(x => x.Payment)
+                                  .Include(x => x.Items)
+                                  .Where(x=>x.Status == 3)
+                                  .ToList();
+
+            foreach(OrderEntity oe in listOrders)
+            {
+                foreach (OrderItemEntity orderItem in oe.Items)
+                {
+                    Product2 item = productDAO.getProduct(orderItem.ProductId);
+                    if (tl.ten.Equals(item.Brand.Name))
+                    {
+                        totalPrice += (long) orderItem.SalePrice;
+                        amountSold += orderItem.Quantity;
+
+                    }
+
+                }
+            }
+            tl.soTien = totalPrice;
+            tl.soLuong = amountSold;
+
+            return tl;
+
         }
 
     }
