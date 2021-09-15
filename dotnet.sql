@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 15/09/2021 11:18:24
+ Date: 15/09/2021 11:20:30
 */
 
 SET NAMES utf8mb4;
@@ -6507,7 +6507,7 @@ CREATE TABLE `order`  (
   INDEX `iduser`(`user_id`) USING BTREE,
   INDEX `donhang2`(`order_status`) USING BTREE,
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 86 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order
@@ -6540,6 +6540,7 @@ INSERT INTO `order` VALUES (81, 25, 3, '2021-09-14 18:29:51', 'Bình Dương', '
 INSERT INTO `order` VALUES (82, 25, 3, '2021-09-14 18:31:07', 'Bình Dương', 'Tấn Hoàng', '0399115950', 1451250, 1, 0, 84, 'tanhoang99.999@gmail.com', '', b'0');
 INSERT INTO `order` VALUES (83, 25, 3, '2021-09-15 10:49:39', 'Bình Dương', 'Tấn Hoàng', '0399115950', 166806000, 6, 0, NULL, 'tanhoang99.999@gmail.com', '', b'1');
 INSERT INTO `order` VALUES (84, 25, 3, '2021-09-15 11:11:44', 'Bình Dương', 'Tấn Hoàng', '0399115950', 222408000, 8, 0, NULL, 'tanhoang99.999@gmail.com', '', b'1');
+INSERT INTO `order` VALUES (85, 25, 1, '2021-09-15 11:19:04', 'Bình Dương', 'Tấn Hoàng', '0399115950', 5310000, 4, 0, NULL, 'tanhoang99.999@gmail.com', '', b'1');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -6560,7 +6561,7 @@ CREATE TABLE `order_detail`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `chitietdonhang1`(`order_id`) USING BTREE,
   CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 105 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 106 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_detail
@@ -6599,6 +6600,7 @@ INSERT INTO `order_detail` VALUES (101, 81, 1549000, 15490000, 7, '2021-09-14 11
 INSERT INTO `order_detail` VALUES (102, 82, 483750, 1935000, 6, '2021-09-14 11:31:07', '2021-09-14 11:31:07', b'0', 1, b'1', 25);
 INSERT INTO `order_detail` VALUES (103, 83, 3089000, 30890000, 1, '2021-09-15 03:49:40', '2021-09-15 03:49:40', b'0', 6, b'1', 10);
 INSERT INTO `order_detail` VALUES (104, 84, 3089000, 30890000, 1, '2021-09-15 04:11:44', '2021-09-15 04:11:44', b'0', 8, b'1', 10);
+INSERT INTO `order_detail` VALUES (105, 85, 442500, 1770000, 12, '2021-09-15 04:19:04', '2021-09-15 04:19:04', b'0', 4, b'1', 25);
 
 -- ----------------------------
 -- Table structure for order_status
@@ -7000,7 +7002,7 @@ CREATE TABLE `revenue`  (
   `quantity` bigint(20) UNSIGNED NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unque_key`(`month`, `year`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of revenue
@@ -7008,6 +7010,8 @@ CREATE TABLE `revenue`  (
 INSERT INTO `revenue` VALUES (53, b'0', '2021-07-11 07:16:52', '2021-07-12 13:34:34', 7, 2021, 14651101, 2);
 INSERT INTO `revenue` VALUES (54, b'0', '2021-06-01 07:19:02', '2021-06-30 07:19:02', 6, 2021, 500000, 23);
 INSERT INTO `revenue` VALUES (55, b'0', '2021-09-14 10:24:04', '2021-09-14 11:31:50', 9, 2021, 99228250, 20);
+INSERT INTO `revenue` VALUES (56, b'0', '2021-09-15 04:19:28', '2021-09-15 04:19:28', 1, 2021, 15000000, 12);
+INSERT INTO `revenue` VALUES (57, b'0', '2021-09-15 04:20:05', '2021-09-15 04:20:05', 8, 2021, 151515151, 10);
 
 -- ----------------------------
 -- Table structure for role
