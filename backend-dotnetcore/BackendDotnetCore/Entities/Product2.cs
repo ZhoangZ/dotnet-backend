@@ -40,10 +40,9 @@ namespace BackendDotnetCore.Entities
         [Column("UPDATE_AT")]
         public DateTime UpdatedAt { get; set; }
         [Column("AMOUNT_SOLD")]
-
-        public int AmountSold { get; set; }
-        [Column("AMOUNT")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int AmountSold { get; set; }
+        [Column("AMOUNT")]       
         public int Amount { get; set; }
 
         [Column("IS_HOT")]
