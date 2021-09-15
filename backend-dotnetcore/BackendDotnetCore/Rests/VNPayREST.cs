@@ -11,6 +11,9 @@ using BackendDotnetCore.Response;
 using BackendDotnetCore.DAO;
 using BackendDotnetCore.Entities;
 using System.Net.Http;
+using BackendDotnetCore.Models;
+using System.Text;
+using BackendDotnetCore.Helpers;
 
 namespace BackendDotnetCore.Rests
 {
@@ -67,6 +70,21 @@ namespace BackendDotnetCore.Rests
 
                 }
                 urlReturn += "?"+paymentEntity.ParamsUrlStatus;
+                if (paymentEntity.TransactionStatus.Equals(EPaymentStatus.SUCCESS))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("<p>Tài khoản của bạn đã được mở khóa thành công. Hãy truy cập website và sử dụng các tính năng có trong hệ thống.</p> <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>");
+                    sb.Append("<b><a href=\"http://localhost:3000\">NHẤN VÀO ĐÂY ĐỂ TRUY CẬP WEBSITE!</a></b>");
+                    if (SendMailService.SendEmail("DHDTMobile: Mở khóa tài khoản người dùng", "tanhoang99.999@gmail.com", sb.ToString()))
+                    {
+                        // return true;
+                        // return Ok(new { Url = urlReturn });
+                        Console.WriteLine("Gửi mail thành công");
+                    }
+                    //return false;
+                    Console.WriteLine("Gửi mail fai");
+                }
+
                 return Ok(new { Url = urlReturn }) ;
                 //return Ok(paymentEntity);
             }
@@ -96,6 +114,21 @@ namespace BackendDotnetCore.Rests
 
                 }
                 urlReturn += "?" + paymentEntity.ParamsUrlStatus;
+
+                if (paymentEntity.TransactionStatus.Equals(EPaymentStatus.SUCCESS))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("<p>Hệ thống nhận được đơn hàng mới. Vào kiểm tra ngay!</p>");
+                    sb.Append("<b><a href=\"http://localhost:3000/Admin/orders-manager\">NHẤN VÀO ĐÂY ĐỂ KIỂM TRA!</a></b>");
+                    if (SendMailService.SendEmail("DHDTMobile: ĐƠN HÀNG MỚI.", UserEntity.EmailAdminFinal, sb.ToString()))
+                    {
+                        // return true;
+                        // return Ok(new { Url = urlReturn });
+                        Console.WriteLine("Gửi mail thành công");
+                    }
+                    //return false;
+                    Console.WriteLine("Gửi mail fai");
+                }
                 return Redirect(urlReturn);
                 //return Redirect("https://localhost:5001/test");
                 //return Ok(paymentEntity);

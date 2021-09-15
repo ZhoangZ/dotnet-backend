@@ -1,10 +1,12 @@
 ﻿using BackendDotnetCore.DAO;
 using BackendDotnetCore.DTO;
 using BackendDotnetCore.Entities;
+using BackendDotnetCore.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BackendDotnetCore.Rests
@@ -165,8 +167,11 @@ namespace BackendDotnetCore.Rests
             orderDAO.UpdateOrder(c);
 
             c = orderDAO.getOrder(c);
+
+
+            // return Ok((OrderDTO)c);
+
            
-           // return Ok((OrderDTO)c);
             return Ok(new OrderDTO(c));
             //return Ok(c);
 
@@ -248,7 +253,7 @@ namespace BackendDotnetCore.Rests
                     cartItemEntity.Actived = ci.Actived;
                     cartItemEntity.Deleted = ci.Deleted;
                     cartItemEntity = orderDAO.SaveOrder(cartItemEntity);
-
+                     
 
 
                 }
@@ -265,7 +270,9 @@ namespace BackendDotnetCore.Rests
             
 
             c = orderDAO.getOrder(c);
-
+            StringBuilder sb = new StringBuilder("Hệ thống nhận được đơn hàng mới. Vào kiểm tra ngay!\n");
+            sb.Append("<a href=\"http://localhost:3000/Admin/orders-manager\"> NHẤN VÀO ĐÂY ĐỂ KIỂM TRA.</a>");
+            SendMailService.SendEmail("ĐƠN HÀNG MỚI", UserEntity.EmailAdminFinal, sb.ToString());
             // return Ok((OrderDTO)c);
             //return Ok(new OrderDTO(c));
             return Ok(c);
