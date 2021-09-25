@@ -58,7 +58,7 @@ namespace BackendDotnetCore.Helpers
             }
             catch
             {
-                Console.WriteLine("JWT Validation: Failture, User not login");
+                // Console.WriteLine("JWT Validation: Failture, User not login");
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes
             }
