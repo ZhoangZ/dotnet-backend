@@ -110,36 +110,31 @@ namespace BackendDotnetCore.Rests
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+       
         //[Authorize(Roles = "Admin")]
         public ActionResult getRom(int id)
         {
 
-            // Lấy UserEntity đang đăng nhập từ jwt
-            UserEntity user = (UserEntity)HttpContext.Items["User"];
-            //Console.WriteLine(user);
-            // Xóa bộ nhớ đệm chứa userentity
-            HttpContext.Items["User"] = null;
-            if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+          
+           
             var a = dao.getEntityById(id);
+            if(a!=null)
             return Ok(a);
+            return BadRequest();
 
         }
 
         [HttpGet]
-        [Authorize]
-        //[Authorize(Roles = "Admin")]
+        
+       
         public ActionResult getAll(int productId)
         {
 
-            // Lấy UserEntity đang đăng nhập từ jwt
-            UserEntity user = (UserEntity)HttpContext.Items["User"];
-            //Console.WriteLine(user);
-            // Xóa bộ nhớ đệm chứa userentity
-            HttpContext.Items["User"] = null;
-            if (!user.IsAdmin) return BadRequest("Không phải tài khoản admin");
+           
             var a = dao.getEntitysByForeId(productId);
-            return Ok(a);
+            if (a != null)
+                return Ok(a);
+            return BadRequest();
 
         }
 
