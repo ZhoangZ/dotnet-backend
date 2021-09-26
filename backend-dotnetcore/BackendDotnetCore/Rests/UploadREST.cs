@@ -111,7 +111,7 @@ namespace BackendDotnetCore.Rests
                     i++;
                     ImageProduct entity = new ImageProduct();
                     entity.ProductId = productId;
-                    string timeNow = DateTime.Now.ToString("yyyyMMddHHmmsss") + productId + user.Id + i;
+                    string timeNow = DateTime.Now.ToString("yyyyMMddHHmmsss") + "_" + productId + "_" + user.Id + "_" + i;
                     Regex regex = new Regex("\\.(?<ext>.+)$");
                     Console.WriteLine(formFile.FileName);
                     Match match = regex.Match(formFile.FileName);

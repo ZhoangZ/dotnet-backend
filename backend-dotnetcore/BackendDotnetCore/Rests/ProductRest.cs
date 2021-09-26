@@ -195,6 +195,7 @@ namespace BackendDotnetCore.Rests
 
                 var filePaths = new List<string>();
                 var images = new List<ImageProduct>();
+                int i = 0;
                 foreach (var formFile in files)
                 {
                     if (formFile.Length > 0)
@@ -202,7 +203,7 @@ namespace BackendDotnetCore.Rests
                         ImageProduct entity = new ImageProduct();
                         entity.ProductId = product.Id;
                         Console.WriteLine("ProductId" + product.Id);
-                        string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + entity.ProductId+"_" + user.Id;
+                        string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + entity.ProductId+"_" + user.Id+"_" +i;
                         Regex regex = new Regex("\\.(?<ext>.+)$");
                         Match match = regex.Match(formFile.FileName);
                         if (match.Success)
