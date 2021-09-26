@@ -200,6 +200,7 @@ namespace BackendDotnetCore.Rests
                 {
                     if (formFile.Length > 0)
                     {
+                        i++;
                         ImageProduct entity = new ImageProduct();
                         entity.ProductId = product.Id;
                         Console.WriteLine("ProductId" + product.Id);
