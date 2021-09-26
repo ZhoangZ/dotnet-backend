@@ -103,14 +103,17 @@ namespace BackendDotnetCore.Rests
 
             var filePaths = new List<string>();
             var images = new List<ImageProduct>();
+            int i = 0;
             foreach (var formFile in files)
             {
                 if (formFile.Length > 0)
                 {
+                    i++;
                     ImageProduct entity = new ImageProduct();
                     entity.ProductId = productId;
-                    string timeNow = DateTime.Now.ToString("yyyyMMddHHmmss") + productId + user.Id;
+                    string timeNow = DateTime.Now.ToString("yyyyMMddHHmmsss") + productId + user.Id + i;
                     Regex regex = new Regex("\\.(?<ext>.+)$");
+                    Console.WriteLine(formFile.FileName);
                     Match match = regex.Match(formFile.FileName);
                     if (match.Success)
                     {
